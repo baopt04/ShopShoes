@@ -35,17 +35,7 @@ public class KhuyenMaiAdminController {
     @Autowired
     SanPhamChiTietService sanPhamChiTietService;
 
-//    @GetMapping("/DanhSachKM")
-//    public ResponseEntity<?> danhSachKM() {
-//        List<KhuyenMai> list = khuyenMaiService.findAll();
-//        return ResponseEntity.ok(list);
-//    }
 
-//    @GetMapping("/DanhSachKM/Search/LoaiKhuyenMai")
-//    public ResponseEntity<?> searchKMByLoaiKhuyenMai(@RequestParam("LoaiKhuyenMai") String loaiKM) {
-//        List<KhuyenMai> list = khuyenMaiRepository.findAllByLoaiKhuyenMai(loaiKM);
-//        return ResponseEntity.ok(list);
-//    }
 
 
     @PostMapping("/add")
