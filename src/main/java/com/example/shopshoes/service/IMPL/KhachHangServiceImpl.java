@@ -5,9 +5,11 @@ import com.example.shopshoes.entity.KhachHang;
 import com.example.shopshoes.reponsitory.KhachHangRepository;
 import com.example.shopshoes.service.KhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class KhachHangServiceImpl implements KhachHangService {
 
     @Autowired
