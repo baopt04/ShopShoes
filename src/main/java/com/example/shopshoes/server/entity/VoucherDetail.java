@@ -1,4 +1,4 @@
-package com.example.shose.server.entity;
+package com.example.shopshoes.server.entity;
 
 import com.example.shose.server.entity.base.PrimaryEntity;
 import jakarta.persistence.Column;
