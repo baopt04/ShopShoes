@@ -1,4 +1,4 @@
-package com.example.shose.server.entity.base;
+package com.example.shopshoes.server.entity.base;
 
 import com.example.shose.server.infrastructure.constant.EntityProperties;
 import com.example.shose.server.infrastructure.listener.CreatePrimaryEntityListener;
