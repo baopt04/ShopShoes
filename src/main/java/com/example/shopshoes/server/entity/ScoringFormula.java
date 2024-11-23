@@ -1,14 +1,9 @@
-package com.example.shose.server.entity;
+package com.example.shopshoes.server.entity;
 
-import com.example.shose.server.entity.base.PrimaryEntity;
-import com.example.shose.server.infrastructure.constant.Status;
+import com.example.shopshoes.server.entity.base.PrimaryEntity;
+import com.example.shopshoes.server.infrastructure.constant.Status;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 

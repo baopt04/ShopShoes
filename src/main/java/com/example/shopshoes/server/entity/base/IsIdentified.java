@@ -1,4 +1,5 @@
-package com.example.shose.server.entity.base;
+package com.example.shopshoes.server.entity.base;
+
 
 public interface IsIdentified {
 
