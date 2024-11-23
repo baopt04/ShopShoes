@@ -1,12 +1,12 @@
 import {
   faSquareCheck,
   faTriangleExclamation,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PaymentsMethodApi } from "../../../api/employee/paymentsmethod/PaymentsMethod.api";
-import logo from "./../../../assets/images/logo_client.png";
 import "./style-payment-success.css";
 import { Button } from "antd";
 import { toast } from "react-toastify";
@@ -98,9 +98,9 @@ function PayMentSuccessful() {
 
   return (
     <>
-      <div className="header-payment-success">
+      {/* <div className="header-payment-success">
         <img className="logo-payment-success" src={logo} alt="logo" />
-      </div>
+      </div> */}
       <div
         style={{
           display: "flex",
@@ -110,13 +110,10 @@ function PayMentSuccessful() {
       >
         {status == "00" ? (
           <div className="content-payment-success">
-            <FontAwesomeIcon
-              className="icon-payment-success"
-              icon={faSquareCheck}
-            />
-            <h1>Thanh toán thành công</h1>
-            <div style={{ marginTop: "5%" }}>
-              Tổng thanh toán: {formatCurrency(amount / 100)}
+            <FontAwesomeIcon className="icon-payment-success" icon={faCheck} />
+            <h1>Thanh toán đơn hàng thành công</h1>
+            <div style={{ marginTop: "7%", fontSize: "20px" }}>
+              Tổng tiền đơn hàng thanh toán: {formatCurrency(amount / 100)}
             </div>
             <Button
               disabled={loadLink}
@@ -124,9 +121,10 @@ function PayMentSuccessful() {
                 border: "none",
                 backgroundColor: "#f5f5dc00",
                 color: loadLink ? "#ccc" : "#1677ff",
+                marginTop: "5%",
               }}
             >
-              <Link to="/sale-counter">Tiếp tục bán hàng</Link>
+              <Link to="/sale-counter">Quay trở lại bán hàng</Link>
             </Button>
           </div>
         ) : (

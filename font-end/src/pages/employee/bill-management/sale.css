@@ -1,22 +1,27 @@
-.ant-tabs-nav-list  .ant-tabs-tab-remove{
-    display: none;
+.ant-tabs-nav-list .ant-tabs-tab-remove {
+  display: none;
 }
-
+.title_sole {
+  font-size: 25px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
 p {
-    margin: 2px;
+  margin: 2px;
 }
 
 .table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 
-.th, .td {
-    border: 1px solid black;
-    padding: 10px;
-    text-align: center;
+.th,
+.td {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
 }
 
 .th {
-    background-color: #ccc;
+  background-color: #ccc;
 }

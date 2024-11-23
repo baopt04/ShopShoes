@@ -373,7 +373,8 @@ function TabBillDetail({ dataBillDetail }) {
             justifyContent: "center",
             textAlign: "center",
             borderRadius: "6px",
-            width: "60px",
+            width: "40px",
+            marginLeft: "50px",
             height: "25px",
           }}
         />
@@ -398,7 +399,12 @@ function TabBillDetail({ dataBillDetail }) {
                       ? record.maxQuantity + record.quantity
                       : record.quantity
                   }
-                  style={{ margin: "0 5px" }}
+                  style={{
+                    margin: "0 5px",
+                    marginLeft: "40px",
+
+                    width: "90px",
+                  }}
                   value={record.quantity}
                   onPressEnter={(e) => {
                     handleQuantityChange(e.target.value, record);

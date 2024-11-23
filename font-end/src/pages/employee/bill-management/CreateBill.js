@@ -494,8 +494,8 @@ function CreateBill({
       totalBill + shipFee - exchangeRateMoney - voucher.discountPrice
     );
     setValueAddressShip(valueWard);
-    // số lượng sản phầm lớn hơn 2 free ship
-    if (checkShipFee >= 2000000) {
+
+    if (checkShipFee >= 5000000) {
       setShipFee(0);
     } else {
       AddressApi.fetchAllMoneyShip(
@@ -555,7 +555,7 @@ function CreateBill({
       title: "STT",
       dataIndex: "stt",
       key: "stt",
-      sorter: (a, b) => a.stt - b.stt,
+      // sorter: (a, b) => a.stt - b.stt,
     },
     // {
     //   title: "Ảnh",
@@ -573,26 +573,20 @@ function CreateBill({
       title: "Tên khách hàng",
       dataIndex: "fullName",
       key: "fullName",
-      sorter: (a, b) => a.fullName.localeCompare(b.fullName),
+      // sorter: (a, b) => a.fullName.localeCompare(b.fullName),
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      sorter: (a, b) => a.email.localeCompare(b.email),
+      // sorter: (a, b) => a.email.localeCompare(b.email),
     },
     {
       title: "Số điện thoại",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
-      sorter: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
+      // sorter: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
     },
-    // {
-    //   title: "Điểm",
-    //   dataIndex: "points",
-    //   key: "points",
-    //   sorter: (a, b) => a.points.localeCompare(b.points),
-    // },
 
     {
       title: "Hành động",
@@ -1038,10 +1032,10 @@ function CreateBill({
               onCancel: () => {},
             });
           } else {
-            toast.warning("vui lòng thanh toán hóa đơn");
+            toast.warning("Vui lòng chọn phương thức thanh toán");
           }
         } else {
-          toast.warning("vui lòng chọn sản phẩm");
+          toast.warning("Vui lòng chọn sản phẩm cần bán");
         }
       } else {
         toast.warning("Vui lòng nhập thông tin giao hàng");
@@ -1137,20 +1131,20 @@ function CreateBill({
       title: "Mã ",
       dataIndex: "code",
       key: "code",
-      sorter: (a, b) => a.code.localeCompare(b.code),
+      // sorter: (a, b) => a.code.localeCompare(b.code),
     },
     {
       title: "Tên ",
       dataIndex: "name",
       key: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      // sorter: (a, b) => a.name.localeCompare(b.name),
     },
 
     {
       title: "Giá trị ",
       dataIndex: "value",
       key: "value",
-      sorter: (a, b) => a.value - b.value,
+      // sorter: (a, b) => a.value - b.value,
       render: (value) => (
         <span>
           {value >= 1000
@@ -1158,7 +1152,7 @@ function CreateBill({
                 style: "currency",
                 currency: "VND",
               })
-            : value + " đ"}
+            : value + " %"}
         </span>
       ),
     },
@@ -1166,17 +1160,17 @@ function CreateBill({
       title: "Số lượng",
       dataIndex: "quantity",
       key: "quantity",
-      sorter: (a, b) => a.value - b.value,
+      // sorter: (a, b) => a.value - b.value,
     },
     {
       title: "Thời gian",
       dataIndex: "startDate",
       key: "startDate",
-      sorter: (a, b) => a.startDate - b.startDate,
+      // sorter: (a, b) => a.startDate - b.startDate,
       render: (date, record) => {
         const start = moment(date).format(" DD-MM-YYYY");
         const end = moment(record.endDate).format(" DD-MM-YYYY");
-        return <span>{start + " > " + end}</span>;
+        return <span>{start + " đến " + end}</span>;
       },
     },
     {
@@ -1208,18 +1202,31 @@ function CreateBill({
       return accumulator + currentValue.price * currentValue.quantity;
     }, 0);
 
+    let discountAmount = 0;
+
+    if (record.value < 100) {
+      discountAmount = (price * record.value) / 100;
+    } else {
+      discountAmount = record.value;
+    }
+
+    const afterPrice = price - discountAmount;
+
+    // Cập nhật thông tin voucher
     setVoucher({
       idVoucher: record.id,
       beforPrice: price,
-      afterPrice: price - record.value,
-      discountPrice: record.value,
+      afterPrice: afterPrice,
+      discountPrice: discountAmount,
     });
+
+    // Cập nhật mã voucher và đóng modal
     setCodeVoucher(record.code + " - " + record.name);
     setIsModalVoucherOpen(false);
   };
+
   const changeQuanTiTy = useSelector((state) => state.bill.bill.change);
   useEffect(() => {
-    // Tính tổng giá tiền dựa trên số lượng sản phẩm và giá của từng sản phẩm
     const newTotalPrice = products.reduce(
       (accumulator, product) => accumulator + product.price * product.quantity,
       0
@@ -1228,10 +1235,12 @@ function CreateBill({
     var price = products.reduce((accumulator, currentValue) => {
       return accumulator + currentValue.price * currentValue.quantity;
     }, 0);
+
     console.log(dataVoucher);
     setListVoucher(
       dataVoucher.filter((voucher) => newTotalPrice >= voucher.minimumBill)
     );
+
     const record = dataVoucher.reduce(
       (maxVoucher, currentVoucher) =>
         currentVoucher.value > (maxVoucher ? maxVoucher.value : 0) &&
@@ -1240,16 +1249,29 @@ function CreateBill({
           : maxVoucher,
       null
     );
+
     if (record != null) {
+      let discountAmount = 0;
+
+      if (record.value <= 100) {
+        discountAmount = (newTotalPrice * record.value) / 100;
+      } else {
+        discountAmount = record.value;
+      }
+
+      const afterPrice = price - discountAmount;
+
       setVoucher({
         idVoucher: record.id,
         beforPrice: price,
-        afterPrice: price - record.value,
-        discountPrice: record.value,
+        afterPrice: afterPrice,
+        discountPrice: discountAmount,
       });
+
       setCodeVoucher(record.code + " - " + record.name);
       setIsModalVoucherOpen(false);
     }
+
     if (accountAddress !== null) {
       addressFull(
         accountAddress.provinceId,
@@ -1257,7 +1279,7 @@ function CreateBill({
         accountAddress.wardCode
       );
     }
-  }, [products, changeQuanTiTy, totalBill]);
+  }, [products, changeQuanTiTy, totalBill, dataVoucher, accountAddress]);
 
   const [voucher, setVoucher] = useState({
     idVoucher: "",
@@ -1497,7 +1519,7 @@ function CreateBill({
   };
 
   const addressFull = (provinceId, toDistrictId, wardCode) => {
-    if (totalBill < 2000000) {
+    if (totalBill < 5000000) {
       AddressApi.fetchAllMoneyShip(toDistrictId, wardCode).then((res) => {
         setShipFee(res.data.data.total);
       });
@@ -1634,7 +1656,7 @@ function CreateBill({
       vnp_TxnRef: billRequest.code + "-" + timeInMillis,
     };
     if (exchangeRateMoney + voucher.discountPrice > totalBill) {
-      toast.warning(" Hóa đơn đã thanh toán bằng điểm");
+      toast.warning(" Hóa đơn đã thanh toán");
     } else if (
       Math.round(totaPayMent + voucher.discountPrice + exchangeRateMoney) ==
       Math.round(totalBill + ship)
@@ -1663,21 +1685,6 @@ function CreateBill({
   return (
     <div style={{ width: "100%" }}>
       <Row justify="space-between">
-        {/* <Col span={2}>
-          <Button
-            type="primary"
-            style={{
-              fontSize: "medium",
-              fontWeight: "500",
-              height: "40px",
-              marginLeft: "15%",
-            }}
-            onClick={(e) => navigate("/bill-management")}
-          >
-            Danh sách
-          </Button>
-        </Col> */}
-        {/* <Col span={16}></Col> */}
         <Col span={6}>
           <Button
             type="primary"
@@ -2379,36 +2386,7 @@ function CreateBill({
             {isPoin ? (
               <Row style={{ margin: "29px 0 5px 0px", width: "100%" }}>
                 <Col span={15}>
-                  <Row>
-                    {/* <Col
-                      span={12}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        margin: "2px",
-                        fontWeight: "bold",
-                        fontSize: "15px",
-                      }}
-                    >
-                      Điểm hiện tại là{" "}
-                      <span style={{ marginLeft: "3px", marginRight: "3px" }}>
-                        {accountuser?.points}
-                      </span>
-                      :
-                    </Col> */}
-                    {/* <Col
-                      span={8}
-                      className="delivery"
-                      style={{ display: "flex", alignItems: "center" }}
-                    >
-                      <Switch
-                        defaultChecked={false}
-                        onChange={(e) => {
-                          isOpenUsePoin(e);
-                        }}
-                      />
-                    </Col> */}
-                  </Row>
+                  <Row></Row>
                 </Col>
 
                 {usePoin ? (
@@ -2957,7 +2935,7 @@ function CreateBill({
                     <Col span={5}>
                       <img
                         src={
-                          "https://cdn.haitrieu.com/wp-content/uploads/2022/05/Logo-GHN-Slogan-En.png"
+                          "https://cdn.prod.website-files.com/5fb85f26f126ce08d792d2d9/607cdb2f875a62174a2ac9e3_After_GHN.png"
                         }
                         style={{ width: "130px" }}
                       />
@@ -3058,9 +3036,9 @@ function CreateBill({
             dataSource={listaccount}
             rowKey="id"
             columns={columnsAccount}
-            pagination={{ 
-              pageSize: 10, 
-              showSizeChanger: false // Ẩn phần chọn số lượng bản ghi mỗi trang
+            pagination={{
+              pageSize: 10,
+              showSizeChanger: false, // Ẩn phần chọn số lượng bản ghi mỗi trang
             }}
             className="customer-table"
           />
@@ -3112,9 +3090,9 @@ function CreateBill({
             rowKey="id"
             style={{ width: "100%" }}
             columns={columnsVoucher}
-            pagination={{ 
-              pageSize: 10, 
-              showSizeChanger: false // Ẩn phần chọn số lượng bản ghi mỗi trang
+            pagination={{
+              pageSize: 10,
+              showSizeChanger: false, // Ẩn phần chọn số lượng bản ghi mỗi trang
             }}
             // rowClassName={(record, index) =>
             //   index % 2 === 0 ? "even-row" : "odd-row"
@@ -3166,9 +3144,9 @@ function CreateBill({
             dataSource={listAddress}
             rowKey="id"
             columns={columnsAddress}
-            pagination={{ 
-              pageSize: 10, 
-              showSizeChanger: false // Ẩn phần chọn số lượng bản ghi mỗi trang
+            pagination={{
+              pageSize: 10,
+              showSizeChanger: false, // Ẩn phần chọn số lượng bản ghi mỗi trang
             }}
             className="customer-table"
           />
@@ -3360,7 +3338,7 @@ function CreateBill({
                   alignItems: "center",
                 }}
               >
-                Chuyển khoản
+                VNPAY
               </Button>
             </Col>
           </Row>

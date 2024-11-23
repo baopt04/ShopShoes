@@ -180,7 +180,7 @@ function BillManagement() {
     <div>
       <div className="title_category">
         {" "}
-        <span style={{ marginLeft: "10px" }}>Quản lý Hóa đơn</span>
+        <span style={{ marginLeft: "40%" }}>Quản lý hóa đơn</span>
       </div>
       <div className="filter">
         {/* <FontAwesomeIcon icon={faFilter} size="2x" />{" "} */}

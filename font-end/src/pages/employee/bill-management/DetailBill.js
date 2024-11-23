@@ -649,7 +649,7 @@ function DetailBill() {
   const handleOkRollBackStatus = () => {
     if (
       statusBill.actionDescription.trim() == "" ||
-      statusBill.actionDescription.trim().length < 50
+      statusBill.actionDescription.trim().length < 20
     ) {
       toast.error("Vui lòng nhập mô tả");
     } else {
@@ -1106,7 +1106,7 @@ function DetailBill() {
                           fontWeight: "500",
                           marginLeft: "20px",
                           backgroundColor: "##FFFF00",
-                          border: "solid 1px #DDDDDD" ,
+                          border: "solid 1px #DDDDDD",
                           color: "black",
                         }}
                       >
@@ -1163,7 +1163,7 @@ function DetailBill() {
               open={isModalOpenChangeStatus}
               onOk={handleOkChangeStatus}
               onCancel={handleCancelChangeStatus}
-              cancelText={"huỷ"}
+              cancelText={"Huỷ"}
               okText={"Xác nhận"}
             >
               <Form
@@ -1208,7 +1208,7 @@ function DetailBill() {
                     >
                       <TextArea
                         rows={bill.statusBill === "VAN_CHUYEN" ? 3 : 4}
-                        placeholder="Nhập mô tả"
+                        placeholder="Nhập mô tả trạng thái"
                         style={{ width: "100%", position: "F" }}
                         onChange={(e) =>
                           onChangeDescStatusBill(
@@ -1227,7 +1227,7 @@ function DetailBill() {
               open={isModalOpenRollBackStatus}
               onOk={handleOkRollBackStatus}
               onCancel={handleCancelRollBackStatus}
-              cancelText={"huỷ"}
+              cancelText={"Huỷ"}
               okText={"Xác nhận"}
             >
               <Form
@@ -1270,8 +1270,10 @@ function DetailBill() {
                         },
                         {
                           validator: (_, value) => {
-                            if (value && value.length < 50) {
-                              return Promise.reject("Ít nhất 50 ký tự");
+                            if (value && value.length < 20) {
+                              return Promise.reject(
+                                "Bạn cần nhập 20 ký tự để quay lại"
+                              );
                             }
 
                             return Promise.resolve();
@@ -1631,13 +1633,13 @@ function DetailBill() {
                       }}
                       onClick={(e) => showModalBill(e)}
                     >
-                      Thay đổi hóa đơn
+                      Thay đổi thông tin
                     </Button>
                   ) : (
                     <div></div>
                   )}
                 </Col>
-                <Col span={10}>
+                {/* <Col span={10}>
                   {statusPresent < 6 ? (
                     <Button
                       type="dashed"
@@ -1655,7 +1657,7 @@ function DetailBill() {
                   ) : (
                     <div></div>
                   )}
-                </Col>
+                </Col> */}
               </Row>
             </Col>
           </Row>
@@ -1679,7 +1681,11 @@ function DetailBill() {
               >
                 <Button
                   type="primary"
-                  style={{ margin: "10px 20px  ", height: "40px" }}
+                  style={{
+                    marginTop: "30px",
+                    marginBottom: "10px",
+                    height: "40px",
+                  }}
                   onClick={(e) => showModalProduct(e)}
                 >
                   <FontAwesomeIcon
@@ -1967,7 +1973,7 @@ function DetailBill() {
 
       {/* begin modal bill  */}
       <Modal
-        title="Thay đổi hóa đơn"
+        title="Thay đổi thông tin"
         open={isModaBillOpen}
         onOk={handleOkBill}
         onCancel={handleCancelBill}
@@ -2167,7 +2173,7 @@ function DetailBill() {
                         className="label-bill"
                         style={{ marginTop: "-4px", top: "-25%" }}
                       >
-                        xã
+                        Xã
                       </label>
                       <Form.Item
                         label=""
