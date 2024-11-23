@@ -1,9 +1,8 @@
-package com.example.shose.server.entity;
+package com.example.shopshoes.server.entity;
 
-import com.example.shose.server.entity.base.PrimaryEntity;
+import com.example.shopshoes.server.entity.base.PrimaryEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;

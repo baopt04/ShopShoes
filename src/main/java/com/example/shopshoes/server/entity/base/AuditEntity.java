@@ -1,6 +1,5 @@
-package com.example.shose.server.entity.base;
+package com.example.shopshoes.server.entity.base;
 
-import com.example.shose.server.infrastructure.listener.AuditEntityListener;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
