@@ -1,4 +1,4 @@
-package com.example.shopshoes.server.dto.request.address;
+package com.example.shopshoes.server.dto.response.request.address;
 
 import ch.qos.logback.core.status.Status;
 import lombok.Getter;
