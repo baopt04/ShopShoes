@@ -200,6 +200,9 @@ function Sale() {
   console.log(items);
   return (
     <div>
+      <div className="title_sole">
+        <span style={{ marginLeft: "40%" }}>Bán hàng tại quầy</span>
+      </div>
       <Row style={{ background: "white", width: "100%" }}>
         <Row style={{ width: "100%", marginTop: "10px" }}>
           <Col span={12}></Col>

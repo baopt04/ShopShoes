@@ -512,7 +512,7 @@ function ModalAddProductDetail({
                   </Col>
                   <Col span={12}>
                     <Button
-                      className="btn_clear"
+                      className="btn_filter"
                       onClick={handleClear}
                       style={{ height: 40 }}
                     >

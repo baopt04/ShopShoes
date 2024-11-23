@@ -41,12 +41,7 @@ function TabBills({ statusBill, dataFillter, addNotify, quantityNotify }) {
       key: "code",
       // sorter: (a, b) => a.code.localeCompare(b.code),
     },
-    {
-      title: "Tên khách hàng",
-      dataIndex: "userName",
-      key: "userName",
-      // sorter: (a, b) => a.userName - b.userName,
-    },
+
     {
       title: "Tên nhân viên",
       dataIndex: "nameEmployees",
@@ -54,15 +49,12 @@ function TabBills({ statusBill, dataFillter, addNotify, quantityNotify }) {
       // sorter: (a, b) => a.nameEmployees - b.nameEmployees,
     },
     {
-      title: "Ngày tạo",
-      dataIndex: "createdDate",
-      key: "createdDate",
-      // sorter: (a, b) => a.createdDate - b.createdDate,
-      render: (text) => {
-        const formattedDate = moment(text).format("HH:mm:ss DD-MM-YYYY"); // Định dạng ngày
-        return formattedDate;
-      },
+      title: "Tên khách hàng",
+      dataIndex: "userName",
+      key: "userName",
+      // sorter: (a, b) => a.userName - b.userName,
     },
+
     {
       title: "Tiền giảm",
       dataIndex: "itemDiscount",
@@ -76,16 +68,31 @@ function TabBills({ statusBill, dataFillter, addNotify, quantityNotify }) {
       render: (totalMoney) => <span>{formatCurrency(totalMoney)}</span>,
     },
     {
+      title: "Ngày tạo",
+      dataIndex: "createdDate",
+      key: "createdDate",
+      // sorter: (a, b) => a.createdDate - b.createdDate,
+      render: (text) => {
+        const formattedDate = moment(text).format("HH:mm:ss DD-MM-YYYY"); // Định dạng ngày
+        return formattedDate;
+      },
+    },
+    {
       title: "Hành động",
       dataIndex: "id",
       key: "actions",
       render: (id) => (
         <Button
-          style={{ border: "none", textAlign: "center" }}
+          style={{
+            border: "none",
+            textAlign: "center",
+            backgroundColor: "#FF9900",
+            marginLeft: "35px",
+          }}
           title="Chi tiết hóa đơn"
         >
           <Link to={`/bill-management/detail-bill/${id}`}>
-            <FontAwesomeIcon icon={faCircleInfo} />
+            <FontAwesomeIcon icon={faEye} style={{ color: "white" }} />
           </Link>
         </Button>
       ),
@@ -110,7 +117,18 @@ function TabBills({ statusBill, dataFillter, addNotify, quantityNotify }) {
     const data = {
       startTimeString: dataFillter.startTimeString,
       endTimeString: dataFillter.endTimeString,
-      status: [statusBill],
+      status: statusBill
+        ? [statusBill]
+        : [
+            "CHO_XAC_NHAN",
+            "XAC_NHAN",
+            "CHO_VAN_CHUYEN",
+            "VAN_CHUYEN",
+            "DA_THANH_TOAN",
+            "THANH_CONG",
+            "TRA_HANG",
+            "DA_HUY",
+          ],
       endDeliveryDateString: dataFillter.endDeliveryDateString,
       startDeliveryDateString: dataFillter.startDeliveryDateString,
       key: dataFillter.key,
@@ -120,51 +138,43 @@ function TabBills({ statusBill, dataFillter, addNotify, quantityNotify }) {
       type: dataFillter.type,
       page: 0,
     };
-    if (statusBill == "") {
-      data.status = [
-        "CHO_XAC_NHAN",
-        "XAC_NHAN",
-        "CHO_VAN_CHUYEN",
-        "VAN_CHUYEN",
-        "DA_THANH_TOAN",
-        "THANH_CONG",
-        "TRA_HANG",
-        "DA_HUY",
-      ];
-    }
-    BillApi.fetchAll(data)
-      .then((res) => {
+
+    const fetchData = async () => {
+      try {
+        const res = await BillApi.fetchAll(data);
         setDataBill(res.data.data);
         console.log(statusBill);
 
-        if (statusBill != "") {
+        if (statusBill) {
           addNotify({
             status: statusBill,
             quantity: res.data.data.length,
           });
         }
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
-    stompClient.connect({}, () => {
-      stompClient.subscribe("/app/admin-notifications", (response) => {
-        BillApi.fetchAll(data).then((res) => {
-          setDataBill(res.data.data);
-          if (statusBill != "") {
-            addNotify({
-              status: statusBill,
-              quantity: res.data.data.length,
-            });
-          }
-        });
-      });
-    });
-
-    return () => {
-      // Ngắt kết nối khi component unmount
-      stompClient.disconnect();
+      } catch (error) {
+        toast.error(error.response?.data?.message || "Có lỗi xảy ra!");
+      }
     };
+
+    fetchData();
+
+    // WebSocket setup
+    stompClient.connect({}, () => {
+      const subscription = stompClient.subscribe(
+        "/app/admin-notifications",
+        async (response) => {
+          await fetchData();
+        }
+      );
+
+      // Cleanup subscription
+      return () => {
+        subscription.unsubscribe();
+        if (stompClient.connected) {
+          stompClient.disconnect();
+        }
+      };
+    });
   }, [statusBill]);
 
   useEffect(() => {

@@ -51,13 +51,13 @@
 }
 
 .btn_clear {
-  background-color: rgb(207, 238, 26);
+  background-color: #1677FF;
   color: white;
   margin-right: 5px;
 }
 
 .btn_clear:hover {
-  background-color: rgb(243, 37, 37);
+  background-color: #1677FF;
   color: white !important;
   margin-right: 5px;
 }
@@ -257,38 +257,3 @@ input:checked + .labelSwitch:after {
 }
 
 
-
-
-.custom-pagination .ant-pagination-item {
-  background-color: #f0f0f0; /* Màu nền */
-  border: 1px solid #d9d9d9; /* Màu viền */
-  color: #1677ff; /* Màu chữ - màu xanh khi không chọn */
-}
-
-.custom-pagination .ant-pagination-item:hover {
-  background-color: #e6f7ff; /* Màu nền khi hover */
-  color: #1677ff; /* Màu chữ khi hover */
-}
-
-.custom-pagination .ant-pagination-item-active {
-  background-color: #1677ff; /* Màu nền khi đang hoạt động */
-  color: white; /* Màu chữ khi đang hoạt động */
-}
-
-.custom-pagination .ant-pagination-prev,
-.custom-pagination .ant-pagination-next {
-  background-color: #f0f0f0; /* Màu nền cho nút trước/kế tiếp */
-  border: 1px solid #d9d9d9; /* Màu viền cho nút trước/kế tiếp */
-  color: #1677ff; /* Màu chữ cho nút trước/kế tiếp */
-}
-
-.custom-pagination .ant-pagination-prev:hover,
-.custom-pagination .ant-pagination-next:hover {
-  background-color: #e6f7ff; /* Màu nền khi hover cho nút trước/kế tiếp */
-  color: #1677ff; /* Màu chữ khi hover cho nút trước/kế tiếp */
-}
-
-/* Đảm bảo màu chữ luôn là màu xanh cho các nút không hoạt động */
-.custom-pagination .ant-pagination-disabled {
-  color: #1677ff; /* Màu chữ cho nút không hoạt động */
-}

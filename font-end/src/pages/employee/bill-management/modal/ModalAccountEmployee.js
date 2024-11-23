@@ -387,7 +387,7 @@ const ModalAccountEmployee = ({ dataIdCheck, handleCancel, status }) => {
           columns={columns}
           pagination={{ 
             pageSize: 10, 
-            showSizeChanger: false // Ẩn phần chọn số lượng bản ghi mỗi trang
+            showSizeChanger: false 
           }}
           className="account-table"
           rowClassName={getRowClassName}
