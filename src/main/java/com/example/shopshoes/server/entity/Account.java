@@ -1,8 +1,8 @@
-package com.example.shose.server.entity;
+package com.example.shopshoes.server.entity;
 
-import com.example.shose.server.entity.base.PrimaryEntity;
-import com.example.shose.server.infrastructure.constant.Roles;
-import com.example.shose.server.infrastructure.constant.Status;
+import com.example.shopshoes.server.entity.base.PrimaryEntity;
+import com.example.shopshoes.server.infrastructure.constant.Roles;
+import com.example.shopshoes.server.infrastructure.constant.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 @Table(name = "account")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Account extends PrimaryEntity  implements UserDetails{
+public class Account extends PrimaryEntity implements UserDetails{
 
     @Column(name = "email")
     private String email;
