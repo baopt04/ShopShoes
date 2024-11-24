@@ -1,7 +1,7 @@
-package com.example.shose.server.entity.base;
+package com.example.shopshoes.server.entity.base;
 
-import com.example.shose.server.infrastructure.constant.EntityProperties;
-import com.example.shose.server.infrastructure.listener.CreatePrimaryEntityListener;
+import com.example.shopshoes.server.infrastructure.constant.EntityProperties;
+import com.example.shopshoes.server.infrastructure.listener.CreatePrimaryEntityListener;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
