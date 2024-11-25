@@ -5,27 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.4</version>
+        <version>3.1.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>ShopShoes</artifactId>
+    <groupId>com.example.shose</groupId>
+    <artifactId>server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ShopShoes</name>
-    <description>ShopShoes</description>
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
-    <developers>
-        <developer/>
-    </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
+    <name>serverApplication</name>
+    <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -218,6 +205,21 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.example.shose.server.ServerApplication</mainClass> <!-- Thay thế bằng tên class chính của bạn -->
                 </configuration>
             </plugin>
         </plugins>
