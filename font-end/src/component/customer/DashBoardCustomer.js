@@ -26,15 +26,6 @@ const DashBoardCustomer = ({ children }) => {
   }, []);
   return (
     <div className="dashboard-customer">
-<<<<<<< HEAD
-      <div>
-        <SalesHeader />
-      </div>
-=======
-      {/* <div>
-        <SalesHeader />
-      </div> */}
->>>>>>> c50ea1c5ea30c42bdfd9db420cf3f3440460b257
       <div>
         <HeaderMenu />
       </div>
@@ -42,17 +33,10 @@ const DashBoardCustomer = ({ children }) => {
         <HeaderMenu />
       </div>
       <div>{children}</div>
-<<<<<<< HEAD
-      <div>
-        {" "}
-        <Footer />
-      </div>
-=======
       {/* <div>
         {" "}
         <Footer />
       </div> */}
->>>>>>> c50ea1c5ea30c42bdfd9db420cf3f3440460b257
     </div>
   );
 };
