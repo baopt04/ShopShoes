@@ -11,7 +11,12 @@ import { useAppDispatch } from "../../../../app/hook";
 dayjs.extend(utc);
 function CreateVoucherManagement({ modalCreate, setModalCreate }) {
   const [formData, setFormData] = useState({});
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState({
+    value: "", // Phần trăm giảm
+    value1: "",
+  });
+  const [disablevalue, setDisableValue] = useState(false);
+  const [disableValue1, setDisableValue1] = useState(false);
   const dispatch = useAppDispatch();
   const inputChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
@@ -37,7 +42,20 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
     });
     return formatter.format(value);
   };
-
+  const formatDiscountValue = (value) => {
+    if (value === undefined || value === null) return "";
+    if (value <= 100) {
+      return `${value} %`;
+    } else {
+      // Định dạng theo VND nếu giá trị >= 100
+      const formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        currencyDisplay: "code",
+      });
+      return formatter.format(value);
+    }
+  };
   const handleSubmit = () => {
     Modal.confirm({
       title: "Xác nhận thêm",
@@ -93,16 +111,12 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
     });
   };
 
-
-
   const closeModal = () => {
     setModalCreate(false);
     setFormData([]);
     setFormErrors([]);
   };
 
-
-  
   const formatMoney = (price) => {
     return (
       parseInt(price)
@@ -149,10 +163,11 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
                 inputChange("value", value);
               }}
               min="1"
-              formatter={(value) => formatCurrency(value)}
+              formatter={(value) => formatDiscountValue(value)}
               parser={(value) => value.replace(/[^\d]/g, "")}
             />
           </Form.Item>
+
           <Form.Item label="Đơn tối thiểu">
             <InputNumber
               name="minimumBill"

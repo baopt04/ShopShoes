@@ -1,7 +1,6 @@
 import "./style-voucher.css";
 import React, { useEffect, useState } from "react";
 
-
 import {
   Form,
   Input,
@@ -155,7 +154,13 @@ const VoucherManagement = () => {
       align: "center",
       key: "value",
       // sorter: (a, b) => a.value - b.value,
-      render: (_, record) => formatCurrency(record.value),
+      render: (_, record) => {
+        if (record.value > 100) {
+          return formatCurrency(record.value);
+        } else {
+          return `${record.value} %`;
+        }
+      },
     },
     {
       title: "Đơn tối thiểu",
@@ -204,9 +209,9 @@ const VoucherManagement = () => {
         return (
           <button className={`gender ${statusClass}`}>
             {text === "DANG_SU_DUNG"
-              ? "Đang Sử Dụng"
+              ? "Đang Kích Hoạt"
               : text === "KHONG_SU_DUNG"
-              ? "Không Sử Dụng"
+              ? "Không Kích Hoạt"
               : "Chưa xác định"}
           </button>
         );
@@ -307,7 +312,6 @@ const VoucherManagement = () => {
       <h1 className="title-promotion">Quản lý phiếu giảm giá</h1>
 
       <Row>
-
         <span style={{ fontSize: "18px", fontWeight: "500" }}>
           Danh sách phiếu giảm giá
         </span>

@@ -97,7 +97,19 @@ function UpdateVoucherManagement({ modalUpdate, setModalUpdate, id }) {
       },
     });
   };
-
+  const formatDiscountValue = (value) => {
+    if (value === undefined || value === null) return "";
+    if (value <= 100) {
+      return `${value} %`;
+    } else {
+      const formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        currencyDisplay: "code",
+      });
+      return formatter.format(value);
+    }
+  };
   const detailVoucher = (id) => {
     VoucherApi.getOne(id).then(
       (res) => {
@@ -174,7 +186,7 @@ function UpdateVoucherManagement({ modalUpdate, setModalUpdate, id }) {
                 inputChange("value", value);
               }}
               min="1"
-              formatter={(value) => formatCurrency(value)}
+              formatter={(value) => formatDiscountValue(value)}
               parser={(value) => value.replace(/[^\d]/g, "")}
             />
           </Form.Item>

@@ -48,7 +48,20 @@ function UpdateVoucherManagement({ modalDetail, setModalDetail, id }) {
   const closeModal = () => {
     setModalDetail(false);
   };
-
+  const formatDiscountValue = (value) => {
+    if (value === undefined || value === null) return "";
+    if (value <= 100) {
+      return `${value} %`;
+    } else {
+      // Định dạng theo VND nếu giá trị >= 100
+      const formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        currencyDisplay: "code",
+      });
+      return formatter.format(value);
+    }
+  };
   const formatCurrency = (value) => {
     const formatter = new Intl.NumberFormat("vi-VN", {
       style: "currency",
@@ -89,7 +102,7 @@ function UpdateVoucherManagement({ modalDetail, setModalDetail, id }) {
               placeholder="Giá trị giảm"
               className="input-create-voucher"
               value={formData["value"]}
-              formatter={(value) => formatCurrency(value)}
+              formatter={(value) => formatDiscountValue(value)}
             />
           </Form.Item>
           <Form.Item label="Đơn tối thiểu">
