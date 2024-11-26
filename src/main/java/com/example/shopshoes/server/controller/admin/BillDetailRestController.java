@@ -38,7 +38,7 @@ public class BillDetailRestController {
 
     @GetMapping("/detail/{id}")
     public ResponseObject findBillById(@PathVariable("id") String id){
-        return  new ResponseObject(billDetailService.findBillById(id));
+        return  new ResponseObject(billDetailService.create(id,addProduct()));
     }
 
     @PutMapping("/refund")
