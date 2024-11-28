@@ -1,5 +1,4 @@
 import "./style-login.css";
-import logoLogin from "./../../../assets/images/logo_client.png";
 import { Form, Input } from "antd";
 import { useState } from "react";
 import { useEffect } from "react";

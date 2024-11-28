@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Button, Checkbox, Form, Input, Modal } from "antd";
 import { LockOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
 import "./style-login-management.css";
-import Logo from "../../../assets/images/login_new.png";
-import Wallpaper from "../../../assets/images/wallpaper_login.PNG";
+import Logo from "../../../assets/images/logo_banner_2.png";
 import { LoginApi } from "../../../api/employee/login/Login.api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
@@ -75,12 +74,7 @@ const LoginManagement = () => {
   return (
     <div className="login-page">
       <div className="login-box">
-        <div className="illustration-wrapper">
-          <img
-            src={Wallpaper}
-            alt="Login"
-          />
-        </div>
+        <div className="illustration-wrapper"></div>
         <Form
           name="login-form"
           initialValues={{ remember: true }}
@@ -88,8 +82,8 @@ const LoginManagement = () => {
           onFinishFailed={onFinishFailed}
         >
           <img src={Logo} className="logo-admin" alt="Logo" />
-          <p className="form-title">Welcome back</p>
-          <p>Login to the Dashboard</p>
+          <p className="form-title">Chào mừng bạn quay trở lại</p>
+          <p style={{ textAlign: "center" }}>Đăng nhập để quản lý BeeShoes!</p>
           <Form.Item
             name="email"
             rules={[
@@ -100,22 +94,14 @@ const LoginManagement = () => {
               },
             ]}
           >
-            <Input
-              prefix={<MailOutlined />}
-              placeholder="Email address"
-              size="large"
-            />
+            <Input placeholder="Enter email" size="large" />
           </Form.Item>
 
           <Form.Item
             name="password"
             rules={[{ required: true, message: "Vui lòng nhập password!" }]}
           >
-            <Input.Password
-              prefix={<LockOutlined />}
-              size="large"
-              placeholder="Password"
-            />
+            <Input.Password size="large" placeholder="Enter password" />
           </Form.Item>
 
           <Form.Item name="remember" valuePropName="checked">
