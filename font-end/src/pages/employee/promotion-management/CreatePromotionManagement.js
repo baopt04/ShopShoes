@@ -533,7 +533,7 @@ function CreateVoucherManagement() {
 
         <Col className="add-promotion" lg={{ span: 7, offset: 0 }}>
           <div className="title-add-promotion">
-            <h1>Thêm đợt giảm giá</h1>
+            <h1>Giảm giá Sản Phẩm</h1>
           </div>
 
           <Form name="validateOnly" layout="vertical" autoComplete="off">

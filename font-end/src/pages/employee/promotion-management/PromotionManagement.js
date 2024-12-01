@@ -212,7 +212,7 @@ const PromotionManagement = () => {
           <Button
             type="primary"
             title="Chi tiết khuyến mại"
-            style={{ backgroundColor: "#FF9900" }}
+            style={{ backgroundColor: "#1677ff" }}
             onClick={() => openDetail(record.id)}
           >
             <FontAwesomeIcon icon={faEye} />
