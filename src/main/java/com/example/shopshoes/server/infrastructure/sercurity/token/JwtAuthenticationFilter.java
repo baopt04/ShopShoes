@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.infrastructure.sercurity.token;
 
-import com.example.shopshoes.server.infrastructure.sercurity.config.AccountDetalsService;
+import com.example.shose.server.infrastructure.sercurity.config.AccountDetalsService;
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

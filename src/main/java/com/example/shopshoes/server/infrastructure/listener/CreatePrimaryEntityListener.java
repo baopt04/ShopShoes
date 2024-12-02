@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.infrastructure.listener;
 
-import com.example.shopshoes.server.entity.base.PrimaryEntity;
+import com.example.shose.server.entity.base.PrimaryEntity;
 import jakarta.persistence.PrePersist;
 
 import java.util.UUID;
