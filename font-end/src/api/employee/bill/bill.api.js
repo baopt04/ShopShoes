@@ -4,28 +4,28 @@ export class BillApi {
     return request({
       method: "GET",
       url:
-        `/admin/bill?startTimeString=` +
-        filter.startTimeString +
-        `&endTimeString=` +
-        filter.endTimeString +
-        `&status=` +
-        filter.status +
-        `&endDeliveryDateString=` +
-        filter.endDeliveryDateString +
-        `&startDeliveryDateString=` +
-        filter.startDeliveryDateString +
-        `&key=` +
-        filter.key +
-        `&employees=` +
-        filter.employees +
-        `&user=` +
-        filter.user +
-        `&phoneNumber=` +
-        filter.phoneNumber +
-        `&type=` +
-        filter.type +
-        `&page=` +
-        filter.page,
+          `/admin/bill?startTimeString=` +
+          filter.startTimeString +
+          `&endTimeString=` +
+          filter.endTimeString +
+          `&status=` +
+          filter.status +
+          `&endDeliveryDateString=` +
+          filter.endDeliveryDateString +
+          `&startDeliveryDateString=` +
+          filter.startDeliveryDateString +
+          `&key=` +
+          filter.key +
+          `&employees=` +
+          filter.employees +
+          `&user=` +
+          filter.user +
+          `&phoneNumber=` +
+          filter.phoneNumber +
+          `&type=` +
+          filter.type +
+          `&page=` +
+          filter.page,
     });
   };
 

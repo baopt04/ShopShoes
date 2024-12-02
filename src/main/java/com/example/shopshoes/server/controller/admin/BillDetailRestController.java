@@ -32,13 +32,16 @@ public class BillDetailRestController {
     private ShoseSession shoseSession;
 
     @GetMapping("")
-    public ResponseObject findAByIdBill(BillDetailRequest request){
-        return  new ResponseObject(billDetailService.create());
+    public ResponseObject findAllByIdBill(BillDetailRequest request){
+        return  new ResponseObject(billDetailService.findAllByIdBill(request));
     }
 
+    @GetMapping("/detail/{id}")
+    public ResponseObject findBillById(@PathVariable("id") String id){
+        return  new ResponseObject(billDetailService.findBillById(id));
+    }
 
-
-    @PutMapping("/Find")
+    @PutMapping("/refund")
     public ResponseObject refundProduct(@RequestBody RefundProductRequest request){
         return  new ResponseObject(billDetailService.refundProduct(request));
     }
@@ -48,8 +51,8 @@ public class BillDetailRestController {
         return  new ResponseObject(billDetailService.update(id,shoseSession.getEmployee().getId(), request));
     }
 
-    @PostMapping("/add-new-product")
-    public ResponseObject addNewProduct(@RequestBody CreateBillDetailRequest request){
+    @PostMapping("/add-product")
+    public ResponseObject addProduct(@RequestBody CreateBillDetailRequest request){
         return  new ResponseObject(billDetailService.create(shoseSession.getEmployee().getId(), request));
     }
 
