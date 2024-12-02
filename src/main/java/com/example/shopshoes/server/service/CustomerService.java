@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface CustomerService {
-
     List<EmployeeResponse> findAll(FindEmployeeRequest req);
 
     List<EmployeeResponse> searchDate(final FindEmployeeRequest req);
