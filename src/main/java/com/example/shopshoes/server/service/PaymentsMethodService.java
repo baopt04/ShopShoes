@@ -1,12 +1,12 @@
 package com.example.shopshoes.server.service;
 
-import com.example.shose.server.dto.request.bill.billcustomer.BillDetailOnline;
-import com.example.shose.server.dto.request.payMentMethod.CreatePayMentMethodTransferRequest;
-import com.example.shose.server.dto.request.paymentsmethod.CreatePaymentsMethodRequest;
-import com.example.shose.server.dto.request.paymentsmethod.QuantityProductPaymentRequest;
-import com.example.shose.server.dto.response.payment.PayMentVnpayResponse;
-import com.example.shose.server.entity.PaymentsMethod;
-import com.example.shose.server.entity.ProductDetail;
+import com.example.shopshoes.server.dto.request.bill.billcustomer.BillDetailOnline;
+import com.example.shopshoes.server.dto.request.payMentMethod.CreatePayMentMethodTransferRequest;
+import com.example.shopshoes.server.dto.request.paymentsmethod.CreatePaymentsMethodRequest;
+import com.example.shopshoes.server.dto.request.paymentsmethod.QuantityProductPaymentRequest;
+import com.example.shopshoes.server.dto.response.payment.PayMentVnpayResponse;
+import com.example.shopshoes.server.entity.PaymentsMethod;
+import com.example.shopshoes.server.entity.ProductDetail;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.repository.query.Param;
 

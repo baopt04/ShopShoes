@@ -1,12 +1,12 @@
 package com.example.shopshoes.server.dto.request.bill;
 
-import com.example.shose.server.dto.request.billdetail.CreateBillDetailRequest;
-import com.example.shose.server.dto.request.paymentsmethod.CreatePaymentsMethodRequest;
-import com.example.shose.server.dto.request.voucherdetail.CreateVoucherDetailRequest;
-import com.example.shose.server.infrastructure.constant.StatusBill;
-import com.example.shose.server.infrastructure.constant.StatusMethod;
-import com.example.shose.server.infrastructure.constant.StatusPayMents;
-import com.example.shose.server.infrastructure.constant.TypeBill;
+import com.example.shopshoes.server.dto.request.billdetail.CreateBillDetailRequest;
+import com.example.shopshoes.server.dto.request.paymentsmethod.CreatePaymentsMethodRequest;
+import com.example.shopshoes.server.dto.request.voucherdetail.CreateVoucherDetailRequest;
+import com.example.shopshoes.server.infrastructure.constant.StatusBill;
+import com.example.shopshoes.server.infrastructure.constant.StatusMethod;
+import com.example.shopshoes.server.infrastructure.constant.StatusPayMents;
+import com.example.shopshoes.server.infrastructure.constant.TypeBill;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

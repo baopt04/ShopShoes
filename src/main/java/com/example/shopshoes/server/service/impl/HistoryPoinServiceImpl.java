@@ -1,8 +1,8 @@
 package com.example.shopshoes.server.service.impl;
 
-import com.example.shose.server.dto.response.historypoin.HistoryPoinResponse;
-import com.example.shose.server.repository.HistoryPoinRepository;
-import com.example.shose.server.service.HistoryPoinService;
+import com.example.shopshoes.server.dto.response.historypoin.HistoryPoinResponse;
+import com.example.shopshoes.server.repository.HistoryPoinRepository;
+import com.example.shopshoes.server.service.HistoryPoinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

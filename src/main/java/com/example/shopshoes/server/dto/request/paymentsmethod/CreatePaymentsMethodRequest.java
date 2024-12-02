@@ -1,7 +1,7 @@
 package com.example.shopshoes.server.dto.request.paymentsmethod;
 
-import com.example.shose.server.infrastructure.constant.StatusMethod;
-import com.example.shose.server.infrastructure.constant.StatusPayMents;
+import com.example.shopshoes.server.infrastructure.constant.StatusMethod;
+import com.example.shopshoes.server.infrastructure.constant.StatusPayMents;
 import lombok.Getter;
 import lombok.Setter;
 

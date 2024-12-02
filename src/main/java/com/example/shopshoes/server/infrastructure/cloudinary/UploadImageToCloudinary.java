@@ -2,7 +2,7 @@ package com.example.shopshoes.server.infrastructure.cloudinary;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.example.shose.server.dto.request.image.ImageColorFilerequestDTO;
+import com.example.shopshoes.server.dto.request.image.ImageColorFilerequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;

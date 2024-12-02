@@ -1,7 +1,7 @@
 package com.example.shopshoes.server.controller.admin;
 
-import com.example.shose.server.service.BillHistoryService;
-import com.example.shose.server.util.ResponseObject;
+import com.example.shopshoes.server.service.BillHistoryService;
+import com.example.shopshoes.server.util.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

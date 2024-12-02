@@ -1,8 +1,8 @@
 package com.example.shopshoes.server.controller.client;
 
-import com.example.shose.server.dto.request.billdetail.BillDetailRequest;
-import com.example.shose.server.service.BillDetailService;
-import com.example.shose.server.util.ResponseObject;
+import com.example.shopshoes.server.dto.request.billdetail.BillDetailRequest;
+import com.example.shopshoes.server.service.BillDetailService;
+import com.example.shopshoes.server.util.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

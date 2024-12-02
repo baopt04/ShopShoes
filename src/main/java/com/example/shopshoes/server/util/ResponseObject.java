@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.util;
 
-import com.example.shose.server.infrastructure.common.PageableObject;
+import com.example.shopshoes.server.infrastructure.common.PageableObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,10 +1,10 @@
 package com.example.shopshoes.server.dto.response.billdetail;
 
-import com.example.shose.server.entity.Bill;
-import com.example.shose.server.entity.BillDetail;
-import com.example.shose.server.entity.Product;
-import com.example.shose.server.entity.ProductDetail;
-import com.example.shose.server.entity.Size;
+import com.example.shopshoes.server.entity.Bill;
+import com.example.shopshoes.server.entity.BillDetail;
+import com.example.shopshoes.server.entity.Product;
+import com.example.shopshoes.server.entity.ProductDetail;
+import com.example.shopshoes.server.entity.Size;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 

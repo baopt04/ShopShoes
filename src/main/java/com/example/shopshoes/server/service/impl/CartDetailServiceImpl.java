@@ -1,12 +1,12 @@
 package com.example.shopshoes.server.service.impl;
 
-import com.example.shose.server.dto.response.cartdetail.ChangeQuantity;
-import com.example.shose.server.dto.response.cartdetail.ChangeSizeInCart;
-import com.example.shose.server.entity.CartDetail;
-import com.example.shose.server.entity.ProductDetail;
-import com.example.shose.server.repository.CartDetailRepository;
-import com.example.shose.server.repository.ProductDetailRepository;
-import com.example.shose.server.service.CartDetailService;
+import com.example.shopshoes.server.dto.response.cartdetail.ChangeQuantity;
+import com.example.shopshoes.server.dto.response.cartdetail.ChangeSizeInCart;
+import com.example.shopshoes.server.entity.CartDetail;
+import com.example.shopshoes.server.entity.ProductDetail;
+import com.example.shopshoes.server.repository.CartDetailRepository;
+import com.example.shopshoes.server.repository.ProductDetailRepository;
+import com.example.shopshoes.server.service.CartDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

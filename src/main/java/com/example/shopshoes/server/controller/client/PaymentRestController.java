@@ -1,13 +1,13 @@
 package com.example.shopshoes.server.controller.client;
 
-import com.example.shose.server.dto.request.bill.billcustomer.BillDetailOnline;
-import com.example.shose.server.dto.request.bill.billcustomer.CreateBillCustomerOnlineRequest;
-import com.example.shose.server.dto.request.payMentMethod.CreatePayMentMethodTransferRequest;
-import com.example.shose.server.dto.request.paymentsmethod.QuantityProductPaymentRequest;
-import com.example.shose.server.dto.response.payment.PayMentVnpayResponse;
-import com.example.shose.server.service.BillService;
-import com.example.shose.server.service.PaymentsMethodService;
-import com.example.shose.server.util.ResponseObject;
+import com.example.shopshoes.server.dto.request.bill.billcustomer.BillDetailOnline;
+import com.example.shopshoes.server.dto.request.bill.billcustomer.CreateBillCustomerOnlineRequest;
+import com.example.shopshoes.server.dto.request.payMentMethod.CreatePayMentMethodTransferRequest;
+import com.example.shopshoes.server.dto.request.paymentsmethod.QuantityProductPaymentRequest;
+import com.example.shopshoes.server.dto.response.payment.PayMentVnpayResponse;
+import com.example.shopshoes.server.service.BillService;
+import com.example.shopshoes.server.service.PaymentsMethodService;
+import com.example.shopshoes.server.util.ResponseObject;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-/*
- *  @author diemdz
- */
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/client/payment")

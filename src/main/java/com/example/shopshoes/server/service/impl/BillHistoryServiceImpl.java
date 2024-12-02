@@ -1,9 +1,9 @@
 package com.example.shopshoes.server.service.impl;
 
-import com.example.shose.server.dto.response.billhistory.BillHistoryResponse;
-import com.example.shose.server.entity.BillHistory;
-import com.example.shose.server.repository.BillHistoryRepository;
-import com.example.shose.server.service.BillHistoryService;
+import com.example.shopshoes.server.dto.response.billhistory.BillHistoryResponse;
+import com.example.shopshoes.server.entity.BillHistory;
+import com.example.shopshoes.server.repository.BillHistoryRepository;
+import com.example.shopshoes.server.service.BillHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

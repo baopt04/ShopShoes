@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.dto.request.bill;
 
-import com.example.shose.server.infrastructure.constant.StatusMethod;
+import com.example.shopshoes.server.infrastructure.constant.StatusMethod;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;

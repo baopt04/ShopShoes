@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.dto.request.bill;
 
-import com.example.shose.server.util.ConvertDateToLong;
+import com.example.shopshoes.server.util.ConvertDateToLong;
 import lombok.Getter;
 import lombok.Setter;
 

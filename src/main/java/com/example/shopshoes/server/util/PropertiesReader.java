@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.util;
 
-import com.example.shose.server.infrastructure.constant.Constants;
+import com.example.shopshoes.server.infrastructure.constant.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 

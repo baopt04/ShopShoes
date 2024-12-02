@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.infrastructure.exception.rest;
 
-import com.example.shose.server.util.ResponseObject;
+import com.example.shopshoes.server.util.ResponseObject;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Path;

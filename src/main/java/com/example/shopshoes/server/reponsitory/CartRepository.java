@@ -1,7 +1,7 @@
 package com.example.shopshoes.server.reponsitory;
 
-import com.example.shose.server.dto.response.cart.ListCart;
-import com.example.shose.server.entity.Cart;
+import com.example.shopshoes.server.dto.response.cart.ListCart;
+import com.example.shopshoes.server.entity.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

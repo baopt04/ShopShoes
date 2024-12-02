@@ -1,8 +1,8 @@
 package com.example.shopshoes.server.controller.admin;
 
-import com.example.shose.server.infrastructure.poin.ConfigPoin;
-import com.example.shose.server.util.ResponseObject;
-import com.example.shose.server.util.payMent.Config;
+import com.example.shopshoes.server.infrastructure.poin.ConfigPoin;
+import com.example.shopshoes.server.util.ResponseObject;
+import com.example.shopshoes.server.util.payMent.Config;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

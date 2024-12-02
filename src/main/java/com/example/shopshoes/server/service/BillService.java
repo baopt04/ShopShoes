@@ -1,31 +1,31 @@
 package com.example.shopshoes.server.service;
 
 
-import com.example.shose.server.dto.request.bill.BillRequest;
-import com.example.shose.server.dto.request.bill.BillShipRequest;
-import com.example.shose.server.dto.request.bill.CancelBillClientRequest;
-import com.example.shose.server.dto.request.bill.ChangAllStatusBillByIdsRequest;
-import com.example.shose.server.dto.request.bill.ChangStatusBillRequest;
-import com.example.shose.server.dto.request.bill.ChangeAllEmployeeRequest;
-import com.example.shose.server.dto.request.bill.ChangeEmployeeRequest;
-import com.example.shose.server.dto.request.bill.CreateBillOfflineRequest;
-import com.example.shose.server.dto.request.bill.CreateBillRequest;
-import com.example.shose.server.dto.request.bill.FindNewBillCreateAtCounterRequest;
-import com.example.shose.server.dto.request.bill.StatusRequest;
-import com.example.shose.server.dto.request.bill.UpdateBillRequest;
-import com.example.shose.server.dto.request.bill.billaccount.CreateBillAccountOnlineRequest;
-import com.example.shose.server.dto.request.bill.billcustomer.CreateBillCustomerOnlineRequest;
+import com.example.shopshoes.server.dto.request.bill.BillRequest;
+import com.example.shopshoes.server.dto.request.bill.BillShipRequest;
+import com.example.shopshoes.server.dto.request.bill.CancelBillClientRequest;
+import com.example.shopshoes.server.dto.request.bill.ChangAllStatusBillByIdsRequest;
+import com.example.shopshoes.server.dto.request.bill.ChangStatusBillRequest;
+import com.example.shopshoes.server.dto.request.bill.ChangeAllEmployeeRequest;
+import com.example.shopshoes.server.dto.request.bill.ChangeEmployeeRequest;
+import com.example.shopshoes.server.dto.request.bill.CreateBillOfflineRequest;
+import com.example.shopshoes.server.dto.request.bill.CreateBillRequest;
+import com.example.shopshoes.server.dto.request.bill.FindNewBillCreateAtCounterRequest;
+import com.example.shopshoes.server.dto.request.bill.StatusRequest;
+import com.example.shopshoes.server.dto.request.bill.UpdateBillRequest;
+import com.example.shopshoes.server.dto.request.bill.billaccount.CreateBillAccountOnlineRequest;
+import com.example.shopshoes.server.dto.request.bill.billcustomer.CreateBillCustomerOnlineRequest;
 
-import com.example.shose.server.dto.request.billgiveback.UpdateBillDetailGiveBack;
-import com.example.shose.server.dto.request.billgiveback.UpdateBillGiveBack;
-import com.example.shose.server.dto.response.bill.BillAccountResponse;
-import com.example.shose.server.dto.response.bill.BillGiveBack;
-import com.example.shose.server.dto.response.bill.BillGiveBackInformation;
-import com.example.shose.server.dto.response.bill.BillResponseAtCounter;
-import com.example.shose.server.dto.response.bill.ListStatusRespone;
-import com.example.shose.server.entity.Bill;
-import com.example.shose.server.dto.response.bill.BillResponse;
-import com.example.shose.server.dto.response.bill.UserBillResponse;
+import com.example.shopshoes.server.dto.request.billgiveback.UpdateBillDetailGiveBack;
+import com.example.shopshoes.server.dto.request.billgiveback.UpdateBillGiveBack;
+import com.example.shopshoes.server.dto.response.bill.BillAccountResponse;
+import com.example.shopshoes.server.dto.response.bill.BillGiveBack;
+import com.example.shopshoes.server.dto.response.bill.BillGiveBackInformation;
+import com.example.shopshoes.server.dto.response.bill.BillResponseAtCounter;
+import com.example.shopshoes.server.dto.response.bill.ListStatusRespone;
+import com.example.shopshoes.server.entity.Bill;
+import com.example.shopshoes.server.dto.response.bill.BillResponse;
+import com.example.shopshoes.server.dto.response.bill.UserBillResponse;
 
 import java.math.BigDecimal;
 import java.util.List;

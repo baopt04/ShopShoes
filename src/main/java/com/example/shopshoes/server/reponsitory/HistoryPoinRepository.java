@@ -1,9 +1,9 @@
 package com.example.shopshoes.server.reponsitory;
 
-import com.example.shose.server.dto.request.bill.BillRequest;
-import com.example.shose.server.dto.response.bill.BillResponse;
-import com.example.shose.server.dto.response.historypoin.HistoryPoinResponse;
-import com.example.shose.server.entity.HistoryPoin;
+import com.example.shopshoes.server.dto.request.bill.BillRequest;
+import com.example.shopshoes.server.dto.response.bill.BillResponse;
+import com.example.shopshoes.server.dto.response.historypoin.HistoryPoinResponse;
+import com.example.shopshoes.server.entity.HistoryPoin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

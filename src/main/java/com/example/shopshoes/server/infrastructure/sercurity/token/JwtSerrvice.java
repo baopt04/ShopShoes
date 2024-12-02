@@ -1,7 +1,7 @@
 package com.example.shopshoes.server.infrastructure.sercurity.token;
 
-import com.example.shose.server.entity.Account;
-import com.example.shose.server.infrastructure.session.UserDetailToken;
+import com.example.shopshoes.server.entity.Account;
+import com.example.shopshoes.server.infrastructure.session.UserDetailToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

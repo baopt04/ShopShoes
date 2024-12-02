@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.infrastructure.exception.rest;
 
-import com.example.shose.server.infrastructure.exception.ShoseExceptionHandler;
+import com.example.shopshoes.server.infrastructure.exception.ShoseExceptionHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

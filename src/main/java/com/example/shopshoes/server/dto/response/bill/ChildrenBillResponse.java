@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.dto.response.bill;
 
-import com.example.shose.server.dto.response.billdetail.BillDetailResponse;
+import com.example.shopshoes.server.dto.response.billdetail.BillDetailResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

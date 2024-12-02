@@ -1,7 +1,7 @@
 package com.example.shopshoes.server.infrastructure.sercurity.config;
 
-import com.example.shose.server.infrastructure.constant.Roles;
-import com.example.shose.server.infrastructure.sercurity.token.JwtAuthenticationFilter;
+import com.example.shopshoes.server.infrastructure.constant.Roles;
+import com.example.shopshoes.server.infrastructure.sercurity.token.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

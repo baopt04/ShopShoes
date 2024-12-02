@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.dto.response.bill;
 
-import com.example.shose.server.dto.request.paymentsmethod.CreatePaymentsMethodRequest;
+import com.example.shopshoes.server.dto.request.paymentsmethod.CreatePaymentsMethodRequest;
 import lombok.*;
 
 import java.math.BigDecimal;

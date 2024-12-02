@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.infrastructure.common;
 
-import com.example.shose.server.infrastructure.constant.PaginationConstant;
+import com.example.shopshoes.server.infrastructure.constant.PaginationConstant;
 import lombok.Getter;
 import lombok.Setter;
 

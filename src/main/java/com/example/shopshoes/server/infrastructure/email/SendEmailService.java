@@ -1,10 +1,10 @@
 package com.example.shopshoes.server.infrastructure.email;
 
 
-import com.example.shose.server.dto.response.bill.RollBackBillResponse;
-import com.example.shose.server.entity.Bill;
-import com.example.shose.server.infrastructure.excel.ExportExcelStatistical;
-import com.example.shose.server.repository.BillRepository;
+import com.example.shopshoes.server.dto.response.bill.RollBackBillResponse;
+import com.example.shopshoes.server.entity.Bill;
+import com.example.shopshoes.server.infrastructure.excel.ExportExcelStatistical;
+import com.example.shopshoes.server.repository.BillRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.util.ByteArrayDataSource;

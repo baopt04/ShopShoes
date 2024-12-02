@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.dto;
 
-import com.example.shose.server.entity.ProductDetail;
+import com.example.shopshoes.server.entity.ProductDetail;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

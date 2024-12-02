@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.dto.request.payMentMethod;
 
-import com.example.shose.server.dto.request.bill.billcustomer.BillDetailOnline;
+import com.example.shopshoes.server.dto.request.bill.billcustomer.BillDetailOnline;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,11 +1,11 @@
 package com.example.shopshoes.server.controller.admin;
 
-import com.example.shose.server.dto.request.payMentMethod.CreatePayMentMethodTransferRequest;
-import com.example.shose.server.dto.request.paymentsmethod.CreatePaymentsMethodRequest;
-import com.example.shose.server.dto.response.payment.PayMentVnpayResponse;
-import com.example.shose.server.infrastructure.session.ShoseSession;
-import com.example.shose.server.service.PaymentsMethodService;
-import com.example.shose.server.util.ResponseObject;
+import com.example.shopshoes.server.dto.request.payMentMethod.CreatePayMentMethodTransferRequest;
+import com.example.shopshoes.server.dto.request.paymentsmethod.CreatePaymentsMethodRequest;
+import com.example.shopshoes.server.dto.response.payment.PayMentVnpayResponse;
+import com.example.shopshoes.server.infrastructure.session.ShoseSession;
+import com.example.shopshoes.server.service.PaymentsMethodService;
+import com.example.shopshoes.server.util.ResponseObject;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,7 +1,7 @@
 package com.example.shopshoes.server.util;
 
 
-import com.example.shose.server.service.VoucherService;
+import com.example.shopshoes.server.service.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,8 +1,8 @@
 package com.example.shopshoes.server.entity;
 
-import com.example.shose.server.entity.base.PrimaryEntity;
-import com.example.shose.server.infrastructure.constant.StatusBill;
-import com.example.shose.server.infrastructure.constant.TypeBill;
+import com.example.shopshoes.server.entity.base.PrimaryEntity;
+import com.example.shopshoes.server.infrastructure.constant.StatusBill;
+import com.example.shopshoes.server.infrastructure.constant.TypeBill;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

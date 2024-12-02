@@ -1,9 +1,9 @@
 package com.example.shopshoes.server.reponsitory;
 
-import com.example.shose.server.dto.request.bill.FindNewBillCreateAtCounterRequest;
-import com.example.shose.server.dto.request.billdetail.BillDetailRequest;
-import com.example.shose.server.dto.response.billdetail.BillDetailResponse;
-import com.example.shose.server.entity.BillDetail;
+import com.example.shopshoes.server.dto.request.bill.FindNewBillCreateAtCounterRequest;
+import com.example.shopshoes.server.dto.request.billdetail.BillDetailRequest;
+import com.example.shopshoes.server.dto.response.billdetail.BillDetailResponse;
+import com.example.shopshoes.server.entity.BillDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

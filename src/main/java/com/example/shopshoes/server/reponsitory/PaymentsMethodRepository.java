@@ -1,7 +1,7 @@
 package com.example.shopshoes.server.reponsitory;
 
-import com.example.shose.server.entity.Bill;
-import com.example.shose.server.entity.PaymentsMethod;
+import com.example.shopshoes.server.entity.Bill;
+import com.example.shopshoes.server.entity.PaymentsMethod;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

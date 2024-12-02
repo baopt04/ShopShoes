@@ -1,10 +1,10 @@
 package com.example.shopshoes.server.service.impl;
 
-import com.example.shose.server.entity.ScoringFormula;
-import com.example.shose.server.infrastructure.poin.ConfigPoin;
-import com.example.shose.server.infrastructure.poin.Poin;
-import com.example.shose.server.repository.ScoringFormulaRepository;
-import com.example.shose.server.service.PoinService;
+import com.example.shopshoes.server.entity.ScoringFormula;
+import com.example.shopshoes.server.infrastructure.poin.ConfigPoin;
+import com.example.shopshoes.server.infrastructure.poin.Poin;
+import com.example.shopshoes.server.repository.ScoringFormulaRepository;
+import com.example.shopshoes.server.service.PoinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

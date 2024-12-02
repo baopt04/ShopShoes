@@ -1,8 +1,8 @@
 package com.example.shopshoes.server.service;
 
-import com.example.shose.server.dto.response.cartdetail.ChangeQuantity;
-import com.example.shose.server.dto.response.cartdetail.ChangeSizeInCart;
-import com.example.shose.server.entity.CartDetail;
+import com.example.shopshoes.server.dto.response.cartdetail.ChangeQuantity;
+import com.example.shopshoes.server.dto.response.cartdetail.ChangeSizeInCart;
+import com.example.shopshoes.server.entity.CartDetail;
 
 public interface CartDetailService {
     String changeSizeCartDetail(ChangeSizeInCart changeSize);
