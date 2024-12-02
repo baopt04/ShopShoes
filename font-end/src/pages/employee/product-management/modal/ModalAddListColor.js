@@ -10,6 +10,7 @@ import {
   GetColor,
   SetColor,
 } from "../../../../app/reducer/Color.reducer";
+import "./style-addColor.css";
 import { toast } from "react-toastify";
 import convert from "color-convert";
 
@@ -129,6 +130,7 @@ const AddColorModal = ({ visible, onCancel, onSaveData }) => {
           }}
         >
           <Button
+            style={{ backgroundColor: "#1677ff", color: "white" }}
             onClick={() => setAddModalVisible(true)}
             icon={<FontAwesomeIcon icon={faPlus} />}
           >
@@ -139,14 +141,15 @@ const AddColorModal = ({ visible, onCancel, onSaveData }) => {
           {/* Hiển thị các nút button cho các kích thước */}
           {listColor.map((color) => (
             <Col key={color} span={6}>
+              {" "}
+              {/* Chia đều 24 đơn vị cho 5 cột, mỗi cột 4 đơn vị */}
               <Button
                 block
                 title={color.name}
-                style={{ backgroundColor: color.code }}
+                style={{ backgroundColor: color.code, width: "90px" }}
                 className={selected.includes(color.code) ? "selected" : ""}
                 onClick={() => toggleSelection(color.code)}
-              >
-              </Button>
+              ></Button>
             </Col>
           ))}
         </Row>
@@ -169,7 +172,7 @@ const AddColorModal = ({ visible, onCancel, onSaveData }) => {
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                label="Bảng màu"
+                label="Bảng mã màu sắc"
                 name="code"
                 rules={[
                   { required: true, message: "Vui lòng nhập tên thương hiệu" },
@@ -178,7 +181,7 @@ const AddColorModal = ({ visible, onCancel, onSaveData }) => {
               >
                 <Input
                   type="color"
-                  style={{ height: "250px" }}
+                  style={{ height: "200px", width: "200px" }}
                   onChange={(e) => {
                     const maMau = e.target.value;
                     const tenMau = getColorName(maMau);

@@ -26,9 +26,9 @@ const DashBoardCustomer = ({ children }) => {
   }, []);
   return (
     <div className="dashboard-customer">
-      <div>
+      {/* <div>
         <SalesHeader />
-      </div>
+      </div> */}
       <div>
         <HeaderMenu />
       </div>
@@ -36,10 +36,10 @@ const DashBoardCustomer = ({ children }) => {
         <HeaderMenu />
       </div>
       <div>{children}</div>
-      <div>
+      {/* <div>
         {" "}
         <Footer />
-      </div>
+      </div> */}
     </div>
   );
 };

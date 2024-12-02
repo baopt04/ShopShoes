@@ -71,7 +71,7 @@ const ModalUpdateMaterial = ({ visible, id, onCancel }) => {
 
   return (
     <Modal
-      title="Cập nhật thể loại "
+      title="Cập nhật chất liệu "
       visible={visible}
       onCancel={handleCancel}
       footer={[
@@ -85,7 +85,7 @@ const ModalUpdateMaterial = ({ visible, id, onCancel }) => {
     >
       <Form form={form} layout="vertical">
         <Form.Item
-          label="Tên thể loại"
+          label="Tên chất liệu"
           name="name"
           rules={[
             { required: true, message: "Vui lòng nhập tên thể loại" },

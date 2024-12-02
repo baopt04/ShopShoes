@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Button, Table, Col, Slider, Select, Input, Tooltip, Tag} from "antd";
+import { Button, Table, Col, Slider, Select, Input, Tooltip, Tag } from "antd";
 import "./style-product.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +10,7 @@ import {
   faKaaba,
   faListAlt,
   faPlus,
+  faScrewdriverWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { ProducDetailtApi } from "../../../api/employee/product-detail/productDetail.api";
@@ -120,38 +121,49 @@ const ProductManagement = () => {
       key: "stt",
       width: 4,
       align: "center",
-      sorter: (a, b) => a.stt - b.stt,
+      // sorter: (a, b) => a.stt - b.stt,
     },
     {
       title: "Mã Sản Phẩm",
       dataIndex: "code",
       key: "code",
-      sorter: (a, b) => a.code.localeCompare(b.code),
+      // sorter: (a, b) => a.code.localeCompare(b.code),
     },
     {
       title: "Tên Sản Phẩm",
       dataIndex: "name",
       key: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      // sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "Số Lượng Tồn ",
       dataIndex: "totalQuantity",
       key: "totalQuantity",
-      sorter: (a, b) => a.totalQuantity - b.totalQuantity,
+      // sorter: (a, b) => a.totalQuantity - b.totalQuantity,
       align: "center",
     },
     {
-      title: "Trạng thái",
+      title: "Trạng Thái",
       key: "status",
       dataIndex: "status",
-      width: 7,
       align: "center",
-      render: (text) => (
-          <Tag color={text === "DANG_SU_DUNG" ? "green" : "red"} className={"tag-status"}>
-            {text === "DANG_SU_DUNG" ? "Đang kinh doanh " : "Không kinh doanh"}
-          </Tag>
-      ),
+      render: (text) => {
+        const statusClass =
+          text === "DANG_SU_DUNG"
+            ? "trangthai-sd"
+            : text === "KHONG_SU_DUNG"
+            ? "trangthai-ksd"
+            : "trangthai-ckh";
+        return (
+          <button className={`gender ${statusClass}`}>
+            {text === "DANG_SU_DUNG"
+              ? "Đang kinh doanh"
+              : text === "KHONG_SU_DUNG"
+              ? "Không kinh doanh"
+              : "Chưa xác định"}
+          </button>
+        );
+      },
     },
     {
       title: "Hành động",
@@ -164,7 +176,7 @@ const ProductManagement = () => {
             <Button
               type="primary"
               title="Chi tiết sản phẩm"
-              style={{ backgroundColor: "#FF9900" }}
+              style={{ backgroundColor: "#1677ff" }}
               onClick={() => handleViewDetail(record.id)}
             >
               <FontAwesomeIcon icon={faEye} />
@@ -174,10 +186,10 @@ const ProductManagement = () => {
             <Button
               type="primary"
               title="Chỉnh sửa sản phẩm"
-              style={{ backgroundColor: "#0099FF", borderColor: "#0099FF" }}
+              style={{ backgroundColor: "green" }}
               onClick={() => handleUpdate(record.id)}
             >
-              <FontAwesomeIcon icon={faEdit} />
+              <FontAwesomeIcon icon={faScrewdriverWrench} />
             </Button>
           </Tooltip>
         </div>
@@ -188,13 +200,13 @@ const ProductManagement = () => {
   return (
     <>
       <div className="title_sole">
-        <span style={{ marginLeft: "10px" }}>Quản lý sản phẩm</span>
+        <span style={{ marginLeft: "40%" }}>Quản lý sản phẩm</span>
       </div>
 
       <div className="filter">
-        <FontAwesomeIcon icon={faFilter} size="2x" />{" "}
+        {/* <FontAwesomeIcon icon={faFilter} size="2x" />{" "} */}
         <span style={{ fontSize: "18px", fontWeight: "500" }}>Bộ lọc</span>
-        <hr />
+        {/* <hr /> */}
         <div className="content">
           <div className="content-wrapper">
             <div className="content-left">
@@ -221,7 +233,7 @@ const ProductManagement = () => {
                 <Option value="KHONG_SU_DUNG">Không kinh doanh</Option>
               </Select>
             </div>
-            <div className="content-right">
+            {/* <div className="content-right">
               <Col span={7} style={{ textAlign: "right", paddingRight: 30 }}>
                 <label>Số lượng tồn :</label>
               </Col>
@@ -239,7 +251,7 @@ const ProductManagement = () => {
                   onChange={handleChangeValueQuantity}
                 />
               </Col>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="box_btn_filter">
@@ -261,10 +273,10 @@ const ProductManagement = () => {
           className="title_product"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <FontAwesomeIcon
+          {/* <FontAwesomeIcon
             icon={faListAlt}
             style={{ fontSize: "26px", marginRight: "10px" }}
-          />
+          /> */}
           <span style={{ fontSize: "18px", fontWeight: "500" }}>
             Danh sách sản phẩm
           </span>
@@ -287,7 +299,7 @@ const ProductManagement = () => {
             dataSource={listProduct}
             rowKey="id"
             columns={columns}
-            pagination={{ pageSize: 5 }}
+            pagination={{ pageSize: 10 }}
             className="product-table"
             rowClassName={getRowClassName}
           />

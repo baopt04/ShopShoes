@@ -11,12 +11,12 @@ import { MaterialApi } from "../../../api/employee/material/Material.api";
 import { SoleApi } from "../../../api/employee/sole/sole.api";
 import { SizeApi } from "../../../api/employee/size/Size.api";
 import { CategoryApi } from "../../../api/employee/category/category.api";
-import  banner  from "../../../assets/images/banner-2.png";
+import { transform } from "lodash";
 const categoryGender = [
-  {
-    name: "TẤT CẢ",
-    value: "",
-  },
+  // {
+  //   name: "TẤT CẢ",
+  //   value: "",
+  // },
   {
     name: "NAM",
     value: "NAM",
@@ -62,11 +62,11 @@ const categoryPrice = [
     minPrice: "5000000",
     maxPrice: "10000000",
   },
-  {
-    name: "Trên 10 triệu",
-    minPrice: "10000000",
-    maxPrice: "100000000000",
-  },
+  // {
+  //   name: "Trên 10 triệu",
+  //   minPrice: "10000000",
+  //   maxPrice: "100000000000",
+  // },
 ];
 
 function Products() {
@@ -82,7 +82,7 @@ function Products() {
   const [formPrice, setFormPrice] = useState({});
   const [formSearch, setFormSearch] = useState({
     page: currentPage,
-    size: 15,
+    size: 12,
     gender: "",
   });
   const [isChecked, setIsChecked] = useState({});
@@ -130,30 +130,31 @@ function Products() {
   };
   const categorys = [
     {
-      label: "Thương hiệu",
-      name: "brand",
-      children: listBrand,
-    },
-    {
-      label: "Dòng sản phẩm",
+      label: "DÒNG SẢN PHẨM",
       name: "category",
       children: listCategory,
     },
     {
-      label: "Chất liệu",
+      label: "THƯƠNG HIỆU",
+      name: "brand",
+      children: listBrand,
+    },
+
+    {
+      label: "CHẤT LIỆU",
       name: "material",
       children: listMaterial,
     },
     {
-      label: "Kích thước",
+      label: "KÍCH THƯỚC",
       name: "nameSize",
       children: listSize,
     },
-    {
-      label: "Đế giày",
-      name: "sole",
-      children: listSole,
-    },
+    // {
+    //   label: "Đế giày",
+    //   name: "sole",
+    //   children: listSole,
+    // },
   ];
 
   // change form category
@@ -266,14 +267,19 @@ function Products() {
 
   return (
     <React.Fragment>
-      <Row style={{ marginTop: "100px", display: "flex" }}>
+      <Row style={{ marginTop: "80px", display: "flex" }}>
         <Col
-          lg={{ span: 16, offset: 4 }}
-          style={{ display: "flex", justifyContent: "center", padding: "auto" }}
+          lg={{ span: 22, offset: 1 }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "auto",
+            // background: "pink",
+          }}
         >
           <div className="category-of-products">
-            <div className="title-category-of-products">Bộ lọc sản phẩm</div>
-            <ul className="category-gender">
+            <div className="title-category-of-products">BỘ LỌC SẢN PHẨM</div>
+            {/* <ul className="category-gender">
               {categoryGender.map((item, index) => (
                 <>
                   <li
@@ -289,19 +295,51 @@ function Products() {
                   )}
                 </>
               ))}
+            </ul> */}
+
+            <label
+              style={{
+                color: "#87CEFA",
+                fontSize: "20px",
+                fontWeight: 700,
+                padding: 10,
+              }}
+            >
+              GIÁ
+            </label>
+            <ul className="category-price">
+              {categoryPrice.map((item, index) => (
+                <>
+                  <li className="child-category" key={index}>
+                    <Checkbox
+                      checked={isChecked["price"]?.[item.name] || false}
+                      onChange={(e) =>
+                        changePrice(
+                          item.minPrice,
+                          item.maxPrice,
+                          item.name,
+                          e.target.checked
+                        )
+                      }
+                    />{" "}
+                    {item.name}
+                  </li>
+                </>
+              ))}
             </ul>
+
             {/* search by status */}
 
             <label
               style={{
-                color: "#ff4400",
+                color: "#87CEFA",
                 fontSize: "20px",
                 paddingBottom: 20,
                 fontWeight: 700,
                 padding: 10,
               }}
             >
-              Trạng thái
+              TRẠNG THÁI
             </label>
             <ul className="sell-off">
               {categorySellOff.map((item, index) => (
@@ -338,36 +376,6 @@ function Products() {
               ))}
             </ul>
             {/* search by price */}
-            <label
-              style={{
-                color: "#ff4400",
-                fontSize: "20px",
-                fontWeight: 700,
-                padding: 10,
-              }}
-            >
-              Giá
-            </label>
-            <ul className="category-price">
-              {categoryPrice.map((item, index) => (
-                <>
-                  <li className="child-category" key={index}>
-                    <Checkbox
-                      checked={isChecked["price"]?.[item.name] || false}
-                      onChange={(e) =>
-                        changePrice(
-                          item.minPrice,
-                          item.maxPrice,
-                          item.name,
-                          e.target.checked
-                        )
-                      }
-                    />{" "}
-                    {item.name}
-                  </li>
-                </>
-              ))}
-            </ul>
 
             {/* search by categorys */}
             <ul className="categorys">
@@ -375,7 +383,7 @@ function Products() {
                 <li key={index} className="box-category">
                   <label
                     style={{
-                      color: "#ff4400",
+                      color: "#87CEFA",
                       fontSize: "20px",
                       paddingBottom: 20,
                     }}
@@ -403,7 +411,7 @@ function Products() {
               ))}
             </ul>
             {/* search by color */}
-            <ul className="category-color-search">
+            {/* <ul className="category-color-search">
               <label
                 style={{
                   color: "#ff4400",
@@ -434,34 +442,34 @@ function Products() {
                   ></div>
                 ))}
               </div>
-            </ul>
+            </ul> */}
           </div>
 
           <div className="box-products">
-            <img className="title-of-products" src={banner} alt="..." />
-            {list.length === 0 ?(
-                <div style={{textAlign:"center",color:"#ff4400",fontSize:30}}>
-                  Không có sản phẩm nào!
+            {list.length === 0 ? (
+              <div
+                style={{ textAlign: "center", color: "#ff4400", fontSize: 20 }}
+              >
+                {/* Không có sản phẩm nào! */}
+              </div>
+            ) : (
+              <>
+                <div className="list-product">
+                  {list.map((item, index) => (
+                    <CardItem item={item} index={index} />
+                  ))}
                 </div>
-            ):(
-               <>
-                 <div className="list-product">
-                   {list.map((item, index) => (
-                       <CardItem item={item} index={index} />
-                   ))}
-                 </div>
 
-                 <div className="box-pagination-products">
-                   <Pagination
-                       defaultCurrent={1}
-                       current={currentPage + 1}
-                       total={totalPagesProduct * 10}
-                       onChange={handlePageChange}
-                   />
-                 </div>
-               </>
+                <div className="box-pagination-products">
+                  <Pagination
+                    defaultCurrent={1}
+                    current={currentPage + 1}
+                    total={totalPagesProduct * 10}
+                    onChange={handlePageChange}
+                  />
+                </div>
+              </>
             )}
-
           </div>
         </Col>
       </Row>

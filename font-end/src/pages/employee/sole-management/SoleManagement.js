@@ -1,13 +1,20 @@
-import React, {useEffect, useState} from "react";
-import {Button, Input, Select, Table, Tag} from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Input, Select, Table, Tag } from "antd";
 import "./style-sole.css";
-import {useAppDispatch, useAppSelector} from "../../../app/hook";
+import { useAppDispatch, useAppSelector } from "../../../app/hook";
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faEye, faFilter, faListAlt, faPlus,} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEdit,
+  faEye,
+  faFilter,
+  faListAlt,
+  faPlus,
+  faScrewdriverWrench,
+} from "@fortawesome/free-solid-svg-icons";
 import moment from "moment/moment";
-import {SoleApi} from "../../../api/employee/sole/sole.api";
-import {GetSole, SetSole} from "../../../app/reducer/Sole.reducer";
+import { SoleApi } from "../../../api/employee/sole/sole.api";
+import { GetSole, SetSole } from "../../../app/reducer/Sole.reducer";
 import ModalCreateSole from "./modal/ModalCreateSole";
 import ModalUpdateSole from "./modal/ModalUpdateSole";
 import ModalDetailSole from "./modal/ModalDetailSole";
@@ -120,33 +127,44 @@ const SoleManagement = () => {
       dataIndex: "stt",
       key: "stt",
       align: "center",
-      sorter: (a, b) => a.stt - b.stt,
+      // sorter: (a, b) => a.stt - b.stt,
     },
     {
-      title: "Tên Thể Loại",
+      title: "Tên Đế Giày",
       dataIndex: "name",
       key: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      // sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "Ngày cập nhật",
       dataIndex: "lastModifiedDate",
       key: "lastModifiedDate",
       align: "center",
-      sorter: (a, b) => a.lastModifiedDate - b.lastModifiedDate,
+      // sorter: (a, b) => a.lastModifiedDate - b.lastModifiedDate,
       render: (date) => moment(date).format("DD-MM-YYYY"),
     },
     {
-      title: "Trạng thái",
+      title: "Trạng Thái",
       key: "status",
       dataIndex: "status",
-      width: 7,
       align: "center",
-      render: (text) => (
-          <Tag color={text === "DANG_SU_DUNG" ? "green" : "red"} className={"tag-status"}>
-            {text === "DANG_SU_DUNG" ? "Đang sử dụng" : "Ngừng sử dụng "}
-          </Tag>
-      ),
+      render: (text) => {
+        const statusClass =
+          text === "DANG_SU_DUNG"
+            ? "trangthai-sd"
+            : text === "KHONG_SU_DUNG"
+            ? "trangthai-ksd"
+            : "trangthai-ckh";
+        return (
+          <button className={`gender ${statusClass}`}>
+            {text === "DANG_SU_DUNG"
+              ? "Đang Sử Dụng"
+              : text === "KHONG_SU_DUNG"
+              ? "Không Sử Dụng"
+              : "Chưa xác định"}
+          </button>
+        );
+      },
     },
     {
       title: "Hành động",
@@ -158,7 +176,7 @@ const SoleManagement = () => {
           <Button
             type="primary"
             title="Chi tiết thể loại"
-            style={{ backgroundColor: "#FF9900" }}
+            style={{ backgroundColor: "#1677ff" }}
             onClick={() => handleViewDetail(record.id)}
           >
             <FontAwesomeIcon icon={faEye} />
@@ -166,10 +184,10 @@ const SoleManagement = () => {
           <Button
             type="primary"
             title="Chỉnh sửa thể loại"
-            style={{ backgroundColor: "#0099FF", borderColor: "#0099FF" }}
+            style={{ backgroundColor: "green" }}
             onClick={() => handleUpdate(record.id)}
           >
-            <FontAwesomeIcon icon={faEdit} />
+            <FontAwesomeIcon icon={faScrewdriverWrench} />
           </Button>
         </div>
       ),
@@ -180,10 +198,10 @@ const SoleManagement = () => {
     <>
       <div className="title_sole">
         {" "}
-        <span style={{ marginLeft: "10px" }}>Quản lý đế giày</span>
+        <span style={{ marginLeft: "40%" }}>Quản lý đế giày</span>
       </div>
       <div className="filter">
-        <FontAwesomeIcon icon={faFilter} size="2x" />{" "}
+        {/* <FontAwesomeIcon icon={faFilter} size="2x" />{" "} */}
         <span style={{ fontSize: "18px", fontWeight: "500" }}>Bộ lọc</span>
         <hr />
         <div className="content">
@@ -233,10 +251,10 @@ const SoleManagement = () => {
           className="title_sole"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <FontAwesomeIcon
+          {/* <FontAwesomeIcon
             icon={faListAlt}
             style={{ fontSize: "26px", marginRight: "10px" }}
-          />
+          /> */}
           <span style={{ fontSize: "18px", fontWeight: "500" }}>
             Danh sách đế giày
           </span>
@@ -256,7 +274,7 @@ const SoleManagement = () => {
             dataSource={listSoleWithStt}
             rowKey="id"
             columns={columns}
-            pagination={{ pageSize: 5 }}
+            pagination={{ pageSize: 10 }}
             className="category-table"
             rowClassName={getRowClassName}
           />

@@ -68,7 +68,7 @@ const ModalUpdateSole = ({ visible, id, onCancel }) => {
 
   return (
     <Modal
-      title="Cập nhật thương hiệu "
+      title="Cập nhật đế giày "
       visible={visible}
       onCancel={handleCancel}
       footer={[
@@ -82,7 +82,7 @@ const ModalUpdateSole = ({ visible, id, onCancel }) => {
     >
       <Form form={form} layout="vertical">
         <Form.Item
-          label="Tên thương hiệu"
+          label="Tên đế giày"
           name="name"
           rules={[
             { required: true, message: "Vui lòng nhập tên thương hiệu" },

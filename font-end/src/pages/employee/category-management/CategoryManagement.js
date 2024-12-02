@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import {Form, Input, Button, Select, Table, Tag} from "antd";
+import { Form, Input, Button, Select, Table, Tag } from "antd";
 
 import "./style-category.css";
 import { CategoryApi } from "../../../api/employee/category/category.api";
@@ -17,6 +17,7 @@ import {
   faKaaba,
   faListAlt,
   faPlus,
+  faScrewdriverWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment/moment";
 import ModalCreateCategory from "./modal/ModalCreateCategory";
@@ -133,34 +134,46 @@ const CategoryManagement = () => {
       dataIndex: "stt",
       key: "stt",
       align: "center",
-      sorter: (a, b) => a.stt - b.stt,
+      // sorter: (a, b) => a.stt - b.stt,
     },
     {
       title: "Tên Thể Loại",
       dataIndex: "name",
       key: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      // sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "Ngày cập nhật",
       dataIndex: "lastModifiedDate",
       key: "lastModifiedDate",
       align: "center",
-      sorter: (a, b) => a.lastModifiedDate - b.lastModifiedDate,
+      // sorter: (a, b) => a.lastModifiedDate - b.lastModifiedDate,
       render: (date) => moment(date).format("DD-MM-YYYY"),
     },
     {
-      title: "Trạng thái",
+      title: "Trạng Thái",
       key: "status",
       dataIndex: "status",
-      width: 7,
       align: "center",
-      render: (text) => (
-          <Tag color={text === "DANG_SU_DUNG" ? "green" : "red"} className={"tag-status"}>
-            {text === "DANG_SU_DUNG" ? "Đang sử dụng" : "Ngừng sử dụng "}
-          </Tag>
-      ),
+      render: (text) => {
+        const statusClass =
+          text === "DANG_SU_DUNG"
+            ? "trangthai-sd"
+            : text === "KHONG_SU_DUNG"
+            ? "trangthai-ksd"
+            : "trangthai-ckh";
+        return (
+          <button className={`gender ${statusClass}`}>
+            {text === "DANG_SU_DUNG"
+              ? "Đang Sử Dụng"
+              : text === "KHONG_SU_DUNG"
+              ? "Không Sử Dụng"
+              : "Chưa xác định"}
+          </button>
+        );
+      },
     },
+
     {
       title: "Hành động",
       dataIndex: "hanhDong",
@@ -171,7 +184,7 @@ const CategoryManagement = () => {
           <Button
             type="primary"
             title="Chi tiết thể loại"
-            style={{ backgroundColor: "#FF9900" }}
+            style={{ backgroundColor: "#1677ff" }}
             onClick={() => handleViewDetail(record.id)}
           >
             <FontAwesomeIcon icon={faEye} />
@@ -179,10 +192,10 @@ const CategoryManagement = () => {
           <Button
             type="primary"
             title="Chỉnh sửa thể loại"
-            style={{ backgroundColor: "#0099FF", borderColor: "#0099FF" }}
+            style={{ backgroundColor: "green" }}
             onClick={() => handleUpdate(record.id)}
           >
-            <FontAwesomeIcon icon={faEdit} />
+            <FontAwesomeIcon icon={faScrewdriverWrench} />
           </Button>
         </div>
       ),
@@ -193,12 +206,12 @@ const CategoryManagement = () => {
     <>
       <div className="title_category">
         {" "}
-        <span style={{ marginLeft: "10px" }}>Quản lý thể loại</span>
+        <span style={{ marginLeft: "40%" }}>Quản lý thể loại</span>
       </div>
       <div className="filter">
-        <FontAwesomeIcon icon={faFilter} size="2x" />{" "}
+        {/* <FontAwesomeIcon icon={faFilter} size="2x" />{" "} */}
         <span style={{ fontSize: "18px", fontWeight: "500" }}>Bộ lọc</span>
-        <hr />
+        {/* <hr /> */}
         <div className="content">
           <div className="content-wrapper">
             <div className="content-left">
@@ -246,10 +259,10 @@ const CategoryManagement = () => {
           className="title_category"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <FontAwesomeIcon
+          {/* <FontAwesomeIcon
             icon={faListAlt}
             style={{ fontSize: "26px", marginRight: "10px" }}
-          />
+          /> */}
           <span style={{ fontSize: "18px", fontWeight: "500" }}>
             Danh sách thể loại
           </span>
@@ -269,7 +282,7 @@ const CategoryManagement = () => {
             dataSource={listCategoryWithStt}
             rowKey="id"
             columns={columns}
-            pagination={{ pageSize: 5 }}
+            pagination={{ pageSize: 10 }}
             className="category-table"
             rowClassName={getRowClassName}
           />

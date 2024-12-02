@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { CartClientApi } from "../../../api/customer/cart/cartClient.api";
 import { useParams } from "react-router";
-import tableSize from "./../../../assets/images/SizeChart.jpg";
+// import tableSize from "./../../../assets/images/SizeChart.jpg";
 import { ProductDetailClientApi } from "../../../api/customer/productdetail/productDetailClient.api";
 import "./style-detail-product.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,7 +29,7 @@ function DetailProduct() {
   const id = useParams();
   const [listSize, setListSize] = useState([]);
   const [cartAccount, setCartAccount] = useState([]);
-  const itemsPerPage = 4;
+  const itemsPerPage = 6;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imageIndex, setImageIndex] = useState(0);
   const [image, setImage] = useState("");
@@ -323,13 +323,15 @@ function DetailProduct() {
         <Row>
           <Col
             lg={{ span: 16, offset: 4 }}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              padding: 50,
-              borderTop: "3px solid black",
-            }}
-            className="box-info-detail-product"
+            // style={
+            //   {
+            //     display: "flex",
+            //     justifyContent: "center",
+            //     padding: 50,
+            //     borderTop: "3px solid black",
+            //   }
+            // }
+            // className="box-info-detail-product"
           >
             <div className="box-image-pd">
               <img
@@ -360,7 +362,7 @@ function DetailProduct() {
                       src={item}
                       alt="..."
                       style={{
-                        border: image === item ? "1px solid #ff4400" : null,
+                        border: image === item ? "1px solid #87cefa" : null,
                       }}
                       onClick={() => changeImage(item, index)}
                     />
@@ -382,6 +384,9 @@ function DetailProduct() {
               <div className="name-pd">{detailProduct.nameProduct}</div>
               <div className="price-product-pd">
                 {" "}
+                <span style={{ color: "black", paddingRight: "5px" }}>
+                  Giá sản phẩm:{" "}
+                </span>
                 {detailProduct.valuePromotion !== null ? (
                   <>
                     <span style={{ marginLeft: 5 }}>
@@ -402,9 +407,18 @@ function DetailProduct() {
                   formatMoney(detailProduct.price)
                 )}
               </div>
+              <hr />
               <div className="box-color-pd">
-                <div>Màu:</div>
                 <div className="list-color-detail-pd">
+                  <div
+                    style={{
+                      fontSize: "18px",
+                      marginTop: "10px",
+                      marginRight: "10px",
+                    }}
+                  >
+                    Màu sắc sản phẩm:
+                  </div>
                   <div
                     className="color-product-pd"
                     style={{
@@ -413,10 +427,18 @@ function DetailProduct() {
                   ></div>
                 </div>
               </div>
-
-              <div className="box-size-pd">
-                <div>Size:</div>
+              <hr />
+              <div className="box-size-pd-1">
                 <Row>
+                  <div
+                    style={{
+                      fontSize: "18px",
+                      marginTop: "15px",
+                      marginRight: "10px",
+                    }}
+                  >
+                    Size:
+                  </div>
                   <div className="list-size-product-pd" tabIndex="0">
                     {listSize.map((item, index) => (
                       <div
@@ -435,15 +457,32 @@ function DetailProduct() {
                   </div>
                 </Row>
               </div>
-
+              <hr />
               <div className="box-quantity-pd">
-                Số lượng tồn:{" "}
+                <span
+                  style={{
+                    fontSize: "18px",
+                    marginTop: "10px",
+                    marginRight: "10px",
+                  }}
+                >
+                  Số lượng tồn:{" "}
+                </span>
                 <span style={{ color: "#ff4400" }}>
                   {detailProduct.quantity} sản phẩm
                 </span>
               </div>
-
+              <hr />
               <div className="add-to-card-pd">
+                <span
+                  style={{
+                    fontSize: "18px",
+                    marginTop: "10px",
+                    marginRight: "10px",
+                  }}
+                >
+                  Số lượng muốn mua:
+                </span>
                 <InputNumber
                   className="input-quantity-card-pd"
                   name="quantity"
@@ -454,80 +493,58 @@ function DetailProduct() {
                   max={detailProduct.quantity}
                   onChange={(value) => changeQuantity(value)}
                 ></InputNumber>
-                <div className="button-add-to-card-pd" onClick={addToCard}>
-                  Thêm vào Giỏ hàng
-                </div>
               </div>
-
-              <div className="box-policy">
-                <ul>
-                  <li className="item-policy">
-                    <div className="box-icon">
-                      <FontAwesomeIcon
-                        icon={faTruckFast}
-                        className="icon-policy"
-                      />
-                    </div>{" "}
-                    <span className="title-policy">
-                      Miễn phí giao hàng đơn từ 2 triệu.{" "}
-                    </span>
-                  </li>
-                  <li className="item-policy">
-                    <div className="box-icon">
-                      <FontAwesomeIcon
-                        icon={faRetweet}
-                        className="icon-policy"
-                      />
-                    </div>{" "}
-                    <span className="title-policy">
-                      Trả miễn phí trong vòng 2 ngày.
-                    </span>
-                  </li>
-                  <li className="item-policy">
-                    <div className="box-icon">
-                      <FontAwesomeIcon
-                        icon={faFileInvoiceDollar}
-                        className="icon-policy"
-                      />{" "}
-                    </div>
-                    <span className="title-policy">
-                      Thanh toán trực tuyến nhanh chóng và an toàn.{" "}
-                    </span>
-                  </li>
-                  <li className="item-policy">
-                    <div className="box-icon">
-                      <FontAwesomeIcon
-                        icon={faShieldHeart}
-                        className="icon-policy"
-                      />
-                    </div>{" "}
-                    <span className="title-policy">
-                      Sản phẩm chính hãng 100%.{" "}
-                    </span>
-                  </li>
-                </ul>
+              <hr />
+              <div className="button-add-to-card-pd" onClick={addToCard}>
+                Thêm vào Giỏ hàng
               </div>
             </div>
           </Col>
           <Col span={10} style={{ marginLeft: "5%", marginTop: "54px" }}>
-            <div
-              className="box-policy"
-              style={{ width: "100%", height: "90%" }}
-            >
-              <h2>Mô tả sản phẩm</h2> <br />
-              <p>GIÀY SNEAKERS - HÀNG CHÍNH HÃNG</p>
-              <p>
-                Thiết kế Authentic cổ điển với phần Upper Canvas được phủ đầy
-                họa tiết Checkerboard hiệu ứng Iridescent giúp đôi giày trở nên
-                lấp lánh hơn.
-              </p>
-              <p>Chất liệu Canvas với họa tiết Checker</p>
-              <p>Hiệu ứng Iridescent với màu sắc lấp lánh</p>
-              <p>Các khoen xỏ dây giày bằng nhựa chống rỉ sét</p>
-              <p>Lớp lót bên trong êm ái, thông thoáng</p>
-              <p>Mặt đế Waffle đặc trưng tăng độ bám</p>
-              <p>- Loại hình bảo hành: Cửa hàng</p>
-              <p>- Quy cách đóng gói: Double Box</p>
+            <div className="box-policy">
+              <ul>
+                <li className="item-policy">
+                  <div className="box-icon">
+                    <FontAwesomeIcon
+                      icon={faTruckFast}
+                      className="icon-policy"
+                    />
+                  </div>{" "}
+                  <span className="title-policy">
+                    Miễn phí giao hàng đơn từ 2 triệu.{" "}
+                  </span>
+                </li>
+                <li className="item-policy">
+                  <div className="box-icon">
+                    <FontAwesomeIcon icon={faRetweet} className="icon-policy" />
+                  </div>{" "}
+                  <span className="title-policy">
+                    Trả miễn phí trong vòng 2 ngày.
+                  </span>
+                </li>
+                <li className="item-policy">
+                  <div className="box-icon">
+                    <FontAwesomeIcon
+                      icon={faFileInvoiceDollar}
+                      className="icon-policy"
+                    />{" "}
+                  </div>
+                  <span className="title-policy">
+                    Thanh toán trực tuyến nhanh chóng và an toàn.{" "}
+                  </span>
+                </li>
+                <li className="item-policy">
+                  <div className="box-icon">
+                    <FontAwesomeIcon
+                      icon={faShieldHeart}
+                      className="icon-policy"
+                    />
+                  </div>{" "}
+                  <span className="title-policy">
+                    Sản phẩm chính hãng 100%.{" "}
+                  </span>
+                </li>
+              </ul>
             </div>
           </Col>
           <Col span={12}>
@@ -538,20 +555,20 @@ function DetailProduct() {
                   style={{ color: infoAndSize === 1 ? "black" : "white" }}
                   onClick={() => changeTitleInfoAndSize(1)}
                 >
-                  THÔNG TIN CHI TIẾT
+                  THÔNG TIN SẢN PHẨM CHI TIẾT
                 </div>
-                <div
+                {/* <div
                   className="guide-to-choose-size"
                   style={{ color: infoAndSize === 2 ? "black" : "white" }}
                   onClick={() => changeTitleInfoAndSize(2)}
                 >
                   CÁCH CHỌN SIZE
-                </div>
+                </div> */}
               </div>
               {infoAndSize === 1 ? (
                 <ul className="ul-info-pd" style={{ padding: "30px 10px" }}>
                   <li className="li-info-pd">
-                    <span className="title-info-pd"> Tên sản phẩm</span>
+                    <span className="title-info-pd"> Tên sản phẩm:</span>
                     <span className="content-info-pd">
                       {" "}
                       {detailProduct.nameProduct}
@@ -559,16 +576,12 @@ function DetailProduct() {
                   </li>
                   <li className="li-info-pd">
                     <span className="title-info-pd"> Giá</span>
-                    <span className="content-info-pd">
+                    <span
+                      className="content-info-pd"
+                      style={{ color: "#FF4400" }}
+                    >
                       {" "}
                       {formatMoney(detailProduct.price)}
-                    </span>
-                  </li>
-                  <li className="li-info-pd">
-                    <span className="title-info-pd"> Thương hiệu</span>
-                    <span className="content-info-pd">
-                      {" "}
-                      {detailProduct.nameBrand}
                     </span>
                   </li>
                   <li className="li-info-pd">
@@ -579,10 +592,10 @@ function DetailProduct() {
                     </span>
                   </li>
                   <li className="li-info-pd">
-                    <span className="title-info-pd"> Chất liệu</span>
+                    <span className="title-info-pd"> Thương hiệu</span>
                     <span className="content-info-pd">
                       {" "}
-                      {detailProduct.nameMaterial}
+                      {detailProduct.nameBrand}
                     </span>
                   </li>
                   <li className="li-info-pd">
@@ -593,6 +606,14 @@ function DetailProduct() {
                     </span>
                   </li>
                   <li className="li-info-pd">
+                    <span className="title-info-pd"> Chất liệu</span>
+                    <span className="content-info-pd">
+                      {" "}
+                      {detailProduct.nameMaterial}
+                    </span>
+                  </li>
+
+                  <li className="li-info-pd">
                     <span className="title-info-pd"> Đế giày</span>
                     <span className="content-info-pd">
                       {" "}
@@ -602,7 +623,7 @@ function DetailProduct() {
                 </ul>
               ) : (
                 <div className="box-img-guide-choose-size">
-                  <img src={tableSize} alt="..." />
+                  {/* <img src={tableSize} alt="..." /> */}
                 </div>
               )}
             </div>

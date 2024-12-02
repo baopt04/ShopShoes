@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 import "./style-menu.css";
 import { useCart } from "./../../../pages/customer/cart/CartContext";
-import logo from "./../../../assets/images/logo_client.png";
-import { Link } from "react-router-dom";
+import logo from "./../../../assets/images/login_new.png";
+import { deleteToken } from "../../../helper/useCookies";
+import { Link, useNavigate } from "react-router-dom";
 import { Select, Input, Button, Menu, Badge } from "antd";
 import {
   SearchOutlined,
   LoginOutlined,
   ShoppingCartOutlined,
   MenuFoldOutlined,
+  FileSearchOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 
 const { Option } = Select;
@@ -18,7 +21,8 @@ function HeaderMenu() {
   const [activeField, setActiveField] = useState("");
   const idAccount = sessionStorage.getItem("idAccount");
   const { totalQuantity } = useCart();
-
+  const [openInfor, setOpenInfo] = useState(false);
+  const nav = useNavigate();
   const fields = [
     {
       className: "title-menu",
@@ -32,12 +36,7 @@ function HeaderMenu() {
     },
     {
       className: "title-menu",
-      title: "NAM",
-      href: "/products",
-    },
-    {
-      className: "title-menu",
-      title: "NỮ",
+      title: "GIÀY THỂ THAO NAM NỮ",
       href: "/products",
     },
 
@@ -55,16 +54,33 @@ function HeaderMenu() {
     //   title: "SALE OFF",
     // },
   ];
-
+  const logout = () => {
+    deleteToken();
+    sessionStorage.removeItem("idAccount");
+    window.location.href = "/home";
+  };
   const handleMenuHover = (title) => {
     setOptionVisible(true);
     setActiveField(title);
+    setOpenInfo(true);
   };
 
   const handleMenuLeave = () => {
     setOptionVisible(false);
     setActiveField("");
+    setOpenInfo(false);
   };
+
+  const handleHover = (title) => {
+    setOptionVisible(true);
+    setActiveField(title);
+  };
+
+  const handleLeave = () => {
+    setOptionVisible(false);
+    setActiveField("");
+  };
+
   const onSearch = () => {
     setModal(true);
   };
@@ -88,8 +104,8 @@ function HeaderMenu() {
               <div
                 className={field.className}
                 key={index}
-                onMouseEnter={() => handleMenuHover(field.title)}
-                onMouseLeave={handleMenuLeave}
+                onMouseEnter={() => handleHover(field.title)}
+                onMouseLeave={handleLeave}
               >
                 <Link to={field.href} className="link-menu">
                   {field.title}
@@ -139,6 +155,37 @@ function HeaderMenu() {
                 />
               </Badge>
             </Link>
+          </div>
+          |
+          <div
+            className="content-menu-account"
+            onMouseEnter={handleMenuHover}
+            onMouseLeave={handleMenuLeave}
+          >
+            <Link
+              to={idAccount === null ? "/login" : "#"}
+              className="title-menu-account"
+            >
+              <span className="menu-icon">
+                <UserOutlined />
+              </span>{" "}
+              {idAccount === null ? "Đăng nhập" : "Thông tin"}
+            </Link>
+            {openInfor && idAccount !== null ? (
+              <ul className="dropdown-list-mn">
+                <li className="dropdown-item-mn" onClick={() => nav("/profile")}>
+                  Tài khoản của tôi
+                </li>
+                <li className="dropdown-item-mn" onClick={() => nav("/purchase")}>
+                  Đơn mua
+                </li>
+                <li className="dropdown-item-mn" onClick={logout}>
+                  Đăng xuất
+                </li>
+              </ul>
+            ) : (
+              ""
+            )}
           </div>
           <div className="icon-menu-block">
             <MenuFoldOutlined />

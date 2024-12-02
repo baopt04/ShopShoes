@@ -28,13 +28,13 @@ const ModalDetailCategory = ({ visible, id, onCancel }) => {
 
   return (
     <Modal
-      title="Chi tiết thương hiệu"
+      title="Chi tiết thể loại"
       visible={visible}
       onCancel={handleCancel}
       footer={null}
     >
       <Form layout="vertical">
-        <Form.Item label="Tên thương hiệu">
+        <Form.Item label="Tên thể loại">
           <Input value={category != null ? category.name : null} readOnly />
         </Form.Item>
 

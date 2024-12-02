@@ -102,10 +102,11 @@ const ModalAddListSizeProduct = ({ visible, onCancel, onSaveData }) => {
           }}
         >
           <Button
+            style={{ backgroundColor: "#1677ff", color: "white" }}
             onClick={() => setAddSizeModalVisible(true)}
             icon={<FontAwesomeIcon icon={faPlus} />}
           >
-            Thêm kích thước
+            Thêm kích cỡ
           </Button>
         </div>
         <Row gutter={[16, 16]}>

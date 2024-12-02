@@ -13,7 +13,7 @@
 }
 .list-product {
   display: grid; /* Sử dụng CSS Grid để quản lý bố trí */
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 0px; /* Khoảng cách giữa các CardItem */
 }
 .title-category-of-products {
@@ -26,7 +26,8 @@
   border-radius: 5px;
   color: white;
   font-size: 20px;
-  background-color: rgb(59, 56, 55);
+  background-color: #87cefa;
+  margin-bottom: 20px;
 }
 .title-of-products {
   width: 100%;
@@ -59,7 +60,7 @@
   color: rgb(158, 156, 153);
 }
 .sub-gender:hover {
-  color: #ff4400;
+  color: #87cefa;
 }
 .sub-gender.clicked {
   color: #000;
@@ -115,8 +116,8 @@
 }
 :where(.css-dev-only-do-not-override-1m62vyb).ant-checkbox-checked
   .ant-checkbox-inner {
-  background-color: #ff4400;
-  border-color: #ff4400;
+  background-color: #1677ff;
+  border-color: black;
 }
 @media screen and (max-width: 1170px) {
   .category-of-products {

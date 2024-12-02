@@ -37,7 +37,7 @@ function SalesHeader() {
           <span className="header-icon">
             <FileSearchOutlined />
           </span>{" "}
-          Tra cứu đơn hàng
+          Tra cứu
         </Link>
       </div>
 

@@ -4,6 +4,8 @@ import {
   faEye,
   faFilter,
   faKaaba,
+  faRotateLeft,
+  faL,
   faListAlt,
   faQrcode,
 } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +14,7 @@ import {
   Button,
   Col,
   Input,
+  Form,
   InputNumber,
   Modal,
   Row,
@@ -40,7 +43,7 @@ import ModalPriceAndQuantity from "./modal/ModalPriceAndQuantity";
 const UpdateProductDetailManagment = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const [form] = Form.useForm();
   // Bộ lọc
   const [listMaterial, setListMaterial] = useState([]);
   const [listCategory, setListCategory] = useState([]);
@@ -59,6 +62,10 @@ const UpdateProductDetailManagment = () => {
     setModalVisible(false);
   };
 
+  const handleCancel = () => {
+    setModalVisible(false);
+  };
+
   const listSize = [];
   for (let size = 35; size <= 45; size++) {
     listSize.push(size);
@@ -73,6 +80,9 @@ const UpdateProductDetailManagment = () => {
     ColorApi.getAllCode().then((res) => setListColor(res.data.data));
   };
 
+  const handleShowProductGiveBack = () => {
+    setModalVisible(true);
+  };
   const [selectedValues, setSelectedValues] = useState({
     idProduct: id,
     color: "",
@@ -94,6 +104,26 @@ const UpdateProductDetailManagment = () => {
       [fieldName]: value,
     }));
   };
+
+  const [initialValues, setInitialValues] = useState({
+    giveBack: 0,
+  });
+  const [productId, setProductId] = useState(null);
+
+  const getOne = (id) => {
+    if (!id) return;
+    ProducDetailtApi.getOne(id).then((productData) => {
+      setInitialValues({
+        giveBack: productData.data.data.productGiveBack,
+      });
+    });
+  };
+
+  useEffect(() => {
+    if (productId) {
+      getOne(productId);
+    }
+  }, [productId]);
 
   const handleChangeValuePrice = (value) => {
     const [minPrice, maxPrice] = value;
@@ -151,7 +181,7 @@ const UpdateProductDetailManagment = () => {
       title: "STT",
       dataIndex: "stt",
       key: "stt",
-      sorter: (a, b) => a.stt - b.stt,
+      // sorter: (a, b) => a.stt - b.stt,
     },
     {
       title: "Ảnh",
@@ -217,13 +247,13 @@ const UpdateProductDetailManagment = () => {
       title: "Tên Sản Phẩm",
       dataIndex: "nameProduct",
       key: "nameProduct",
-      sorter: (a, b) => a.nameProduct.localeCompare(b.nameProduct),
+      // sorter: (a, b) => a.nameProduct.localeCompare(b.nameProduct),
     },
     {
       title: "Số Lượng",
       dataIndex: "quantity",
       key: "quantity",
-      sorter: (a, b) => a.quantity - b.quantity,
+      // sorter: (a, b) => a.quantity - b.quantity,
       align: "center",
       render: (text, record, index) => (
         <div>
@@ -245,7 +275,7 @@ const UpdateProductDetailManagment = () => {
       title: "Giá Bán",
       dataIndex: "price",
       key: "price",
-      sorter: (a, b) => a.price - b.price,
+      // sorter: (a, b) => a.price - b.price,
       render: (text, record, index) => (
         <div>
           {temporarySelectedRowKeys.includes(record.id) ? (
@@ -270,7 +300,7 @@ const UpdateProductDetailManagment = () => {
       title: "Kích Thước",
       dataIndex: "size",
       key: "size",
-      sorter: (a, b) => a.quantity - b.quantity,
+      // sorter: (a, b) => a.quantity - b.quantity,
       align: "center",
     },
     {
@@ -283,7 +313,8 @@ const UpdateProductDetailManagment = () => {
           style={{
             backgroundColor: color,
             borderRadius: "6px",
-            width: "60px",
+            width: "40px",
+            marginLeft: "30px",
             height: "25px",
             pointerEvents: "none",
           }}
@@ -317,17 +348,35 @@ const UpdateProductDetailManagment = () => {
       dataIndex: "hanhDong",
       key: "hanhDong",
       render: (text, record) => (
-        <Tooltip title="Chi tiết sản phẩm">
-          <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Tooltip title="Chi tiết sản phẩm">
             <Button
               type="primary"
-              style={{ backgroundColor: "#FF9900" }}
-              onClick={() => handleUpdateClick(record.id)}
+              style={{ backgroundColor: "#1677ff", marginLeft: "35px" }}
+              onClick={() => {
+                console.log("ID của sản phẩm là:", record.id); // Log trực tiếp giá trị id
+
+                handleUpdateClick(record.id); // Gọi hàm xử lý
+              }}
             >
               <FontAwesomeIcon icon={faEye} />
             </Button>
-          </div>
-        </Tooltip>
+          </Tooltip>
+
+          <Tooltip title="Sản phẩm trả về">
+            <Button
+              type="primary"
+              style={{ backgroundColor: "#52c41a" }} // Bạn có thể thay đổi màu sắc tùy ý
+              onClick={() => {
+                console.log("ID của sản phẩm trả là:", record.id);
+
+                handleGiveBackClick(record.id);
+              }}
+            >
+              <FontAwesomeIcon icon={faRotateLeft} />
+            </Button>
+          </Tooltip>
+        </div>
       ),
     },
   ];
@@ -540,7 +589,24 @@ const UpdateProductDetailManagment = () => {
     setModalUpdateVisible(true);
     setSelectedDetail(detail);
   };
+  const handleGiveBackClick = (id) => {
+    ProducDetailtApi.getOne(id)
+      .then((productData) => {
+        console.log(
+          "Giá trị giveBack từ API: ",
+          productData.data.data.productGiveBack
+        );
 
+        form.setFieldsValue({
+          giveBack: productData.data.data.productGiveBack,
+        });
+
+        setModalVisible(true);
+      })
+      .catch((error) => {
+        console.error("Lỗi khi lấy sản phẩm:", error);
+      });
+  };
   const handleModalCancel = () => {
     setModalUpdateVisible(false);
   };
@@ -548,33 +614,31 @@ const UpdateProductDetailManagment = () => {
   return (
     <>
       <div className="title_sole">
-        <span style={{ marginLeft: "10px" }}>Quản lý sản phẩm chi tiết</span>
+        <span style={{ marginLeft: "35%" }}>Quản lý sản phẩm chi tiết</span>
       </div>
-
+      <Modal
+        title="Sản phẩm trả về"
+        visible={modalVisible}
+        onCancel={handleCancel}
+        cancelText="Thoát"
+        style={{ fontWeight: "bold" }}
+        footer={null}
+      >
+        <Form form={form}>
+          <Form.Item label="Số lượng hàng trả" name="giveBack">
+            <Input
+              style={{ fontWeight: "bold", width: "100%", height: "auto" }}
+              readOnly
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
       <div className="filter">
-        <FontAwesomeIcon icon={faFilter} size="2x" />{" "}
+        {/* <FontAwesomeIcon icon={faFilter} size="2x" />{" "} */}
         <span style={{ fontSize: "18px", fontWeight: "500" }}>Bộ lọc</span>
         <hr />
         <div className="box_btn_filter">
           <Row align="middle">
-            <Col span={3} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Chất Liệu :</label>
-            </Col>
-            <Col span={2}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.material}
-                onChange={(value) => handleSelectChange(value, "material")}
-                defaultValue=""
-              >
-                <Option value="">Tất cả</Option>
-                {listMaterial.map((material, index) => (
-                  <Option key={index} value={material.name}>
-                    {material.name}
-                  </Option>
-                ))}
-              </Select>
-            </Col>
             <Col span={3} style={{ textAlign: "right", paddingRight: 10 }}>
               <label>Thương Hiệu :</label>
             </Col>
@@ -588,42 +652,6 @@ const UpdateProductDetailManagment = () => {
                 {listBrand.map((brand, index) => (
                   <Option key={index} value={brand.name}>
                     {brand.name}
-                  </Option>
-                ))}
-              </Select>
-            </Col>
-            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Đế giày :</label>
-            </Col>
-            <Col span={2}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.sole}
-                onChange={(value) => handleSelectChange(value, "sole")}
-                defaultValue=""
-              >
-                <Option value="">Tất cả</Option>
-                {listSole.map((sole, index) => (
-                  <Option key={index} value={sole.name}>
-                    {sole.name}
-                  </Option>
-                ))}
-              </Select>
-            </Col>
-            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Kích cỡ :</label>
-            </Col>
-            <Col span={2}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.size}
-                onChange={(value) => handleSelectChange(value, "size")}
-                defaultValue={null}
-              >
-                <Option value={null}>Tất cả</Option>
-                {listSize.map((size, index) => (
-                  <Option key={index} value={size}>
-                    {size}
                   </Option>
                 ))}
               </Select>
@@ -649,6 +677,61 @@ const UpdateProductDetailManagment = () => {
                         borderRadius: "5px",
                       }}
                     ></div>
+                  </Option>
+                ))}
+              </Select>
+            </Col>
+
+            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+              <label>Đế giày :</label>
+            </Col>
+            <Col span={2}>
+              <Select
+                style={{ width: "100%" }}
+                value={selectedValues.sole}
+                onChange={(value) => handleSelectChange(value, "sole")}
+                defaultValue=""
+              >
+                <Option value="">Tất cả</Option>
+                {listSole.map((sole, index) => (
+                  <Option key={index} value={sole.name}>
+                    {sole.name}
+                  </Option>
+                ))}
+              </Select>
+            </Col>
+            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+              <label>Chất Liệu :</label>
+            </Col>
+            <Col span={2}>
+              <Select
+                style={{ width: "100%" }}
+                value={selectedValues.material}
+                onChange={(value) => handleSelectChange(value, "material")}
+                defaultValue=""
+              >
+                <Option value="">Tất cả</Option>
+                {listMaterial.map((material, index) => (
+                  <Option key={index} value={material.name}>
+                    {material.name}
+                  </Option>
+                ))}
+              </Select>
+            </Col>
+            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+              <label>Kích cỡ :</label>
+            </Col>
+            <Col span={2}>
+              <Select
+                style={{ width: "100%" }}
+                value={selectedValues.size}
+                onChange={(value) => handleSelectChange(value, "size")}
+                defaultValue={null}
+              >
+                <Option value={null}>Tất cả</Option>
+                {listSize.map((size, index) => (
+                  <Option key={index} value={size}>
+                    {size}
                   </Option>
                 ))}
               </Select>
@@ -706,7 +789,7 @@ const UpdateProductDetailManagment = () => {
               </Select>
             </Col>
 
-            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+            {/* <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
               <label>Khoảng giá :</label>
             </Col>
             <Col span={3}>
@@ -723,7 +806,7 @@ const UpdateProductDetailManagment = () => {
                 tipFormatter={(value) => formatCurrency(value)}
                 onChange={handleChangeValuePrice}
               />
-            </Col>
+            </Col> */}
           </Row>
         </div>
       </div>
@@ -733,10 +816,10 @@ const UpdateProductDetailManagment = () => {
           className="title_product"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <FontAwesomeIcon
+          {/* <FontAwesomeIcon
             icon={faListAlt}
             style={{ fontSize: "26px", marginRight: "10px" }}
-          />
+          /> */}
           <span style={{ fontSize: "18px", fontWeight: "500" }}>
             Danh sách sản phẩm chi tiết
           </span>
@@ -771,7 +854,7 @@ const UpdateProductDetailManagment = () => {
             dataSource={listProductDetails}
             rowKey="id"
             columns={columns}
-            pagination={{ pageSize: 5 }}
+            pagination={{ pageSize: 10 }}
             className="product-table"
             rowClassName={getRowClassName}
           />

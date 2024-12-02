@@ -30,7 +30,6 @@ import { ColorApi } from "../../../api/employee/color/Color.api";
 import { Option } from "antd/es/mentions";
 
 const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
-
   // Bộ lọc
   const [listMaterial, setListMaterial] = useState([]);
   const [listCategory, setListCategory] = useState([]);
@@ -121,7 +120,7 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
   useEffect(() => {
     setSelectedValues((prevValues) => ({
       ...prevValues,
-      idProduct: id, 
+      idProduct: id,
     }));
   }, [id, visible]);
 
@@ -157,7 +156,7 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
       dataIndex: "stt",
       key: "stt",
       width: "5%",
-      sorter: (a, b) => a.stt - b.stt,
+      // sorter: (a, b) => a.stt - b.stt,
     },
     {
       title: "Ảnh",
@@ -168,7 +167,7 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
           <img
             src={text}
             alt="Ảnh sản phẩm"
-            style={{ width: "100px", borderRadius: "10%", height: "100px" }}
+            style={{ width: "80px", borderRadius: "10%", height: "50px" }}
           />
           {record.promotion !== null && (
             <div
@@ -204,7 +203,7 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
               <span
                 style={{
                   position: "absolute",
-                  top: "60%", 
+                  top: "60%",
                   left: "50%", // Để "Giảm" nằm chính giữa biểu tượng
                   transform: "translate(-50%, -50%)", // Dịch chuyển "Giảm" đến vị trí chính giữa
                   fontSize: "0.8em",
@@ -223,20 +222,20 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
       title: "Tên Sản Phẩm",
       dataIndex: "nameProduct",
       key: "nameProduct",
-      sorter: (a, b) => a.nameProduct.localeCompare(b.nameProduct),
+      // sorter: (a, b) => a.nameProduct.localeCompare(b.nameProduct),
     },
     {
       title: "Giá Bán",
       dataIndex: "price",
       key: "price",
-      sorter: (a, b) => a.price - b.price,
+      // sorter: (a, b) => a.price - b.price,
       render: (text) => formatCurrency(text),
     },
     {
       title: "Số Lượng ",
       dataIndex: "quantity",
       key: "quantity",
-      sorter: (a, b) => a.quantity - b.quantity,
+      // sorter: (a, b) => a.quantity - b.quantity,
       align: "center",
     },
     {
@@ -244,7 +243,7 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
       dataIndex: "size",
       key: "size",
       width: "10%",
-      sorter: (a, b) => a.quantity - b.quantity,
+      // sorter: (a, b) => a.quantity - b.quantity,
       align: "center",
     },
     {
@@ -257,7 +256,8 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
           style={{
             backgroundColor: color,
             borderRadius: "6px",
-            width: "60px",
+            width: "40px",
+            marginLeft: "30px",
             height: "25px",
             pointerEvents: "none", // Ngăn chặn sự kiện click
           }}
@@ -278,24 +278,24 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
         );
       },
     },
-    {
-      title: "Hành động",
-      dataIndex: "hanhDong",
-      key: "hanhDong",
-      width: "10%",
-      render: (text, record) => (
-        <div style={{ display: "flex", gap: "10px" }}>
-          <Button
-            type="primary"
-            title="Chi tiết thể loại"
-            style={{ backgroundColor: "#FF9900" }}
-            // onClick={() => handleViewDetail(record.id)}
-          >
-            <FontAwesomeIcon icon={faEye} />
-          </Button>
-        </div>
-      ),
-    },
+    // {
+    //   title: "Hành động",
+    //   dataIndex: "hanhDong",
+    //   key: "hanhDong",
+    //   width: "10%",
+    //   render: (text, record) => (
+    //     <div style={{ display: "flex", gap: "10px" }}>
+    //       <Button
+    //         type="primary"
+    //         title="Chi tiết thể loại"
+    //         style={{ backgroundColor: "#1677ff", marginLeft: "30px" }}
+    //         // onClick={() => handleViewDetail(record.id)}
+    //       >
+    //         <FontAwesomeIcon icon={faEye} />
+    //       </Button>
+    //     </div>
+    //   ),
+    // },
   ];
 
   const [listProductDetails, setListProductDetails] = useState([]);
@@ -313,17 +313,17 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
   return (
     <Modal visible={visible} onCancel={onCancel} footer={null} width={1200}>
       <div className="title_sole">
-        <FontAwesomeIcon icon={faKaaba} style={{ fontSize: "26px" }} />
-        <span style={{ marginLeft: "10px" }}>Quản lý sản phẩm chi tiết</span>
+        {/* <FontAwesomeIcon icon={faKaaba} style={{ fontSize: "26px" }} /> */}
+        <span style={{ marginLeft: "35%" }}>Quản lý sản phẩm chi tiết</span>
       </div>
 
       <div className="filter">
-        <FontAwesomeIcon icon={faFilter} size="2x" />{" "}
+        {/* <FontAwesomeIcon icon={faFilter} size="2x" />{" "} */}
         <span style={{ fontSize: "18px", fontWeight: "500" }}>Bộ lọc</span>
         <hr />
         <div className="content">
           <div className="content-wrapper">
-            <div>
+            {/* <div>
               <Input
                 value={search}
                 onChange={handleChange}
@@ -345,29 +345,11 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
               >
                 Làm mới
               </Button>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="box_btn_filter">
           <Row align="middle">
-            <Col span={3} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Chất Liệu :</label>
-            </Col>
-            <Col span={2}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.material}
-                onChange={(value) => handleSelectChange(value, "material")}
-                defaultValue=""
-              >
-                <Option value="">Tất cả</Option>
-                {listMaterial.map((material, index) => (
-                  <Option key={index} value={material.name}>
-                    {material.name}
-                  </Option>
-                ))}
-              </Select>
-            </Col>
             <Col span={3} style={{ textAlign: "right", paddingRight: 10 }}>
               <label>Thương Hiệu :</label>
             </Col>
@@ -381,42 +363,6 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
                 {listBrand.map((brand, index) => (
                   <Option key={index} value={brand.name}>
                     {brand.name}
-                  </Option>
-                ))}
-              </Select>
-            </Col>
-            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Đế giày :</label>
-            </Col>
-            <Col span={2}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.sole}
-                onChange={(value) => handleSelectChange(value, "sole")}
-                defaultValue=""
-              >
-                <Option value="">Tất cả</Option>
-                {listSole.map((sole, index) => (
-                  <Option key={index} value={sole.name}>
-                    {sole.name}
-                  </Option>
-                ))}
-              </Select>
-            </Col>
-            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Kích cỡ :</label>
-            </Col>
-            <Col span={2}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.size}
-                onChange={(value) => handleSelectChange(value, "size")}
-                defaultValue={null}
-              >
-                <Option value={null}>Tất cả</Option>
-                {listSize.map((size, index) => (
-                  <Option key={index} value={size}>
-                    {size}
                   </Option>
                 ))}
               </Select>
@@ -442,6 +388,60 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
                         borderRadius: "5px",
                       }}
                     ></div>
+                  </Option>
+                ))}
+              </Select>
+            </Col>
+            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+              <label>Đế giày :</label>
+            </Col>
+            <Col span={2}>
+              <Select
+                style={{ width: "100%" }}
+                value={selectedValues.sole}
+                onChange={(value) => handleSelectChange(value, "sole")}
+                defaultValue=""
+              >
+                <Option value="">Tất cả</Option>
+                {listSole.map((sole, index) => (
+                  <Option key={index} value={sole.name}>
+                    {sole.name}
+                  </Option>
+                ))}
+              </Select>
+            </Col>
+            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+              <label>Chất Liệu :</label>
+            </Col>
+            <Col span={2}>
+              <Select
+                style={{ width: "100%" }}
+                value={selectedValues.material}
+                onChange={(value) => handleSelectChange(value, "material")}
+                defaultValue=""
+              >
+                <Option value="">Tất cả</Option>
+                {listMaterial.map((material, index) => (
+                  <Option key={index} value={material.name}>
+                    {material.name}
+                  </Option>
+                ))}
+              </Select>
+            </Col>
+            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+              <label>Kích cỡ :</label>
+            </Col>
+            <Col span={2}>
+              <Select
+                style={{ width: "100%" }}
+                value={selectedValues.size}
+                onChange={(value) => handleSelectChange(value, "size")}
+                defaultValue={null}
+              >
+                <Option value={null}>Tất cả</Option>
+                {listSize.map((size, index) => (
+                  <Option key={index} value={size}>
+                    {size}
                   </Option>
                 ))}
               </Select>
@@ -499,7 +499,7 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
               </Select>
             </Col>
 
-            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+            {/* <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
               <label>Khoảng giá :</label>
             </Col>
             <Col span={3}>
@@ -516,7 +516,7 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
                 tipFormatter={(value) => formatCurrency(value)}
                 onChange={handleChangeValuePrice}
               />
-            </Col>
+            </Col> */}
           </Row>
         </div>
       </div>
@@ -526,19 +526,20 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
           className="title_product"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <FontAwesomeIcon
+          {/* <FontAwesomeIcon
             icon={faListAlt}
             style={{ fontSize: "26px", marginRight: "10px" }}
-          />
+          /> */}
           <span style={{ fontSize: "18px", fontWeight: "500" }}>
             Danh sách sản phẩm chi tiết
           </span>
+          <hr />
         </div>
         <Table
           dataSource={listProductDetails}
           rowKey="id"
           columns={columns}
-          pagination={{ pageSize: 5 }}
+          pagination={{ pageSize: 10 }}
           scroll={{ y: 400 }}
           rowClassName={getRowClassName}
         />

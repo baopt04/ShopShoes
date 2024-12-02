@@ -92,6 +92,7 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
   useEffect(() => {
     if (id != null && id !== "") {
       getOne();
+
       getListImage();
     }
   }, [id]);
@@ -381,7 +382,7 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
                   <Button
                     type="primary"
                     icon={<FontAwesomeIcon icon={faPlus} />}
-                    style={{ height: 30 }}
+                    style={{ height: 40 }}
                     onClick={() => setModalAddBrand(true)}
                   />
                 </Tooltip>
@@ -417,7 +418,7 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
                 <Button
                   type="primary"
                   icon={<FontAwesomeIcon icon={faPlus} />}
-                  style={{ height: 30 }}
+                  style={{ height: 40 }}
                 ></Button>
               </Form.Item>
             </Col>
@@ -450,7 +451,7 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
                   <Button
                     type="primary"
                     icon={<FontAwesomeIcon icon={faPlus} />}
-                    style={{ height: 30 }}
+                    style={{ height: 40 }}
                     onClick={() => setModalAddMaterial(true)}
                   />
                 </Tooltip>
@@ -478,75 +479,9 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
                   <Button
                     type="primary"
                     icon={<FontAwesomeIcon icon={faPlus} />}
-                    style={{ height: 30 }}
+                    style={{ height: 40 }}
                     onClick={() => setModalAddSole(true)}
                   />
-                </Tooltip>
-              </Form.Item>
-            </Col>
-          </Row>
-
-          <Row gutter={7} justify="space-around">
-            <Col span={8}>
-              <Form.Item
-                label="Giới Tính"
-                name="gender"
-                style={{ fontWeight: "bold" }}
-                rules={[{ required: true, message: "Vui lòng chọn giới tính" }]}
-              >
-                <Select placeholder="Chọn giới tính">
-                  <Option value="NAM">
-                    <span style={{ fontWeight: "bold" }}>Nam</span>
-                  </Option>
-                  <Option value="NU">
-                    {" "}
-                    <span style={{ fontWeight: "bold" }}>Nữ</span>
-                  </Option>
-                  <Option value="NAM_VA_NU">
-                    {" "}
-                    <span style={{ fontWeight: "bold" }}>Nam và Nữ</span>
-                  </Option>
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={5}>
-              <Form.Item>
-                <Tooltip title="Thêm giới tính">
-                  <Button
-                    type="primary"
-                    icon={<FontAwesomeIcon icon={faPlus} />}
-                    style={{ height: 30 }}
-                  />
-                </Tooltip>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item
-                label="Thể loại"
-                name="categoryId"
-                style={{ fontWeight: "bold" }}
-                rules={[{ required: true, message: "Vui lòng chọn thể loại" }]}
-              >
-                <Select placeholder="Chọn thể loại">
-                  {dataCategory.map((category, index) => (
-                    <Option key={index} value={category.id}>
-                      <span style={{ fontWeight: "bold" }}>
-                        {category.name}
-                      </span>
-                    </Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={2}>
-              <Form.Item>
-                <Tooltip title="Thêm thể loại">
-                  <Button
-                    type="primary"
-                    icon={<FontAwesomeIcon icon={faPlus} />}
-                    style={{ height: 30 }}
-                    onClick={() => setModalAddCategory(true)}
-                  ></Button>
                 </Tooltip>
               </Form.Item>
             </Col>
@@ -582,8 +517,75 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
                   <Button
                     type="primary"
                     icon={<FontAwesomeIcon icon={faPlus} />}
-                    style={{ height: 30 }}
+                    style={{ height: 40 }}
                     onClick={() => setModalAddColor(true)}
+                  />
+                </Tooltip>
+              </Form.Item>
+            </Col>
+
+            <Col span={8}>
+              <Form.Item
+                label="Thể loại"
+                name="categoryId"
+                style={{ fontWeight: "bold" }}
+                rules={[{ required: true, message: "Vui lòng chọn thể loại" }]}
+              >
+                <Select placeholder="Chọn thể loại">
+                  {dataCategory.map((category, index) => (
+                    <Option key={index} value={category.id}>
+                      <span style={{ fontWeight: "bold" }}>
+                        {category.name}
+                      </span>
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={2}>
+              <Form.Item>
+                <Tooltip title="Thêm thể loại">
+                  <Button
+                    type="primary"
+                    icon={<FontAwesomeIcon icon={faPlus} />}
+                    style={{ height: 40 }}
+                    onClick={() => setModalAddCategory(true)}
+                  ></Button>
+                </Tooltip>
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={7} justify="space-around">
+            <Col span={8}>
+              <Form.Item
+                label="Giới Tính"
+                name="gender"
+                style={{ fontWeight: "bold" }}
+                rules={[{ required: true, message: "Vui lòng chọn giới tính" }]}
+              >
+                <Select placeholder="Chọn giới tính">
+                  <Option value="NAM">
+                    <span style={{ fontWeight: "bold" }}>Nam</span>
+                  </Option>
+                  <Option value="NU">
+                    {" "}
+                    <span style={{ fontWeight: "bold" }}>Nữ</span>
+                  </Option>
+                  <Option value="NAM_VA_NU">
+                    {" "}
+                    <span style={{ fontWeight: "bold" }}>Nam và Nữ</span>
+                  </Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={5}>
+              <Form.Item>
+                <Tooltip title="Thêm giới tính">
+                  <Button
+                    type="primary"
+                    icon={<FontAwesomeIcon icon={faPlus} />}
+                    style={{ height: 40 }}
                   />
                 </Tooltip>
               </Form.Item>
@@ -612,7 +614,7 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
                   <Button
                     type="primary"
                     icon={<FontAwesomeIcon icon={faPlus} />}
-                    style={{ height: 30 }}
+                    style={{ height: 40 }}
                   />
                 </Tooltip>
               </Form.Item>
@@ -667,23 +669,10 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
           </Row>
 
           <Row gutter={7} justify="space-around">
+            {/* <Col span={1}></Col> */}
             <Col span={8}>
               <Form.Item
-                label="Số Lượng Hàng Trả"
-                name="giveBack"
-                style={{ fontWeight: "bold" }}
-                rules={[{ required: true, message: "Vui lòng nhập số lượng" }]}
-              >
-                <InputNumber
-                  readOnly
-                  style={{ fontWeight: "bold", width: "100%", height: "40px" }}
-                />
-              </Form.Item>
-            </Col>
-            <Col span={5}></Col>
-            <Col span={8}>
-              <Form.Item
-                label="QR Code : "
+                // label="QR Code : "
                 name="QRCode"
                 style={{ fontWeight: "bold" }}
                 rules={[{ required: true, message: "Ảnh Qr sản phẩm" }]}
@@ -691,11 +680,11 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
                 <img
                   src={initialValues.QRCode}
                   alt="QR Code"
-                  style={{ width: "50%", height: "auto" }}
+                  style={{ marginLeft: 60, width: "50%", height: "auto" }}
                 />
               </Form.Item>
             </Col>
-            <Col span={2}></Col>
+            {/* <Col span={2}></Col> */}
           </Row>
         </Form>
         <ModalCreateSole visible={modalAddSole} onCancel={handleCancel} />
