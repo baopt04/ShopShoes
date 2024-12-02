@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.util.expiredPoin;
 
-import com.example.shopshoes.server.reponsitory.UserReposiory;
+import com.example.shopshoes.server.repository.UserReposiory;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

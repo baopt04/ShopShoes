@@ -1,4 +1,4 @@
-package com.example.shopshoes.server.reponsitory;
+package com.example.shopshoes.server.repository;
 
 import com.example.shopshoes.server.dto.response.voucher.VoucherDetailCustomAtCountry;
 import com.example.shopshoes.server.entity.Bill;

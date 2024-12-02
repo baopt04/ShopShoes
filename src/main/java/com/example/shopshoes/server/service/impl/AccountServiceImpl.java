@@ -6,8 +6,8 @@ import com.example.shopshoes.server.dto.response.employee.SimpleEmployeeResponse
 import com.example.shopshoes.server.entity.Account;
 import com.example.shopshoes.server.infrastructure.constant.Message;
 import com.example.shopshoes.server.infrastructure.exception.rest.RestApiException;
-import com.example.shopshoes.server.reponsitory.AccountRepository;
-import com.example.shopshoes.server.reponsitory.UserReposiory;
+import com.example.shopshoes.server.repository.AccountRepository;
+import com.example.shopshoes.server.repository.UserReposiory;
 import com.example.shopshoes.server.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
