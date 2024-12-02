@@ -1015,7 +1015,7 @@ function CreateBill({
           ) {
             Modal.confirm({
               title: "Xác nhận",
-              content: "Bạn có xác nhận đặt hàng không?",
+              content: "Bạn có xác nhận đặt hàng không ?",
               okText: "Đồng ý",
               cancelText: "Hủy",
               onOk: async () => {
@@ -1048,7 +1048,7 @@ function CreateBill({
         ) {
           Modal.confirm({
             title: "Xác nhận",
-            content: "Bạn có xác nhận đặt hàng không?",
+            content: "Bạn có xác nhận thanh toán không ?",
             okText: "Đồng ý",
             cancelText: "Hủy",
             onOk: async () => {

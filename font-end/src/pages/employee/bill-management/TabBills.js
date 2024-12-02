@@ -86,7 +86,7 @@ function TabBills({ statusBill, dataFillter, addNotify, quantityNotify }) {
           style={{
             border: "none",
             textAlign: "center",
-            backgroundColor: "#FF9900",
+            backgroundColor: "#1677ff",
             marginLeft: "35px",
           }}
           title="Chi tiết hóa đơn"

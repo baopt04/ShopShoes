@@ -270,7 +270,7 @@ function DetailBill() {
       title: "Xác nhận",
       content: "Bạn có đồng ý xác nhận không?",
       okText: "Đồng ý",
-      cancelText: "Hủy",
+      cancelText: "Hủy ",
       onOk: async () => {
         var data = paymentsMethod.map((item) => item.id);
         await PaymentsMethodApi.updateStatus(id, data).then((res) => {
@@ -599,7 +599,7 @@ function DetailBill() {
           await BillApi.fetchAllHistoryInBillByIdBill(id).then((res) => {
             dispatch(getBillHistory(res.data.data));
           });
-          toast.success("Xác nhận thành công");
+          toast.success("Chuyển trạng thái thành công");
           setIsModalOpenChangeStatus(false);
         },
         onCancel: () => {
@@ -1088,7 +1088,10 @@ function DetailBill() {
                     span={
                       statusPresent > 1 &&
                       bill.shippingTime != null &&
-                      bill.statusBill !== "TRA_HANG"
+                      bill.statusBill !== "TRA_HANG" &&
+                      bill.statusBill !== "VAN_CHUYEN" &&
+                      bill.statusBill !== "DA_THANH_TOAN" &&
+                      bill.statusBill !== "THANH_CONG"
                         ? 5
                         : 0
                     }
@@ -1096,7 +1099,10 @@ function DetailBill() {
                     {" "}
                     {statusPresent > 1 &&
                     bill.shippingTime != null &&
-                    bill.statusBill !== "TRA_HANG" ? (
+                    bill.statusBill !== "TRA_HANG" &&
+                    bill.statusBill !== "VAN_CHUYEN" &&
+                    bill.statusBill !== "DA_THANH_TOAN" &&
+                    bill.statusBill !== "THANH_CONG" ? (
                       <Button
                         type="danger"
                         className="btn btn-danger"
@@ -1104,7 +1110,7 @@ function DetailBill() {
                         style={{
                           fontSize: "medium",
                           fontWeight: "500",
-                          marginLeft: "20px",
+                          marginLeft: "10px",
                           backgroundColor: "##FFFF00",
                           border: "solid 1px #DDDDDD",
                           color: "black",
@@ -1130,12 +1136,12 @@ function DetailBill() {
                         style={{
                           fontSize: "medium",
                           fontWeight: "500",
-                          marginLeft: "20px",
+                          // marginLeft: "10px",
                           backgroundColor: "red",
                           color: "white",
                         }}
                       >
-                        Hủy
+                        Hủy đơn hàng
                       </Button>
                     ) : (
                       <div></div>
@@ -1151,10 +1157,10 @@ function DetailBill() {
                     fontSize: "medium",
                     fontWeight: "500",
                     marginRight: "20px",
-                    backgroundColor: "#FFCC00",
+                    backgroundColor: "orange",
                   }}
                 >
-                  Lịch sử
+                  Lịch sử tác động
                 </Button>
               </Col>
             </Row>
@@ -1182,7 +1188,7 @@ function DetailBill() {
                       rules={[
                         {
                           required: true,
-                          message: "Vui lòng nhập mô tả",
+                          message: "Vui lòng nhập mô tả ",
                         },
                         {
                           validator: (_, value) => {

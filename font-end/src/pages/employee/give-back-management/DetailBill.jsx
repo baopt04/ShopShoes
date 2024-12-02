@@ -228,10 +228,10 @@ export default function DetailBillGiveBack() {
       align: "center",
       render: (text, record) => (
         <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-          <Tooltip title="Hoàn trả hàng">
+          <Tooltip title="">
             <Button
               type="primary"
-              style={{ backgroundColor: "#20B2AA" }}
+              style={{ backgroundColor: "red" }}
               onClick={() => handleModalQuantityGiveBack(record)}
               disabled={
                 bill.statusBill !== "THANH_CONG" || record.promotion !== null
@@ -809,7 +809,7 @@ export default function DetailBillGiveBack() {
               Thông tin đơn hàng
             </h1>
             <Row justify={"end"}>
-              <Tooltip title="Trả hàng hòa toàn">
+              <Tooltip title="">
                 <Button
                   type="primary"
                   style={{
@@ -843,7 +843,7 @@ export default function DetailBillGiveBack() {
                 }}
               >
                 <h1 style={{ fontSize: "22px", marginBottom: "10px" }}>
-                  Thông tin đơn hàng trả
+                  Thông tin sản phẩm trả hàng
                 </h1>
                 {dataProductGiveBack.length > 0 ? (
                   <div className="table-bill-give-back">
@@ -954,22 +954,9 @@ export default function DetailBillGiveBack() {
                     <h3> {formatCurrency(totalMoneyBillGiveBack())}</h3>
                   </Col>
                 </Row>
-                <Row style={{ marginTop: "30px" }}>
-                  <Col span={12}>
-                    <h3>Voucher mới: </h3>
-                  </Col>
-                  <Col span={12}>
-                    <h3>
-                      {" "}
-                      {voucher === null
-                        ? formatCurrency(0)
-                        : formatDiscountValue(voucher.value)}
-                    </h3>
-                  </Col>
-                </Row>
                 <br />
                 <hr />
-                <Tooltip title="Tổng tiền trả khách  = Tổng giá hàng trả - Voucher đã sử dụng - số điểm sử dụng + Voucher mới ">
+                <Tooltip title="">
                   <Row style={{ marginTop: "30px" }}>
                     <Col span={12}>
                       <h3>Tổng tiền trả khách : </h3>
@@ -1002,13 +989,9 @@ export default function DetailBillGiveBack() {
                                       (bill.voucherValue < 100
                                         ? totalMoneyBillGiveBack() *
                                           (bill.voucherValue / 100)
-                                        : bill.voucherValue) +
-                                      (voucher !== null ? voucher.value : 0)
+                                        : bill.voucherValue)
                                   )
-                                : formatCurrency(
-                                    totalMoneyBillGiveBack() +
-                                      (voucher !== null ? voucher.value : 0)
-                                  )
+                                : formatCurrency(totalMoneyBillGiveBack())
                               : formatCurrency(totalMoneyBillGiveBack())}
                           </h3>
                         )
@@ -1042,7 +1025,7 @@ export default function DetailBillGiveBack() {
                       <Input.TextArea
                         rows={5}
                         placeholder="Nhập mô tả "
-                        style={{ width: "300px" }}
+                        style={{ width: "300px", marginLeft: 40 }}
                         onKeyDown={(e) => {
                           if (e.key === " " && e.target.value === "") {
                             e.preventDefault();
@@ -1053,7 +1036,7 @@ export default function DetailBillGiveBack() {
                     </Form.Item>
                   </Col>
                 </Row>
-                <Tooltip title="Trả hàng">
+                <Tooltip title="">
                   <Button
                     style={{
                       width: "100%",
@@ -1064,7 +1047,7 @@ export default function DetailBillGiveBack() {
                     }}
                     onClick={handleSuccessGiveBack}
                   >
-                    <h2>Trả hàng</h2>
+                    <h2>Trả sản phẩm</h2>
                   </Button>
                 </Tooltip>
               </Card>

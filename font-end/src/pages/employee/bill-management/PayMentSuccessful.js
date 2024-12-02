@@ -93,14 +93,37 @@ function PayMentSuccessful() {
         toast.error(error.response.data.message);
       });
   }, []);
+  const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
 
+  const createFireworks = (num = 10) => {
+    const fireworks = [];
+    for (let i = 0; i < num; i++) {
+      const color = getRandomColor(); // Màu ngẫu nhiên cho mỗi quả pháo
+      fireworks.push(
+        <div
+          key={i}
+          className="firework"
+          style={{ backgroundColor: color }}
+        ></div>
+      );
+    }
+    return fireworks;
+  };
   const [loadLink, setLoadLink] = useState(true);
 
   return (
     <>
-      {/* <div className="header-payment-success">
-        <img className="logo-payment-success" src={logo} alt="logo" />
-      </div> */}
+      <div className="fireworks-container">
+        {/* Hiển thị các pháo từ vị trí ngẫu nhiên */}
+        {createFireworks(10)}
+      </div>
       <div
         style={{
           display: "flex",

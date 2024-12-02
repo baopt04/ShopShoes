@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Input,
-  Button,
-  Select,
-  Table,
-  Row,
-  Col,
-  Tooltip,
-  Modal,
-} from "antd";
+import { Input, Button, Select, Table, Row, Col, Tooltip, Modal } from "antd";
 import "react-toastify/dist/ReactToastify.css";
 import "../../account-management/style-staff.css";
 import { AccountApi } from "../../../../api/employee/account/account.api";
@@ -20,14 +11,10 @@ import {
 import { GetAddress } from "../../../../app/reducer/Address.reducer";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleCheck,
- 
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck, faCheck } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment/moment";
 import { BillApi } from "../../../../api/employee/bill/bill.api";
 import { toast } from "react-toastify";
-
 
 const ModalAccountEmployee = ({ dataIdCheck, handleCancel, status }) => {
   const [listAddress, setListAddress] = useState([]);
@@ -212,7 +199,7 @@ const ModalAccountEmployee = ({ dataIdCheck, handleCancel, status }) => {
       title: "STT",
       dataIndex: "stt",
       key: "stt",
-      sorter: (a, b) => a.stt - b.stt,
+      // sorter: (a, b) => a.stt - b.stt,
     },
     {
       title: "Ảnh",
@@ -222,7 +209,7 @@ const ModalAccountEmployee = ({ dataIdCheck, handleCancel, status }) => {
         <img
           src={avata}
           alt="Hình ảnh"
-          style={{ width: "150px", height: "110px", borderRadius: "20px" }}
+          style={{ width: "80px", height: "50px", borderRadius: "20px" }}
         />
       ),
     },
@@ -230,20 +217,20 @@ const ModalAccountEmployee = ({ dataIdCheck, handleCancel, status }) => {
       title: "Tên nhân viên",
       dataIndex: "fullName",
       key: "fullName",
-      sorter: (a, b) => a.fullName.localeCompare(b.fullName),
+      // sorter: (a, b) => a.fullName.localeCompare(b.fullName),
     },
 
     {
       title: "CCCD",
       dataIndex: "citizenIdentity",
       key: "citizenIdentity",
-      sorter: (a, b) => a.citizenIdentity.localeCompare(b.citizenIdentity),
+      // sorter: (a, b) => a.citizenIdentity.localeCompare(b.citizenIdentity),
     },
     {
       title: "Số điện thoại",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
-      sorter: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
+      // sorter: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
     },
     // {
     //   title: "Địa chỉ",
@@ -259,14 +246,14 @@ const ModalAccountEmployee = ({ dataIdCheck, handleCancel, status }) => {
       title: "Ngày sinh",
       dataIndex: "dateOfBirth",
       key: "dateOfBirth",
-      sorter: (a, b) => a.dateOfBirth - b.dateOfBirth,
+      // sorter: (a, b) => a.dateOfBirth - b.dateOfBirth,
       render: (date) => moment(date).format("DD/MM/YYYY"),
     },
     {
       title: "Giới tính",
       dataIndex: "gender",
       key: "gender",
-      sorter: (a, b) => a.gender.localeCompare(b.gender),
+      // sorter: (a, b) => a.gender.localeCompare(b.gender),
       render: (gender) => (gender ? "Nam" : "Nữ"),
     },
     {
@@ -292,12 +279,12 @@ const ModalAccountEmployee = ({ dataIdCheck, handleCancel, status }) => {
           <Tooltip title="Chọn nhân viên">
             <Button
               type="primary"
-              style={{ backgroundColor: "#FF9900" }}
+              style={{ backgroundColor: "#1677ff", marginLeft: 20 }}
               onClick={() =>
                 ChangeAllEmployeeInBill(record.id, record.fullName)
               }
             >
-              <FontAwesomeIcon icon={faCircleCheck} />
+              <FontAwesomeIcon icon={faCheck} />
             </Button>
           </Tooltip>
         </div>
@@ -315,37 +302,39 @@ const ModalAccountEmployee = ({ dataIdCheck, handleCancel, status }) => {
         okText: "Đồng ý",
         cancelText: "Hủy",
         onOk: async () => {
-          if(status){
+          if (status) {
             var data = {
               ids: dataIdCheck,
               idEmployee: id,
             };
-            await BillApi.ChangeAllEmployeeInBill(data).then((response) => {
-              if (response.data.data == true) {
-                toast.success(`chuyển hóa đơn thành công`);
-              }
-              handleCancel();
-            }).catch((error) => {
-              toast.error(error.response.data.message);
-            });;
-          }else{
+            await BillApi.ChangeAllEmployeeInBill(data)
+              .then((response) => {
+                if (response.data.data == true) {
+                  toast.success(`chuyển hóa đơn thành công`);
+                }
+                handleCancel();
+              })
+              .catch((error) => {
+                toast.error(error.response.data.message);
+              });
+          } else {
             var data = {
               id: dataIdCheck,
               idEmployee: id,
             };
-            await BillApi.ChangeEmployeeInBill(data).then((response) => {
-              if (response.data.data == true) {
-                toast.success(`chuyển hóa đơn thành công`);
-              }
-              handleCancel();
-            }).catch((error) => {
-              toast.error(error.response.data.message);
-            });;
+            await BillApi.ChangeEmployeeInBill(data)
+              .then((response) => {
+                if (response.data.data == true) {
+                  toast.success(`chuyển hóa đơn thành công`);
+                }
+                handleCancel();
+              })
+              .catch((error) => {
+                toast.error(error.response.data.message);
+              });
           }
-         
         },
-        onCancel: () => {
-        },
+        onCancel: () => {},
       });
     }
   };
@@ -361,7 +350,7 @@ const ModalAccountEmployee = ({ dataIdCheck, handleCancel, status }) => {
                   marginLeft: "19px",
                   marginBottom: "20px",
                 }}
-                placeholder="Tìm kiếm tên và sđt... "
+                placeholder="Tìm kiếm theo số điện thoại và tên nhân viên...."
                 type="text"
                 name="keyword"
                 value={searchAccount.keyword}
@@ -385,9 +374,9 @@ const ModalAccountEmployee = ({ dataIdCheck, handleCancel, status }) => {
           dataSource={listaccount}
           rowKey="id"
           columns={columns}
-          pagination={{ 
-            pageSize: 10, 
-            showSizeChanger: false 
+          pagination={{
+            pageSize: 10,
+            showSizeChanger: false,
           }}
           className="account-table"
           rowClassName={getRowClassName}
