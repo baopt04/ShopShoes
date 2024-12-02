@@ -1,7 +1,5 @@
 package com.example.shopshoes.server.dto.response.bill;
-/*
- *  @author diemdz
- */
+
 
 import com.example.shopshoes.server.dto.request.bill.billcustomer.BillDetailOnline;
 import com.example.shopshoes.server.entity.BillDetail;

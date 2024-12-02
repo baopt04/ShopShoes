@@ -5,9 +5,7 @@ import com.example.shopshoes.server.entity.BillHistory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
-/**
- * @author thangdt
- */
+
 @Projection(types = {Bill.class, BillHistory.class})
 public interface BillHistoryResponse {
 

@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
 
-/**
- * @author thangdt
- */
+
 public interface HistoryPoinResponse {
 
     @Value("#{target.code}")

@@ -7,9 +7,7 @@ import org.springframework.data.rest.core.config.Projection;
 
 import java.math.BigDecimal;
 
-/**
- * @author thangdt
- */
+
 @Projection(types = {Bill.class, User.class})
 public interface BillResponseAtCounter {
 

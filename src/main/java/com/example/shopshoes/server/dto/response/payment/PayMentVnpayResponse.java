@@ -7,9 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-/**
- * @author thangdt
- */
+
 @Getter
 @Setter
 public class PayMentVnpayResponse {

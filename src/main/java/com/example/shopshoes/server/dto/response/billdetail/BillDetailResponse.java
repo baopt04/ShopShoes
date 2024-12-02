@@ -10,9 +10,7 @@ import org.springframework.data.rest.core.config.Projection;
 
 import java.math.BigDecimal;
 
-/**
- * @author thangdt
- */
+
 @Projection(types = {Bill.class, BillDetail.class, ProductDetail.class, Product.class, Size.class})
 public interface BillDetailResponse {
 

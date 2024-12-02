@@ -1,7 +1,5 @@
 package com.example.shopshoes.server.dto.request.bill.billcustomer;
-/*
- *  @author diemdz
- */
+
 
 import lombok.Getter;
 import lombok.Setter;

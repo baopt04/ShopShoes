@@ -1,6 +1,5 @@
-package com.example.shopshoes.server.reponsitory;
+package com.example.shopshoes.server.repository;
 
-import com.example.shopshoes.server.dto.request.bill.FindNewBillCreateAtCounterRequest;
 import com.example.shopshoes.server.dto.request.billdetail.BillDetailRequest;
 import com.example.shopshoes.server.dto.response.billdetail.BillDetailResponse;
 import com.example.shopshoes.server.entity.BillDetail;
@@ -9,7 +8,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public interface BillDetailRepository extends JpaRepository<BillDetail, String> {
