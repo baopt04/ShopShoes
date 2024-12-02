@@ -36,11 +36,6 @@ export default function GiveBackManagement() {
   return (
     <>
       <Card className="contaier-give-back" style={{ height: "80vh" }}>
-        <FontAwesomeIcon
-          icon={faTruckArrowRight}
-          style={{ fontSize: "30px" }}
-        />
-        <span style={{ fontSize: "23px" }}> Trả hàng</span>
         <div className="search-bill">
           <Row justify="center" align="middle">
             <Form
@@ -70,7 +65,7 @@ export default function GiveBackManagement() {
                   Tìm kiếm
                 </Button>
               </Form.Item>
-              <Form.Item>
+              {/* <Form.Item>
                 <Button
                   type="primary"
                   style={{ height: "35px" }}
@@ -79,7 +74,7 @@ export default function GiveBackManagement() {
                   <FontAwesomeIcon icon={faQrcode} />
                   QRCode
                 </Button>
-              </Form.Item>
+              </Form.Item> */}
             </Form>
           </Row>
           <QRScannerModal
