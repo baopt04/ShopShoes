@@ -3,6 +3,7 @@ package com.example.shopshoes.server.reponsitory;
 import com.example.shopshoes.server.dto.request.product.FindProductRequest;
 import com.example.shopshoes.server.dto.request.product.FindProductUseRequest;
 import com.example.shopshoes.server.dto.request.productdetail.FindProductDetailRequest;
+import com.example.shopshoes.server.dto.response.CustomProductRespone;
 import com.example.shopshoes.server.dto.response.ProductDetailReponse;
 import com.example.shopshoes.server.dto.response.ProductResponse;
 import com.example.shopshoes.server.dto.response.product.ProductUseRespone;

@@ -1,8 +1,9 @@
 package com.example.shopshoes.server.dto.request.product;
 
-import com.example.shose.server.infrastructure.common.PageableRequest;
+import com.example.shopshoes.server.infrastructure.common.PageableRequest;
 import lombok.Getter;
 import lombok.Setter;
+
 
 @Setter
 @Getter

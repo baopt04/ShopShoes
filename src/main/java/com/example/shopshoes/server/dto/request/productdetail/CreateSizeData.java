@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.dto.request.productdetail;
 
-import com.example.shose.server.infrastructure.constant.Status;
+import com.example.shopshoes.server.infrastructure.constant.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

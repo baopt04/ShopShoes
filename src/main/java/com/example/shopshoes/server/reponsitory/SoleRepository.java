@@ -1,9 +1,9 @@
 package com.example.shopshoes.server.reponsitory;
 
-import com.example.shopshoes.server.dto.request.sole.FindSoleRequest;
-import com.example.shopshoes.server.dto.response.SoleResponse;
-import com.example.shopshoes.server.dto.response.sole.GetSoleInProductDetail;
-import com.example.shopshoes.server.entity.Sole;
+import com.example.shose.server.dto.request.sole.FindSoleRequest;
+import com.example.shose.server.dto.response.SoleResponse;
+import com.example.shose.server.dto.response.sole.GetSoleInProductDetail;
+import com.example.shose.server.entity.Sole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

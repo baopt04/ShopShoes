@@ -1,5 +1,6 @@
 package com.example.shopshoes.server.dto.response.cart;
 
+
 import org.springframework.beans.factory.annotation.Value;
 
 public interface ListSizeOfItemCart {
