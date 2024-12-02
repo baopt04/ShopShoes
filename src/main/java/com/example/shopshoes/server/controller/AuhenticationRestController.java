@@ -1,19 +1,23 @@
 package com.example.shopshoes.server.controller;
 
-import com.example.shopshoes.server.dto.logindto.ChangePassword;
-import com.example.shopshoes.server.dto.logindto.ResetPassword;
-import com.example.shopshoes.server.infrastructure.exception.rest.CustomListValidationException;
-import com.example.shopshoes.server.infrastructure.sercurity.auth.JwtAuhenticationResponse;
-import com.example.shopshoes.server.infrastructure.sercurity.auth.RefreshTokenRequets;
-import com.example.shopshoes.server.infrastructure.sercurity.auth.SignUpRequets;
-import com.example.shopshoes.server.infrastructure.sercurity.auth.SigninRequest;
-import com.example.shopshoes.server.service.AuthenticationService;
-import com.example.shopshoes.server.util.ResponseObject;
+import com.example.shose.server.dto.logindto.ChangePassword;
+import com.example.shose.server.dto.logindto.ResetPassword;
+import com.example.shose.server.infrastructure.exception.rest.CustomListValidationException;
+import com.example.shose.server.infrastructure.sercurity.auth.JwtAuhenticationResponse;
+import com.example.shose.server.infrastructure.sercurity.auth.RefreshTokenRequets;
+import com.example.shose.server.infrastructure.sercurity.auth.SignUpRequets;
+import com.example.shose.server.infrastructure.sercurity.auth.SigninRequest;
+import com.example.shose.server.service.AuthenticationService;
+import com.example.shose.server.util.ResponseObject;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/login-v2")
