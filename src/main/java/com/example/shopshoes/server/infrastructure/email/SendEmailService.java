@@ -4,6 +4,7 @@ package com.example.shopshoes.server.infrastructure.email;
 import com.example.shopshoes.server.dto.response.bill.RollBackBillResponse;
 import com.example.shopshoes.server.entity.Bill;
 import com.example.shopshoes.server.infrastructure.excel.ExportExcelStatistical;
+import com.example.shopshoes.server.repository.BillRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.util.ByteArrayDataSource;
@@ -15,6 +16,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -47,7 +49,7 @@ public class SendEmailService {
                 + "<style>"
                 + "body { font-family: Arial, sans-serif; background-color: #007bff; color: #ffffff; padding: 20px; }"
                 + ".container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #fff; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 4px; }"
-                + "h1 { text-align: center; color: #007bff; }"
+                + "h1 { text-align: center; color: black; }"
                 + "img.logo { display: block; margin: 0 auto; }"
                 + ".form-group { text-align: center; }"
                 + "label { display: block; font-weight: bold; margin-bottom: 5px; }"
@@ -58,13 +60,13 @@ public class SendEmailService {
                 + "</head>"
                 + "<body>"
                 + "<div class='container'>"
-                + "<h1> BEE SNEAKER</h1>"
+                + "<h1> BEE SHOES</h1>"
                 + "<form>"
                 + "<div class='form-group'>"
-                + "<label for='username'>Tài khoản :&nbsp;" + to + " </label>"
+                + "<label for='username'> Tài khoản của bạn là :&nbsp;" + to + " </label>"
                 + "</div>"
                 + "<div class='form-group'>"
-                + "<label for='password'>Mật khẩu :&nbsp;" + password + "</label>"
+                + "<label for='password'> Mật khẩu đăng nhập :&nbsp;" + password + "</label>"
                 + "</div>"
                 + "</form>"
                 + "</div>"
@@ -111,7 +113,7 @@ public class SendEmailService {
                 + "label { display: block; font-weight: bold; margin-bottom: 5px; }"
                 + "input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }"
                 + "button { background-color: #e4641a; color: #fff; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; }"
-                + "button:hover { background-color: #c95617; }"  // Adjusted hover color
+                + "button:hover { background-color: #c95617; }"
                 + "</style>"
                 + "</head>"
                 + "<body>"
@@ -160,7 +162,7 @@ public class SendEmailService {
     }
     @Scheduled(cron = "0 0 20 * * ?")
     public void sendAutomaticEmailToYourself() {
-        String to = "vinhnvph23845@fpt.edu.vn";
+        String to = "baoptph39967@fpt.edu.vn";
         String subject = "Báo cáo hàng ngày";
         String body = "Báo cáo hàng ngày";
 

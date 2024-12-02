@@ -1,5 +1,6 @@
 package com.example.shopshoes.server.infrastructure.constant;
 
+
 public class Constants {
 
     private Constants() {

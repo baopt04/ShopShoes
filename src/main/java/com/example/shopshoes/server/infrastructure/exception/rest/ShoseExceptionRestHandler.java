@@ -4,6 +4,7 @@ import com.example.shopshoes.server.infrastructure.exception.ShoseExceptionHandl
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+
 public abstract class ShoseExceptionRestHandler<Z extends Exception> extends ShoseExceptionHandler<ResponseEntity<?>, Z> {
 
     @Override

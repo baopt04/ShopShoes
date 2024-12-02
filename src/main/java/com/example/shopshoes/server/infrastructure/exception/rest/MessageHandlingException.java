@@ -2,6 +2,7 @@ package com.example.shopshoes.server.infrastructure.exception.rest;
 
 import com.example.shopshoes.server.infrastructure.constant.Message;
 
+
 public class MessageHandlingException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
