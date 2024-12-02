@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.util.expiredPoin;
 
-import com.example.shopshoes.server.reponsitory.UserReposiory;
+import com.example.shopshoes.server.repository.UserReposiory;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+
+import java.util.List;
+
 
 @Configuration
 @EnableScheduling

@@ -27,8 +27,7 @@
 <body>
 <div class="" style="display: flex; justify-content: center;">
   <div class="" style="">
-    <div class="" style="display: flex; justify-content: center;font-weight: bold; font-size: 40px">SHOE
-      BEE
+    <div class="" style="display: flex; justify-content: center;font-weight: bold; font-size: 40px">BEE SHOES
     </div>
     <div class="" style="margin-top: 16px; text-align: center">
       <p>
@@ -36,15 +35,10 @@
       </p>
     </div>
 
-<!--    <div class="" style="margin-top: 10px; display: flex; justify-content: center">-->
-<!--      <p th:text="${'Mã hóa đơn: '+ invoice.code}"></p>-->
-<!--      <p style="margin-left: 30px" th:text="${ invoice.date}"></p>-->
-<!--      <img  th:src="${invoice.qr}" style="position: absolute;top: 3px;right: 3px; width: 80px; height: 80px" alt="QR Code">-->
-<!--    </div>-->
-<!--  </div>-->
+
 </div>
 <div class=""
-     style="padding: 20px 10px;border-top-style: dashed; border-width: 1px; border-color: rgb(0, 0, 0);">
+     style="padding: 20px 10px;border-top-style: solid; border-width: 1px; border-color: rgb(0, 0, 0);">
   <div class="">
     <div class="" style="margin-left: 20px; ">
       <p th:text="${'Khách hàng: ' + ((invoice.userName == null || invoice.userName == '') ? 'Khách lẻ' : invoice.userName)}"></p>
@@ -53,7 +47,7 @@
     </div>
   </div>
 </div>
-<div style="padding: 20px 10px;border-top-style: dashed; border-width: 1px; border-color: rgb(0, 0, 0);">
+<div style="padding: 20px 10px;border-top-style: solid; border-width: 1px; border-color: rgb(0, 0, 0);">
   <div class="" style="margin-right: 20px;">
     <p style="font-size: 18px; font-weight: 800; margin-bottom: 30px">Nội dung đơn hàng <span
             style="font-size: 16px; font-width: 500;"
@@ -113,7 +107,7 @@
     </table>
   </div>
 </div>
-<div style="padding: 20px 10px;border-top-style: dashed; border-width: 1px; border-color: rgb(0, 0, 0);">
+<div style="padding: 20px 10px;border-top-style: solid; border-width: 1px; border-color: rgb(0, 0, 0);">
   <div class="" style="margin-right: 20px; margin-bottom: 50px">
     <table class="table table-condensed" style="width: 100%">
       <thead>
@@ -147,19 +141,7 @@
       </tbody>
     </table>
   </div>
-  <div style="font-size: 18px;margin-top: 20px; font-weight: 700; text-align: center; width: 100%">Cám ơn quý khách đã sử dụng dịch vụ của Bee shoe</div>
-  <div >
-    <div class="" style="text-align: center; width: 100%">Quý khách xem thông tin chi tiết đơn hàng </div></br>
-    <div class="" style="text-align: center; width: 100%">
-      <button style="    background-color: #e4641a;
-    border: none;
-    border-radius: 6px;
-    padding: 5px 22px;"> <a th:href="${url}" style="text-decoration: none;
-    color: white;
-    font-size: 16px;
-    font-weight: 700;">Tại đây</a></button>
-    </div>
-  </div>
+
 </div>
 </body>
 </html>
