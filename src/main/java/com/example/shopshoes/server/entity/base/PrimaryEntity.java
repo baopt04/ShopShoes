@@ -6,7 +6,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
