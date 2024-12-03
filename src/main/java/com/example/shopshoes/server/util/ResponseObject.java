@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,6 +14,8 @@ public class ResponseObject {
     private boolean isSuccess = false;
     private String message;
     private Object data;
+
+
 
 
     public <T> ResponseObject(T obj) {
