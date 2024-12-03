@@ -11,55 +11,15 @@ function FormSearch({
 
   return (
     <div>
-      <Row style={{ marginTop: "15px" }}>
+      <Row style={{ marginTop: "25px", marginBottom: "40px" }}>
         {/* Cột đầu tiên */}
         <Col span={12}>
           <Row>
-            <Col span={6} className="text">
-              Tìm kiếm:
-            </Col>
-            <Col span={18}>
-              <Input
-                value={fillter.key}
-                onChange={(value) => changFillter(value.target.value, "key")}
-                placeholder="Nhập"
-                 style={{ width: "90%" }}
-              />
-            </Col>
-          </Row>
-        </Col>
-
-        {/* Cột thứ hai */}
-        <Col span={12}>
-          <Row style={{ marginLeft: "15px" }}>
-            <Col span={6} className="text">
-              Loại đơn:
-            </Col>
-            <Col span={18}>
-              <Select
-                 style={{ width: "90%" }}
-                value={fillter.type}
-                onChange={(value) => {
-                  changFillter(value, "type");
-                }}
-                defaultValue={-1}
-              >
-                <Option value={""} disabled>
-                  Loại đơn
-                </Option>
-                <Option value={"OFFLINE"}>Tại quầy</Option>
-                <Option value={"ONLINE"}>Online</Option>
-              </Select>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-
-      <Row style={{ marginTop: "15px" }}>
-        {/* Cột đầu tiên */}
-        <Col span={12}>
-          <Row>
-            <Col span={6} className="text">
+            <Col
+              span={6}
+              className="text"
+              style={{ textAlign: "right", paddingRight: "5px" }}
+            >
               Ngày bắt đầu:
             </Col>
             <Col span={18}>
@@ -79,7 +39,11 @@ function FormSearch({
         {/* Cột thứ hai */}
         <Col span={12}>
           <Row style={{ marginLeft: "15px" }}>
-            <Col span={6} className="text">
+            <Col
+              span={6}
+              className="text"
+              style={{ textAlign: "right", paddingRight: "5px" }}
+            >
               Ngày kết thúc:
             </Col>
             <Col span={18}>
@@ -95,9 +59,59 @@ function FormSearch({
           </Row>
         </Col>
       </Row>
+      <Row style={{ marginTop: "15px" }}>
+        {/* Cột đầu tiên */}
+        <Col span={12}>
+          <Row>
+            <Col
+              span={6}
+              className="text"
+              style={{ textAlign: "right", paddingRight: "5px" }}
+            >
+              Tìm kiếm:
+            </Col>
+            <Col span={18}>
+              <Input
+                value={fillter.key}
+                onChange={(value) => changFillter(value.target.value, "key")}
+                placeholder="Tìm kiếm theo mã hóa đơn , tên nhân viên , khách hàng"
+                style={{ width: "90%" }}
+              />
+            </Col>
+          </Row>
+        </Col>
 
-      <Row style={{  marginTop: "20px" }} justify="center">
-        <Col span={4}>
+        {/* Cột thứ hai */}
+        <Col span={12}>
+          <Row style={{ marginLeft: "15px" }}>
+            <Col
+              span={6}
+              className="text"
+              style={{ textAlign: "right", paddingRight: "5px" }}
+            >
+              Loại đơn hàng:
+            </Col>
+            <Col span={18}>
+              <Select
+                style={{ width: "90%" }}
+                value={fillter.type}
+                onChange={(value) => {
+                  changFillter(value, "type");
+                }}
+                defaultValue={-1}
+              >
+                <Option value={""} disabled>
+                  Loại đơn
+                </Option>
+                <Option value={"OFFLINE"}>Tại Quầy</Option>
+                <Option value={"ONLINE"}>Online</Option>
+              </Select>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <Row style={{ marginTop: "20px" }} justify="center">
+        <Col span={2}>
           <Button
             className="btn_filter"
             type="submit"

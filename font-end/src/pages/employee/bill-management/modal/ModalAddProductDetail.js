@@ -180,7 +180,7 @@ function ModalAddProductDetail({
       title: "STT",
       dataIndex: "stt",
       key: "stt",
-      sorter: (a, b) => a.stt - b.stt,
+      // sorter: (a, b) => a.stt - b.stt,
     },
     {
       title: "Ảnh",
@@ -191,7 +191,7 @@ function ModalAddProductDetail({
           <img
             src={text}
             alt="Ảnh sản phẩm"
-            style={{ width: "120px", borderRadius: "10%", height: "100px" }}
+            style={{ width: "120px", borderRadius: "10%", height: "60px" }}
           />
           {record.promotion !== null && (
             <div
@@ -246,29 +246,23 @@ function ModalAddProductDetail({
       title: "Tên Sản Phẩm",
       dataIndex: "nameProduct",
       key: "nameProduct",
-      sorter: (a, b) => a.nameProduct.localeCompare(b.nameProduct),
+      // sorter: (a, b) => a.nameProduct.localeCompare(b.nameProduct),
     },
     {
       title: "Giá Bán",
       dataIndex: "price",
       key: "price",
-      sorter: (a, b) => a.price - b.price,
+      // sorter: (a, b) => a.price - b.price,
       render: (text) => formatCurrency(text),
     },
     {
       title: "Số Lượng ",
       dataIndex: "quantity",
       key: "quantity",
-      sorter: (a, b) => a.quantity - b.quantity,
+      // sorter: (a, b) => a.quantity - b.quantity,
       align: "center",
     },
-    {
-      title: "Kích Thước",
-      dataIndex: "size",
-      key: "size",
-      sorter: (a, b) => a.quantity - b.quantity,
-      align: "center",
-    },
+
     {
       title: "Màu Sắc",
       dataIndex: "color",
@@ -279,12 +273,19 @@ function ModalAddProductDetail({
           style={{
             backgroundColor: color,
             borderRadius: "6px",
-            width: "60px",
+            width: "30px",
             height: "25px",
             pointerEvents: "none", // Ngăn chặn sự kiện click
           }}
         />
       ),
+    },
+    {
+      title: "Kích Thước",
+      dataIndex: "size",
+      key: "size",
+      // sorter: (a, b) => a.quantity - b.quantity,
+      align: "center",
     },
     {
       title: "Trạng Thái",
@@ -309,7 +310,7 @@ function ModalAddProductDetail({
           <Button
             type="primary"
             title="Chi tiết thể loại"
-            style={{ backgroundColor: "#FF9900" }}
+            style={{ backgroundColor: "#1677FF" }}
             onClick={(e) => showModal(e, record)}
           >
             Chọn
@@ -357,7 +358,7 @@ function ModalAddProductDetail({
         }
         list.splice(index, 1, data);
       }
-       dispatch(ChangeProductInBill(changeQuanTiTy + quantity));
+      dispatch(ChangeProductInBill(changeQuanTiTy + quantity));
       toast.success("Thêm thành công", {
         position: "top-right",
         autoClose: 5000,
@@ -369,7 +370,7 @@ function ModalAddProductDetail({
         theme: "light",
       });
     } else {
-    console.log(productSelected);
+      console.log(productSelected);
       Modal.confirm({
         title: "Xác nhận",
         content: "Bạn có đồng ý thêm sản phẩm  không?",
@@ -392,8 +393,10 @@ function ModalAddProductDetail({
             check = res.data.data.find(
               (product) =>
                 product.idProduct === productSelected.idProduct &&
-                (product.promotion == null? product.price : (product.price * (100 - product.promotion)) / 100) ==
-                (productSelected.price)
+                (product.promotion == null
+                  ? product.price
+                  : (product.price * (100 - product.promotion)) / 100) ==
+                  productSelected.price
             );
             console.log(check);
             if (check === undefined) {
@@ -401,7 +404,8 @@ function ModalAddProductDetail({
                 var price = productSelected.price;
                 if (productSelected.promotion != null) {
                   price =
-                    (productSelected.price * (100 - productSelected.promotion)) /
+                    (productSelected.price *
+                      (100 - productSelected.promotion)) /
                     100;
                 }
                 toast.success("Thêm sản phẩm thành công");
@@ -422,7 +426,7 @@ function ModalAddProductDetail({
             } else {
               data.quantity = data.quantity + check.quantity;
               console.log(data);
-              data.note = "Thêm sản phẩm giỏ hàng"
+              data.note = "Thêm sản phẩm giỏ hàng";
               await BillApi.updateProductInBill(check.id, data)
                 .then((res) => {
                   toast.success("Thêm sản phẩm thành công");
@@ -440,7 +444,6 @@ function ModalAddProductDetail({
                 toast.error(error.response.data.message);
               });
           });
-         
         },
         onCancel: () => {},
       });
@@ -509,7 +512,7 @@ function ModalAddProductDetail({
                   </Col>
                   <Col span={12}>
                     <Button
-                      className="btn_clear"
+                      className="btn_filter"
                       onClick={handleClear}
                       style={{ height: 40 }}
                     >
@@ -525,33 +528,15 @@ function ModalAddProductDetail({
       <div className="box_btn_filter" style={{ paddingBottom: "8px" }}>
         <Row align="middle">
           <Col span={3} style={{ textAlign: "right", paddingRight: 10 }}>
-            <label>Chất Liệu :</label>
-          </Col>
-          <Col span={2}>
-            <Select
-              style={{ width: "100%" }}
-              value={selectedValues.material}
-              onChange={(value) => handleSelectChange(value, "material")}
-              defaultValue=""
-            >
-              <Option value="">Tất cả</Option>
-              {listMaterial.map((material, index) => (
-                <Option key={index} value={material.name}>
-                  {material.name}
-                </Option>
-              ))}
-            </Select>
-          </Col>
-          <Col span={3} style={{ textAlign: "right", paddingRight: 10 }}>
             <label>Thương Hiệu :</label>
           </Col>
-          <Col span={2}>
+          <Col span={3}>
             <Select
               style={{ width: "100%" }}
               value={selectedValues.brand}
               onChange={(value) => handleSelectChange(value, "brand")}
             >
-              <Option value="">Tất cả</Option>
+              <Option value="">Chọn</Option>
               {listBrand.map((brand, index) => (
                 <Option key={index} value={brand.name}>
                   {brand.name}
@@ -559,17 +544,18 @@ function ModalAddProductDetail({
               ))}
             </Select>
           </Col>
-          <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+
+          <Col span={3} style={{ textAlign: "right", paddingRight: 10 }}>
             <label>Đế giày :</label>
           </Col>
-          <Col span={2}>
+          <Col span={3}>
             <Select
               style={{ width: "100%" }}
               value={selectedValues.sole}
               onChange={(value) => handleSelectChange(value, "sole")}
               defaultValue=""
             >
-              <Option value="">Tất cả</Option>
+              <Option value="">Chọn</Option>
               {listSole.map((sole, index) => (
                 <Option key={index} value={sole.name}>
                   {sole.name}
@@ -577,17 +563,39 @@ function ModalAddProductDetail({
               ))}
             </Select>
           </Col>
-          <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+
+          <Col span={3} style={{ textAlign: "right", paddingRight: 10 }}>
+            <label>Chất Liệu :</label>
+          </Col>
+          <Col span={3}>
+            <Select
+              style={{ width: "100%" }}
+              value={selectedValues.material}
+              onChange={(value) => handleSelectChange(value, "material")}
+              defaultValue=""
+            >
+              <Option value="" style={{ marginTop: "5px" }}>
+                Chọn
+              </Option>
+              {listMaterial.map((material, index) => (
+                <Option key={index} value={material.name}>
+                  {material.name}
+                </Option>
+              ))}
+            </Select>
+          </Col>
+
+          <Col span={3} style={{ textAlign: "right", paddingRight: 10 }}>
             <label>Kích cỡ :</label>
           </Col>
-          <Col span={2}>
+          <Col span={3}>
             <Select
               style={{ width: "100%" }}
               value={selectedValues.sizeProduct}
               onChange={(value) => handleSelectChange(value, "sizeProduct")}
               defaultValue={null}
             >
-              <Option value={null}>Tất cả</Option>
+              <Option value={null}>Chọn</Option>
               {listSize.map((size, index) => (
                 <Option key={index} value={size}>
                   {size}
@@ -595,17 +603,39 @@ function ModalAddProductDetail({
               ))}
             </Select>
           </Col>
-          <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+        </Row>
+      </div>
+      <div className="box_btn_filter" style={{ paddingBottom: "8px" }}>
+        <Row align="middle">
+          <Col span={3} style={{ textAlign: "right", paddingRight: 10 }}>
+            <label>Thể Loại :</label>
+          </Col>
+          <Col span={3}>
+            <Select
+              style={{ width: "100%" }}
+              value={selectedValues.category}
+              onChange={(value) => handleSelectChange(value, "category")}
+              defaultValue=""
+            >
+              <Option value="">Chọn</Option>
+              {listCategory.map((category, index) => (
+                <Option key={index} value={category.name}>
+                  {category.name}
+                </Option>
+              ))}
+            </Select>
+          </Col>
+          <Col span={3} style={{ textAlign: "right", paddingRight: 10 }}>
             <label>Màu Sắc :</label>
           </Col>
-          <Col span={2}>
+          <Col span={3}>
             <Select
               style={{ width: "100%" }}
               value={selectedValues.color}
               onChange={(value) => handleSelectChange(value, "color")}
               defaultValue=""
             >
-              <Option value="">Tất cả</Option>
+              <Option value="">Chọn</Option>
               {listColor.map((color, index) => (
                 <Option key={index} value={color.code}>
                   <div
@@ -620,45 +650,23 @@ function ModalAddProductDetail({
               ))}
             </Select>
           </Col>
-        </Row>
-      </div>
-      <div className="box_btn_filter" style={{ paddingBottom: "8px" }}>
-        <Row align="middle">
-          <Col span={4} style={{ textAlign: "right", paddingRight: 10 }}>
-            <label>Thể Loại :</label>
-          </Col>
-          <Col span={3}>
-            <Select
-              style={{ width: "100%" }}
-              value={selectedValues.category}
-              onChange={(value) => handleSelectChange(value, "category")}
-              defaultValue=""
-            >
-              <Option value="">Tất cả</Option>
-              {listCategory.map((category, index) => (
-                <Option key={index} value={category.name}>
-                  {category.name}
-                </Option>
-              ))}
-            </Select>
-          </Col>
-          <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+          {/* <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
             <label>Giới Tinh :</label>
-          </Col>
-          <Col span={3}>
+          </Col> */}
+          {/* <Col span={3}>
             <Select
               style={{ width: "100%" }}
               value={selectedValues.gender}
               onChange={(value) => handleSelectChange(value, "gender")}
               defaultValue=""
             >
-              <Option value="">Tất cả</Option>
+              <Option value="">Chọn</Option>
               <Option value="NAM">Nam</Option>
               <Option value="NU">Nữ</Option>
             </Select>
-          </Col>
+          </Col> */}
 
-          <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+          {/* <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
             <label>Khoảng giá :</label>
           </Col>
           <Col span={3}>
@@ -672,7 +680,7 @@ function ModalAddProductDetail({
               tipFormatter={(value) => formatCurrency(value)}
               onChange={handleChangeValuePrice}
             />
-          </Col>
+          </Col> */}
         </Row>
       </div>
 
@@ -681,29 +689,36 @@ function ModalAddProductDetail({
           dataSource={listProduct}
           rowKey="id"
           columns={columns}
-          pagination={{ pageSize: 5 }}
+          pagination={{ 
+            pageSize: 10, 
+            showSizeChanger: false // Ẩn phần chọn số lượng bản ghi mỗi trang
+          }}
           className="category-table"
           style={{ margin: "10px 0 0 0" }}
         />
       </div>
       <Modal
-        title={"Số lượng sản phẩm: " + productSelected.maxQuantity}
+        title={"Số lượng còn lại: " + productSelected.maxQuantity}
         width={400}
         open={isModalOpen}
         onOk={(e) => handleOk(e)}
         onCancel={handleCancel}
-        okText="Đặt hàng"
+        okText="Xác nhận"
         cancelText="Hủy"
         closeButton={true}
         closeIcon={null}
         cancelButton={true}
       >
         <Row style={{ marginTop: "15px", width: "100%" }} justify={"center"}>
-          <Button onClick={handleDecrease} style={{ margin: "0 4px 0 10px" }}>
+          <Button
+            onClick={handleDecrease}
+            style={{ margin: "0 4px 0 10px", width: "40px" }}
+          >
             -
           </Button>
           <InputNumber
             min={1}
+            style={{ width: "50px" }}
             max={productSelected.maxQuantity}
             value={quantity}
             defaultValue={quantity}

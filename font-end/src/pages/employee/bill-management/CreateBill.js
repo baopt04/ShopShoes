@@ -494,8 +494,8 @@ function CreateBill({
       totalBill + shipFee - exchangeRateMoney - voucher.discountPrice
     );
     setValueAddressShip(valueWard);
-    // số lượng sản phầm lớn hơn 2 free ship
-    if (checkShipFee >= 2000000) {
+
+    if (checkShipFee >= 5000000) {
       setShipFee(0);
     } else {
       AddressApi.fetchAllMoneyShip(
@@ -555,43 +555,37 @@ function CreateBill({
       title: "STT",
       dataIndex: "stt",
       key: "stt",
-      sorter: (a, b) => a.stt - b.stt,
+      // sorter: (a, b) => a.stt - b.stt,
     },
-    {
-      title: "Ảnh",
-      dataIndex: "avata",
-      key: "avata",
-      render: (avata) => (
-        <img
-          src={avata}
-          alt="Hình ảnh"
-          style={{ width: "60px", height: "60px", borderRadius: "50%" }}
-        />
-      ),
-    },
+    // {
+    //   title: "Ảnh",
+    //   dataIndex: "avata",
+    //   key: "avata",
+    //   render: (avata) => (
+    //     <img
+    //       src={avata}
+    //       alt="Hình ảnh"
+    //       style={{ width: "60px", height: "60px", borderRadius: "50%" }}
+    //     />
+    //   ),
+    // },
     {
       title: "Tên khách hàng",
       dataIndex: "fullName",
       key: "fullName",
-      sorter: (a, b) => a.fullName.localeCompare(b.fullName),
+      // sorter: (a, b) => a.fullName.localeCompare(b.fullName),
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      sorter: (a, b) => a.email.localeCompare(b.email),
+      // sorter: (a, b) => a.email.localeCompare(b.email),
     },
     {
       title: "Số điện thoại",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
-      sorter: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
-    },
-    {
-      title: "Điểm",
-      dataIndex: "points",
-      key: "points",
-      sorter: (a, b) => a.points.localeCompare(b.points),
+      // sorter: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
     },
 
     {
@@ -776,56 +770,56 @@ function CreateBill({
     newDataPayment.splice(index, 1);
     setDataPayMent(newDataPayment);
   };
-  const columnsPayments = [
-    {
-      title: <div className="title-product">STT</div>,
-      key: "index",
-      render: (value, item, index) => index + 1,
-    },
-    {
-      title: <div className="title-product">Mã giao dịch</div>,
-      dataIndex: "vnp_TransactionNo",
-      key: "vnp_TransactionNo",
-      render: (vnp_TransactionNo) => <span>{vnp_TransactionNo}</span>,
-    },
-    {
-      title: <div className="title-product">Số tiền</div>,
-      dataIndex: "totalMoney",
-      key: "totalMoney",
-      render: (totalMoney) => <span>{formatCurrency(totalMoney)}</span>,
-    },
-    {
-      title: <div className="title-product">Phương thức</div>,
-      dataIndex: "method",
-      key: "method",
-      render: (method) => (
-        <Button
-          className={method}
-          style={{ pointerEvents: "none", width: "120px" }}
-        >
-          {method == "TIEN_MAT"
-            ? "Tiền mặt"
-            : method == "CHUYEN_KHOAN"
-            ? "Chuyển khoản"
-            : "Thẻ"}
-        </Button>
-      ),
-    },
-    {
-      title: <div className="title-product">Hành động</div>,
-      dataIndex: "method",
-      key: "method",
-      render: (method, record, index) => (
-        <Button
-          title="Xóa"
-          style={{ border: "none" }}
-          onClick={(e) => deletePayMent(e, index)}
-        >
-          <BsFillTrash3Fill style={{ fontSize: "20px", color: "red" }} />
-        </Button>
-      ),
-    },
-  ];
+  // const columnsPayments = [
+  //   {
+  //     title: <div className="title-product">STT</div>,
+  //     key: "index",
+  //     render: (value, item, index) => index + 1,
+  //   },
+  //   {
+  //     title: <div className="title-product">Mã giao dịch</div>,
+  //     dataIndex: "vnp_TransactionNo",
+  //     key: "vnp_TransactionNo",
+  //     render: (vnp_TransactionNo) => <span>{vnp_TransactionNo}</span>,
+  //   },
+  //   {
+  //     title: <div className="title-product">Số tiền</div>,
+  //     dataIndex: "totalMoney",
+  //     key: "totalMoney",
+  //     render: (totalMoney) => <span>{formatCurrency(totalMoney)}</span>,
+  //   },
+  //   {
+  //     title: <div className="title-product">Phương thức</div>,
+  //     dataIndex: "method",
+  //     key: "method",
+  //     render: (method) => (
+  //       <Button
+  //         className={method}
+  //         style={{ pointerEvents: "none", width: "120px" }}
+  //       >
+  //         {method == "TIEN_MAT"
+  //           ? "Tiền mặt"
+  //           : method == "CHUYEN_KHOAN"
+  //           ? "Chuyển khoản"
+  //           : "Thẻ"}
+  //       </Button>
+  //     ),
+  //   },
+  //   {
+  //     title: <div className="title-product">Hành động</div>,
+  //     dataIndex: "method",
+  //     key: "method",
+  //     render: (method, record, index) => (
+  //       <Button
+  //         title="Xóa"
+  //         style={{ border: "none" }}
+  //         onClick={(e) => deletePayMent(e, index)}
+  //       >
+  //         <BsFillTrash3Fill style={{ fontSize: "20px", color: "red" }} />
+  //       </Button>
+  //     ),
+  //   },
+  // ];
   const showModalPayMent = (e) => {
     var ship = 0;
     if (isOpenDelivery) {
@@ -1021,7 +1015,7 @@ function CreateBill({
           ) {
             Modal.confirm({
               title: "Xác nhận",
-              content: "Bạn có xác nhận đặt hàng không?",
+              content: "Bạn có xác nhận đặt hàng không ?",
               okText: "Đồng ý",
               cancelText: "Hủy",
               onOk: async () => {
@@ -1038,10 +1032,10 @@ function CreateBill({
               onCancel: () => {},
             });
           } else {
-            toast.warning("vui lòng thanh toán hóa đơn");
+            toast.warning("Vui lòng chọn phương thức thanh toán");
           }
         } else {
-          toast.warning("vui lòng chọn sản phẩm");
+          toast.warning("Vui lòng chọn sản phẩm cần bán");
         }
       } else {
         toast.warning("Vui lòng nhập thông tin giao hàng");
@@ -1054,14 +1048,14 @@ function CreateBill({
         ) {
           Modal.confirm({
             title: "Xác nhận",
-            content: "Bạn có xác nhận đặt hàng không?",
+            content: "Bạn có xác nhận thanh toán không ?",
             okText: "Đồng ý",
             cancelText: "Hủy",
             onOk: async () => {
               BillApi.createBillWait(data)
                 .then((res) => {
                   // removePane(targetKey, invoiceNumber, items);
-                  toast.success("Đặt hàng thành công");
+                  toast.success("Thanh toán thành công");
                   getHtmlByIdBill2(code, data.totalExcessMoney);
                 })
                 .catch((error) => {
@@ -1071,7 +1065,7 @@ function CreateBill({
             onCancel: () => {},
           });
         } else {
-          toast.warning("vui lòng thanh toán hóa đơn");
+          toast.warning("Vui lòng chọn phương thức thanh toán");
         }
       } else {
         toast.warning("vui lòng chọn sản phẩm");
@@ -1137,20 +1131,20 @@ function CreateBill({
       title: "Mã ",
       dataIndex: "code",
       key: "code",
-      sorter: (a, b) => a.code.localeCompare(b.code),
+      // sorter: (a, b) => a.code.localeCompare(b.code),
     },
     {
       title: "Tên ",
       dataIndex: "name",
       key: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      // sorter: (a, b) => a.name.localeCompare(b.name),
     },
 
     {
       title: "Giá trị ",
       dataIndex: "value",
       key: "value",
-      sorter: (a, b) => a.value - b.value,
+      // sorter: (a, b) => a.value - b.value,
       render: (value) => (
         <span>
           {value >= 1000
@@ -1158,7 +1152,7 @@ function CreateBill({
                 style: "currency",
                 currency: "VND",
               })
-            : value + " đ"}
+            : value + " %"}
         </span>
       ),
     },
@@ -1166,17 +1160,17 @@ function CreateBill({
       title: "Số lượng",
       dataIndex: "quantity",
       key: "quantity",
-      sorter: (a, b) => a.value - b.value,
+      // sorter: (a, b) => a.value - b.value,
     },
     {
       title: "Thời gian",
       dataIndex: "startDate",
       key: "startDate",
-      sorter: (a, b) => a.startDate - b.startDate,
+      // sorter: (a, b) => a.startDate - b.startDate,
       render: (date, record) => {
         const start = moment(date).format(" DD-MM-YYYY");
         const end = moment(record.endDate).format(" DD-MM-YYYY");
-        return <span>{start + " > " + end}</span>;
+        return <span>{start + " đến " + end}</span>;
       },
     },
     {
@@ -1208,18 +1202,31 @@ function CreateBill({
       return accumulator + currentValue.price * currentValue.quantity;
     }, 0);
 
+    let discountAmount = 0;
+
+    if (record.value < 100) {
+      discountAmount = (price * record.value) / 100;
+    } else {
+      discountAmount = record.value;
+    }
+
+    const afterPrice = price - discountAmount;
+
+    // Cập nhật thông tin voucher
     setVoucher({
       idVoucher: record.id,
       beforPrice: price,
-      afterPrice: price - record.value,
-      discountPrice: record.value,
+      afterPrice: afterPrice,
+      discountPrice: discountAmount,
     });
+
+    // Cập nhật mã voucher và đóng modal
     setCodeVoucher(record.code + " - " + record.name);
     setIsModalVoucherOpen(false);
   };
+
   const changeQuanTiTy = useSelector((state) => state.bill.bill.change);
   useEffect(() => {
-    // Tính tổng giá tiền dựa trên số lượng sản phẩm và giá của từng sản phẩm
     const newTotalPrice = products.reduce(
       (accumulator, product) => accumulator + product.price * product.quantity,
       0
@@ -1228,10 +1235,12 @@ function CreateBill({
     var price = products.reduce((accumulator, currentValue) => {
       return accumulator + currentValue.price * currentValue.quantity;
     }, 0);
+
     console.log(dataVoucher);
     setListVoucher(
       dataVoucher.filter((voucher) => newTotalPrice >= voucher.minimumBill)
     );
+
     const record = dataVoucher.reduce(
       (maxVoucher, currentVoucher) =>
         currentVoucher.value > (maxVoucher ? maxVoucher.value : 0) &&
@@ -1240,16 +1249,29 @@ function CreateBill({
           : maxVoucher,
       null
     );
+
     if (record != null) {
+      let discountAmount = 0;
+
+      if (record.value <= 100) {
+        discountAmount = (newTotalPrice * record.value) / 100;
+      } else {
+        discountAmount = record.value;
+      }
+
+      const afterPrice = price - discountAmount;
+
       setVoucher({
         idVoucher: record.id,
         beforPrice: price,
-        afterPrice: price - record.value,
-        discountPrice: record.value,
+        afterPrice: afterPrice,
+        discountPrice: discountAmount,
       });
+
       setCodeVoucher(record.code + " - " + record.name);
       setIsModalVoucherOpen(false);
     }
+
     if (accountAddress !== null) {
       addressFull(
         accountAddress.provinceId,
@@ -1257,7 +1279,7 @@ function CreateBill({
         accountAddress.wardCode
       );
     }
-  }, [products, changeQuanTiTy, totalBill]);
+  }, [products, changeQuanTiTy, totalBill, dataVoucher, accountAddress]);
 
   const [voucher, setVoucher] = useState({
     idVoucher: "",
@@ -1497,7 +1519,7 @@ function CreateBill({
   };
 
   const addressFull = (provinceId, toDistrictId, wardCode) => {
-    if (totalBill < 2000000) {
+    if (totalBill < 5000000) {
       AddressApi.fetchAllMoneyShip(toDistrictId, wardCode).then((res) => {
         setShipFee(res.data.data.total);
       });
@@ -1634,7 +1656,7 @@ function CreateBill({
       vnp_TxnRef: billRequest.code + "-" + timeInMillis,
     };
     if (exchangeRateMoney + voucher.discountPrice > totalBill) {
-      toast.warning(" Hóa đơn đã thanh toán bằng điểm");
+      toast.warning(" Hóa đơn đã thanh toán");
     } else if (
       Math.round(totaPayMent + voucher.discountPrice + exchangeRateMoney) ==
       Math.round(totalBill + ship)
@@ -1663,21 +1685,6 @@ function CreateBill({
   return (
     <div style={{ width: "100%" }}>
       <Row justify="space-between">
-        <Col span={2}>
-          <Button
-            type="primary"
-            style={{
-              fontSize: "medium",
-              fontWeight: "500",
-              height: "40px",
-              marginLeft: "15%",
-            }}
-            onClick={(e) => navigate("/bill-management")}
-          >
-            Danh sách
-          </Button>
-        </Col>
-        {/* <Col span={16}></Col> */}
         <Col span={6}>
           <Button
             type="primary"
@@ -1690,7 +1697,7 @@ function CreateBill({
             }}
             icon={<FontAwesomeIcon icon={faQrcode} />}
           >
-            QR Code
+            Quét QR
           </Button>
           <ModalQRScanner
             visible={modalVisible}
@@ -1702,7 +1709,7 @@ function CreateBill({
             style={{ fontSize: "medium", fontWeight: "500", height: 40 }}
             onClick={(e) => showModalProduct(e)}
           >
-            Thêm sản phẩm
+            Sản phẩm
           </Button>
         </Col>
       </Row>
@@ -1717,7 +1724,7 @@ function CreateBill({
                 padding: "5px",
               }}
             >
-              <Col span={1} align={"center"}>
+              <Col span={2} align={"center"}>
                 <span
                   style={{
                     fontSize: "16px",
@@ -1728,7 +1735,18 @@ function CreateBill({
                   STT
                 </span>
               </Col>
-              <Col span={11} align={"center"}>
+              <Col span={2} align={"center"}>
+                <span
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: "400",
+                    padding: "3px",
+                  }}
+                >
+                  Ảnh
+                </span>
+              </Col>
+              <Col span={8} align={"center"}>
                 <span
                   style={{
                     fontSize: "16px",
@@ -1779,16 +1797,16 @@ function CreateBill({
                 <Col span={9} align="center">
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrhg2zmj9djNWQuZjz9YEH3n1UM513BBOuOQ&s"
-                    style={{ marginTop: "20px" , width:"100%", height:"100%"}}
+                    style={{ marginTop: "20px", width: "100%", height: "100%" }}
                   ></img>
                 </Col>
               </Row>
               <Row justify={"center"} style={{ width: "100%" }}>
                 <Col span={12} align="center">
-                  <span style={{ fontSize: "15px" }}>
+                  {/* <span style={{ fontSize: "15px" }}>
                     {" "}
                     Không có sản phẩm nào trong giỏ
-                  </span>
+                  </span> */}
                 </Col>
               </Row>
             </Row>
@@ -1798,18 +1816,18 @@ function CreateBill({
             return (
               <Row style={{ marginTop: "10px", width: "100%" }}>
                 <Col
-                  span={1}
+                  span={2}
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    fontSize: "21px",
+                    fontSize: "15px",
                     fontFamily: "500",
-                    margin: "auto",
+                    margin: "300",
                   }}
                 >
                   {index + 1}
                 </Col>
-                <Col span={4}>
+                <Col span={2}>
                   {/* <img
                   src={item.image}
                   alt="Ảnh sản phẩm"
@@ -1828,7 +1846,7 @@ function CreateBill({
                       alt="Ảnh sản phẩm"
                       style={{
                         width: "100px",
-                        borderRadius: "10%",
+                        // borderRadius: "10%",
                         height: "100px",
                       }}
                     />
@@ -1847,7 +1865,7 @@ function CreateBill({
                           icon={faBookmark}
                           style={{
                             ...getPromotionColor(item.promotion),
-                            fontSize: "3.5em",
+                            fontSize: "1.5em",
                           }}
                         />
                         <span
@@ -1880,7 +1898,7 @@ function CreateBill({
                     )}
                   </div>
                 </Col>
-                <Col span={7}>
+                <Col span={8}>
                   <Row>
                     {" "}
                     <span
@@ -1937,27 +1955,27 @@ function CreateBill({
                       Kích cỡ: {item.nameSize}
                     </span>{" "}
                   </Row>
-                  <Row>
+                  {/* <Row>
                     <span style={{ fontSize: "12", marginLeft: "15px" }}>
                       x {item.quantity}
                     </span>{" "}
-                  </Row>
+                  </Row> */}
                 </Col>
                 <Col
-                  span={4}
+                  span={3}
                   align={"center"}
                   style={{ display: "flex", alignItems: "center" }}
                 >
                   <Button
                     onClick={() => handleQuantityDecrease(item)}
-                    style={{ margin: "0 0 0 4px" }}
+                    style={{ margin: "0 0 0 4px", width: "40px" }}
                   >
                     -
                   </Button>
                   <InputNumber
                     min={1}
                     max={item.maxQuantity}
-                    style={{ margin: "0 5px" }}
+                    style={{ margin: "0 5px", width: "50px" }}
                     value={item.quantity}
                     onChange={(value) => {
                       handleQuantityChange(value, item);
@@ -1966,19 +1984,19 @@ function CreateBill({
 
                   <Button
                     onClick={() => handleQuantityIncrease(item)}
-                    style={{ margin: "0 10px 0 0" }}
+                    style={{ margin: "0 10px 0 0", width: "40px" }}
                   >
                     +
                   </Button>
                 </Col>
                 <Col
-                  span={5}
+                  span={6}
                   align={"center"}
                   style={{ display: "grid", alignItems: "center" }}
                 >
                   <span
                     style={{
-                      color: "red",
+                      color: "black",
                       fontWeight: "bold",
                     }}
                   >
@@ -1996,14 +2014,15 @@ function CreateBill({
                     }}
                     onClick={(e) => removeProductInBill(e, item.idSizeProduct)}
                   >
-                    <BsTrash />
+                    Xóa sản phẩm
+                    {/* <BsTrash /> */}
                   </Button>
                 </Col>
               </Row>
             );
           })}
         </Row>
-        {products.length != 0 ? (
+        {/* {products.length != 0 ? (
           <Row
             justify="end"
             style={{
@@ -2038,7 +2057,8 @@ function CreateBill({
           </Row>
         ) : (
           <Row></Row>
-        )}
+        )} */}
+        <hr></hr>
       </Row>
       <Row style={{ backgroundColor: "white", marginTop: "20px" }}>
         <Row
@@ -2050,7 +2070,7 @@ function CreateBill({
           }}
         >
           <Col span={8}>
-            <h2 style={{ margin: "10px 0 0 0px" }}>Tài khoản</h2>
+            <h2 style={{ margin: "10px 0 0 0px" }}>Thông tin khách hàng</h2>
           </Col>
           <Col span={12}></Col>
           <Col span={4} align={"end"}>
@@ -2058,7 +2078,7 @@ function CreateBill({
               style={{ margin: "10px 00px 0px 0" }}
               onClick={(e) => showModalAccount(e)}
             >
-              Chọn tài khoản
+              Chọn khách hàng
             </Button>
           </Col>
         </Row>
@@ -2077,7 +2097,7 @@ function CreateBill({
                 <Col span={19}>{accountuser.phoneNumber}</Col>
               </Row>
               <Row style={{ width: "100%", marginBottom: " 20px" }}>
-                <Col span={5}>email: </Col>
+                <Col span={5}>Email: </Col>
                 <Col span={19}>{accountuser.email}</Col>
               </Row>
             </Row>
@@ -2086,13 +2106,13 @@ function CreateBill({
               Tên khách hàng:{" "}
               <span
                 style={{
-                  backgroundColor: "#ccc",
+                  // backgroundColor: "#ccc",
                   padding: "5px 20px",
                   marginLeft: "30px",
-                  borderRadius: "50px",
+                  // borderRadius: "50px",
                 }}
               >
-                khách lẻ
+                Khách lẻ
               </span>
             </div>
           )}
@@ -2108,7 +2128,7 @@ function CreateBill({
           }}
         >
           <Col span={8}>
-            <h2>Khách hàng</h2>
+            <h2>Thông tin thanh toán</h2>
           </Col>
 
           <Col span={12}></Col>
@@ -2126,18 +2146,362 @@ function CreateBill({
           </Col>
         </Row>
         <Row style={{ width: "100%" }}>
-          <Col span={14}>
+          <Col span={10}>
+            <Row style={{ width: "100%" }}>
+              {/* <Col span={2}>
+                <FaShoppingBag
+                  style={{ width: "50px", height: "20px", margin: "4px" }}
+                />
+              </Col> */}
+              {/* <Col span={22}>
+                <h2 style={{ margin: "0px 0px 0px 10px" }}>
+                  Thông tin thanh toán
+                </h2>
+              </Col> */}
+            </Row>
+            <Row style={{ margin: "20px 0 ", width: "100%" }}>
+              <Col
+                span={7}
+                style={{
+                  margin: "2px",
+                  fontWeight: "bold",
+                  fontSize: "15px",
+                }}
+              >
+                Phương thức thanh toán
+              </Col>
+              <Col span={2}>
+                <Button onClick={showModalPayMent} disabled={traSau}>
+                  Chọn phương thức
+                </Button>
+              </Col>
+              <Col
+                span={14}
+                align={"end"}
+                style={{
+                  marginRight: "10px",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+              >
+                {formatCurrency(
+                  dataPayment.reduce((accumulator, currentValue) => {
+                    return accumulator + currentValue.totalMoney;
+                  }, 0)
+                )}
+              </Col>
+            </Row>
+            <Row style={{ margin: "10px 0 " }}>
+              <Col
+                span={5}
+                style={{
+                  margin: "2px",
+                  fontWeight: "bold",
+                  fontSize: "15px",
+                }}
+              >
+                Mã giảm giá:{" "}
+              </Col>
+              <Col span={13}>
+                <Input
+                  style={{ width: "70%", backgroundColor: "white" }}
+                  value={products.length !== 0 ? codeVoucher : ""}
+                  readOnly
+                />
+              </Col>
+              <Col span={1}></Col>
+              <Col span={3}>
+                <Button type="dashed" onClick={(e) => showModalVoucher(e)}>
+                  Chọn mã
+                </Button>
+              </Col>
+            </Row>
+
+            <Row justify="space-between" style={{ marginTop: "29px" }}>
+              <Col
+                span={5}
+                style={{
+                  margin: "2px",
+                  fontWeight: "bold",
+                  fontSize: "15px",
+                }}
+              >
+                Tiền hàng:{" "}
+              </Col>
+              <Col
+                span={10}
+                align={"end"}
+                style={{
+                  marginRight: "10px",
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                }}
+              >
+                {formatCurrency(
+                  products.reduce((accumulator, currentValue) => {
+                    return (
+                      accumulator + currentValue.price * currentValue.quantity
+                    );
+                  }, 0)
+                )}
+              </Col>
+            </Row>
+            {isOpenDelivery == true ? (
+              <Row justify="space-between" style={{ marginTop: "29px" }}>
+                <Col
+                  span={8}
+                  style={{
+                    margin: "2px",
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                  }}
+                >
+                  Phí vận chuyển:{" "}
+                </Col>
+                <Col
+                  span={10}
+                  align={"end"}
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                    marginRight: "10px",
+                  }}
+                >
+                  <NumberFormat
+                    thousandSeparator={true}
+                    suffix=" VND"
+                    placeholder={
+                      "Vui lòng nhập phí ship ( " +
+                      formatCurrency(shipFee) +
+                      " )"
+                    }
+                    style={{
+                      width: "50%",
+                      position: "relative",
+                      height: "37px",
+                    }}
+                    min={0}
+                    customInput={Input}
+                    value={shipFee}
+                    disabled={true}
+                    onChange={(e) => {
+                      var phiShip = parseFloat(
+                        e.target.value.replace(/[^0-9.-]+/g, "")
+                      );
+                      if (
+                        phiShip == null ||
+                        isNaN(phiShip) ||
+                        phiShip == undefined ||
+                        phiShip < 0
+                      ) {
+                        toast.warning(
+                          "Vui lòng nhập phí vân chuyển và lớn hơn hoặc bằng 0"
+                        );
+                      } else {
+                        setShipFee(phiShip);
+                      }
+                    }}
+                  />
+                </Col>
+              </Row>
+            ) : (
+              <Row></Row>
+            )}
+
+            <Row justify="space-between" style={{ marginTop: "29px" }}>
+              <Col
+                span={5}
+                style={{
+                  margin: "2px",
+                  fontWeight: "bold",
+                  fontSize: "15px",
+                }}
+              >
+                Giảm giá:{" "}
+              </Col>
+              <Col
+                span={10}
+                align={"end"}
+                style={{
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                  marginRight: "10px",
+                }}
+              >
+                {formatCurrency(voucher.discountPrice)}
+              </Col>
+            </Row>
+
+            {isOpenDelivery ? (
+              <Row style={{ margin: "20px 0 5px 0px", width: "100%" }}>
+                <Col
+                  span={5}
+                  style={{
+                    margin: "2px",
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                  }}
+                >
+                  Trả Sau:{" "}
+                </Col>
+                <Col
+                  span={12}
+                  className="debit"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <Switch
+                    defaultChecked={traSau}
+                    onChange={(e) => traTienSau(e)}
+                  />
+                </Col>
+              </Row>
+            ) : (
+              <Row></Row>
+            )}
+            <Row style={{ margin: "20px 0 5px 0px", width: "100%" }}>
+              <Col
+                span={5}
+                style={{
+                  margin: "2px",
+                  fontWeight: "bold",
+                  fontSize: "15px",
+                }}
+              >
+                Giao Hàng:{" "}
+              </Col>
+              <Col
+                span={12}
+                className="delivery"
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <Switch
+                  defaultChecked={isOpenDelivery}
+                  onChange={(e) => {
+                    openDelivery(e);
+                  }}
+                />
+              </Col>
+            </Row>
+
+            {isPoin ? (
+              <Row style={{ margin: "29px 0 5px 0px", width: "100%" }}>
+                <Col span={15}>
+                  <Row></Row>
+                </Col>
+
+                {usePoin ? (
+                  <Col
+                    span={8}
+                    align={"end"}
+                    style={{
+                      marginRight: "10px",
+                      fontSize: "15px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {formatCurrency(exchangeRateMoney)}
+                  </Col>
+                ) : (
+                  <Col span={12}></Col>
+                )}
+              </Row>
+            ) : (
+              <Row></Row>
+            )}
+            <Row justify="space-between" style={{ marginTop: "29px" }}>
+              <Col span={12}>
+                <span
+                  style={{
+                    margin: "2px",
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                  }}
+                >
+                  Tổng tiền:
+                </span>{" "}
+              </Col>
+              {isOpenDelivery ? (
+                <Col
+                  span={10}
+                  style={{
+                    color: "red",
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                    marginRight: "10px",
+                  }}
+                  align={"end"}
+                >
+                  {formatCurrency(
+                    Math.max(
+                      0,
+                      products.reduce((accumulator, currentValue) => {
+                        return (
+                          accumulator +
+                          currentValue.price * currentValue.quantity
+                        );
+                      }, 0) +
+                        shipFee -
+                        exchangeRateMoney -
+                        voucher.discountPrice
+                    )
+                  )}
+                </Col>
+              ) : (
+                <Col
+                  span={10}
+                  style={{
+                    color: "black",
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                    marginRight: "10px",
+                  }}
+                  align={"end"}
+                >
+                  {formatCurrency(
+                    Math.max(
+                      0,
+                      products.reduce((accumulator, currentValue) => {
+                        return (
+                          accumulator +
+                          currentValue.price * currentValue.quantity
+                        );
+                      }, 0) -
+                        exchangeRateMoney -
+                        voucher.discountPrice
+                    )
+                  )}
+                </Col>
+              )}
+            </Row>
+            <Row style={{ margin: "60px 20px 30px 0" }} justify="center">
+              <Button
+                type="primary"
+                style={{
+                  backgroundColor: "#1677FF",
+                  fontWeight: "500",
+                  height: "40px",
+                }}
+                onClick={(e) => orderBill(e)}
+              >
+                {isOpenDelivery == true
+                  ? " Xác nhận đặt hàng "
+                  : " Xác nhận thanh toán "}
+              </Button>
+            </Row>
+          </Col>
+          <Col span={14} style={{ paddingLeft: "100px" }}>
             {isOpenDelivery ? (
               <Form form={form} ref={formRef} initialValues={initialValues}>
                 <div>
+                  <h2 style={{ marginLeft: "10px" }}>Thông tin giao hàng</h2>
                   <Row
                     style={{
                       width: "100%",
                       marginLeft: "10px",
-                      marginTop: "10px",
+                      marginTop: "20px",
                     }}
                   >
-                    <Col span={24}>
+                    <Col span={11}>
                       <Form.Item
                         label=""
                         name="name"
@@ -2171,7 +2535,7 @@ function CreateBill({
                       >
                         <Input
                           placeholder="Nhập họ và tên"
-                          style={{ width: "90%", height: "39px" }}
+                          style={{ width: "100%", height: "39px" }}
                           defaultValue={billRequest.userName}
                           onChange={(e) =>
                             ChangeBillRequest("userName", e.target.value)
@@ -2179,10 +2543,48 @@ function CreateBill({
                         />
                       </Form.Item>
                     </Col>
+
+                    <Col span={11} style={{ marginLeft: "20px" }}>
+                      <Form.Item
+                        label=""
+                        name="phoneNumber"
+                        style={{ marginBottom: "20px" }}
+                        rules={[
+                          {
+                            required: true,
+                            message: "Vui lòng nhập số điện thoại",
+                          },
+                          {
+                            pattern:
+                              "(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}",
+                            message: "Vui lòng nhập đúng số điện thoại",
+                          },
+                          {
+                            validator: (_, value) => {
+                              if (value && value.trim() === "") {
+                                return Promise.reject(
+                                  "Không được chỉ nhập khoảng trắng"
+                                );
+                              }
+                              return Promise.resolve();
+                            },
+                          },
+                        ]}
+                      >
+                        <Input
+                          placeholder="Nhập số điện thoại"
+                          style={{ width: "100%", height: "39px" }}
+                          onChange={(e) =>
+                            ChangeBillRequest("phoneNumber", e.target.value)
+                          }
+                          defaultValue={billRequest.phoneNumber}
+                        />
+                      </Form.Item>
+                    </Col>
                   </Row>
-                  <Row
+                  {/* <Row
                     style={{
-                      width: "100%",
+                      width: "40%",
                       marginLeft: "10px",
                       marginTop: "10px",
                     }}
@@ -2216,7 +2618,7 @@ function CreateBill({
                       >
                         <Input
                           placeholder="Nhập số điện thoại"
-                          style={{ width: "90%", height: "39px" }}
+                          style={{ width: "100%", height: "39px" }}
                           onChange={(e) =>
                             ChangeBillRequest("phoneNumber", e.target.value)
                           }
@@ -2224,7 +2626,7 @@ function CreateBill({
                         />
                       </Form.Item>
                     </Col>
-                  </Row>
+                  </Row> */}
                   <Row
                     style={{
                       width: "100%",
@@ -2232,7 +2634,7 @@ function CreateBill({
                       marginTop: "10px",
                     }}
                   >
-                    <Col span={24}>
+                    <Col span={11}>
                       <Form.Item
                         label=""
                         name="email"
@@ -2247,7 +2649,7 @@ function CreateBill({
                       >
                         <Input
                           placeholder="Nhập email"
-                          style={{ width: "90%", height: "39px" }}
+                          style={{ width: "100%", height: "39px" }}
                           onChange={(e) =>
                             ChangeBillRequest("email", e.target.value)
                           }
@@ -2255,8 +2657,61 @@ function CreateBill({
                         />
                       </Form.Item>
                     </Col>
+
+                    <Col span={11} style={{ marginLeft: "20px" }}>
+                      <Form.Item
+                        label=""
+                        name="detail"
+                        style={{ marginBottom: "20px" }}
+                        rules={[
+                          {
+                            required: true,
+                            message: "Vui lòng nhập địa chỉ",
+                          },
+                          {
+                            validator: (_, value) => {
+                              if (value && value.trim() === "") {
+                                return Promise.reject(
+                                  "Không được chỉ nhập khoảng trắng"
+                                );
+                              }
+                              return Promise.resolve();
+                            },
+                          },
+                          {
+                            validator: (_, value) => {
+                              // if (value && value.trim() === "") {
+                              //   return Promise.reject(
+                              //     "Không được chỉ nhập khoảng trắng"
+                              //   );
+                              // }
+                              if (
+                                !/^(?=.*[a-zA-Z]|[À-ỹ])[a-zA-Z\dÀ-ỹ\s\-_]*$/.test(
+                                  value
+                                )
+                              ) {
+                                return Promise.reject(
+                                  "Phải chứa ít nhất một chữ cái và không có ký tự đặc biệt"
+                                );
+                              }
+
+                              return Promise.resolve();
+                            },
+                          },
+                        ]}
+                      >
+                        <Input
+                          placeholder="Nhập địa chỉ"
+                          style={{ width: "100%", height: "39px" }}
+                          defaultValue={address.detail}
+                          onChange={(e) =>
+                            onChangeAddress("detail", e.target.value)
+                          }
+                        />
+                      </Form.Item>
+                    </Col>
                   </Row>
-                  <Row
+                  {/* <Row
                     style={{
                       width: "100%",
                       marginLeft: "10px",
@@ -2315,7 +2770,7 @@ function CreateBill({
                         />
                       </Form.Item>
                     </Col>
-                  </Row>
+                  </Row> */}
                   <Row
                     style={{
                       width: "100%",
@@ -2480,7 +2935,7 @@ function CreateBill({
                     <Col span={5}>
                       <img
                         src={
-                          "https://cdn.haitrieu.com/wp-content/uploads/2022/05/Logo-GHN-Slogan-En.png"
+                          "https://cdn.prod.website-files.com/5fb85f26f126ce08d792d2d9/607cdb2f875a62174a2ac9e3_After_GHN.png"
                         }
                         style={{ width: "130px" }}
                       />
@@ -2502,375 +2957,6 @@ function CreateBill({
             ) : (
               <div></div>
             )}
-          </Col>
-          <Col span={10}>
-            <Row style={{ width: "100%" }}>
-              <Col span={2}>
-                <FaShoppingBag
-                  style={{ width: "50px", height: "20px", margin: "4px" }}
-                />
-              </Col>
-              <Col span={22}>
-                <h2 style={{ margin: "0px 0px 0px 10px" }}>
-                  Thông tin thanh toán
-                </h2>
-              </Col>
-            </Row>
-            <Row style={{ margin: "20px 0 ", width: "100%" }}>
-              <Col
-                span={7}
-                style={{
-                  margin: "2px",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                Khách thanh toán
-              </Col>
-              <Col span={2}>
-                <Button onClick={showModalPayMent} disabled={traSau}>
-                  <MdOutlinePayment></MdOutlinePayment>
-                </Button>
-              </Col>
-              <Col
-                span={14}
-                align={"end"}
-                style={{
-                  marginRight: "10px",
-                  fontSize: "15px",
-                  fontWeight: "bold",
-                }}
-              >
-                {formatCurrency(
-                  dataPayment.reduce((accumulator, currentValue) => {
-                    return accumulator + currentValue.totalMoney;
-                  }, 0)
-                )}
-              </Col>
-            </Row>
-            <Row style={{ margin: "10px 0 " }}>
-              <Col
-                span={5}
-                style={{
-                  margin: "2px",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                Mã giảm giá:{" "}
-              </Col>
-              <Col span={13}>
-                <Input
-                  style={{ width: "100%", backgroundColor: "white" }}
-                  value={products.length !== 0 ? codeVoucher : ""}
-                  readOnly
-                />
-              </Col>
-              <Col span={1}></Col>
-              <Col span={3}>
-                <Button type="dashed" onClick={(e) => showModalVoucher(e)}>
-                  Chọn mã
-                </Button>
-              </Col>
-            </Row>
-            {isOpenDelivery ? (
-              <Row style={{ margin: "20px 0 5px 0px", width: "100%" }}>
-                <Col
-                  span={5}
-                  style={{
-                    margin: "2px",
-                    fontWeight: "bold",
-                    fontSize: "15px",
-                  }}
-                >
-                  Trả Sau:{" "}
-                </Col>
-                <Col
-                  span={12}
-                  className="debit"
-                  style={{ display: "flex", alignItems: "center" }}
-                >
-                  <Switch
-                    defaultChecked={traSau}
-                    onChange={(e) => traTienSau(e)}
-                  />
-                </Col>
-              </Row>
-            ) : (
-              <Row></Row>
-            )}
-            <Row style={{ margin: "20px 0 5px 0px", width: "100%" }}>
-              <Col
-                span={5}
-                style={{
-                  margin: "2px",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                Giao Hàng:{" "}
-              </Col>
-              <Col
-                span={12}
-                className="delivery"
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                <Switch
-                  defaultChecked={isOpenDelivery}
-                  onChange={(e) => {
-                    openDelivery(e);
-                  }}
-                />
-              </Col>
-            </Row>
-
-            <Row justify="space-between" style={{ marginTop: "29px" }}>
-              <Col
-                span={5}
-                style={{
-                  margin: "2px",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                Tiền hàng:{" "}
-              </Col>
-              <Col
-                span={10}
-                align={"end"}
-                style={{
-                  marginRight: "10px",
-                  fontSize: "15px",
-                  fontWeight: "bold",
-                }}
-              >
-                {formatCurrency(
-                  products.reduce((accumulator, currentValue) => {
-                    return (
-                      accumulator + currentValue.price * currentValue.quantity
-                    );
-                  }, 0)
-                )}
-              </Col>
-            </Row>
-            {isOpenDelivery == true ? (
-              <Row justify="space-between" style={{ marginTop: "29px" }}>
-                <Col
-                  span={8}
-                  style={{
-                    margin: "2px",
-                    fontWeight: "bold",
-                    fontSize: "15px",
-                  }}
-                >
-                  Phí vận chuyển:{" "}
-                </Col>
-                <Col
-                  span={10}
-                  align={"end"}
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: "bold",
-                    marginRight: "10px",
-                  }}
-                >
-                  <NumberFormat
-                    thousandSeparator={true}
-                    suffix=" VND"
-                    placeholder={
-                      "Vui lòng nhập phí ship ( " +
-                      formatCurrency(shipFee) +
-                      " )"
-                    }
-                    style={{
-                      width: "100%",
-                      position: "relative",
-                      height: "37px",
-                    }}
-                    min={0}
-                    customInput={Input}
-                    value={shipFee}
-                    onChange={(e) => {
-                      var phiShip = parseFloat(
-                        e.target.value.replace(/[^0-9.-]+/g, "")
-                      );
-                      if (
-                        phiShip == null ||
-                        isNaN(phiShip) ||
-                        phiShip == undefined ||
-                        phiShip < 0
-                      ) {
-                        toast.warning(
-                          "Vui lòng nhập phí vân chuyển và lớn hơn hoặc bằng 0"
-                        );
-                      } else {
-                        setShipFee(phiShip);
-                      }
-                    }}
-                  />
-                </Col>
-              </Row>
-            ) : (
-              <Row></Row>
-            )}
-
-            <Row justify="space-between" style={{ marginTop: "29px" }}>
-              <Col
-                span={5}
-                style={{
-                  margin: "2px",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                Giảm giá:{" "}
-              </Col>
-              <Col
-                span={10}
-                align={"end"}
-                style={{
-                  fontSize: "15px",
-                  fontWeight: "bold",
-                  marginRight: "10px",
-                }}
-              >
-                {formatCurrency(voucher.discountPrice)}
-              </Col>
-            </Row>
-            {isPoin ? (
-              <Row style={{ margin: "29px 0 5px 0px", width: "100%" }}>
-                <Col span={15}>
-                  <Row>
-                    <Col
-                      span={12}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        margin: "2px",
-                        fontWeight: "bold",
-                        fontSize: "15px",
-                      }}
-                    >
-                      Điểm hiện tại là{" "}
-                      <span style={{ marginLeft: "3px", marginRight: "3px" }}>
-                        {accountuser?.points}
-                      </span>
-                      :
-                    </Col>
-                    <Col
-                      span={8}
-                      className="delivery"
-                      style={{ display: "flex", alignItems: "center" }}
-                    >
-                      <Switch
-                        defaultChecked={false}
-                        onChange={(e) => {
-                          isOpenUsePoin(e);
-                        }}
-                      />
-                    </Col>
-                  </Row>
-                </Col>
-
-                {usePoin ? (
-                  <Col
-                    span={8}
-                    align={"end"}
-                    style={{
-                      marginRight: "10px",
-                      fontSize: "15px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {formatCurrency(exchangeRateMoney)}
-                  </Col>
-                ) : (
-                  <Col span={12}></Col>
-                )}
-              </Row>
-            ) : (
-              <Row></Row>
-            )}
-            <Row justify="space-between" style={{ marginTop: "29px" }}>
-              <Col span={12}>
-                <span
-                  style={{
-                    margin: "2px",
-                    fontWeight: "bold",
-                    fontSize: "18px",
-                  }}
-                >
-                  Tổng tiền:
-                </span>{" "}
-              </Col>
-              {isOpenDelivery ? (
-                <Col
-                  span={10}
-                  style={{
-                    color: "red",
-                    fontSize: "18px",
-                    fontWeight: "bold",
-                    marginRight: "10px",
-                  }}
-                  align={"end"}
-                >
-                  {formatCurrency(
-                    Math.max(
-                      0,
-                      products.reduce((accumulator, currentValue) => {
-                        return (
-                          accumulator +
-                          currentValue.price * currentValue.quantity
-                        );
-                      }, 0) +
-                        shipFee -
-                        exchangeRateMoney -
-                        voucher.discountPrice
-                    )
-                  )}
-                </Col>
-              ) : (
-                <Col
-                  span={10}
-                  style={{
-                    color: "red",
-                    fontSize: "18px",
-                    fontWeight: "bold",
-                    marginRight: "10px",
-                  }}
-                  align={"end"}
-                >
-                  {formatCurrency(
-                    Math.max(
-                      0,
-                      products.reduce((accumulator, currentValue) => {
-                        return (
-                          accumulator +
-                          currentValue.price * currentValue.quantity
-                        );
-                      }, 0) -
-                        exchangeRateMoney -
-                        voucher.discountPrice
-                    )
-                  )}
-                </Col>
-              )}
-            </Row>
-            <Row style={{ margin: "60px 20px 30px 0" }} justify="end">
-              <Button
-                type="primary"
-                style={{
-                  backgroundColor: "black",
-                  fontWeight: "500",
-                  height: "40px",
-                }}
-                onClick={(e) => orderBill(e)}
-              >
-                {isOpenDelivery == true
-                  ? " Xác nhận đặt hàng "
-                  : " Xác nhận thanh toán "}
-              </Button>
-            </Row>
           </Col>
         </Row>
       </Row>
@@ -2950,7 +3036,10 @@ function CreateBill({
             dataSource={listaccount}
             rowKey="id"
             columns={columnsAccount}
-            pagination={{ pageSize: 3 }}
+            pagination={{
+              pageSize: 10,
+              showSizeChanger: false, // Ẩn phần chọn số lượng bản ghi mỗi trang
+            }}
             className="customer-table"
           />
         </Row>
@@ -3001,7 +3090,10 @@ function CreateBill({
             rowKey="id"
             style={{ width: "100%" }}
             columns={columnsVoucher}
-            pagination={{ pageSize: 5 }}
+            pagination={{
+              pageSize: 10,
+              showSizeChanger: false, // Ẩn phần chọn số lượng bản ghi mỗi trang
+            }}
             // rowClassName={(record, index) =>
             //   index % 2 === 0 ? "even-row" : "odd-row"
             // }
@@ -3052,7 +3144,10 @@ function CreateBill({
             dataSource={listAddress}
             rowKey="id"
             columns={columnsAddress}
-            pagination={{ pageSize: 3 }}
+            pagination={{
+              pageSize: 10,
+              showSizeChanger: false, // Ẩn phần chọn số lượng bản ghi mỗi trang
+            }}
             className="customer-table"
           />
         </Row>
@@ -3163,18 +3258,18 @@ function CreateBill({
         open={isModalPayMentOpen}
         onOk={handleOkPayMent}
         onCancel={handleCancelPayMent}
-        cancelText={"huỷ"}
         okText={"Xác nhận"}
+        cancelText={"Huỷ"}
         width={650}
       >
         <Form form={form} ref={formRef}>
           <Row style={{ width: "100%", marginTop: "10px" }}>
             <Col span={24} style={{ marginTop: "10px" }}>
               <Row style={{ width: "100%" }}>
-                <Col span={4} style={{ fontWeight: "bold" }}>
-                  Số tiền{" "}
+                <Col span={6} style={{ fontWeight: "bold", marginTop: "5px" }}>
+                  Tiền khách đưa:{" "}
                 </Col>
-                <Col span={19}>
+                <Col span={17}>
                   {" "}
                   <Form.Item
                     label=""
@@ -3199,7 +3294,7 @@ function CreateBill({
                       suffix=" VND"
                       placeholder="Vui lòng nhập số tiền"
                       style={{
-                        width: "100%",
+                        width: "70%",
                         position: "relative",
                         height: "37px",
                       }}
@@ -3222,9 +3317,9 @@ function CreateBill({
                 type="primary"
                 onClick={(e) => addPayMent(e, "TIEN_MAT")}
                 style={{
-                  margin: "0 5px",
+                  margin: "0 5px 0 35px",
                   borderRadius: "25px",
-                  width: "98%",
+                  width: "70%",
                   alignItems: "center",
                 }}
                 disabled={totalMoneyPayMent < 1000 ? true : false}
@@ -3237,13 +3332,13 @@ function CreateBill({
                 type="primary"
                 onClick={(e) => addPayMent(e, "CHUYEN_KHOAN")}
                 style={{
-                  margin: "0 5px",
+                  margin: "0 5px 0 35px",
                   borderRadius: "25px",
-                  width: "98%",
+                  width: "70%",
                   alignItems: "center",
                 }}
               >
-                Chuyển khoản
+                VNPAY
               </Button>
             </Col>
           </Row>
@@ -3301,7 +3396,7 @@ function CreateBill({
                   )}
             </Col>
           </Row>
-          <Row style={{ width: "100%", marginTop: "10px" }}>
+          {/* <Row style={{ width: "100%", marginTop: "10px" }}>
             <Table
               style={{ width: "100%" }}
               dataSource={dataPayment}
@@ -3309,7 +3404,7 @@ function CreateBill({
               pagination={{ pageSize: 3 }}
               className="customer-table"
             />
-          </Row>
+          </Row> */}
           <Row style={{ width: "100%", margin: "10px 0 " }}>
             <Col span={7} style={{ fontSize: "16px", fontWeight: "bold" }}>
               Khách thanh toán :

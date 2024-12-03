@@ -1,12 +1,12 @@
 import {
   faSquareCheck,
   faTriangleExclamation,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PaymentsMethodApi } from "../../../api/employee/paymentsmethod/PaymentsMethod.api";
-import logo from "./../../../assets/images/logo_client.png";
 import "./style-payment-success.css";
 import { Button } from "antd";
 import { toast } from "react-toastify";
@@ -93,13 +93,36 @@ function PayMentSuccessful() {
         toast.error(error.response.data.message);
       });
   }, []);
+  const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
 
+  const createFireworks = (num = 10) => {
+    const fireworks = [];
+    for (let i = 0; i < num; i++) {
+      const color = getRandomColor(); // Màu ngẫu nhiên cho mỗi quả pháo
+      fireworks.push(
+        <div
+          key={i}
+          className="firework"
+          style={{ backgroundColor: color }}
+        ></div>
+      );
+    }
+    return fireworks;
+  };
   const [loadLink, setLoadLink] = useState(true);
 
   return (
     <>
-      <div className="header-payment-success">
-        <img className="logo-payment-success" src={logo} alt="logo" />
+      <div className="fireworks-container">
+        {/* Hiển thị các pháo từ vị trí ngẫu nhiên */}
+        {createFireworks(10)}
       </div>
       <div
         style={{
@@ -110,13 +133,10 @@ function PayMentSuccessful() {
       >
         {status == "00" ? (
           <div className="content-payment-success">
-            <FontAwesomeIcon
-              className="icon-payment-success"
-              icon={faSquareCheck}
-            />
-            <h1>Thanh toán thành công</h1>
-            <div style={{ marginTop: "5%" }}>
-              Tổng thanh toán: {formatCurrency(amount / 100)}
+            <FontAwesomeIcon className="icon-payment-success" icon={faCheck} />
+            <h1>Thanh toán đơn hàng thành công</h1>
+            <div style={{ marginTop: "7%", fontSize: "20px" }}>
+              Tổng tiền đơn hàng thanh toán: {formatCurrency(amount / 100)}
             </div>
             <Button
               disabled={loadLink}
@@ -124,9 +144,10 @@ function PayMentSuccessful() {
                 border: "none",
                 backgroundColor: "#f5f5dc00",
                 color: loadLink ? "#ccc" : "#1677ff",
+                marginTop: "5%",
               }}
             >
-              <Link to="/sale-counter">Tiếp tục bán hàng</Link>
+              <Link to="/sale-counter">Quay trở lại bán hàng</Link>
             </Button>
           </div>
         ) : (

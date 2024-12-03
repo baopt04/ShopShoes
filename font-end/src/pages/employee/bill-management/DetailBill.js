@@ -270,7 +270,7 @@ function DetailBill() {
       title: "Xác nhận",
       content: "Bạn có đồng ý xác nhận không?",
       okText: "Đồng ý",
-      cancelText: "Hủy",
+      cancelText: "Hủy ",
       onOk: async () => {
         var data = paymentsMethod.map((item) => item.id);
         await PaymentsMethodApi.updateStatus(id, data).then((res) => {
@@ -599,7 +599,7 @@ function DetailBill() {
           await BillApi.fetchAllHistoryInBillByIdBill(id).then((res) => {
             dispatch(getBillHistory(res.data.data));
           });
-          toast.success("Xác nhận thành công");
+          toast.success("Chuyển trạng thái thành công");
           setIsModalOpenChangeStatus(false);
         },
         onCancel: () => {
@@ -649,7 +649,7 @@ function DetailBill() {
   const handleOkRollBackStatus = () => {
     if (
       statusBill.actionDescription.trim() == "" ||
-      statusBill.actionDescription.trim().length < 50
+      statusBill.actionDescription.trim().length < 20
     ) {
       toast.error("Vui lòng nhập mô tả");
     } else {
@@ -808,7 +808,11 @@ function DetailBill() {
 
   const columnsPayments = [
     {
-      title: <div className="title-product">STT</div>,
+      title: (
+        <div className="title-product" style={{ height: "20px" }}>
+          STT
+        </div>
+      ),
       key: "index",
       render: (value, item, index) => index + 1,
     },
@@ -825,7 +829,7 @@ function DetailBill() {
       render: (totalMoney) => <span>{formatCurrency(totalMoney)}</span>,
     },
     {
-      title: <div className="title-product">Trạng thái</div>,
+      title: <div className="title-product">Hình thức</div>,
       dataIndex: "method",
       key: "method",
       render: (method) => (
@@ -838,15 +842,7 @@ function DetailBill() {
         </span>
       ),
     },
-    {
-      title: <div className="title-product">Thời gian</div>,
-      dataIndex: "createdDate",
-      key: "createdDate",
-      render: (text) => {
-        const formattedDate = moment(text).format("DD-MM-YYYY"); // Định dạng ngày
-        return formattedDate;
-      },
-    },
+
     {
       title: <div className="title-product">Loại giao dịch</div>,
       dataIndex: "status",
@@ -865,22 +861,31 @@ function DetailBill() {
       ),
     },
     {
-      title: <div className="title-product">Phương thức thanh toán</div>,
-      dataIndex: "method",
-      key: "method",
-      render: (method) => (
-        <Button
-          style={{ width: "130px", pointerEvents: "none" }}
-          className={method}
-        >
-          {method == "TIEN_MAT"
-            ? "Tiền mặt"
-            : method == "CHUYEN_KHOAN"
-            ? "Chuyển khoản"
-            : "Thẻ"}
-        </Button>
-      ),
+      title: <div className="title-product">Thời gian</div>,
+      dataIndex: "createdDate",
+      key: "createdDate",
+      render: (text) => {
+        const formattedDate = moment(text).format("DD-MM-YYYY"); // Định dạng ngày
+        return formattedDate;
+      },
     },
+    // {
+    //   title: <div className="title-product">Phương thức thanh toán</div>,
+    //   dataIndex: "method",
+    //   key: "method",
+    //   render: (method) => (
+    //     <Button
+    //       style={{ width: "130px", pointerEvents: "none" }}
+    //       className={method}
+    //     >
+    //       {method == "TIEN_MAT"
+    //         ? "Tiền mặt"
+    //         : method == "CHUYEN_KHOAN"
+    //         ? "Chuyển khoản"
+    //         : "Thẻ"}
+    //     </Button>
+    //   ),
+    // },
     {
       title: <div className="title-product">Ghi chú</div>,
       dataIndex: "description",
@@ -1083,7 +1088,10 @@ function DetailBill() {
                     span={
                       statusPresent > 1 &&
                       bill.shippingTime != null &&
-                      bill.statusBill !== "TRA_HANG"
+                      bill.statusBill !== "TRA_HANG" &&
+                      bill.statusBill !== "VAN_CHUYEN" &&
+                      bill.statusBill !== "DA_THANH_TOAN" &&
+                      bill.statusBill !== "THANH_CONG"
                         ? 5
                         : 0
                     }
@@ -1091,7 +1099,10 @@ function DetailBill() {
                     {" "}
                     {statusPresent > 1 &&
                     bill.shippingTime != null &&
-                    bill.statusBill !== "TRA_HANG" ? (
+                    bill.statusBill !== "TRA_HANG" &&
+                    bill.statusBill !== "VAN_CHUYEN" &&
+                    bill.statusBill !== "DA_THANH_TOAN" &&
+                    bill.statusBill !== "THANH_CONG" ? (
                       <Button
                         type="danger"
                         className="btn btn-danger"
@@ -1099,9 +1110,10 @@ function DetailBill() {
                         style={{
                           fontSize: "medium",
                           fontWeight: "500",
-                          marginLeft: "20px",
-                          backgroundColor: "#FF9900",
-                          color: "white",
+                          marginLeft: "10px",
+                          backgroundColor: "##FFFF00",
+                          border: "solid 1px #DDDDDD",
+                          color: "black",
                         }}
                       >
                         Quay lại
@@ -1124,12 +1136,12 @@ function DetailBill() {
                         style={{
                           fontSize: "medium",
                           fontWeight: "500",
-                          marginLeft: "20px",
+                          // marginLeft: "10px",
                           backgroundColor: "red",
                           color: "white",
                         }}
                       >
-                        Hủy
+                        Hủy đơn hàng
                       </Button>
                     ) : (
                       <div></div>
@@ -1145,10 +1157,10 @@ function DetailBill() {
                     fontSize: "medium",
                     fontWeight: "500",
                     marginRight: "20px",
-                    // backgroundColor: ",
+                    backgroundColor: "orange",
                   }}
                 >
-                  Lịch sử
+                  Lịch sử tác động
                 </Button>
               </Col>
             </Row>
@@ -1157,7 +1169,7 @@ function DetailBill() {
               open={isModalOpenChangeStatus}
               onOk={handleOkChangeStatus}
               onCancel={handleCancelChangeStatus}
-              cancelText={"huỷ"}
+              cancelText={"Huỷ"}
               okText={"Xác nhận"}
             >
               <Form
@@ -1176,7 +1188,7 @@ function DetailBill() {
                       rules={[
                         {
                           required: true,
-                          message: "Vui lòng nhập mô tả",
+                          message: "Vui lòng nhập mô tả ",
                         },
                         {
                           validator: (_, value) => {
@@ -1202,7 +1214,7 @@ function DetailBill() {
                     >
                       <TextArea
                         rows={bill.statusBill === "VAN_CHUYEN" ? 3 : 4}
-                        placeholder="Nhập mô tả"
+                        placeholder="Nhập mô tả trạng thái"
                         style={{ width: "100%", position: "F" }}
                         onChange={(e) =>
                           onChangeDescStatusBill(
@@ -1221,7 +1233,7 @@ function DetailBill() {
               open={isModalOpenRollBackStatus}
               onOk={handleOkRollBackStatus}
               onCancel={handleCancelRollBackStatus}
-              cancelText={"huỷ"}
+              cancelText={"Huỷ"}
               okText={"Xác nhận"}
             >
               <Form
@@ -1264,8 +1276,10 @@ function DetailBill() {
                         },
                         {
                           validator: (_, value) => {
-                            if (value && value.length < 50) {
-                              return Promise.reject("Ít nhất 50 ký tự");
+                            if (value && value.length < 20) {
+                              return Promise.reject(
+                                "Bạn cần nhập 20 ký tự để quay lại"
+                              );
                             }
 
                             return Promise.resolve();
@@ -1392,7 +1406,7 @@ function DetailBill() {
           }}
         >
           <Col span={20}>
-            <h1 style={{ fontSize: "25px", marginBottom: "10px" }}>
+            <h1 style={{ fontSize: "20px", marginBottom: "10px" }}>
               {" "}
               Lịch sử thanh toán
             </h1>
@@ -1433,45 +1447,24 @@ function DetailBill() {
             }}
           >
             <Col span={18}>
-              <h1 style={{ fontSize: "25px", marginBottom: "10px" }}>
+              <h1 style={{ fontSize: "20px", marginBottom: "6px" }}>
                 {" "}
                 Thông tin đơn hàng: {bill.code}
               </h1>
             </Col>
             <Col span={1}></Col>
-            <Col span={2}>
-              {statusPresent < 5 ? (
-                <Button
-                  type="dashed"
-                  align={"end"}
-                  style={{ margin: "" }}
-                  onClick={(e) => showModalBill(e)}
-                >
-                  Thay đổi
-                </Button>
-              ) : (
-                <div></div>
-              )}
-            </Col>
-            <Col span={3}>
-              {statusPresent < 6 ? (
-                <Button
-                  type="dashed"
-                  align={"end"}
-                  style={{ margin: "" }}
-                  onClick={(e) => showModalAccountEmployee()}
-                >
-                  Chuyển nhân viên
-                </Button>
-              ) : (
-                <div></div>
-              )}
-            </Col>
           </Row>
           <Row style={{ width: "100%" }}>
             <Col span={12} className="text">
               <Row style={{ marginLeft: "20px" }}>
-                <Col span={8} style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <Col
+                  span={8}
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    textAlign: "center",
+                  }}
+                >
                   Trạng thái :
                 </Col>
                 <Col span={16}>
@@ -1481,7 +1474,7 @@ function DetailBill() {
                     {bill.statusBill == "TAO_HOA_DON"
                       ? "Tạo Hóa đơn"
                       : bill.statusBill == "CHO_XAC_NHAN"
-                      ? "Chờ xác nhận"
+                      ? "Chờ xác nhận "
                       : bill.statusBill == "XAC_NHAN"
                       ? "Đã xác nhận"
                       : bill.statusBill == "CHO_VAN_CHUYEN"
@@ -1501,7 +1494,14 @@ function DetailBill() {
             </Col>
             <Col span={12} className="text">
               <Row style={{ marginLeft: "20px", marginTop: "8px" }}>
-                <Col span={8} style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <Col
+                  span={8}
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    textAlign: "center",
+                  }}
+                >
                   Tên khách hàng:
                 </Col>
                 <Col span={16}>
@@ -1527,13 +1527,20 @@ function DetailBill() {
             </Col>
             <Col span={12} className="text">
               <Row style={{ marginLeft: "20px", marginTop: "8px" }}>
-                <Col span={8} style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <Col
+                  span={8}
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    textAlign: "center",
+                  }}
+                >
                   Loại:
                 </Col>
                 <Col span={16}>
                   <Button
                     style={{
-                      backgroundColor: "#6633FF",
+                      backgroundColor: "#1677ff",
                       color: "white",
                       width: "180px",
                       borderRadius: "15px",
@@ -1541,14 +1548,21 @@ function DetailBill() {
                       pointerEvents: "none",
                     }}
                   >
-                    {bill.typeBill}
+                    {bill.typeBill === "Online" ? "Tại Quán" : "Tại Quầy"}
                   </Button>
                 </Col>
               </Row>
             </Col>
             <Col span={12} className="text">
               <Row style={{ marginLeft: "20px", marginTop: "8px" }}>
-                <Col span={8} style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <Col
+                  span={8}
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    textAlign: "center",
+                  }}
+                >
                   {" "}
                   Số điện thoại:
                 </Col>
@@ -1559,7 +1573,14 @@ function DetailBill() {
             </Col>
             <Col span={12} className="text">
               <Row style={{ marginLeft: "20px", marginTop: "8px" }}>
-                <Col span={8} style={{ fontWeight: "bold", fontSize: "16px" }}>
+                <Col
+                  span={8}
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    textAlign: "center",
+                  }}
+                >
                   Địa chỉ:
                 </Col>
                 <Col span={16}>
@@ -1573,7 +1594,11 @@ function DetailBill() {
                 <Row style={{ marginLeft: "20px", marginTop: "8px" }}>
                   <Col
                     span={8}
-                    style={{ fontWeight: "bold", fontSize: "16px" }}
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: "16px",
+                      textAlign: "center",
+                    }}
                   >
                     Thời gian dự kiến nhận:
                   </Col>
@@ -1595,12 +1620,50 @@ function DetailBill() {
                   marginBottom: "20px",
                 }}
               >
-                <Col span={8} style={{ fontWeight: "bold", fontSize: "16px" }}>
+                {/* <Col span={12} style={{ fontWeight: "bold", fontSize: "16px" }}>
                   Ghi chú:
                 </Col>
                 <Col span={16}>
                   <span>{bill.note}</span>
+                </Col> */}
+                <Col span={10}>
+                  {statusPresent < 5 ? (
+                    <Button
+                      type="dashed"
+                      align={"center"}
+                      style={{
+                        marginLeft: "500px",
+                        backgroundColor: "#1677ff",
+                        color: "white",
+                        padding: "5px",
+                      }}
+                      onClick={(e) => showModalBill(e)}
+                    >
+                      Thay đổi thông tin
+                    </Button>
+                  ) : (
+                    <div></div>
+                  )}
                 </Col>
+                {/* <Col span={10}>
+                  {statusPresent < 6 ? (
+                    <Button
+                      type="dashed"
+                      align={"end"}
+                      style={{
+                        marginLeft: "400px",
+                        backgroundColor: "#1677ff",
+                        color: "white",
+                        padding: "5px",
+                      }}
+                      onClick={(e) => showModalAccountEmployee()}
+                    >
+                      Thay đổi nhân viên
+                    </Button>
+                  ) : (
+                    <div></div>
+                  )}
+                </Col> */}
               </Row>
             </Col>
           </Row>
@@ -1609,11 +1672,12 @@ function DetailBill() {
       <Card style={{ marginTop: "30px" }}>
         <Row style={{ width: "100%" }}>
           <Col span={20}>
-            <h1 style={{ fontSize: "25px", marginBottom: "10px" }}>
+            <h1 style={{ fontSize: "20px", marginBottom: "10px" }}>
               {" "}
-              Thông tin sản phẩm đã mua{" "}
+              Sản phẩm đã mua{" "}
             </h1>
           </Col>
+
           <Col span={4} align={"end"}>
             {" "}
             {statusPresent < 2 ? (
@@ -1623,7 +1687,11 @@ function DetailBill() {
               >
                 <Button
                   type="primary"
-                  style={{ margin: "10px 20px  ", height: "40px" }}
+                  style={{
+                    marginTop: "30px",
+                    marginBottom: "10px",
+                    height: "40px",
+                  }}
                   onClick={(e) => showModalProduct(e)}
                 >
                   <FontAwesomeIcon
@@ -1662,16 +1730,16 @@ function DetailBill() {
                   <Col span={5}></Col>
                   <Col
                     span={9}
-                    style={{ fontWeight: "bold", fontSize: "16px" }}
+                    style={{ fontWeight: "bold", fontSize: "15px" }}
                   >
                     Tổng tiền hàng :
                   </Col>
                   <Col span={10} align={"end"}>
                     <span
                       style={{
-                        fontSize: "18px",
+                        fontSize: "15px",
                         fontWeight: "bold",
-                        color: "blue",
+                        color: "black",
                       }}
                     >
                       {formatCurrency(totalProductDetailGiveBackAndSuccse())}
@@ -1683,12 +1751,12 @@ function DetailBill() {
                     <Col span={5}></Col>
                     <Col
                       span={9}
-                      style={{ fontWeight: "bold", fontSize: "16px" }}
+                      style={{ fontWeight: "bold", fontSize: "15px" }}
                     >
                       Phí vận chuyển :
                     </Col>
                     <Col span={10} align={"end"}>
-                      <span style={{ fontSize: "16px" }}>
+                      <span style={{ fontSize: "15px" }}>
                         {shipFeeCustomer !== null &&
                           formatCurrency(shipFeeCustomer)}
                       </span>
@@ -1697,7 +1765,7 @@ function DetailBill() {
                 ) : (
                   <Row></Row>
                 )}
-                {bill.poinUse > 0 ? (
+                {/* {bill.poinUse > 0 ? (
                   <Row style={{ marginLeft: "20px", marginTop: "8px" }}>
                     <Col span={5}></Col>
                     <Col
@@ -1716,18 +1784,18 @@ function DetailBill() {
                   </Row>
                 ) : (
                   <Row></Row>
-                )}
+                )} */}
 
                 <Row style={{ marginLeft: "20px", marginTop: "8px" }}>
                   <Col span={5}></Col>
                   <Col
                     span={9}
-                    style={{ fontWeight: "bold", fontSize: "16px" }}
+                    style={{ fontWeight: "bold", fontSize: "15px" }}
                   >
                     Voucher giảm giá :{" "}
                   </Col>
                   <Col span={10} align={"end"}>
-                    <span style={{ fontSize: "16px" }}>
+                    <span style={{ fontSize: "15px" }}>
                       {formatCurrency(bill.itemDiscount - bill.valuePoin)}
                     </span>
                   </Col>
@@ -1737,12 +1805,12 @@ function DetailBill() {
                   <Col span={5}></Col>
                   <Col
                     span={9}
-                    style={{ fontWeight: "bold", fontSize: "16px" }}
+                    style={{ fontWeight: "bold", fontSize: "15px" }}
                   >
                     Tổng tiền giảm :{" "}
                   </Col>
                   <Col span={10} align={"end"}>
-                    <span style={{ fontSize: "16px" }}>
+                    <span style={{ fontSize: "15px" }}>
                       {formatCurrency(bill.itemDiscount)}
                     </span>
                   </Col>
@@ -1781,7 +1849,7 @@ function DetailBill() {
                     style={{
                       marginBottom: "40px",
                       fontWeight: "bold",
-                      fontSize: "16px",
+                      fontSize: "15px",
                     }}
                   >
                     Tổng tiền thanh toán:{" "}
@@ -1789,9 +1857,9 @@ function DetailBill() {
                   <Col span={10} align={"end"}>
                     <span
                       style={{
-                        fontSize: "18px",
+                        fontSize: "15px",
                         fontWeight: "bold",
-                        color: "blue",
+                        color: "black",
                       }}
                     >
                       {formatCurrency(
@@ -1911,7 +1979,7 @@ function DetailBill() {
 
       {/* begin modal bill  */}
       <Modal
-        title="Thay đổi hóa đơn"
+        title="Thay đổi thông tin"
         open={isModaBillOpen}
         onOk={handleOkBill}
         onCancel={handleCancelBill}
@@ -2111,7 +2179,7 @@ function DetailBill() {
                         className="label-bill"
                         style={{ marginTop: "-4px", top: "-25%" }}
                       >
-                        xã
+                        Xã
                       </label>
                       <Form.Item
                         label=""

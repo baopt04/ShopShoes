@@ -45,7 +45,19 @@ export default function DetailBillGiveBack() {
       })
       .catch((error) => {});
   };
-
+  const formatDiscountValue = (value) => {
+    if (value === undefined || value === null) return "";
+    if (value <= 100) {
+      return `${value} %`;
+    } else {
+      const formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        currencyDisplay: "code",
+      });
+      return formatter.format(value);
+    }
+  };
   const loadDatabill = () => {
     BillApi.BillGiveBack(bill.idBill).then((res) => {
       setDataProductBill(res.data.data);
@@ -77,7 +89,7 @@ export default function DetailBillGiveBack() {
       dataIndex: "stt",
     },
     {
-      title: "Ảnh",
+      title: "Ảnh sản phẩm",
       dataIndex: "image",
       align: "center",
       width: "10%",
@@ -216,10 +228,10 @@ export default function DetailBillGiveBack() {
       align: "center",
       render: (text, record) => (
         <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-          <Tooltip title="Hoàn trả hàng">
+          <Tooltip title="">
             <Button
               type="primary"
-              style={{ backgroundColor: "#20B2AA" }}
+              style={{ backgroundColor: "red" }}
               onClick={() => handleModalQuantityGiveBack(record)}
               disabled={
                 bill.statusBill !== "THANH_CONG" || record.promotion !== null
@@ -797,7 +809,7 @@ export default function DetailBillGiveBack() {
               Thông tin đơn hàng
             </h1>
             <Row justify={"end"}>
-              <Tooltip title="Trả hàng hòa toàn">
+              <Tooltip title="">
                 <Button
                   type="primary"
                   style={{
@@ -831,7 +843,7 @@ export default function DetailBillGiveBack() {
                 }}
               >
                 <h1 style={{ fontSize: "22px", marginBottom: "10px" }}>
-                  Thông tin đơn hàng trả
+                  Thông tin sản phẩm trả hàng
                 </h1>
                 {dataProductGiveBack.length > 0 ? (
                   <div className="table-bill-give-back">
@@ -896,7 +908,7 @@ export default function DetailBillGiveBack() {
                       <h3>Voucher sử dụng : </h3>
                     </Col>
                     <Col span={12}>
-                      <h3> {formatCurrency(bill.voucherValue)}</h3>
+                      <h3> {formatDiscountValue(bill.voucherValue)}</h3>
                     </Col>
                   </Row>
                 )}
@@ -910,42 +922,25 @@ export default function DetailBillGiveBack() {
                     </Col>
                   </Row>
                 )}
-                {/* {bill !== null && bill.poin !== null && (
-                  <Row style={{ marginTop: "30px" }}>
-                    <Col span={12}>
-                      <h3>Điểm sử dụng ({bill.poin}) : </h3>
-                    </Col>
-                    <Col span={12}>
-                      <h3 >
-                        {" "}
-                        {formatCurrency(bill.poin * 1000)}
-                      </h3>
-                    </Col>
-                  </Row>
-                )} */}
+
                 <Row style={{ marginTop: "30px" }}>
                   <Col span={12}>
                     <h3>Tổng tiền thanh toán : </h3>
                   </Col>
                   <Col span={12}>
                     <h3>
-                      {" "}
                       {formatCurrency(
                         totalMoneyBill() -
-                          (bill !== null
-                            ? bill.voucherValue !== null
-                              ? bill.voucherValue
-                              : 0
+                          (bill !== null && bill.voucherValue !== null
+                            ? bill.voucherValue < 100
+                              ? totalMoneyBill() * (bill.voucherValue / 100)
+                              : bill.voucherValue
                             : 0) -
-                          (bill !== null
-                            ? bill.poin !== null
-                              ? bill.poin * 1000
-                              : 0
+                          (bill !== null && bill.poin !== null
+                            ? bill.poin * 1000
                             : 0) +
-                          (bill !== null
-                            ? bill.moneyShip !== null
-                              ? bill.moneyShip
-                              : 0
+                          (bill !== null && bill.moneyShip !== null
+                            ? bill.moneyShip
                             : 0)
                       )}
                     </h3>
@@ -959,22 +954,9 @@ export default function DetailBillGiveBack() {
                     <h3> {formatCurrency(totalMoneyBillGiveBack())}</h3>
                   </Col>
                 </Row>
-                <Row style={{ marginTop: "30px" }}>
-                  <Col span={12}>
-                    <h3>Voucher mới: </h3>
-                  </Col>
-                  <Col span={12}>
-                    <h3>
-                      {" "}
-                      {voucher === null
-                        ? formatCurrency(0)
-                        : formatCurrency(voucher.value)}
-                    </h3>
-                  </Col>
-                </Row>
                 <br />
                 <hr />
-                <Tooltip title="Tổng tiền trả khách  = Tổng giá hàng trả - Voucher đã sử dụng - số điểm sử dụng + Voucher mới ">
+                <Tooltip title="">
                   <Row style={{ marginTop: "30px" }}>
                     <Col span={12}>
                       <h3>Tổng tiền trả khách : </h3>
@@ -984,20 +966,16 @@ export default function DetailBillGiveBack() {
                         <h3>
                           {formatCurrency(
                             totalMoneyBill() -
-                              (bill !== null
-                                ? bill.voucherValue !== null
-                                  ? bill.voucherValue
-                                  : 0
+                              (bill !== null && bill.voucherValue !== null
+                                ? bill.voucherValue < 100
+                                  ? totalMoneyBill() * (bill.voucherValue / 100)
+                                  : bill.voucherValue
                                 : 0) -
-                              (bill !== null
-                                ? bill.poin !== null
-                                  ? bill.poin * 1000
-                                  : 0
+                              (bill !== null && bill.poin !== null
+                                ? bill.poin * 1000
                                 : 0) +
-                              (bill !== null
-                                ? bill.moneyShip !== null
-                                  ? bill.moneyShip
-                                  : 0
+                              (bill !== null && bill.moneyShip !== null
+                                ? bill.moneyShip
                                 : 0)
                           )}
                         </h3>
@@ -1008,19 +986,10 @@ export default function DetailBillGiveBack() {
                               ? bill.voucherValue !== null
                                 ? formatCurrency(
                                     totalMoneyBillGiveBack() -
-                                      bill.voucherValue +
-                                      (voucher !== null ? voucher.value : 0)
-                                  )
-                                : bill.voucherValue !== null
-                                ? formatCurrency(
-                                    totalMoneyBillGiveBack() -
-                                      bill.voucherValue +
-                                      (voucher !== null ? voucher.value : 0)
-                                  )
-                                : bill.voucherValue === null
-                                ? formatCurrency(
-                                    totalMoneyBillGiveBack() +
-                                      (voucher !== null ? voucher.value : 0)
+                                      (bill.voucherValue < 100
+                                        ? totalMoneyBillGiveBack() *
+                                          (bill.voucherValue / 100)
+                                        : bill.voucherValue)
                                   )
                                 : formatCurrency(totalMoneyBillGiveBack())
                               : formatCurrency(totalMoneyBillGiveBack())}
@@ -1056,7 +1025,7 @@ export default function DetailBillGiveBack() {
                       <Input.TextArea
                         rows={5}
                         placeholder="Nhập mô tả "
-                        style={{ width: "300px" }}
+                        style={{ width: "300px", marginLeft: 40 }}
                         onKeyDown={(e) => {
                           if (e.key === " " && e.target.value === "") {
                             e.preventDefault();
@@ -1067,7 +1036,7 @@ export default function DetailBillGiveBack() {
                     </Form.Item>
                   </Col>
                 </Row>
-                <Tooltip title="Trả hàng">
+                <Tooltip title="">
                   <Button
                     style={{
                       width: "100%",
@@ -1078,7 +1047,7 @@ export default function DetailBillGiveBack() {
                     }}
                     onClick={handleSuccessGiveBack}
                   >
-                    <h2>Trả hàng</h2>
+                    <h2>Trả sản phẩm</h2>
                   </Button>
                 </Tooltip>
               </Card>

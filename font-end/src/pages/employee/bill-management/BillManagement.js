@@ -26,8 +26,8 @@ function BillManagement() {
 
   useEffect(() => {
     BillApi.fetchAllStatusBill().then((res) => {
-      setQuantityNotify(res.data.data)
-      setListStatusTab(listtab)
+      setQuantityNotify(res.data.data);
+      setListStatusTab(listtab);
     });
   }, []);
 
@@ -152,7 +152,7 @@ function BillManagement() {
       : key === "VAN_CHUYEN"
       ? "Vận chuyển"
       : key === "DA_THANH_TOAN"
-      ? "thanh toán"
+      ? "Thanh toán"
       : key === "THANH_CONG"
       ? "Hoàn thành"
       : "Hủy";
@@ -169,8 +169,8 @@ function BillManagement() {
   const addNotify = (notify) => {
     var index = quantityNotify.findIndex((item) => item.code === notify.code);
     if (index != -1) {
-      var data = quantityNotify
-      data.splice(index,1,notify)
+      var data = quantityNotify;
+      data.splice(index, 1, notify);
       setQuantityNotify(data);
     }
   };
@@ -180,10 +180,10 @@ function BillManagement() {
     <div>
       <div className="title_category">
         {" "}
-        <span style={{ marginLeft: "10px" }}>Quản lý Hóa đơn</span>
+        <span style={{ marginLeft: "40%" }}>Quản lý hóa đơn</span>
       </div>
       <div className="filter">
-        <FontAwesomeIcon icon={faFilter} size="2x" />{" "}
+        {/* <FontAwesomeIcon icon={faFilter} size="2x" />{" "} */}
         <span style={{ fontSize: "18px", fontWeight: "500" }}>Bộ lọc</span>
         <hr />
         <div className="">
@@ -210,25 +210,27 @@ function BillManagement() {
           className="title_bill"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <FontAwesomeIcon
+          {/* <FontAwesomeIcon
             icon={faListAlt}
             style={{ fontSize: "26px", marginRight: "10px" }}
-          />
+          /> */}
           <span style={{ fontSize: "18px", fontWeight: "500" }}>
-            Danh sách Hóa đơn
+            Danh sách hóa đơn
           </span>
-          <div style={{ marginLeft: "auto" }}></div>
+          {/* <div style={{ marginLeft: "auto" }}></div>
           <Link to={"/sale-counter"} style={{ marginRight: "10px" }}>
             <Button type="primary" icon={<PlusOutlined />} size={"large"}>
               Tạo đơn hàng
             </Button>
-          </Link>
+          </Link> */}
         </div>
         <div style={{ marginTop: "25px" }}>
           <Tabs
             type="card"
             items={listStatusTab.map((item) => {
-              var index = quantityNotify.findIndex((notify) => item == notify.status);
+              var index = quantityNotify.findIndex(
+                (notify) => item == notify.status
+              );
               return {
                 label: (
                   <Badge count={quantityNotify[index]?.quantity}>

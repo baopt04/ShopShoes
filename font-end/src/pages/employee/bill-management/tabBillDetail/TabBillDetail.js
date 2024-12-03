@@ -120,7 +120,7 @@ function TabBillDetail({ dataBillDetail }) {
       dataIndex: "stt",
     },
     {
-      title: <div className="title-product">Ảnh Sản Phẩm</div>,
+      title: <div className="title-product">Ảnh sản phẩm</div>,
       dataIndex: "image",
       align: "center",
       key: "image",
@@ -205,6 +205,14 @@ function TabBillDetail({ dataBillDetail }) {
     },
     {
       title: (
+        <div style={{ textAlign: "center", fontSize: "18px" }}>Số lượng</div>
+      ),
+      key: "quantity",
+      align: "center",
+      dataIndex: "quantity",
+    },
+    {
+      title: (
         <div style={{ textAlign: "center", fontSize: "18px" }}>Màu sắc</div>
       ),
       dataIndex: "codeColor",
@@ -220,20 +228,13 @@ function TabBillDetail({ dataBillDetail }) {
             justifyContent: "center",
             textAlign: "center",
             borderRadius: "6px",
-            width: "60px",
+            width: "30px",
             height: "25px",
           }}
         />
       ),
     },
-    {
-      title: (
-        <div style={{ textAlign: "center", fontSize: "18px" }}>Số lượng</div>
-      ),
-      key: "quantity",
-      align: "center",
-      dataIndex: "quantity",
-    },
+
     {
       title: (
         <div style={{ textAlign: "center", fontSize: "18px" }}>Tổng tiền</div>
@@ -247,7 +248,7 @@ function TabBillDetail({ dataBillDetail }) {
     },
     {
       title: (
-        <div style={{ textAlign: "center", fontSize: "18px" }}>Trạng Thái</div>
+        <div style={{ textAlign: "center", fontSize: "18px" }}>Trạng thái</div>
       ),
       key: "status",
       align: "center",
@@ -372,7 +373,8 @@ function TabBillDetail({ dataBillDetail }) {
             justifyContent: "center",
             textAlign: "center",
             borderRadius: "6px",
-            width: "60px",
+            width: "40px",
+            marginLeft: "50px",
             height: "25px",
           }}
         />
@@ -397,7 +399,12 @@ function TabBillDetail({ dataBillDetail }) {
                       ? record.maxQuantity + record.quantity
                       : record.quantity
                   }
-                  style={{ margin: "0 5px" }}
+                  style={{
+                    margin: "0 5px",
+                    marginLeft: "40px",
+
+                    width: "90px",
+                  }}
                   value={record.quantity}
                   onPressEnter={(e) => {
                     handleQuantityChange(e.target.value, record);
@@ -507,7 +514,7 @@ function TabBillDetail({ dataBillDetail }) {
                 billDetai.forEach((product) => {
                   sum += product.quantity || 0;
                 });
-                 dispatch(ChangeProductInBill(changeQuanTiTy + 1));
+                dispatch(ChangeProductInBill(changeQuanTiTy + 1));
               })
               .catch((error) => {
                 toast.error(error.response.data.message);

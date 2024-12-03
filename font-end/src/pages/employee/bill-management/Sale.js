@@ -114,7 +114,7 @@ function Sale() {
 
   const add = (e) => {
     if (items.length >= 10) {
-      toast.warning(`Không thể tạo thêm hóa đơn`);
+      toast.warning(`Số lượng hóa đơn tối đa là 10 hóa đơn`);
     } else {
       BillApi.getCodeBill().then((res) => {
         setDataKey([...dataKey, res.data.data.code]);
@@ -200,6 +200,9 @@ function Sale() {
   console.log(items);
   return (
     <div>
+      <div className="title_sole">
+        <span style={{ marginLeft: "40%" }}>Bán hàng tại quầy</span>
+      </div>
       <Row style={{ background: "white", width: "100%" }}>
         <Row style={{ width: "100%", marginTop: "10px" }}>
           <Col span={12}></Col>
@@ -211,7 +214,7 @@ function Sale() {
               size={"large"}
               style={{ marginRight: "5%", marginTop: "30px" }}
             >
-              Tạo hóa đơn
+              Tạo hóa đơn mới
             </Button>
           </Col>
         </Row>
