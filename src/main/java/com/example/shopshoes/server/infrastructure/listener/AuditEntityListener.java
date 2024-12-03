@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.infrastructure.listener;
 
-import com.example.shose.server.entity.base.AuditEntity;
+import com.example.shopshoes.server.entity.base.AuditEntity;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 

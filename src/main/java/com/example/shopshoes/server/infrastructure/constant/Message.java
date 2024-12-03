@@ -1,6 +1,5 @@
 package com.example.shopshoes.server.infrastructure.constant;
 
-
 public enum Message {
 
     SUCCESS("Success"),

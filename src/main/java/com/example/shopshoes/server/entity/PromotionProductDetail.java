@@ -2,13 +2,12 @@ package com.example.shopshoes.server.entity;
 
 import com.example.shopshoes.server.entity.base.PrimaryEntity;
 import com.example.shopshoes.server.infrastructure.constant.Status;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,26 +22,19 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-@Table(name = "notification")
+@Table(name = "promotion_product_detail")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Notification extends PrimaryEntity {
+public class PromotionProductDetail  extends PrimaryEntity {
 
-    @Column(name = "notify_content")
-    private String notifyContent;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_promotion",referencedColumnName = "id")
+    private Promotion promotion;
 
-    private String url;
-
-    private String receiver;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_product_detail",referencedColumnName = "id")
+    private ProductDetail productDetail;
 
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    @ManyToOne
-    @JoinColumn(name = "id_account", referencedColumnName = "id")
-    private Account account;
-
-    @OneToOne
-    @JoinColumn(name = "id_bill", referencedColumnName = "id")
-    private Bill bill;
 }

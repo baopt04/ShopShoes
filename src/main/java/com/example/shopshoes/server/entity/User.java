@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,33 +14,41 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.math.BigDecimal;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @Builder
-@Table(name = "scoring_formula")
+@Table(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
-public class ScoringFormula extends PrimaryEntity {
+public class User extends PrimaryEntity {
 
-    @Column(name = "exchange_rate_poin")
-    private BigDecimal exchangeRatePoin;
+    @Column(name = "full_name")
+    private String fullName;
 
-    @Column(name = "exchange_rate_money")
-    private BigDecimal exchangeRateMoney;
+    @Column(name = "date_of_birth")
+    private Long dateOfBirth;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "gender")
+    private Boolean gender;
+
+    @Column(name = "avata")
+    private String avata;
+
+    @Column(name = "points")
+    private Integer points;
+
+    @Column(name = "citizen_identity ")
+    private String citizenIdentity;
 
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    @Transient
-    public int ConvertMoneyToPoints(BigDecimal totalMoney){
-        return totalMoney.divide(exchangeRatePoin, 0, BigDecimal.ROUND_DOWN).intValue();
-    }
-    @Transient
-    public BigDecimal  ConvertPoinToMoney(int poin){
-        return BigDecimal.valueOf(poin).multiply(exchangeRateMoney);
-    }
 }

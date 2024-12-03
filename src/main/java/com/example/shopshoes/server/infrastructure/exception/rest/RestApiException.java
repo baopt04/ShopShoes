@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.infrastructure.exception.rest;
 
-import com.example.shose.server.infrastructure.constant.Message;
+import com.example.shopshoes.server.infrastructure.constant.Message;
 
 
 public class RestApiException extends RuntimeException {

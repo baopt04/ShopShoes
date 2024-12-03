@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.infrastructure.sercurity.config;
 
-import com.example.shose.server.repository.AccountRepository;
+import com.example.shopshoes.server.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

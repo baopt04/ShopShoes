@@ -1,7 +1,7 @@
 package com.example.shopshoes.server.infrastructure.poin;
 
-import com.example.shose.server.infrastructure.constant.Message;
-import com.example.shose.server.infrastructure.exception.rest.RestApiException;
+import com.example.shopshoes.server.infrastructure.constant.Message;
+import com.example.shopshoes.server.infrastructure.exception.rest.RestApiException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;

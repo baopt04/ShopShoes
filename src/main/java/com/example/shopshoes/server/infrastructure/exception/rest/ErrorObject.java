@@ -1,6 +1,5 @@
 package com.example.shopshoes.server.infrastructure.exception.rest;
 
-
 public class ErrorObject {
 
     private String errorMessage;
