@@ -1,6 +1,7 @@
 package com.example.shopshoes.server.entity;
 
 import com.example.shopshoes.server.entity.base.PrimaryEntity;
+import com.example.shopshoes.server.infrastructure.constant.Roles;
 import com.example.shopshoes.server.infrastructure.constant.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

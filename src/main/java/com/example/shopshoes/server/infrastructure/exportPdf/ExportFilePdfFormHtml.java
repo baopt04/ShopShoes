@@ -24,6 +24,8 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.context.Context;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
@@ -86,7 +88,7 @@ public class ExportFilePdfFormHtml {
     public String htmlToPdf(String processedHtml, String code) {
 
         String downloadPath = System.getProperty("user.home") + "/Downloads";
-        
+
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
              PdfWriter pdfwriter = new PdfWriter(byteArrayOutputStream)) {
 

@@ -2,6 +2,7 @@ package com.example.shopshoes.server.infrastructure.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public abstract class VnPayConstant {
     public static String vnp_Refound ="https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
     public static String vnp_BankCode = "";
     public static String vnp_CurrCode = "VND";
-//    public static String vnp_IpAddr = "0:0:0:0:0:0:0:1";
+    //    public static String vnp_IpAddr = "0:0:0:0:0:0:0:1";
     public static String vnp_Locale = "vn";
     public static String vnp_ReturnUrl = "http://localhost:3000/payment/payment-success";
     public static String vnp_ReturnUrlBuyOnline = "http://localhost:3000/client/payment/payment-success";

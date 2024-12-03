@@ -5,7 +5,10 @@ import com.example.shopshoes.server.dto.response.statistical.StatisticalDayRespo
 import com.example.shopshoes.server.dto.response.statistical.StatisticalMonthlyResponse;
 import com.example.shopshoes.server.repository.BillRepository;
 import com.example.shopshoes.server.util.ConvertDateToLong;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;

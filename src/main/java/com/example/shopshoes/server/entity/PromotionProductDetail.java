@@ -2,6 +2,7 @@ package com.example.shopshoes.server.entity;
 
 import com.example.shopshoes.server.entity.base.PrimaryEntity;
 import com.example.shopshoes.server.infrastructure.constant.Status;
+import com.example.shopshoes.server.infrastructure.constant.StatusPromotion;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
