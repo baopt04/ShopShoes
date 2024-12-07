@@ -31,23 +31,23 @@ const ModalQRScanner = ({ visible, onCancel, onQRCodeScanned }) => {
   }, [visible]);
 
   return (
-    <Modal
-      visible={visible}
-      onCancel={handleCloseModal}
-      footer={[
-        <Button key="cancel" onClick={handleCloseModal}>
-          Hủy
-        </Button>,
-      ]}
-    >
-      <QrReader
-        delay={300}
-        style={{ width: "100%" }}
-        onResult={handleScan}
-        ref={qrReaderRef}
-      />
-      {qrCode && <p>{qrCode}</p>}
-    </Modal>
+      <Modal
+          visible={visible}
+          onCancel={handleCloseModal}
+          footer={[
+            <Button key="cancel" onClick={handleCloseModal}>
+              Hủy
+            </Button>,
+          ]}
+      >
+        <QrReader
+            delay={300}
+            style={{ width: "100%" }}
+            onResult={handleScan}
+            ref={qrReaderRef}
+        />
+        {qrCode && <p>{qrCode}</p>}
+      </Modal>
   );
 };
 
