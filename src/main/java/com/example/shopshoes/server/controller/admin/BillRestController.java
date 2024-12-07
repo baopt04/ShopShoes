@@ -2,8 +2,6 @@
 package com.example.shopshoes.server.controller.admin;
 
 import com.example.shopshoes.server.dto.request.bill.*;
-import com.example.shopshoes.server.dto.request.billgiveback.UpdateBillDetailGiveBack;
-import com.example.shopshoes.server.dto.request.billgiveback.UpdateBillGiveBack;
 import com.example.shopshoes.server.infrastructure.session.ShoseSession;
 import com.example.shopshoes.server.service.BillService;
 import com.example.shopshoes.server.util.ResponseObject;
@@ -141,22 +139,7 @@ public class BillRestController {
         return new ResponseObject(billService.getBillGiveBack(ibBill));
     }
 
-    @PostMapping("/give-back")
-    public ResponseObject UpdateBillGiveBack (@RequestParam("updateBill") String updateBill,
-                                              @RequestParam("data") String data){
 
-        Gson gson = new Gson();
-        UpdateBillGiveBack updateBillGiveBack = gson.fromJson(updateBill, UpdateBillGiveBack.class);
-
-        JsonArray jsonData = JsonParser.parseString(data).getAsJsonArray();
-        List<UpdateBillDetailGiveBack> listDataBillDetail =  new ArrayList<>();
-        for (JsonElement dataBillDetail : jsonData) {
-            UpdateBillDetailGiveBack detail = gson.fromJson(dataBillDetail, UpdateBillDetailGiveBack.class);
-            listDataBillDetail.add(detail);
-        }
-        System.out.println(listDataBillDetail);
-        return new ResponseObject(billService.updateBillGiveBack(updateBillGiveBack, listDataBillDetail));
-    }
 
     @PostMapping("/ship-bill")
     public ResponseObject UpdateShipBill (@RequestBody BillShipRequest request){
