@@ -40,8 +40,7 @@ public class BillDetailRestController {
     public ResponseObject findBillById(@PathVariable("id") String id){
         return  new ResponseObject(billDetailService.findBillById(id));
     }
-
-    @PutMapping("/refund")
+     @PutMapping("/refund")
     public ResponseObject refundProduct(@RequestBody RefundProductRequest request){
         return  new ResponseObject(billDetailService.refundProduct(request));
     }
