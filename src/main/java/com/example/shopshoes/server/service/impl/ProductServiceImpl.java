@@ -12,7 +12,7 @@ import com.example.shopshoes.server.entity.Product;
 import com.example.shopshoes.server.infrastructure.constant.Message;
 import com.example.shopshoes.server.infrastructure.constant.Status;
 import com.example.shopshoes.server.infrastructure.exception.rest.RestApiException;
-import com.example.shopshoes.server.reponsitory.ProductRepository;
+import com.example.shopshoes.server.repository.ProductRepository;
 import com.example.shopshoes.server.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

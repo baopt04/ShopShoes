@@ -1,7 +1,7 @@
 package com.example.shopshoes.server.service.impl;
 
 import com.example.shopshoes.server.dto.response.ImageResponse;
-import com.example.shopshoes.server.reponsitory.ImageRepository;
+import com.example.shopshoes.server.repository.ImageRepository;
 import com.example.shopshoes.server.service.ImagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

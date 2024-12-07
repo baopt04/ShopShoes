@@ -9,7 +9,7 @@ import com.example.shopshoes.server.entity.Category;
 import com.example.shopshoes.server.infrastructure.constant.Message;
 import com.example.shopshoes.server.infrastructure.constant.Status;
 import com.example.shopshoes.server.infrastructure.exception.rest.RestApiException;
-import com.example.shopshoes.server.reponsitory.CategoryRepository;
+import com.example.shopshoes.server.repository.CategoryRepository;
 import com.example.shopshoes.server.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

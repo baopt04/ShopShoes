@@ -8,7 +8,7 @@ import com.example.shopshoes.server.dto.response.size.GetSizeInProductDetail;
 import com.example.shopshoes.server.entity.Size;
 import com.example.shopshoes.server.infrastructure.constant.Message;
 import com.example.shopshoes.server.infrastructure.exception.rest.RestApiException;
-import com.example.shopshoes.server.reponsitory.SizeRepository;
+import com.example.shopshoes.server.repository.SizeRepository;
 import com.example.shopshoes.server.service.SizeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

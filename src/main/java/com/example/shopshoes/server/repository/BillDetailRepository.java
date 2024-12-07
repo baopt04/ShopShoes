@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+
 public interface BillDetailRepository extends JpaRepository<BillDetail, String> {
 
     @Query(value = """

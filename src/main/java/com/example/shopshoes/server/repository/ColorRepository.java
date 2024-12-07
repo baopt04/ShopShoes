@@ -1,9 +1,8 @@
-package com.example.shopshoes.server.reponsitory;
+package com.example.shopshoes.server.repository;
 
 import com.example.shopshoes.server.dto.request.color.FindColorRequest;
 import com.example.shopshoes.server.dto.response.ColorResponse;
 import com.example.shopshoes.server.dto.response.color.GetColorInProductDetail;
-import com.example.shopshoes.server.dto.response.sole.GetSoleInProductDetail;
 import com.example.shopshoes.server.entity.Color;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,4 +1,4 @@
-package com.example.shopshoes.server.reponsitory;
+package com.example.shopshoes.server.repository;
 
 import com.example.shopshoes.server.dto.request.productdetail.FindProductDetailByCategorysConvertRequest;
 import com.example.shopshoes.server.dto.request.productdetail.FindProductDetailByCategorysRequest;
@@ -11,9 +11,7 @@ import com.example.shopshoes.server.dto.response.productdetail.GetDetailProductO
 import com.example.shopshoes.server.dto.response.productdetail.GetProductDetail;
 import com.example.shopshoes.server.dto.response.productdetail.GetProductDetailByCategory;
 import com.example.shopshoes.server.dto.response.productdetail.GetProductDetailByProduct;
-import com.example.shopshoes.server.dto.response.promotion.GetPromotionOfProductDetail;
 import com.example.shopshoes.server.entity.ProductDetail;
-import com.example.shopshoes.server.entity.Promotion;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

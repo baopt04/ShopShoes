@@ -1,8 +1,7 @@
-package com.example.shopshoes.server.reponsitory;
+package com.example.shopshoes.server.repository;
 
 import com.example.shopshoes.server.dto.request.material.FindMaterialRequest;
 import com.example.shopshoes.server.dto.response.MaterialResponse;
-import com.example.shopshoes.server.dto.response.brand.GetBrandInProductDetail;
 import com.example.shopshoes.server.dto.response.material.GetMaterialInProductDetail;
 import com.example.shopshoes.server.entity.Material;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -8,7 +8,7 @@ import com.example.shopshoes.server.dto.response.voucher.VoucherRespone;
 import com.example.shopshoes.server.entity.Voucher;
 import com.example.shopshoes.server.infrastructure.constant.Status;
 import com.example.shopshoes.server.infrastructure.exception.rest.RestApiException;
-import com.example.shopshoes.server.reponsitory.VoucherRepository;
+import com.example.shopshoes.server.repository.VoucherRepository;
 import com.example.shopshoes.server.service.VoucherService;
 import com.example.shopshoes.server.util.RandomNumberGenerator;
 import lombok.extern.slf4j.Slf4j;

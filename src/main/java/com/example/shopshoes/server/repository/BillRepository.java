@@ -1,24 +1,12 @@
 package com.example.shopshoes.server.repository;
 
+import com.example.shopshoes.server.dto.request.bill.BillRequest;
 import com.example.shopshoes.server.dto.request.bill.FindNewBillCreateAtCounterRequest;
 import com.example.shopshoes.server.dto.request.bill.StatusRequest;
 import com.example.shopshoes.server.dto.request.statistical.FindBillDateRequest;
-import com.example.shopshoes.server.dto.response.bill.BillAccountResponse;
-import com.example.shopshoes.server.dto.response.bill.BillGiveBack;
-import com.example.shopshoes.server.dto.response.bill.BillGiveBackInformation;
-
-import com.example.shopshoes.server.dto.response.bill.BillResponseAtCounter;
-import com.example.shopshoes.server.dto.response.bill.ListStatusRespone;
-import com.example.shopshoes.server.dto.response.statistical.StatisticalBestSellingProductResponse;
-import com.example.shopshoes.server.dto.response.statistical.StatisticalBillDateResponse;
-import com.example.shopshoes.server.dto.response.statistical.StatisticalDayResponse;
-import com.example.shopshoes.server.dto.response.statistical.StatisticalMonthlyResponse;
-import com.example.shopshoes.server.dto.response.statistical.StatisticalProductDateResponse;
-import com.example.shopshoes.server.dto.response.statistical.StatisticalStatusBillResponse;
+import com.example.shopshoes.server.dto.response.bill.*;
+import com.example.shopshoes.server.dto.response.statistical.*;
 import com.example.shopshoes.server.entity.Bill;
-import com.example.shopshoes.server.dto.request.bill.BillRequest;
-import com.example.shopshoes.server.dto.response.bill.BillResponse;
-import com.example.shopshoes.server.dto.response.bill.UserBillResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, String> {
