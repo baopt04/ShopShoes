@@ -36,10 +36,10 @@ const DashBoardCustomer = ({ children }) => {
         <HeaderMenu />
       </div>
       <div>{children}</div>
-      {/* <div>
+      <div>
         {" "}
         <Footer />
-      </div> */}
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./style-menu.css";
 import { useCart } from "./../../../pages/customer/cart/CartContext";
-import logo from "./../../../assets/images/login_new.png";
+import logo from "./../../../assets/images/logo_banner_2.png";
 import { deleteToken } from "../../../helper/useCookies";
 import { Link, useNavigate } from "react-router-dom";
 import { Select, Input, Button, Menu, Badge } from "antd";
@@ -44,10 +44,6 @@ function HeaderMenu() {
       className: "title-menu",
       title: "VỀ CHÚNG TÔI",
       href: "/about-us",
-      option: [
-        { title: "Blog styte", className: "title-option" },
-        { title: "Liên hệ", className: "title-option" },
-      ],
     },
     // {
     //   className: "title-menu",
@@ -173,10 +169,16 @@ function HeaderMenu() {
             </Link>
             {openInfor && idAccount !== null ? (
               <ul className="dropdown-list-mn">
-                <li className="dropdown-item-mn" onClick={() => nav("/profile")}>
+                <li
+                  className="dropdown-item-mn"
+                  onClick={() => nav("/profile")}
+                >
                   Tài khoản của tôi
                 </li>
-                <li className="dropdown-item-mn" onClick={() => nav("/purchase")}>
+                <li
+                  className="dropdown-item-mn"
+                  onClick={() => nav("/purchase")}
+                >
                   Đơn mua
                 </li>
                 <li className="dropdown-item-mn" onClick={logout}>

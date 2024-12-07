@@ -22,6 +22,7 @@ import {
 import "./style-dashboard-employee.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/login_new.png";
+import Logo1 from "../../assets/images/logo_new_3.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartLine,
@@ -225,7 +226,7 @@ const DashBoardEmployee = ({ children }) => {
       <Sider trigger={null} collapsible width={225} collapsed={collapsed}>
         <Link to="/dashboard">
           <div className="logo">
-            <img src={Logo} className="logo-content" alt="Logo" />
+            <img src={Logo1} className="logo-content" alt="Logo" />
           </div>
         </Link>
         <div className="demo-logo-vertical" />
