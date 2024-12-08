@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,28 +27,23 @@
 <body>
 <div class="" style="display: flex; justify-content: center;">
   <div class="" style="">
-    <div class="" style="display: flex; justify-content: center;font-weight: bold; font-size: 40px">SHOE
-      BEE
+    <div class="" style="display: flex; justify-content: center;font-weight: bold; font-size: 40px">BEE SHOES
     </div>
     <div class="" style="margin-top: 16px; text-align: center">
       <p>
-        Chương trình Phổ thông Cao đẳng FPT Polytechnic, Phương Canh, Từ Liêm, Hà Nội, Việt Nam
+        Đồ án tốt nghiệp sd-32
       </p>
     </div>
-    <div class="" style="margin-top: 5px; text-align: center">
-      <p>
-        SDT: 0338957590
-      </p>
-    </div>
+
     <div class="" style="margin-top: 10px; display: flex; justify-content: center">
       <p th:text="${'Mã hóa đơn: '+ invoice.code}"></p>
       <p style="margin-left: 30px" th:text="${ invoice.date}"></p>
       <img  th:src="${invoice.qr}" style="position: absolute;top: 3px;right: 3px; width: 80px; height: 80px" alt="QR Code">
     </div>
-  </div>
+<!--  </div>-->
 </div>
 <div class=""
-     style="padding: 20px 10px;border-top-style: dashed; border-width: 1px; border-color: rgb(0, 0, 0);">
+     style="padding: 20px 10px;border-top-style: solid; border-width: 1px; border-color: rgb(0, 0, 0);">
   <div class="">
     <div class="" style="margin-left: 20px; ">
       <p th:text="${'Khách hàng: ' + ((invoice.userName == null || invoice.userName == '') ? 'Khách lẻ' : invoice.userName)}"></p>
@@ -57,18 +52,18 @@
     </div>
   </div>
 </div>
-<div style="padding: 20px 10px;border-top-style: dashed; border-width: 1px; border-color: rgb(0, 0, 0);">
+<div style="padding: 20px 10px;border-top-style: solid; border-width: 1px; border-color: rgb(0, 0, 0);">
   <div class="" style="margin-right: 20px;">
     <p style="font-size: 18px; font-weight: 800; margin-bottom: 30px">Nội dung đơn hàng <span
             style="font-size: 16px; font-width: 500;"
             th:text="${'( Tổng số lượng sản phẩm '+invoice.quantity + ' )'}"></span></p>
     <table class="table " style="width: 100%">
       <thead>
-      <td class="th"><strong>Stt</strong></td/>
-      <td class="th"><strong>Tên</strong></td>
-      <td class="th"><strong>Giá</strong></td>
-      <td class="th"><strong>Số lương</strong></td>
-      <td class="th"><strong>Tổng</strong></td>
+      <td class="th"><strong>STT</strong></td/>
+      <td class="th"><strong>Tên sản phẩm</strong></td>
+      <td class="th"><strong>Giá sản phẩm</strong></td>
+      <td class="th"><strong>Số lượng</strong></td>
+      <td class="th"><strong>Tổng tiền</strong></td>
       </thead>
       <tbody>
       <th:block th:each="item,index : ${invoice.items}">
@@ -92,7 +87,7 @@
     <table>
       <tbody>
       <tr>
-        <td class="thick-line " s><strong>Tổng Tiền hàng:</strong></td>
+        <td class="thick-line " s><strong>Tổng tiền:</strong></td>
         <td class="thick-line text-end" float="right"  th:text="${invoice.totalMoney}"></td>
       </tr>
       <tr>
@@ -104,20 +99,20 @@
         <td class="border-0no-line text-end" float="right" th:text="${invoice.ship}"></td>
       </tr>
       <tr>
-        <td class="border-0 "><strong>Tổng thanh toán:</strong></td>
+        <td class="border-0 "><strong>Tổng tiền thanh toán:</strong></td>
         <td class="border-0  text-end" float="right"  th:text="${(invoice.totalBill)}">
         </td>
       </tr>
       <tr style="margin-top: 5px">
         <td class="border-0"></td>
-        <td class="border-0 text-end" float="right" ><strong  th:text="${'Tổng số lượng sản phẩm: '+invoice.quantity + ' '}"></strong></td>
+        <td class="border-0 text-end" float="right" ><strong  th:text="${'Số lượng sản phẩm đã mua: '+invoice.quantity + ' '}"></strong></td>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
-<div style="padding: 20px 10px;border-top-style: dashed; border-width: 1px; border-color: rgb(0, 0, 0);">
+<div style="padding: 20px 10px;border-top-style: solid; border-width: 1px; border-color: rgb(0, 0, 0);">
   <div class="" style="margin-right: 20px; margin-bottom: 50px">
     <table class="table table-condensed" style="width: 100%">
       <thead>
@@ -141,29 +136,17 @@
       </thead>
       <tbody>
       <tr>
-        <td  float="right">Tổng thanh toán:</td>
+        <td  float="right">Tổng tiền thanh toán:</td>
         <td class="text-center" float="right" th:text="${invoice.totalPayment}"></td>
       </tr>
       <tr>
-        <td  float="right">Tiền Thối lại:</td>
+        <td  float="right">Số tiền trả lại:</td>
         <td class="text-center" float="right" th:text="${invoice.change}"></td>
       </tr>
       </tbody>
     </table>
   </div>
-  <div style="font-size: 18px;margin-top: 20px; font-weight: 700; text-align: center; width: 100%">Cám ơn quý khách đã sử dụng dịch vụ của Bee shoe</div>
-  <div >
-    <div class="" style="text-align: center; width: 100%">Quý khách xem thông tin chi tiết đơn hàng </div></br>
-    <div class="" style="text-align: center; width: 100%">
-      <button style="    background-color: #e4641a;
-    border: none;
-    border-radius: 6px;
-    padding: 5px 22px;"> <a th:href="${url}" style="text-decoration: none;
-    color: white;
-    font-size: 16px;
-    font-weight: 700;">Tại đây</a></button>
-    </div>
-  </div>
+
 </div>
 </body>
 </html>
