@@ -1,7 +1,5 @@
 package com.example.shopshoes.server.controller.client;
-/*
- *  @author diemdz
- */
+
 
 import com.example.shose.server.service.PaymentsMethodService;
 import com.example.shose.server.util.ResponseObject;

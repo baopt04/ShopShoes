@@ -1,7 +1,5 @@
 package com.example.shopshoes.server.dto.response.cartdetail;
-/*
- *  @author diemdz
- */
+
 
 import lombok.Getter;
 import lombok.Setter;

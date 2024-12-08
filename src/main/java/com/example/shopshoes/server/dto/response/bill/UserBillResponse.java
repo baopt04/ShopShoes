@@ -5,9 +5,7 @@ import com.example.shose.server.entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
-/**
- * @author thangdt
- */
+
 @Projection(types = {Bill.class, User.class})
 public interface UserBillResponse {
 

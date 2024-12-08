@@ -9,9 +9,7 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-/*
- *  @author diemdz
- */
+
 @Getter
 @Setter
 public class ChangeSizeInCart  {

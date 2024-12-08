@@ -2,9 +2,7 @@ package com.example.shopshoes.server.dto.response.bill;
 
 import lombok.*;
 
-/**
- * @author thangdt
- */
+
 @Getter
 @Setter
 @NoArgsConstructor

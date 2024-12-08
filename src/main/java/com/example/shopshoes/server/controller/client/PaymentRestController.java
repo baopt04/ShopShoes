@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-/*
- *  @author diemdz
- */
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/client/payment")
