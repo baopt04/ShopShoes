@@ -72,7 +72,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
-
 @Service
 @Transactional
 public class PaymentsMethodServiceImpl implements PaymentsMethodService {
@@ -578,9 +577,14 @@ public class PaymentsMethodServiceImpl implements PaymentsMethodService {
         return paymentsMethodRepository.findByBill(idBill);
     }
 
+<<<<<<< HEAD
 
     public boolean createFilePdfAtCounter(String idBill) {
         //     begin   create file pdf
+=======
+    public boolean createFilePdfAtCounter(String idBill) {
+
+>>>>>>> nhanhducanh
         String finalHtml = null;
         Optional<Bill> optional = billRepository.findById(idBill);
         InvoiceResponse invoice = exportFilePdfFormHtml.getInvoiceResponse(optional.get(), new BigDecimal(0));

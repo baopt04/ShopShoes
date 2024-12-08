@@ -206,7 +206,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<BillResponseAtCounter> findAllBillAtCounterAndStatusNewBill(String id,
-            FindNewBillCreateAtCounterRequest request) {
+                                                                            FindNewBillCreateAtCounterRequest request) {
         return billRepository.findAllBillAtCounterAndStatusNewBill(id, request);
     }
 
@@ -325,11 +325,11 @@ public class BillServiceImpl implements BillService {
                             .map(billDetailRequest -> {
                                 return (billDetailRequest.getPromotion() == null)
                                         ? new BigDecimal(billDetailRequest.getPrice())
-                                                .multiply(new BigDecimal(billDetailRequest.getQuantity()))
+                                        .multiply(new BigDecimal(billDetailRequest.getQuantity()))
                                         : new BigDecimal(billDetailRequest.getQuantity())
-                                                .multiply(new BigDecimal(100 - billDetailRequest.getPromotion())
-                                                        .multiply(new BigDecimal(billDetailRequest.getPrice()))
-                                                        .divide(new BigDecimal(100)));
+                                        .multiply(new BigDecimal(100 - billDetailRequest.getPromotion())
+                                                .multiply(new BigDecimal(billDetailRequest.getPrice()))
+                                                .divide(new BigDecimal(100)));
                             })
                             .reduce(BigDecimal.ZERO, BigDecimal::add).add(new BigDecimal(request.getMoneyShip()))
                             .subtract(new BigDecimal(request.getItemDiscount()));
@@ -704,7 +704,7 @@ public class BillServiceImpl implements BillService {
             if (billHistories.stream()
                     .anyMatch(invoice -> invoice.getStatusBill() == StatusBill.XAC_NHAN)
                     || billHistories.stream()
-                            .anyMatch(invoice -> invoice.getStatusBill() == StatusBill.DA_THANH_TOAN)) {
+                    .anyMatch(invoice -> invoice.getStatusBill() == StatusBill.DA_THANH_TOAN)) {
                 bill.get().setStatusBill(StatusBill.CHO_XAC_NHAN);
             } else {
                 throw new RestApiException(Message.CHANGED_STATUS_ERROR);
@@ -1264,7 +1264,7 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public Bill updateBillGiveBack(UpdateBillGiveBack updateBillGiveBack,
-            List<UpdateBillDetailGiveBack> updateBillDetailGiveBacks) {
+                                   List<UpdateBillDetailGiveBack> updateBillDetailGiveBacks) {
         Account account = accountRepository.findById(shoseSession.getEmployee().getId()).get();
         Bill bill = billRepository.findById(updateBillGiveBack.getIdBill()).get();
         if (bill == null) {
