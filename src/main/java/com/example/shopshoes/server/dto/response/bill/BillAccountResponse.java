@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.math.BigDecimal;
 import java.util.List;
 
+
 public interface BillAccountResponse {
 
     @Value("#{target.id}")

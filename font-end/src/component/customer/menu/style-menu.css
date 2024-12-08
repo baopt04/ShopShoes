@@ -3,7 +3,7 @@
   padding: 0px;
   box-sizing: border-box;
 }
-.content-header-account{
+.content-header-account {
   color: #000000;
 }
 .menu {
@@ -27,7 +27,7 @@
   margin-top: 5px;
 }
 .logo-img {
-  width: 140px;
+  width: 80px;
 }
 .title-menu {
   position: relative;
@@ -46,9 +46,23 @@
 .title-menu:hover .link-menu {
   color: #87cefa;
 }
+.title-menu::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #87cefa;
+  transition: width 0.3s ease-in-out; /* Hiệu ứng chuyển động */
+}
+
 .title-menu:hover {
-  color: #87cefa;
-  border-bottom: 2px solid #87cefa;
+  color: #87cefa; /* Màu chữ khi hover */
+}
+
+.title-menu:hover::after {
+  width: 100%; /* Khi hover, border-bottom mở rộng từ trái qua phải */
 }
 
 .option-container {
@@ -226,7 +240,6 @@
   
 } */
 
-
 .dropdown-list-mn {
   top: 100%;
   left: -80%;
@@ -268,5 +281,5 @@
 }
 .dropdown-item-mn:hover {
   background-color: #f3f3f3;
-  color: #ff4400;
+  color: #1677ff;
 }

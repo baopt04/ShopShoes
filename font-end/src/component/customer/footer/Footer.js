@@ -7,6 +7,7 @@ import {
   LinkedinOutlined,
   YoutubeOutlined,
 } from "@ant-design/icons";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import ReactPlayer from "react-player";
 import "./style-footer.css";
 
@@ -14,15 +15,24 @@ function Footer() {
   return (
     <div className="footer">
       <Row gutter={40} justify="space-between" className="footer-top">
-        <Col span={8} className="footer-branding">
-          {/* <img src={logoFooter} alt="Logo" className="footer-logo" /> */}
+        <Col span={4} className="footer-branding">
           <p className="footer-description">
             Chúng tôi mang đến những đôi giày thời trang chất lượng, phù hợp với
             mọi phong cách sống.
           </p>
         </Col>
-
-        <Col span={6} className="footer-quick-links">
+        <Col span={4} className="footer-quick-links">
+          <h4 className="footer-heading">Danh sách cửa hàng</h4>
+          <ul>
+            <li>
+              <FaMapMarkerAlt /> <Link>Địa chỉ 1 : CD FPT Trịnh Văn Bô</Link>
+            </li>
+            <li>
+              <FaMapMarkerAlt /> <Link>Địa chỉ 2 : CD FPT Kiều Mai</Link>
+            </li>
+          </ul>
+        </Col>
+        <Col span={4} className="footer-quick-links">
           <h4 className="footer-heading">Khám Phá</h4>
           <ul>
             <li>
@@ -38,7 +48,7 @@ function Footer() {
               <Link to="/blog">Blog</Link>
             </li>
             <li>
-              <Link to="/policy">Chính Sách</Link>
+              <Link to="/policyy">Chính Sách</Link>
             </li>
             <li>
               <Link to="/contact">Liên Hệ</Link>
@@ -46,7 +56,7 @@ function Footer() {
           </ul>
         </Col>
 
-        <Col span={6} className="footer-contact">
+        <Col span={4} className="footer-contact">
           <h4 className="footer-heading">Liên Hệ</h4>
           <ul>
             <li>
@@ -98,7 +108,7 @@ function Footer() {
         <Col span={20}>
           <div className="footer-copy">
             <p>
-              © 2024 <span className="highlight">SHOP SHOES</span>. All Rights
+              © 2024 <span className="highlight">BEE SHOES</span>. All Rights
               Reserved.
             </p>
             <p className="footer-contact-info">
