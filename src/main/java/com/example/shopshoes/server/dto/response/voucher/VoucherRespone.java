@@ -8,6 +8,8 @@ import org.springframework.data.rest.core.config.Projection;
 
 import java.math.BigDecimal;
 
+import java.math.BigDecimal;
+
 @Projection(types = Voucher.class)
 public interface VoucherRespone extends BaseResponse {
 

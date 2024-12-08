@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-
-
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/admin/payment")

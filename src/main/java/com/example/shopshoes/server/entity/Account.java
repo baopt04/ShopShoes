@@ -32,7 +32,7 @@ import java.util.List;
 @Table(name = "account")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Account extends PrimaryEntity  implements UserDetails{
+public class Account extends PrimaryEntity implements UserDetails{
 
     @Column(name = "email")
     private String email;

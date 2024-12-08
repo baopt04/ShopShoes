@@ -82,7 +82,7 @@
         <div class="" style="width: 50%;">
             <div class="" style="margin-right: 20px;">
                 <div class="">
-                   Số tiền cần thu :
+                    Số tiền cần thu :
                 </div>
                 <div class="" style="font-size: 23px;
            font-weight: bolder; margin-top: 10px;margin-left: 8%;" >
@@ -230,14 +230,14 @@
                 <thead>
                 </thead>
                 <tbody th:if="${!invoice.checkBillTra}">
-                    <tr>
-                        <td  float="right">Số tiền thanh toán:</td>
-                        <td class="text-center" float="right" th:text="${invoice.totalPayment}"></td>
-                    </tr>
-                    <tr>
-                        <td  float="right">Số tiền trả lại:</td>
-                        <td class="text-center" float="right" th:text="${invoice.change}"></td>
-                    </tr>
+                <tr>
+                    <td  float="right">Số tiền thanh toán:</td>
+                    <td class="text-center" float="right" th:text="${invoice.totalPayment}"></td>
+                </tr>
+                <tr>
+                    <td  float="right">Số tiền trả lại:</td>
+                    <td class="text-center" float="right" th:text="${invoice.change}"></td>
+                </tr>
                 </tbody>
                 <tbody th:if="${invoice.checkBillTra}">
                 <tr>

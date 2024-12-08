@@ -149,6 +149,7 @@ public class BillRestController {
         return new ResponseObject(billService.getBillGiveBack(ibBill));
     }
 
+<<<<<<< HEAD
     @PostMapping("/give-back")
     public ResponseObject UpdateBillGiveBack (@RequestParam("updateBill") String updateBill,
                                               @RequestParam("data") String data){
@@ -165,6 +166,9 @@ public class BillRestController {
         System.out.println(listDataBillDetail);
         return new ResponseObject(billService.updateBillGiveBack(updateBillGiveBack, listDataBillDetail));
     }
+=======
+
+>>>>>>> nhanhducanh
 
     @PostMapping("/ship-bill")
     public ResponseObject UpdateShipBill (@RequestBody BillShipRequest request){

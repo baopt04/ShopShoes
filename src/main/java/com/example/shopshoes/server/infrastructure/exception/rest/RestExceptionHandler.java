@@ -86,4 +86,3 @@ public final class RestExceptionHandler extends
                 new ResponseObject(false, "Thất bại", errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 }
-

@@ -4,7 +4,6 @@ import com.example.shopshoes.server.entity.Voucher;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
-
 @Projection(types = Voucher.class)
 public interface VoucherDetailCustomAtCountry {
 

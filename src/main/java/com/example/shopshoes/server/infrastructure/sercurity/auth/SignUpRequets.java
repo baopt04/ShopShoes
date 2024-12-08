@@ -1,9 +1,5 @@
 package com.example.shopshoes.server.infrastructure.sercurity.auth;
 
-import com.example.shopshoes.server.infrastructure.constant.Message;
-import com.example.shopshoes.server.infrastructure.constant.Roles;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

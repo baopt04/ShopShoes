@@ -20,7 +20,6 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 
-
 @Entity
 @Getter
 @Setter

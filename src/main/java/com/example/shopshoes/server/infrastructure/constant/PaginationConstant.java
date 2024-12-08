@@ -1,6 +1,5 @@
 package com.example.shopshoes.server.infrastructure.constant;
 
-
 public final class PaginationConstant {
     private PaginationConstant() {}
 

@@ -3,7 +3,6 @@ package com.example.shopshoes.server.dto.request.bill;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 public class CreateBillRequest {

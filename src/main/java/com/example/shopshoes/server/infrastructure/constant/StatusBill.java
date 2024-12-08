@@ -1,6 +1,5 @@
 package com.example.shopshoes.server.infrastructure.constant;
 
-
 public enum StatusBill {
     TAO_HOA_DON,
     CHO_XAC_NHAN,

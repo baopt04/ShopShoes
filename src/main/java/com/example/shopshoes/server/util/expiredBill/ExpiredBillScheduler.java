@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.List;
 
-
 @Configuration
 @EnableScheduling
 @Scope(proxyMode = ScopedProxyMode.INTERFACES)
