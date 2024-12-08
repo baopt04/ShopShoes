@@ -1,4 +1,4 @@
-package com.example.shopshoes.server.reponsitory;
+package com.example.shopshoes.server.repository;
 
 import com.example.shose.server.dto.response.cart.ListCart;
 import com.example.shose.server.entity.Cart;
