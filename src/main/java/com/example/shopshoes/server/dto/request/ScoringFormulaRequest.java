@@ -1,4 +1,4 @@
-package com.example.shose.server.dto.request;
+package com.example.shopshoes.server.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;

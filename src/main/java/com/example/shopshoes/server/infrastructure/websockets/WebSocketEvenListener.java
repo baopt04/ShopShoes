@@ -1,4 +1,4 @@
-package com.example.shose.server.infrastructure.websockets;
+package com.example.shopshoes.server.infrastructure.websockets;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -3,7 +3,7 @@ package com.example.shopshoes.server.infrastructure.excel;
 import com.example.shopshoes.server.dto.response.bill.BillResponse;
 import com.example.shopshoes.server.dto.response.statistical.StatisticalDayResponse;
 import com.example.shopshoes.server.dto.response.statistical.StatisticalMonthlyResponse;
-import com.example.shopshoes.server.reponsitory.BillRepository;
+import com.example.shopshoes.server.repository.BillRepository;
 import com.example.shopshoes.server.util.ConvertDateToLong;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

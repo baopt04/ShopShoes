@@ -1,4 +1,4 @@
-package com.example.shose.server.infrastructure.websockets;
+package com.example.shopshoes.server.infrastructure.websockets;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

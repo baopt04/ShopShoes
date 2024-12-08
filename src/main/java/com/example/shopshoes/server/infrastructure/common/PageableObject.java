@@ -1,4 +1,4 @@
-package com.example.shose.server.infrastructure.common;
+package com.example.shopshoes.server.infrastructure.common;
 
 import lombok.Getter;
 import org.springframework.data.domain.Page;
