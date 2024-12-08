@@ -1,4 +1,4 @@
-package com.example.shopshoes.server.infrastructure.cloudinary;
+package com.example.shopshoes.server.dto.logindto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,10 +11,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CloudinaryResult {
+public class LoginRequest {
 
-    private String url;
+    private  String email ;
 
-    private String color;
-
+    private String password;
 }

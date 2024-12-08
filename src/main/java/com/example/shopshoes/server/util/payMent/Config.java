@@ -6,6 +6,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 
+
 public class Config {
     public static String hmacSHA512(final String key, final String data) {
         try {

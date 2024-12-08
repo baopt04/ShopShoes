@@ -2,6 +2,7 @@ package com.example.shopshoes.server.infrastructure.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 
 @Data
 @AllArgsConstructor
