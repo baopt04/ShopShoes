@@ -35,7 +35,7 @@ public interface CustomerService {
 
     User quickCreate(QuickCreateCustomerRequest request,
                      CreateAddressRequest addressRequest
-                     );
+    );
 
     EmployeeResponse getOneByPhoneNumber(String phoneNumber);
 

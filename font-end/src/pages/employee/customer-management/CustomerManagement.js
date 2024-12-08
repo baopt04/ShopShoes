@@ -340,7 +340,7 @@ const CustomerManagement = () => {
             <Button
               type="primary"
               title="Chi tiết khách hàng"
-              style={{ backgroundColor: "#FF9900" }}
+              style={{ backgroundColor: "#1677ff" }}
               onClick={() => handleViewDetail(record.id)}
             >
               <FontAwesomeIcon icon={faEye} />
@@ -463,93 +463,45 @@ const CustomerManagement = () => {
     <>
       <div className="title_account">
         {/* <FontAwesomeIcon icon={faKaaba} style={{ fontSize: "26px" }} /> */}
-        <span style={{ marginLeft: "10px" }}>Quản lý khách hàng</span>
+        <span style={{ marginLeft: "40%" }}>Quản lý khách hàng</span>
       </div>
       <div className="filter">
         {/* <FontAwesomeIcon icon={faFilter} size="2x" /> */}
         <span style={{ fontSize: "18px", fontWeight: "500" }}>Bộ lọc</span>
         {/* <hr /> */}
         <div className="content_ac">
-          <div className="content-wrapper-ac">
-            <Row>
-              <Col span={24} style={{ marginBottom: "10px" }}>
-                <label>Tìm kiếm:</label>
-                <Input
-                  style={{
-                    width: "300px",
-                    marginLeft: "19px",
-                    marginBottom: "20px",
-                  }}
-                  placeholder="Tìm kiếm tên và sđt... "
-                  type="text"
-                  name="keyword"
-                  value={searchCustomer.keyword}
-                  onChange={handleKeywordChange}
-                />
-              </Col>
-              <Col span={24}>
-                <label>Trạng thái:</label>
-                <Select
-                  style={{ width: "300px", marginLeft: "15px" }}
-                  name="status"
-                  value={searchCustomer.status}
-                  onChange={handleStatusChange}
-                >
-                  <Option value="">Tất cả</Option>
-                  <Option value="DANG_SU_DUNG">Kích hoạt</Option>
-                  <Option value="KHONG_SU_DUNG">Ngừng kích hoạt</Option>
-                </Select>
-              </Col>
-            </Row>
+          <div className="content-wrapper-ac"></div>
+          <Row justify="space-between" style={{ marginLeft: "50px" }}>
+            <Col span={10} style={{ marginBottom: "10px" }}>
+              <label style={{ marginBottom: "20px" }}>Tìm kiếm:</label>
+              <Input
+                style={{
+                  width: "300px",
+                  marginLeft: "19px",
+                  marginBottom: "20px",
+                }}
+                placeholder="Tìm kiếm tên và sđt..."
+                type="text"
+                name="keyword"
+                value={searchCustomer.keyword}
+                onChange={handleKeywordChange}
+              />
+            </Col>
 
-            {/* <Row>
-              <Col
-                span={24}
-                style={{
-                  display: "flex",
-                  marginBottom: "10px",
-                }}
+            <Col span={10}>
+              <label>Trạng thái:</label>
+              <Select
+                style={{ width: "300px", marginLeft: "15px" }}
+                name="status"
+                value={searchCustomer.status}
+                onChange={handleStatusChange}
               >
-                <label>Ngày sinh:</label>
-                <Input
-                  style={{
-                    width: "300px",
-                    marginRight: "15px",
-                    marginLeft: "15px",
-                  }}
-                  type="date"
-                  value={startDate || initialStartDate}
-                  onChange={handleStartDateChange}
-                /> */}
-            {/* <Input
-                  style={{ width: "200px" }}
-                  type="date"
-                  value={endDate || initialEndDate}
-                  onChange={handleEndDateChange}
-                /> */}
-            {/* </Col> */}
-            {/* 
-              <Col
-                span={24}
-                style={{
-                  display: "flex",
-                  marginTop: "30px",
-                  width: "400px",
-                }}
-              > */}
-            {/* <label>Khoảng tuổi:</label>
-                <Slider
-                  style={{ width: "400px", marginLeft: "15px" }}
-                  range
-                  min={0}
-                  max={100}
-                  defaultValue={ageRange}
-                  value={ageRange}
-                  onChange={handleAgeRangeChange}
-                /> */}
-            {/* </Col> */}
-            {/* </Row> */}
-          </div>
+                <Option value="">Tất cả</Option>
+                <Option value="DANG_SU_DUNG">Kích hoạt</Option>
+                <Option value="KHONG_SU_DUNG">Ngừng kích hoạt</Option>
+              </Select>
+            </Col>
+          </Row>
         </div>
         <div>
           <div className="box_btn_filter">
@@ -561,7 +513,7 @@ const CustomerManagement = () => {
               Tìm kiếm
             </Button>
             <Button className="btn_clear" onClick={handleClear}>
-              Làm mới bộ lọc
+              Làm mới
             </Button>
           </div>
         </div>

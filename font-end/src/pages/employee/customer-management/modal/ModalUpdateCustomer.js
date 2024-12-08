@@ -372,52 +372,50 @@ const ModalUpdateCustomer = ({ visible }) => {
                   </Form.Item>
 
                   <Form.Item
-                  label="Số điện thoại"
-                  name="phoneNumber"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Vui lòng nhập số điện thoại",
-                    },
-                    {
-                      pattern: /^0\d{9}$/,
-                      message:
-                        "Số điện thoại phải bắt đầu từ số 0 và gồm 10 chữ số",
-                    },
-                  ]}
-                >
-                  <Input className="input-item" placeholder="Số điện thoại" />
-                </Form.Item>
-                <Form.Item
-                  label="Ngày sinh"
-                  name="dateOfBirth"
-                  rules={[
-                    { required: true, message: "Vui lòng chọn ngày sinh" },
-                    { validator: validateAge },
-                  ]}
-                >
-                  <Input className="input-item" type="date" />
-                </Form.Item>
+                    label="Số điện thoại"
+                    name="phoneNumber"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Vui lòng nhập số điện thoại",
+                      },
+                      {
+                        pattern: /^0\d{9}$/,
+                        message:
+                          "Số điện thoại phải bắt đầu từ số 0 và gồm 10 chữ số",
+                      },
+                    ]}
+                  >
+                    <Input className="input-item" placeholder="Số điện thoại" />
+                  </Form.Item>
+                  <Form.Item
+                    label="Ngày sinh"
+                    name="dateOfBirth"
+                    rules={[
+                      { required: true, message: "Vui lòng chọn ngày sinh" },
+                      { validator: validateAge },
+                    ]}
+                  >
+                    <Input className="input-item" type="date" />
+                  </Form.Item>
 
-                <Form.Item
-                  label="Giới tính"
-                  name="gender"
-                  rules={[
-                    { required: true, message: "Vui lòng chọn giới tinh" },
-                  ]}
-                  initialValue={customer.gender === true ? "Nam" : "Nữ"}
-                >
-                  <Radio.Group>
-                    <Radio value={true}>Nam</Radio>
-                    <Radio value={false}>Nữ</Radio>
-                  </Radio.Group>
-                </Form.Item>
-                    
+                  <Form.Item
+                    label="Giới tính"
+                    name="gender"
+                    rules={[
+                      { required: true, message: "Vui lòng chọn giới tinh" },
+                    ]}
+                    initialValue={customer.gender === true ? "Nam" : "Nữ"}
+                  >
+                    <Radio.Group>
+                      <Radio value={true}>Nam</Radio>
+                      <Radio value={false}>Nữ</Radio>
+                    </Radio.Group>
+                  </Form.Item>
                 </div>
               </Col>
 
               <Col span={10} style={{ marginLeft: "40px", marginTop: "16px" }}>
-
                 <Form.Item name="toDistrictId" hidden>
                   <Input disabled />
                 </Form.Item>

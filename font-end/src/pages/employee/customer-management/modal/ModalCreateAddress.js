@@ -47,7 +47,7 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
             console.log("Create failed:", error);
           });
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   const handleCancel = () => {
@@ -111,21 +111,19 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
         initialValues={{
           userId: id,
         }}
-      >   <Form.Item
-        label="Họ và tên"
-        name="fullName"
-        rules={[
-          { required: true, message: "Vui lòng nhập họ tên" },
-        ]}
       >
+        {" "}
+        <Form.Item
+          label="Họ và tên"
+          name="fullName"
+          rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
+        >
           <Input placeholder="Họ và tên" />
         </Form.Item>
         <Form.Item
           label="Số điện thoại"
           name="phoneNumber"
-          rules={[
-            { required: true, message: "Vui lòng nhập số điện thoại" },
-          ]}
+          rules={[{ required: true, message: "Vui lòng nhập số điện thoại" }]}
         >
           <Input placeholder="Số điện thoại" />
         </Form.Item>
@@ -135,7 +133,7 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
           rules={[{ required: true, message: "Vui lòng chọn Tỉnh/Thành phố" }]}
         >
           <Select defaultValue="" onChange={handleProvinceChange}>
-            <Option value="">--Chọn Tỉnh/Thành phố--</Option>
+            <Option value="">Chọn Tỉnh/Thành phố</Option>
             {listProvince?.map((item) => {
               return (
                 <Option
@@ -149,14 +147,13 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
             })}
           </Select>
         </Form.Item>
-
         <Form.Item
           label="Quận/Huyện"
           name="district"
           rules={[{ required: true, message: "Vui lòng chọn Quận/Huyện" }]}
         >
           <Select defaultValue=" " onChange={handleDistrictChange}>
-            <Option value=" ">--Chọn Quận/Huyện--</Option>
+            <Option value=" ">Chọn Quận/Huyện</Option>
             {listDistricts?.map((item) => {
               return (
                 <Option
@@ -170,14 +167,13 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
             })}
           </Select>
         </Form.Item>
-
         <Form.Item
           label="Xã/Phường"
           name="ward"
           rules={[{ required: true, message: "Vui lòng chọn Xã/Phường" }]}
         >
           <Select defaultValue="" onChange={handleWardChange}>
-            <Option value="">--Chọn Xã/Phường--</Option>
+            <Option value="">Chọn Xã/Phường</Option>
             {listWard?.map((item) => {
               return (
                 <Option
@@ -191,7 +187,6 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
             })}
           </Select>
         </Form.Item>
-
         <Form.Item
           label="Số nhà/Ngõ/Đường"
           name="line"

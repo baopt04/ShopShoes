@@ -12,7 +12,6 @@ public abstract class BaseAddressRequest {
 
     private String id;
 
-
     @NotBlank(message = "Vui lòng không để trống tên đường")
     private String line;
 

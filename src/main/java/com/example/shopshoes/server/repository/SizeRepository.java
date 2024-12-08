@@ -1,10 +1,10 @@
 package com.example.shopshoes.server.repository;
 
-import com.example.shose.server.dto.request.size.FindSizeRequest;
-import com.example.shose.server.dto.response.SizeResponse;
-import com.example.shose.server.dto.response.material.GetMaterialInProductDetail;
-import com.example.shose.server.dto.response.size.GetSizeInProductDetail;
-import com.example.shose.server.entity.Size;
+import com.example.shopshoes.server.dto.request.size.FindSizeRequest;
+import com.example.shopshoes.server.dto.response.SizeResponse;
+import com.example.shopshoes.server.dto.response.material.GetMaterialInProductDetail;
+import com.example.shopshoes.server.dto.response.size.GetSizeInProductDetail;
+import com.example.shopshoes.server.entity.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -26,7 +26,18 @@
   padding-bottom: 20px; */
   justify-content: center;
 }
-
+:where(.css-dev-only-do-not-override-1m62vyb).ant-form-item
+  .ant-form-item-label
+  > label.ant-form-item-required:not(
+    .ant-form-item-required-mark-optional
+  )::before {
+  display: inline-block;
+  margin-inline-end: 4px;
+  font-size: 14px;
+  font-family: SimSun, sans-serif;
+  line-height: 1;
+  content: " ";
+}
 .content-wrapper-ac {
   padding-bottom: 20px;
   display: flex;
@@ -142,25 +153,6 @@
   justify-content: center;
   margin: 0 auto;
 }
-
-
-
-/* .ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload-list.ant-upload-list-picture-circle .ant-upload-list-item {
-  width: 225%;
-  height: 235px;
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-} */
-
-/* :where(.css-dev-only-do-not-override-1m62vyb).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item-container, :where(.css-dev-only-do-not-override-1m62vyb).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload-list.ant-upload-list-picture-card .ant-upload-list-item-container, :where(.css-dev-only-do-not-override-1m62vyb).ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload-list.ant-upload-list-picture-circle .ant-upload-list-item-container, :where(.css-dev-only-do-not-override-1m62vyb).ant-upload-wrapper.ant-upload-picture-circle-wrapper .ant-upload-list.ant-upload-list-picture-circle .ant-upload-list-item-container {
-  display: inline-block;
-  height: 102px;
-  margin-block: 0 8px;
-  margin-inline: 0 8px;
-  vertical-align: top;
-  margin-right: 137px;
-}  */
 
 .DIEM_THUONG {
   background-color: rgb(124, 245, 11);

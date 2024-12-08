@@ -1,6 +1,6 @@
 package com.example.shopshoes.server.controller.client;
 
-import com.example.shopshoes.server.service.AccountService;
+import com.example.shopshoes.server.dto.request.address.UpdateAddressClientRequest;
 import com.example.shopshoes.server.dto.request.customer.ChangePasswordRequest;
 import com.example.shopshoes.server.dto.request.customer.UpdateInfoClient;
 import com.example.shopshoes.server.infrastructure.exception.rest.CustomListValidationException;
@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @CrossOrigin("*")

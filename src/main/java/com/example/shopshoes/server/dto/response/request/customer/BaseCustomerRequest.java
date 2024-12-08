@@ -1,0 +1,35 @@
+package com.example.shopshoes.server.dto.response.request.customer;
+
+import ch.qos.logback.core.status.Status;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public abstract class BaseCustomerRequest {
+    @NotBlank(message = "Vui lòng không để trống tên")
+    private String fullName;
+
+    @NotBlank(message = "Vui lòng không để trống ngày sinh")
+    private Long dateOfBirth;
+
+    @NotBlank(message = "Vui lòng không để trống số điện thoại")
+    private String phoneNumber;
+
+    @NotBlank(message = "Vui lòng không để trống email")
+    private String email;
+
+    private Boolean gender;
+
+    private String avata;
+
+    private Status status;
+
+    private String password;
+
+    private Integer points;
+
+    private String citizenIdentity;
+
+}

@@ -241,14 +241,14 @@ const ModalCreateCustomer = () => {
               <Row gutter={[24, 8]}>
                 <Col span={10} style={{ marginLeft: "auto" }}>
                   <div>
-                    <Button
+                    {/* <Button
                       className="btn_filter"
                       icon={<FontAwesomeIcon icon={faQrcode} />}
                       onClick={() => setQrScannerVisible(true)}
                       style={{ marginLeft: "160px" }}
                     >
                       Quét QR
-                    </Button>
+                    </Button> */}
                     <ModalQRScanner
                       visible={qrScannerVisible}
                       onCancel={() => setQrScannerVisible(false)}
@@ -380,7 +380,7 @@ const ModalCreateCustomer = () => {
                     ]}
                   >
                     <Select defaultValue="" onChange={handleProvinceChange}>
-                      <Option value="">--Chọn Tỉnh/Thành phố--</Option>
+                      <Option value="">Chọn Tỉnh/Thành phố</Option>
                       {listProvince?.map((item) => {
                         return (
                           <Option
@@ -403,7 +403,7 @@ const ModalCreateCustomer = () => {
                     ]}
                   >
                     <Select defaultValue=" " onChange={handleDistrictChange}>
-                      <Option value=" ">--Chọn Quận/Huyện--</Option>
+                      <Option value=" ">Chọn Quận/Huyện</Option>
                       {listDistricts?.map((item) => {
                         return (
                           <Option
@@ -426,7 +426,7 @@ const ModalCreateCustomer = () => {
                     ]}
                   >
                     <Select defaultValue="" onChange={handleWardChange}>
-                      <Option value="">--Chọn Xã/Phường--</Option>
+                      <Option value="">Chọn Xã/Phường</Option>
                       {listWard?.map((item) => {
                         return (
                           <Option
