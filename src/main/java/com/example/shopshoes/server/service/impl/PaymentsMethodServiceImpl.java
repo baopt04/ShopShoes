@@ -72,6 +72,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+
 @Service
 @Transactional
 public class PaymentsMethodServiceImpl implements PaymentsMethodService {
@@ -323,16 +324,16 @@ public class PaymentsMethodServiceImpl implements PaymentsMethodService {
             throw new RestApiException(Message.NOT_EXISTS);
         }
         // if(bill.get().getEmployees().getRoles() == Roles.ROLE_USER || billHistoryRepository.checkBillVanChuyen(codeBill) > 0){
-            BigDecimal payment = paymentsMethodRepository.sumTotalMoneyByIdBill(bill.get().getId());
-            PaymentsMethod paymentsMethod = new PaymentsMethod();
-            paymentsMethod.setBill(bill.get());
-            paymentsMethod.setMethod(request.getMethod());
-            paymentsMethod.setStatus(StatusPayMents.HOAN_TIEN);
-            paymentsMethod.setTotalMoney(payment);
-            paymentsMethod.setDescription(request.getActionDescription());
-            paymentsMethod.setEmployees(account.get());
-            paymentsMethod.setVnp_TransactionNo(request.getTransaction());
-            paymentsMethodRepository.save(paymentsMethod);
+        BigDecimal payment = paymentsMethodRepository.sumTotalMoneyByIdBill(bill.get().getId());
+        PaymentsMethod paymentsMethod = new PaymentsMethod();
+        paymentsMethod.setBill(bill.get());
+        paymentsMethod.setMethod(request.getMethod());
+        paymentsMethod.setStatus(StatusPayMents.HOAN_TIEN);
+        paymentsMethod.setTotalMoney(payment);
+        paymentsMethod.setDescription(request.getActionDescription());
+        paymentsMethod.setEmployees(account.get());
+        paymentsMethod.setVnp_TransactionNo(request.getTransaction());
+        paymentsMethodRepository.save(paymentsMethod);
         // }
         return true;
     }
@@ -344,66 +345,66 @@ public class PaymentsMethodServiceImpl implements PaymentsMethodService {
             throw new RestApiException(Message.NOT_EXISTS);
         }
         if (Config.decodeHmacSha512(response.toParamsString(), response.getVnp_SecureHash(), VnPayConstant.vnp_HashSecret)) {
-           if(response.getVnp_TransactionStatus().equals("00")){
-               List<String> findAllByVnpTransactionNo = paymentsMethodRepository.findAllByVnpTransactionNo(response.getVnp_TransactionNo());
-               if (findAllByVnpTransactionNo.size() > 0) {
-                   throw new RestApiException(Message.PAYMENT_TRANSACTION);
-               }
-               Optional<Bill> bill = billRepository.findByCode(response.getVnp_TxnRef().split("-")[0]);
-               bill.get().setLastModifiedDate(Calendar.getInstance().getTimeInMillis());
-               PaymentsMethod paymentsMethod = new PaymentsMethod();
-               paymentsMethod.setBill(bill.get());
-               paymentsMethod.setDescription("Thanh toán thành công");
-               paymentsMethod.setTotalMoney(new BigDecimal(response.getVnp_Amount().substring(0, response.getVnp_Amount().length() - 2)));
-               paymentsMethod.setStatus(StatusPayMents.THANH_TOAN);
-               paymentsMethod.setMethod(StatusMethod.CHUYEN_KHOAN);
-               paymentsMethod.setEmployees(account.get());
-               paymentsMethod.setVnp_TransactionNo(response.getVnp_TransactionNo());
-               paymentsMethod.setCreateAt(Long.parseLong(response.getVnp_TxnRef().split("-")[1]));
-               paymentsMethod.setTransactionDate(Long.parseLong(response.getVnp_PayDate()));
-               paymentsMethodRepository.save(paymentsMethod);
+            if(response.getVnp_TransactionStatus().equals("00")){
+                List<String> findAllByVnpTransactionNo = paymentsMethodRepository.findAllByVnpTransactionNo(response.getVnp_TransactionNo());
+                if (findAllByVnpTransactionNo.size() > 0) {
+                    throw new RestApiException(Message.PAYMENT_TRANSACTION);
+                }
+                Optional<Bill> bill = billRepository.findByCode(response.getVnp_TxnRef().split("-")[0]);
+                bill.get().setLastModifiedDate(Calendar.getInstance().getTimeInMillis());
+                PaymentsMethod paymentsMethod = new PaymentsMethod();
+                paymentsMethod.setBill(bill.get());
+                paymentsMethod.setDescription("Thanh toán thành công");
+                paymentsMethod.setTotalMoney(new BigDecimal(response.getVnp_Amount().substring(0, response.getVnp_Amount().length() - 2)));
+                paymentsMethod.setStatus(StatusPayMents.THANH_TOAN);
+                paymentsMethod.setMethod(StatusMethod.CHUYEN_KHOAN);
+                paymentsMethod.setEmployees(account.get());
+                paymentsMethod.setVnp_TransactionNo(response.getVnp_TransactionNo());
+                paymentsMethod.setCreateAt(Long.parseLong(response.getVnp_TxnRef().split("-")[1]));
+                paymentsMethod.setTransactionDate(Long.parseLong(response.getVnp_PayDate()));
+                paymentsMethodRepository.save(paymentsMethod);
 
-               List<BillHistory> findAllByBill = billHistoryRepository.findAllByBill(bill.get());
-               boolean checkBill = findAllByBill.stream().anyMatch(billHistory -> billHistory.getStatusBill() == StatusBill.THANH_CONG);
-               List<ScoringFormula> scoringFormulas = scoringFormulaRepository.findAllByOrderByCreatedDateDesc();
-               if (checkBill) {
-                   bill.get().setStatusBill(StatusBill.THANH_CONG);
-                   bill.get().setCompletionDate(Calendar.getInstance().getTimeInMillis());
-                   if(bill.get().getAccount() != null && !scoringFormulas.isEmpty()){
-                       User user = bill.get().getAccount().getUser();
-                       ScoringFormula scoringFormula = scoringFormulas.get(0);
-                       if(bill.get().getPoinUse() > 0){
-                           int Pointotal = user.getPoints() - bill.get().getPoinUse() +  scoringFormula.ConvertMoneyToPoints(bill.get().getTotalMoney());
-                           user.setPoints(Pointotal);
-                           bill.get().setValuePoin(scoringFormula.ConvertPoinToMoney(bill.get().getPoinUse()));
-                           historyPoinRepository.save(HistoryPoin.builder().bill(bill.get()).user(user).value(bill.get().getPoinUse()).typePoin(TypePoin.DIEM_SU_DUNG).scoringFormula(scoringFormula).build());
-                       }else{
-                           user.setPoints(user.getPoints() + scoringFormula.ConvertMoneyToPoints(bill.get().getTotalMoney()));
-                       }
-                       historyPoinRepository.save(HistoryPoin.builder().bill(bill.get()).user(user).value(scoringFormula.ConvertMoneyToPoints(bill.get().getTotalMoney())).typePoin(TypePoin.DIEM_THUONG).scoringFormula(scoringFormula).build());
-                       userReposiory.save(user);
-                   }
-                   billRepository.save(bill.get());
-               } else {
-                   if(bill.get().getAccount() != null && !scoringFormulas.isEmpty()){
-                       User user = bill.get().getAccount().getUser();
-                       if(bill.get().getPoinUse() > 0){
-                           ScoringFormula scoringFormula = scoringFormulas.get(0);
-                           int Pointotal = user.getPoints() - bill.get().getPoinUse();
-                           user.setPoints(Pointotal);
-                           historyPoinRepository.save(HistoryPoin.builder().bill(bill.get()).typePoin(TypePoin.DIEM_SU_DUNG).value(bill.get().getPoinUse()).user(user).scoringFormula(scoringFormula).build());
-                       }
-                       userReposiory.save(user);
-                   }
-                   bill.get().setStatusBill(StatusBill.CHO_XAC_NHAN);
-                   billRepository.save(bill.get());
-                   billHistoryRepository.save(BillHistory.builder().statusBill(StatusBill.DA_THANH_TOAN).bill(bill.get()).employees(bill.get().getEmployees()).build());
-               }
-               CompletableFuture.runAsync(() -> createFilePdfAtCounter(bill.get().getId()), Executors.newCachedThreadPool());
-               return true;
-           }else{
-               throw new RestApiException(Message.PAYMENT_ERROR);
-           }
+                List<BillHistory> findAllByBill = billHistoryRepository.findAllByBill(bill.get());
+                boolean checkBill = findAllByBill.stream().anyMatch(billHistory -> billHistory.getStatusBill() == StatusBill.THANH_CONG);
+                List<ScoringFormula> scoringFormulas = scoringFormulaRepository.findAllByOrderByCreatedDateDesc();
+                if (checkBill) {
+                    bill.get().setStatusBill(StatusBill.THANH_CONG);
+                    bill.get().setCompletionDate(Calendar.getInstance().getTimeInMillis());
+                    if(bill.get().getAccount() != null && !scoringFormulas.isEmpty()){
+                        User user = bill.get().getAccount().getUser();
+                        ScoringFormula scoringFormula = scoringFormulas.get(0);
+                        if(bill.get().getPoinUse() > 0){
+                            int Pointotal = user.getPoints() - bill.get().getPoinUse() +  scoringFormula.ConvertMoneyToPoints(bill.get().getTotalMoney());
+                            user.setPoints(Pointotal);
+                            bill.get().setValuePoin(scoringFormula.ConvertPoinToMoney(bill.get().getPoinUse()));
+                            historyPoinRepository.save(HistoryPoin.builder().bill(bill.get()).user(user).value(bill.get().getPoinUse()).typePoin(TypePoin.DIEM_SU_DUNG).scoringFormula(scoringFormula).build());
+                        }else{
+                            user.setPoints(user.getPoints() + scoringFormula.ConvertMoneyToPoints(bill.get().getTotalMoney()));
+                        }
+                        historyPoinRepository.save(HistoryPoin.builder().bill(bill.get()).user(user).value(scoringFormula.ConvertMoneyToPoints(bill.get().getTotalMoney())).typePoin(TypePoin.DIEM_THUONG).scoringFormula(scoringFormula).build());
+                        userReposiory.save(user);
+                    }
+                    billRepository.save(bill.get());
+                } else {
+                    if(bill.get().getAccount() != null && !scoringFormulas.isEmpty()){
+                        User user = bill.get().getAccount().getUser();
+                        if(bill.get().getPoinUse() > 0){
+                            ScoringFormula scoringFormula = scoringFormulas.get(0);
+                            int Pointotal = user.getPoints() - bill.get().getPoinUse();
+                            user.setPoints(Pointotal);
+                            historyPoinRepository.save(HistoryPoin.builder().bill(bill.get()).typePoin(TypePoin.DIEM_SU_DUNG).value(bill.get().getPoinUse()).user(user).scoringFormula(scoringFormula).build());
+                        }
+                        userReposiory.save(user);
+                    }
+                    bill.get().setStatusBill(StatusBill.CHO_XAC_NHAN);
+                    billRepository.save(bill.get());
+                    billHistoryRepository.save(BillHistory.builder().statusBill(StatusBill.DA_THANH_TOAN).bill(bill.get()).employees(bill.get().getEmployees()).build());
+                }
+                CompletableFuture.runAsync(() -> createFilePdfAtCounter(bill.get().getId()), Executors.newCachedThreadPool());
+                return true;
+            }else{
+                throw new RestApiException(Message.PAYMENT_ERROR);
+            }
         }else{
             throw new RestApiException(Message.ERROR_HASHSECRET);
         }
@@ -452,26 +453,26 @@ public class PaymentsMethodServiceImpl implements PaymentsMethodService {
     public String payWithVNPAYOnline(CreatePayMentMethodTransferRequest payModel, HttpServletRequest request) throws UnsupportedEncodingException {
 
 
-            for (BillDetailOnline x : payModel.getBillDetail()){
-                Optional<ProductDetail> optional = productDetailRepository.findById(x.getIdProductDetail());
-                if(!optional.isPresent()){
-                    throw new RestApiException("Sản phẩm không tồn tại");
-                }
-
-                ProductDetail productDetail = optional.get();
-                if (productDetail.getStatus() != Status.DANG_SU_DUNG) {
-                    throw new RestApiException(Message.NOT_PAYMENT_PRODUCT);
-                }
-                if(productDetail.getQuantity()<x.getQuantity()){
-                    throw new RestApiException(Message.ERROR_QUANTITY);
-                }
-
-                productDetail.setQuantity(productDetail.getQuantity() - x.getQuantity());
-                if (productDetail.getQuantity() == 0) {
-                    productDetail.setStatus(Status.HET_SAN_PHAM);
-                }
-                productDetailRepository.save(productDetail);
+        for (BillDetailOnline x : payModel.getBillDetail()){
+            Optional<ProductDetail> optional = productDetailRepository.findById(x.getIdProductDetail());
+            if(!optional.isPresent()){
+                throw new RestApiException("Sản phẩm không tồn tại");
             }
+
+            ProductDetail productDetail = optional.get();
+            if (productDetail.getStatus() != Status.DANG_SU_DUNG) {
+                throw new RestApiException(Message.NOT_PAYMENT_PRODUCT);
+            }
+            if(productDetail.getQuantity()<x.getQuantity()){
+                throw new RestApiException(Message.ERROR_QUANTITY);
+            }
+
+            productDetail.setQuantity(productDetail.getQuantity() - x.getQuantity());
+            if (productDetail.getQuantity() == 0) {
+                productDetail.setStatus(Status.HET_SAN_PHAM);
+            }
+            productDetailRepository.save(productDetail);
+        }
 
 
         LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
@@ -533,23 +534,23 @@ public class PaymentsMethodServiceImpl implements PaymentsMethodService {
     public boolean minusQuantityProductDetail(List<BillDetailOnline> listProductDetail) {
 
         for (BillDetailOnline x : listProductDetail){
-         Optional<ProductDetail> optional = productDetailRepository.findById(x.getIdProductDetail());
-         if(!optional.isPresent()){
-             throw new RestApiException("Sản phẩm không tồn tại");
-         }
+            Optional<ProductDetail> optional = productDetailRepository.findById(x.getIdProductDetail());
+            if(!optional.isPresent()){
+                throw new RestApiException("Sản phẩm không tồn tại");
+            }
 
-         ProductDetail productDetail = optional.get();
+            ProductDetail productDetail = optional.get();
             if(productDetail.getQuantity()<x.getQuantity()){
                 throw new RestApiException(Message.ERROR_QUANTITY);
             }
             if (productDetail.getStatus() != Status.DANG_SU_DUNG) {
                 throw new RestApiException(Message.NOT_PAYMENT_PRODUCT);
             }
-         productDetail.setQuantity(productDetail.getQuantity() - x.getQuantity());
+            productDetail.setQuantity(productDetail.getQuantity() - x.getQuantity());
             if (productDetail.getQuantity() == 0) {
                 productDetail.setStatus(Status.HET_SAN_PHAM);
             }
-         productDetailRepository.save(productDetail);
+            productDetailRepository.save(productDetail);
         }
         return true;
     }
@@ -577,14 +578,8 @@ public class PaymentsMethodServiceImpl implements PaymentsMethodService {
         return paymentsMethodRepository.findByBill(idBill);
     }
 
-<<<<<<< HEAD
-
-    public boolean createFilePdfAtCounter(String idBill) {
-        //     begin   create file pdf
-=======
     public boolean createFilePdfAtCounter(String idBill) {
 
->>>>>>> nhanhducanh
         String finalHtml = null;
         Optional<Bill> optional = billRepository.findById(idBill);
         InvoiceResponse invoice = exportFilePdfFormHtml.getInvoiceResponse(optional.get(), new BigDecimal(0));

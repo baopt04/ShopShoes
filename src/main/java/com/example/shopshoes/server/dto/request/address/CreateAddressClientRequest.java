@@ -1,15 +1,13 @@
 package com.example.shopshoes.server.dto.request.address;
 
-import com.example.shopshoes.server.infrastructure.common.PageableRequest;
 import com.example.shopshoes.server.infrastructure.constant.Status;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
-public class FindAddressRequest extends PageableRequest {
-
+public class CreateAddressClientRequest {
+    private String idAccount;
     private String line;
 
     private String district;
@@ -18,8 +16,16 @@ public class FindAddressRequest extends PageableRequest {
 
     private String ward;
 
-    private Status status;
+    private Integer provinceId;
 
-    private String id_user;
+    private Integer districtId;
+
+    private String wardCode;
+
+    private String fullName;
+
+    private String phoneNumber;
+
+    private Status status;
 
 }
