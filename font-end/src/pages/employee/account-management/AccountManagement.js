@@ -7,9 +7,6 @@ import { useAppDispatch, useAppSelector } from "../../../app/hook";
 import { GetAccount, SetAccount } from "../../../app/reducer/Account.reducer";
 import { GetAddress } from "../../../app/reducer/Address.reducer";
 
-import filterImg from "../../../assets/images/filter.png";
-import listImg from "../../../assets/images/list.png";
-
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

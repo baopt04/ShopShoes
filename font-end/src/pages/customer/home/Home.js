@@ -3,11 +3,9 @@ import { Row, Col, Menu, Tabs, Pagination, Card } from "antd";
 import { RiseOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 
 import { Link } from "react-router-dom";
-import banner1 from "./../../../assets/images/third_slider_img01.png";
-import banner2 from "./../../../assets/images/shoes_cat_img01.jpg";
-import banner3 from "./../../../assets/images/shoes_cat_img03.jpg";
-import banner4 from "./../../../assets/images/shoes_cat_img02.jpg";
-import category3 from "./../../../assets/images/trending_banner03.jpg";
+
+import banner4 from "./../../../assets/images/banner_new.jpg";
+import banner_gioiThieu from "./../../../assets/images/gioi_thieu.jpg";
 import "./style-home.css";
 
 import { CategoryClientApi } from "./../../../api/customer/category/categoryClient.api";
@@ -100,9 +98,10 @@ function Home() {
   const getDetailProductSellMany = (page) => {
     ProductDetailClientApi.getDetailProductSellMany(page).then(
       (res) => {
-        setListProductDetail(res.data.data.data);
+        const products = res.data.data.data.slice(0, 5);
+        setListProductDetail(products);
         setTotalPagesProduct(res.data.data.totalPages);
-        console.log(res.data.data.data);
+        console.log("check data", products);
       },
       (err) => {
         console.log(err);
@@ -133,10 +132,13 @@ function Home() {
 
     setCurrentPage(page);
   };
+  useEffect(() => {
+    getDetailProductSellMany(0);
+  }, []);
   const getDetailProduct = (keyTab) => {
     setCurrentPage(1);
     setListProductDetail([]);
-    console.log(keyTab);
+    console.log("check keytop", keyTab);
     if (keyTab === "1") {
       getDetailProductNew(0);
     } else if (keyTab === "2") {
@@ -146,7 +148,7 @@ function Home() {
     }
   };
 
-  const itemsPerPage = 3;
+  const itemsPerPage = 5;
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalPages = Math.ceil(
     listProductDetailByCategory.length / itemsPerPage
@@ -172,61 +174,48 @@ function Home() {
     }
   };
 
-  const categoryProduct = [
-    { name: "Mới" },
-    { name: "Bán chạy" },
-    { name: "Giảm giá" },
-  ];
-  const tabItems = categoryProduct.map((item, index) => ({
-    label: item.name,
-    key: `${index + 1}`,
-    children: `Content of Tab Pane ${index + 1}`,
-  }));
-
   return (
     <div className="home">
       <div className="banner">
-        <div className="img-banner-home">
-          <img className="img-banner-home-shoes" src={banner1} alt="..." />
-        </div>
+        <div className="img-banner-home"></div>
       </div>
       <div>
         <Row justify="center">
-          <Col className="col-choose-1" lg={{ span: 6, offset: 0 }}>
-            <Link className="hover-wrapper">
-              <div className="type-gender-1">
-                <div type="" className="button-choose-gender">
-                  Giày Nữ <RiseOutlined />
-                </div>
-              </div>
-            </Link>
+          <Col className="col-choose" lg={{ span: 6, offset: 1 }}>
+            <div className="type-gender-2">
+              <Link className="hover-wrapper">
+                <img
+                  className="img-choose-gender"
+                  src={banner_gioiThieu}
+                  alt="..."
+                  style={{ borderRadius: "5px" }}
+                />
+              </Link>
+            </div>
           </Col>
           <Col className="col-choose" lg={{ span: 6, offset: 1 }}>
             <div className="type-gender-2">
               <Link className="hover-wrapper">
                 <img
                   className="img-choose-gender"
-                  src={banner4}
+                  src={banner_gioiThieu}
                   alt="..."
                   style={{ borderRadius: "5px" }}
                 />
               </Link>
-
-              <div className="text-product-center">
-                <div className="text-product">Sản phẩm</div>
-                <div className="horizontal-line"></div>
-                <div className="quantity-product-home">19</div>
-              </div>
             </div>
           </Col>
-          <Col className="col-choose-3" lg={{ span: 6, offset: 1 }}>
-            <Link className="hover-wrapper">
-              <div className="type-gender-3">
-                <div type="" className="button-choose-gender">
-                  Giày Nam <RiseOutlined />
-                </div>
-              </div>
-            </Link>
+          <Col className="col-choose" lg={{ span: 6, offset: 1 }}>
+            <div className="type-gender-2">
+              <Link className="hover-wrapper">
+                <img
+                  className="img-choose-gender"
+                  src={banner_gioiThieu}
+                  alt="..."
+                  style={{ borderRadius: "5px" }}
+                />
+              </Link>
+            </div>
           </Col>
         </Row>
       </div>
@@ -237,7 +226,7 @@ function Home() {
         </div>
         <Row>
           <Col lg={{ span: 23 }} className="content-search-category">
-            <div className="title-category-home">
+            {/* <div className="title-category-home">
               <div className="text-category">Loại giày</div>
 
               <Menu defaultSelectedKeys={["0"]}>
@@ -254,8 +243,8 @@ function Home() {
                   </Menu.Item>
                 ))}
               </Menu>
-            </div>
-            <div
+            </div> */}
+            {/* <div
               style={{
                 width: "362px",
                 height: "100%",
@@ -264,7 +253,7 @@ function Home() {
               <Link>
                 <img src={category3} alt="..."></img>
               </Link>
-            </div>
+            </div> */}
 
             <div className="list-product-of-category">
               <LeftOutlined className="button-prev-card" onClick={previous} />
@@ -284,34 +273,17 @@ function Home() {
         </Row>
       </div>
       <div>
+        <div className="title-product-category">
+          <p> BÁN CHẠY</p>
+        </div>
         <Row justify={"center"}>
           <Col>
-            <Tabs
-              defaultActiveKey="1"
-              centered
-              onTabClick={(key) => getKeyTab(key)}
-            >
-              {tabItems.map((tab) => (
-                <Tabs.TabPane
-                  className="title-tabs-product"
-                  tab={<span className="custom-tab">{tab.label}</span>}
-                  key={tab.key}
-                >
-                  {listProductDetail.map((item, index) => (
-                    <CardItem item={item} index={index} />
-                  ))}
-                </Tabs.TabPane>
+            <div className="list-product-of-category1">
+              {listProductDetail.map((item, index) => (
+                <CardItem item={item} index={index} />
               ))}
-            </Tabs>
+            </div>
           </Col>
-        </Row>
-        <Row justify={"center"} style={{ marginBottom: "30px" }}>
-          <Pagination
-            defaultCurrent={1}
-            current={currentPage}
-            total={totalPagesProduct * 10}
-            onChange={handlePageChange}
-          />
         </Row>
       </div>
     </div>

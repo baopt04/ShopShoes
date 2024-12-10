@@ -1248,9 +1248,9 @@ public class BillServiceImpl implements BillService {
 
         if (optional.get().getStatusBill().equals(StatusBill.THANH_CONG)) {
             long currentSeconds = System.currentTimeMillis();
-            long givenBackCheck = optional.get().getCompletionDate() + 2 * 24 * 60 * 60 * 1000;
+            long givenBackCheck = optional.get().getCompletionDate() + 7 * 24 * 60 * 60 * 1000;
             if (currentSeconds > givenBackCheck) {
-                throw new RestApiException("Đơn hàng đã hết hạn hoàn đổi.");
+                throw new RestApiException("Đơn hàng đã hết hạn đổi trả.");
             }
         }
 
