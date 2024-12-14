@@ -521,7 +521,7 @@ const ModalCreateAccount = () => {
           <Row>
             <Col span={1}></Col>
             <Col span={12}>
-              <div className="image-preview" style={{ marginLeft: "20%" }}>
+              <div className="image-preview" style={{ marginLeft: "60%" }}>
                 <Upload
                   listType="picture-card"
                   fileList={uploadedFile ? [uploadedFile] : []}

@@ -352,7 +352,7 @@ const ModalDetailAccount = ({ visible }) => {
             <Row>
               <Col span={1}></Col>
               <Col span={12}>
-                <div style={{ marginLeft: "20%" }}>
+                <div style={{ marginLeft: "60%" }}>
                   <Upload
                     action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                     listType="picture-card"

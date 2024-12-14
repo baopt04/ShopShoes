@@ -603,7 +603,7 @@ const ModalUpdateCustomer = ({ visible }) => {
             <Row>
               <Col span={1}></Col>
               <Col span={12}>
-                <div style={{ marginLeft: "20%" }}>
+                <div style={{ marginLeft: "50%" }}>
                   <Upload
                     listType="picture-card"
                     fileList={uploadedFile ? [uploadedFile] : []}

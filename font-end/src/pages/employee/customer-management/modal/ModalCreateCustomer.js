@@ -292,22 +292,7 @@ const ModalCreateCustomer = () => {
                       placeholder="Tên khách hàng"
                     />
                   </Form.Item>
-                  <Form.Item
-                    label="Căn cước công dân"
-                    name="citizenIdentity"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Vui lòng nhập số CCCD",
-                      },
-                      {
-                        pattern: /^\d{12}$/,
-                        message: "Số CCCD phải gồm 12 chữ số",
-                      },
-                    ]}
-                  >
-                    <Input className="input-item" placeholder="CCCD" />
-                  </Form.Item>
+
                   <Form.Item
                     label="Email"
                     name="email"
@@ -543,7 +528,7 @@ const ModalCreateCustomer = () => {
             <Row>
               <Col span={1}></Col>
               <Col span={12}>
-                <div style={{ marginLeft: "20%" }}>
+                <div style={{ marginLeft: "60%" }}>
                   <Upload
                     listType="picture-card"
                     fileList={uploadedFile ? [uploadedFile] : []}

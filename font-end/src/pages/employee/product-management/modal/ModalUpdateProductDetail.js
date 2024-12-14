@@ -722,12 +722,7 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
           >
             {fileList.length >= 6 ? null : uploadButton}
           </Upload>
-          <Modal
-            open={previewOpen}
-            title={previewTitle}
-            footer={null}
-            onCancel={handleCancelImage}
-          >
+          <Modal open={previewOpen} footer={null} onCancel={handleCancelImage}>
             <img
               alt="example"
               style={{

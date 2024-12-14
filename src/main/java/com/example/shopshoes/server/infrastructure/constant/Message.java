@@ -17,7 +17,7 @@ public enum Message {
     BILL_NOT_REFUND("Hóa đơn không thể trả hàng"),
     ERROR_QUANTITY("Số lượng sản phẩm không đủ để mua"),
     ERROR_TOTALMONEY("Tiền trả phải lớn hơn hoặc bằng phải trả"),
-
+    CITIZENIDENTITY_USER_EXIST("Căn cước công dân đã tồn tại"),
     PHONENUMBER_USER_EXIST("Số điện thoại người dùng đã tồn tại "),
     VOUCHER_NOT_USE("không thể sử dụng voucher"),
     STATUS_ADDRESS_EXIST("Trạng thái đang sử dụng đã được dùng cho địa chỉ khác"),

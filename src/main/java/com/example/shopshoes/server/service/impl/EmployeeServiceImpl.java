@@ -66,6 +66,14 @@ public class EmployeeServiceImpl implements  EmployeeService{
         if (checkUser != null) {
             throw new RestApiException(Message.PHONENUMBER_USER_EXIST);
         }
+        User checkEmail = userReposiory.getOneUserByEmail1(req.getEmail());
+        if (checkEmail != null) {
+            throw new RestApiException(Message.EMAIL_USER_EXIST);
+        }
+        User checkCitizenIdentity = userReposiory.getOneByCitizenIdentity(req.getCitizenIdentity());
+        if (checkCitizenIdentity != null) {
+            throw new RestApiException(Message.CITIZENIDENTITY_USER_EXIST);
+        }
         // xử lý ảnh
         String urlImage = imageToCloudinary.uploadImage(file);
 
@@ -120,6 +128,26 @@ public class EmployeeServiceImpl implements  EmployeeService{
             throw new RestApiException(Message.NOT_EXISTS);
         }
         User user = optional.get();
+        if (!user.getPhoneNumber().equals(req.getPhoneNumber())) {
+            User checkUser = userReposiory.getOneUserByPhoneNumber(req.getPhoneNumber());
+            if (checkUser != null) {
+                throw new RestApiException(Message.PHONENUMBER_USER_EXIST);
+            }
+        }
+
+        if (!user.getEmail().equals(req.getEmail())) {
+            User checkEmail = userReposiory.getOneUserByEmail1(req.getEmail());
+            if (checkEmail != null) {
+                throw new RestApiException(Message.EMAIL_USER_EXIST);
+            }
+        }
+
+        if (!user.getCitizenIdentity().equals(req.getCitizenIdentity())) {
+            User checkCitizenIdentity = userReposiory.getOneByCitizenIdentity(req.getCitizenIdentity());
+            if (checkCitizenIdentity != null) {
+                throw new RestApiException(Message.CITIZENIDENTITY_USER_EXIST);
+            }
+        }
         user.setFullName(req.getFullName());
         user.setPhoneNumber(req.getPhoneNumber());
         user.setDateOfBirth(req.getDateOfBirth());

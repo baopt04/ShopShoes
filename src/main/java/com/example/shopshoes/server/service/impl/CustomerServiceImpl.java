@@ -125,7 +125,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
         // gửi email
-        String subject = "Xin chào, bạn đã đăng ký thành công ";
+        String subject = "Xin chào, bạn đã đăng ký thành công tài khoản BEE SHOES ";
         sendEmailService.sendEmailPasword(account.getEmail(), subject, password);
 
         return user;
@@ -147,7 +147,24 @@ public class CustomerServiceImpl implements CustomerService {
         String urlImage = imageToCloudinary.uploadImage(file);
 
         //  thông tin user
-        User user = new User();
+        Optional<User> optional = userReposiory.findById(request.getId());
+        if (!optional.isPresent()) {
+            throw new RestApiException(Message.NOT_EXISTS);
+        }
+        User user = optional.get();
+        if (!user.getPhoneNumber().equals(request.getPhoneNumber())) {
+            User checkUser = userReposiory.getOneUserByPhoneNumber(request.getPhoneNumber());
+            if (checkUser != null) {
+                throw new RestApiException(Message.PHONENUMBER_USER_EXIST);
+            }
+        }
+
+        if (!user.getEmail().equals(request.getEmail())) {
+            User checkEmail = userReposiory.getOneUserByEmail1(request.getEmail());
+            if (checkEmail != null) {
+                throw new RestApiException(Message.EMAIL_USER_EXIST);
+            }
+        }
         user.setId(request.getId());
         user.setFullName(request.getFullName());
         user.setPhoneNumber(request.getPhoneNumber());

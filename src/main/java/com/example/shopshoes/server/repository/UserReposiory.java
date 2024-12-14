@@ -162,7 +162,10 @@ public interface UserReposiory extends JpaRepository<User, String> {
 
     @Query("SELECT u FROM  Account u WHERE u.email =:email")
     Account getOneUserByEmail(@Param("email") String email);
-
+    @Query("SELECT u FROM  User u WHERE u.email =:email")
+    User getOneUserByEmail1(@Param("email") String email);
+    @Query("SELECT u FROM  User u WHERE u.citizenIdentity =:citizenIdentity")
+    User getOneByCitizenIdentity(@Param("citizenIdentity") String citizenIdentity);
     @Query(value = """
             SELECT
              ROW_NUMBER() OVER (ORDER BY u.last_modified_date DESC ) AS stt,
