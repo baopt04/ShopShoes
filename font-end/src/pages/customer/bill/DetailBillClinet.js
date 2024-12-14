@@ -6,6 +6,7 @@ import {
   Select,
   Result,
   Row,
+  Image,
   Table,
   Tabs,
 } from "antd";
@@ -306,7 +307,7 @@ function DetailBillClinet() {
     } else {
       Modal.confirm({
         title: "Xác nhận",
-        content: "Bạn có đồng ý hủy không?",
+        content: "Bạn có đồng ý hủy đơn hàng không?",
         okText: "Đồng ý",
         cancelText: "Hủy",
         onOk: async () => {
@@ -335,7 +336,7 @@ function DetailBillClinet() {
             dispatch(getPaymentsMethod(res.data.data));
           });
           setIsModalCanCelOpen(false);
-          toast.success("Hủy hóa đơn thành công");
+          toast.success("Hủy đơn hàng thành công");
         },
         onCancel: () => {
           setIsModalCanCelOpen(false);
@@ -950,7 +951,7 @@ function DetailBillClinet() {
             open={isModalCanCelOpen}
             onOk={handleCanCelOk}
             onCancel={handleCanCelClose}
-            cancelText={"huỷ"}
+            cancelText={"Hủy"}
             okText={"Xác nhận"}
           >
             <Form
@@ -1011,7 +1012,7 @@ function DetailBillClinet() {
                   rules={[
                     {
                       required: true,
-                      message: "Vui lòng nhập mô tả",
+                      message: "Vui lòng nhập lý do hủy đơn",
                     },
                     {
                       validator: (_, value) => {
@@ -1037,7 +1038,7 @@ function DetailBillClinet() {
                 >
                   <TextArea
                     rows={4}
-                    placeholder="Nhập mô tả"
+                    placeholder="Nhập lý do hủy đơn"
                     onChange={(e) =>
                       onChangeDescStatusBill(
                         "actionDescription",
@@ -1052,9 +1053,13 @@ function DetailBillClinet() {
         </>
       ) : (
         <Result
-          status="404"
-          title="404"
-          subTitle="Xin lỗi, hóa đơn không tồn tại."
+          subTitle="Hóa đơn không tồn tại trong hệ thống!"
+          icon={
+            <Image
+              src="https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-5529.jpg"
+              alt="Custom 404"
+            />
+          }
           extra={
             <Button type="primary">
               <Link to="/">Về trang chủ</Link>

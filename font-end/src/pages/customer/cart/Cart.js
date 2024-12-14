@@ -603,82 +603,73 @@ function Cart() {
           <Col lg={{ span: 16, offset: 4 }}>
             <div className="form-content-cart">
               <div className="info-cart">
-                <div className="box-title-cart">
-                  <div
-                    style={{
-                      width: "30%",
-                      fontWeight: "bold",
-                      color: "gray",
-                      fontSize: "15px",
-                      display: "flex",
-                    }}
-                  >
-                    <Checkbox
-                      className="custom-checkbox-all"
-                      onChange={handleSelectAllChange}
-                      checked={selectAllChecked}
-                    />
-                    {/* <div
+                <div className="cart-item">
+                  <div className="box-title-cart">
+                    <div
                       style={{
-                        flex: 1,
-                        justifyContent: "center",
+                        width: "30%",
+                        fontWeight: "bold",
+                        color: "gray",
+                        fontSize: "15px",
                         display: "flex",
-                        alignItems: "center",
                       }}
                     >
-                      Hình ảnh
-                    </div> */}
+                      <Checkbox
+                        className="custom-checkbox-all"
+                        onChange={handleSelectAllChange}
+                        checked={selectAllChecked}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        width: "45%",
+                        fontWeight: "bold",
+                        color: "gray",
+                        fontSize: "15px",
+                      }}
+                    >
+                      Sản phẩm
+                    </div>
+                    <div
+                      style={{
+                        width: "25%",
+                        fontWeight: "bold",
+                        color: "gray",
+                        fontSize: "15px",
+                        textAlign: "center",
+                      }}
+                    >
+                      Tổng cộng
+                    </div>
                   </div>
-                  <div
-                    style={{
-                      width: "45%",
-                      fontWeight: "bold",
-                      color: "gray",
-                      fontSize: "15px",
-                    }}
-                  >
-                    Sản phẩm
-                  </div>
-                  <div
-                    style={{
-                      width: "25%",
-                      fontWeight: "bold",
-                      color: "gray",
-                      fontSize: "15px",
-                      textAlign: "center",
-                    }}
-                  >
-                    Tổng cộng
-                  </div>
-                </div>
 
-                <div>
-                  {cart.length === 0 ? (
-                    <Tooltip title="Bấm để mua hàng">
-                      <Link className="cart-is-empty" to={"/home"}></Link>
-                    </Tooltip>
-                  ) : (
-                    <>
-                      {cart.map((item, index) => (
-                        <div
-                          className={`item-cart ${
-                            index === cart.length - 1 ? "last-item" : ""
-                          }`}
-                          key={index}
-                        >
-                          <div key={index} className="box-cart-img">
-                            <Checkbox
-                              className="custom-checkbox"
-                              onChange={(e) =>
-                                chooseCartForBill(item, e.target.checked)
-                              }
-                              checked={chooseItemCart.some(
-                                (cartItem) =>
-                                  cartItem.idProductDetail ===
-                                  item.idProductDetail
-                              )}
-                            />
-                            {/* <div
+                  <div>
+                    {cart.length === 0 ? (
+                      <Tooltip title="Bấm để mua hàng">
+                        <Link className="cart-is-empty" to={"/home"}></Link>
+                      </Tooltip>
+                    ) : (
+                      <>
+                        {cart.map((item, index) => (
+                          <div
+                            className={`item-cart ${
+                              index === cart.length - 1 ? "last-item" : ""
+                            }`}
+                            key={index}
+                          >
+                            <div key={index} className="box-cart-img">
+                              <Checkbox
+                                className="custom-checkbox"
+                                onChange={(e) =>
+                                  chooseCartForBill(item, e.target.checked)
+                                }
+                                checked={chooseItemCart.some(
+                                  (cartItem) =>
+                                    cartItem.idProductDetail ===
+                                    item.idProductDetail
+                                )}
+                              />
+                              {/* <div
                               style={{
                                 flex: 1,
                                 display: "flex",
@@ -696,150 +687,152 @@ function Cart() {
                                 alt="..."
                               />
                             </div> */}
-                          </div>
-                          <div className="info-product-detail">
-                            <div className="cart-name">
-                              {" "}
-                              {item.nameProduct} - size: {item.nameSize}
                             </div>
-                            <div className="cart-price">
-                              Giá:
-                              {item.valuePromotion !== null ? (
-                                <>
-                                  <span style={{ marginLeft: 5 }}>
-                                    {" "}
-                                    {formatMoney(
-                                      item.price -
-                                        item.price * (item.valuePromotion / 100)
-                                    )}
-                                  </span>
-                                  <del
-                                    style={{
-                                      color: "black",
-                                      fontSize: 16,
-                                      marginLeft: 5,
-                                    }}
-                                  >
-                                    {formatMoney(item.price)}
-                                  </del>
-                                </>
-                              ) : (
-                                formatMoney(item.price)
-                              )}
-                            </div>
+                            <div className="info-product-detail">
+                              <div className="cart-name">
+                                {" "}
+                                {item.nameProduct} - size: {item.nameSize}
+                              </div>
+                              <div className="cart-price">
+                                Giá:
+                                {item.valuePromotion !== null ? (
+                                  <>
+                                    <span style={{ marginLeft: 5 }}>
+                                      {" "}
+                                      {formatMoney(
+                                        item.price -
+                                          item.price *
+                                            (item.valuePromotion / 100)
+                                      )}
+                                    </span>
+                                    <del
+                                      style={{
+                                        color: "black",
+                                        fontSize: 16,
+                                        marginLeft: 5,
+                                      }}
+                                    >
+                                      {formatMoney(item.price)}
+                                    </del>
+                                  </>
+                                ) : (
+                                  formatMoney(item.price)
+                                )}
+                              </div>
 
-                            <div
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                marginTop: "10px",
-                              }}
-                            >
-                              <div>
-                                <div className="form-change-quantity">
-                                  <div
-                                    style={{
-                                      fontWeight: "bold",
-                                      marginRight: 10,
-                                    }}
-                                  >
-                                    Số lượng:
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  marginTop: "10px",
+                                }}
+                              >
+                                <div>
+                                  <div className="form-change-quantity">
+                                    <div
+                                      style={{
+                                        fontWeight: "bold",
+                                        marginRight: 10,
+                                      }}
+                                    >
+                                      Số lượng:
+                                    </div>
+                                    <FontAwesomeIcon
+                                      icon={faMinus}
+                                      className="button-minus-quantity"
+                                      onClick={() =>
+                                        changeQuantity(
+                                          item,
+                                          parseInt(item.quantity) - 1 < 1
+                                            ? 1
+                                            : parseInt(item.quantity) - 1,
+                                          item.quantityProductDetail
+                                        )
+                                      }
+                                    />
+                                    <Input
+                                      className="quantity-product-in-cart"
+                                      min={1}
+                                      max={item.quantityProductDetail}
+                                      value={item.quantity}
+                                      onChange={(value) =>
+                                        changeQuantity(
+                                          item,
+                                          value.target.value < 1
+                                            ? 1
+                                            : value.target.value,
+                                          item.quantityProductDetail
+                                        )
+                                      }
+                                    />
+                                    <FontAwesomeIcon
+                                      icon={faPlus}
+                                      className="button-plus-quantity"
+                                      onClick={() =>
+                                        changeQuantity(
+                                          item,
+                                          parseInt(item.quantity) + 1 < 1
+                                            ? 1
+                                            : parseInt(item.quantity) + 1,
+                                          item.quantityProductDetail
+                                        )
+                                      }
+                                    />
                                   </div>
-                                  <FontAwesomeIcon
-                                    icon={faMinus}
-                                    className="button-minus-quantity"
-                                    onClick={() =>
-                                      changeQuantity(
-                                        item,
-                                        parseInt(item.quantity) - 1 < 1
-                                          ? 1
-                                          : parseInt(item.quantity) - 1,
-                                        item.quantityProductDetail
-                                      )
-                                    }
-                                  />
-                                  <Input
-                                    className="quantity-product-in-cart"
-                                    min={1}
-                                    max={item.quantityProductDetail}
-                                    value={item.quantity}
-                                    onChange={(value) =>
-                                      changeQuantity(
-                                        item,
-                                        value.target.value < 1
-                                          ? 1
-                                          : value.target.value,
-                                        item.quantityProductDetail
-                                      )
-                                    }
-                                  />
-                                  <FontAwesomeIcon
-                                    icon={faPlus}
-                                    className="button-plus-quantity"
-                                    onClick={() =>
-                                      changeQuantity(
-                                        item,
-                                        parseInt(item.quantity) + 1 < 1
-                                          ? 1
-                                          : parseInt(item.quantity) + 1,
-                                        item.quantityProductDetail
-                                      )
-                                    }
-                                  />
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div className="form-status-cart">
-                            <div
-                              style={{
-                                fontSize: "17px",
-                                fontWeight: "500",
-                                textAlign: "center",
-                                marginBottom: "10%",
-                                width: "150px",
-                                color: "#ff4400",
-                              }}
-                            >
-                              {item.quantityProductDetail > 0
-                                ? "Còn hàng"
-                                : "Hết hàng"}
-                            </div>
-                            <div
-                              style={{
-                                fontSize: "17px",
-                                fontWeight: "500",
-                                textAlign: "center",
-                                marginTop: "5%",
-                                width: "150px",
-                              }}
-                            >
-                              {item.valuePromotion === null
-                                ? formatMoney(item.quantity * item.price)
-                                : formatMoney(
-                                    item.quantity *
-                                      (parseInt(item.price) -
-                                        parseInt(item.price) *
-                                          (item.valuePromotion / 100))
-                                  )}
-                            </div>
+                            <div className="form-status-cart">
+                              <div
+                                style={{
+                                  fontSize: "17px",
+                                  fontWeight: "500",
+                                  textAlign: "center",
+                                  marginBottom: "10%",
+                                  width: "150px",
+                                  color: "#ff4400",
+                                }}
+                              >
+                                {item.quantityProductDetail > 0
+                                  ? "Còn hàng"
+                                  : "Hết hàng"}
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "17px",
+                                  fontWeight: "500",
+                                  textAlign: "center",
+                                  marginTop: "5%",
+                                  width: "150px",
+                                }}
+                              >
+                                {item.valuePromotion === null
+                                  ? formatMoney(item.quantity * item.price)
+                                  : formatMoney(
+                                      item.quantity *
+                                        (parseInt(item.price) -
+                                          parseInt(item.price) *
+                                            (item.valuePromotion / 100))
+                                    )}
+                              </div>
 
-                            <div className="button-delete-cart">
-                              <Tooltip title="Xóa sản phẩm">
-                                <FontAwesomeIcon
-                                  icon={faTrash}
-                                  size="xl"
-                                  onClick={() => {
-                                    deleteItemCart(item);
-                                  }}
-                                />
-                              </Tooltip>
+                              <div className="button-delete-cart">
+                                <Tooltip title="Xóa sản phẩm">
+                                  <FontAwesomeIcon
+                                    icon={faTrash}
+                                    size="xl"
+                                    onClick={() => {
+                                      deleteItemCart(item);
+                                    }}
+                                  />
+                                </Tooltip>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
-                    </>
-                  )}
+                        ))}
+                      </>
+                    )}
+                  </div>
                 </div>
                 {cart.length !== 0 ? (
                   <div style={{ display: "flex", marginTop: 20 }}>

@@ -20,7 +20,22 @@
   bottom: 0;
   opacity: 1;
 }
+.promotion-details {
+  margin: 5px;
+}
+.value-promotion {
+  font-size: 14px;
+  font-weight: bold;
+}
+.year-end-promotion {
+  margin-top: 200px;
 
+  background: red;
+  color: white;
+  font-size: italic;
+  font-size: 12px;
+  margin-left: 100px;
+}
 .card-item {
   text-align: center;
   display: flex;

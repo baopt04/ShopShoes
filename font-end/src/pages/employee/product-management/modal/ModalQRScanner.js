@@ -19,14 +19,13 @@ const QRScannerModal = ({ visible, onCancel, onQRCodeScanned }) => {
 
   const handleCloseModal = () => {
     if (qrReaderRef.current) {
-      qrReaderRef.current.closeImageDialog(); // Đóng camera khi đóng Modal
+      qrReaderRef.current.closeImageDialog();
     }
-    setQRCode(null); // Reset QR code when closing the modal
+    setQRCode(null);
     onCancel();
   };
 
   useEffect(() => {
-    // Mỗi khi Modal hiển thị hoặc ẩn đi, kiểm tra và đóng camera nếu cần
     if (!visible && qrReaderRef.current) {
       qrReaderRef.current.closeImageDialog();
     }
@@ -34,7 +33,7 @@ const QRScannerModal = ({ visible, onCancel, onQRCodeScanned }) => {
 
   return (
     <Modal
-      title="QR Code Scanner"
+      title="Quét QR"
       visible={visible}
       onCancel={handleCloseModal}
       footer={[
@@ -48,9 +47,9 @@ const QRScannerModal = ({ visible, onCancel, onQRCodeScanned }) => {
         onError={handleError}
         style={{ width: "100%" }}
         onResult={handleScan}
-        ref={qrReaderRef} // Gán ref cho thư viện quét mã QR
+        ref={qrReaderRef}
       />
-      {qrCode && <p>Scanned QR Code: {qrCode}</p>}
+      {qrCode && <p>Mã QR Code: {qrCode}</p>}
     </Modal>
   );
 };

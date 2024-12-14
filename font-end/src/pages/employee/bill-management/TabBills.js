@@ -33,28 +33,28 @@ function TabBills({ statusBill, dataFillter, addNotify, quantityNotify }) {
       title: "STT",
       dataIndex: "stt",
       key: "stt",
-      // sorter: (a, b) => a.stt - b.stt,
     },
     {
       title: "Mã hóa đơn",
       dataIndex: "code",
       key: "code",
-      // sorter: (a, b) => a.code.localeCompare(b.code),
     },
 
     {
       title: "Tên nhân viên",
       dataIndex: "nameEmployees",
       key: "nameEmployees",
-      // sorter: (a, b) => a.nameEmployees - b.nameEmployees,
     },
     {
       title: "Tên khách hàng",
       dataIndex: "userName",
       key: "userName",
-      // sorter: (a, b) => a.userName - b.userName,
     },
-
+    {
+      title: "Loại giao dịch",
+      dataIndex: "type",
+      key: "type",
+    },
     {
       title: "Tiền giảm",
       dataIndex: "itemDiscount",
@@ -71,7 +71,7 @@ function TabBills({ statusBill, dataFillter, addNotify, quantityNotify }) {
       title: "Ngày tạo",
       dataIndex: "createdDate",
       key: "createdDate",
-      // sorter: (a, b) => a.createdDate - b.createdDate,
+      sorter: (a, b) => a.createdDate - b.createdDate,
       render: (text) => {
         const formattedDate = moment(text).format("HH:mm:ss DD-MM-YYYY"); // Định dạng ngày
         return formattedDate;
@@ -207,23 +207,23 @@ function TabBills({ statusBill, dataFillter, addNotify, quantityNotify }) {
       });
   }, [dataFillter]);
 
-  const convertString = (key) => {
-    return key === ""
-      ? "Tất cả"
-      : key === "CHO_XAC_NHAN "
-      ? "xác nhận"
-      : key === "XAC_NHAN"
-      ? "Chờ vận chuyển"
-      : key === "CHO_VAN_CHUYEN"
-      ? " Vận chuyển"
-      : key === "VAN_CHUYEN"
-      ? "Xác nhận thanh Toán"
-      : key === "DA_THANH_TOAN"
-      ? "Hoàn thành"
-      : key === "THANH_CONG"
-      ? "Hoàn thành"
-      : "Hủy";
-  };
+  // const convertString = (key) => {
+  //   return key === ""
+  //     ? "Tất cả"
+  //     : key === "CHO_XAC_NHAN "
+  //     ? "xác nhận"
+  //     : key === "XAC_NHAN"
+  //     ? "Chờ vận chuyển"
+  //     : key === "CHO_VAN_CHUYEN"
+  //     ? " Vận chuyển"
+  //     : key === "VAN_CHUYEN"
+  //     ? "Xác nhận thanh Toán"
+  //     : key === "DA_THANH_TOAN"
+  //     ? "Hoàn thành"
+  //     : key === "THANH_CONG"
+  //     ? "Hoàn thành"
+  //     : "Hủy";
+  // };
 
   const nextStatusBill = () => {
     return statusBill == "CHO_XAC_NHAN"
@@ -245,64 +245,64 @@ function TabBills({ statusBill, dataFillter, addNotify, quantityNotify }) {
     onAfterPrint: () => {},
   });
 
-  const changeStatusBill = (e) => {
-    Modal.confirm({
-      title: "Xác nhận",
-      content: (
-        <div>
-          <p>{`Bạn có đồng ý ${convertString(statusBill)} không?`}</p>
-          <TextArea
-            rows={4}
-            placeholder="Nhập ghi chú..."
-            id="myTextAreaChangeStatus"
-          />
-        </div>
-      ),
-      okText: "Đồng ý",
-      cancelText: "Hủy",
-      onOk: async () => {
-        var note = document.getElementById("myTextAreaChangeStatus").value;
-        if (note.trim() != "" && note.trim().length > 10) {
-          var data = {
-            ids: dataIdCheck,
-            status: nextStatusBill(),
-            note: note,
-          };
-          if (statusBill == "XAC_NHAN") {
-            BillApi.fetchAllFilePdfByIdBill(data)
-              .then((response) => {
-                document.getElementById("pdfContent").innerHTML =
-                  response.data.data;
-                generatePDF();
-                console.log(response);
-              })
-              .catch((error) => {
-                toast.error(error.response.data.message);
-              });
-          }
-          await BillApi.changeStatusAllBillByIds(data)
-            .then((response) => {
-              if (response.data.data == true) {
-                toast.success(`${convertString(statusBill)} thành công`);
-              }
-            })
-            .catch((error) => {
-              toast.error(error.response.data.message);
-            });
-          await BillApi.fetchAll(fillter)
-            .then((res) => {
-              setDataBill(res.data.data);
-            })
-            .catch((error) => {
-              toast.error(error.response.data.message);
-            });
-        } else {
-          toast.warning("Vui lòng nhập mô tả và tối thiểu 10 ký tự ");
-        }
-      },
-      onCancel: () => {},
-    });
-  };
+  // const changeStatusBill = (e) => {
+  //   Modal.confirm({
+  //     title: "Xác nhận",
+  //     content: (
+  //       <div>
+  //         <p>{`Bạn có đồng ý ${convertString(statusBill)} không?`}</p>
+  //         <TextArea
+  //           rows={4}
+  //           placeholder="Nhập ghi chú..."
+  //           id="myTextAreaChangeStatus"
+  //         />
+  //       </div>
+  //     ),
+  //     okText: "Đồng ý",
+  //     cancelText: "Hủy",
+  //     onOk: async () => {
+  //       var note = document.getElementById("myTextAreaChangeStatus").value;
+  //       if (note.trim() != "" && note.trim().length > 10) {
+  //         var data = {
+  //           ids: dataIdCheck,
+  //           status: nextStatusBill(),
+  //           note: note,
+  //         };
+  //         if (statusBill == "XAC_NHAN") {
+  //           BillApi.fetchAllFilePdfByIdBill(data)
+  //             .then((response) => {
+  //               document.getElementById("pdfContent").innerHTML =
+  //                 response.data.data;
+  //               generatePDF();
+  //               console.log(response);
+  //             })
+  //             .catch((error) => {
+  //               toast.error(error.response.data.message);
+  //             });
+  //         }
+  //         await BillApi.changeStatusAllBillByIds(data)
+  //           .then((response) => {
+  //             if (response.data.data == true) {
+  //               toast.success(`${convertString(statusBill)} thành công`);
+  //             }
+  //           })
+  //           .catch((error) => {
+  //             toast.error(error.response.data.message);
+  //           });
+  //         await BillApi.fetchAll(fillter)
+  //           .then((res) => {
+  //             setDataBill(res.data.data);
+  //           })
+  //           .catch((error) => {
+  //             toast.error(error.response.data.message);
+  //           });
+  //       } else {
+  //         toast.warning("Vui lòng nhập mô tả và tối thiểu 10 ký tự ");
+  //       }
+  //     },
+  //     onCancel: () => {},
+  //   });
+  // };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -375,11 +375,11 @@ function TabBills({ statusBill, dataFillter, addNotify, quantityNotify }) {
       statusBill != "DA_HUY" &&
       statusBill != "THANH_CONG" ? (
         <Row style={{ width: "100%", marginTop: "15px" }} justify={"end"}>
-          <Col span={3} style={{ marginRight: "10px" }}>
+          {/* <Col span={3} style={{ marginRight: "10px" }}>
             <Button onClick={(e) => changeStatusBill(e)}>
               {convertString(statusBill)}
             </Button>
-          </Col>
+          </Col> */}
           <Col span={3} style={{ marginRight: "10px" }}>
             <Button onClick={showModal}>Chọn nhân viên</Button>
           </Col>

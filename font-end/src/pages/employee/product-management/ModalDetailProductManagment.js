@@ -5,11 +5,14 @@ import {
   Input,
   Modal,
   Row,
+  Form,
+  InputNumber,
   Select,
   Slider,
   Space,
   Spin,
   Table,
+  Tooltip,
 } from "antd";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,6 +21,7 @@ import {
   faEye,
   faFilter,
   faKaaba,
+  faRotateLeft,
   faListAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { ProducDetailtApi } from "../../../api/employee/product-detail/productDetail.api";
@@ -30,6 +34,7 @@ import { ColorApi } from "../../../api/employee/color/Color.api";
 import { Option } from "antd/es/mentions";
 
 const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
+  const [form] = Form.useForm();
   // Bộ lọc
   const [listMaterial, setListMaterial] = useState([]);
   const [listCategory, setListCategory] = useState([]);
@@ -41,7 +46,28 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
   for (let size = 35; size <= 45; size++) {
     listSize.push(size);
   }
+  const [modalVisible, setModalVisible] = useState(false);
+  const [initialValues, setInitialValues] = useState({
+    giveBack: 0,
+  });
+  const [productId, setProductId] = useState(null);
+  const getOne = (id) => {
+    if (!id) return;
+    ProducDetailtApi.getOne(id).then((productData) => {
+      setInitialValues({
+        giveBack: productData.data.data.productGiveBack,
+      });
+    });
+  };
+  const handleCancel = () => {
+    setModalVisible(false);
+  };
 
+  useEffect(() => {
+    if (productId) {
+      getOne(productId);
+    }
+  }, [productId]);
   const getList = () => {
     MaterialApi.fetchAll().then((res) => setListMaterial(res.data.data));
     CategoryApi.fetchAll().then((res) => setListCategory(res.data.data));
@@ -51,6 +77,24 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
     ColorApi.getAllCode().then((res) => setListColor(res.data.data));
   };
 
+  const handleGiveBackClick = (id) => {
+    ProducDetailtApi.getOne(id)
+      .then((productData) => {
+        console.log(
+          "Giá trị giveBack từ API: ",
+          productData.data.data.productGiveBack
+        );
+
+        form.setFieldsValue({
+          giveBack: productData.data.data.productGiveBack,
+        });
+
+        setModalVisible(true);
+      })
+      .catch((error) => {
+        console.error("Lỗi khi lấy sản phẩm:", error);
+      });
+  };
   const [selectedValues, setSelectedValues] = useState({
     idProduct: id,
     color: "",
@@ -228,14 +272,12 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
       title: "Giá Bán",
       dataIndex: "price",
       key: "price",
-      // sorter: (a, b) => a.price - b.price,
       render: (text) => formatCurrency(text),
     },
     {
       title: "Số Lượng ",
       dataIndex: "quantity",
       key: "quantity",
-      // sorter: (a, b) => a.quantity - b.quantity,
       align: "center",
     },
     {
@@ -243,7 +285,6 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
       dataIndex: "size",
       key: "size",
       width: "10%",
-      // sorter: (a, b) => a.quantity - b.quantity,
       align: "center",
     },
     {
@@ -278,24 +319,30 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
         );
       },
     },
-    // {
-    //   title: "Hành động",
-    //   dataIndex: "hanhDong",
-    //   key: "hanhDong",
-    //   width: "10%",
-    //   render: (text, record) => (
-    //     <div style={{ display: "flex", gap: "10px" }}>
-    //       <Button
-    //         type="primary"
-    //         title="Chi tiết thể loại"
-    //         style={{ backgroundColor: "#1677ff", marginLeft: "30px" }}
-    //         // onClick={() => handleViewDetail(record.id)}
-    //       >
-    //         <FontAwesomeIcon icon={faEye} />
-    //       </Button>
-    //     </div>
-    //   ),
-    // },
+    {
+      title: "Hành động",
+      dataIndex: "hanhDong",
+      key: "hanhDong",
+      width: "10%",
+      render: (text, record) => (
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Tooltip title="Hoàn trả">
+            <Button
+              type="primary"
+              title="Chi tiết thể loại"
+              style={{ backgroundColor: "#52c41a", marginLeft: "30px" }}
+              onClick={() => {
+                console.log("ID của sản phẩm trả là:", record.id);
+
+                handleGiveBackClick(record.id);
+              }}
+            >
+              <FontAwesomeIcon icon={faRotateLeft} />
+            </Button>
+          </Tooltip>
+        </div>
+      ),
+    },
   ];
 
   const [listProductDetails, setListProductDetails] = useState([]);
@@ -311,19 +358,37 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
   };
 
   return (
-    <Modal visible={visible} onCancel={onCancel} footer={null} width={1200}>
-      <div className="title_sole">
-        {/* <FontAwesomeIcon icon={faKaaba} style={{ fontSize: "26px" }} /> */}
-        <span style={{ marginLeft: "35%" }}>Quản lý sản phẩm chi tiết</span>
-      </div>
+    <>
+      <Modal
+        title="Sản phẩm trả về"
+        visible={modalVisible}
+        onCancel={handleCancel}
+        cancelText="Thoát"
+        style={{ fontWeight: "bold" }}
+        footer={null}
+      >
+        <Form form={form}>
+          <Form.Item label="Số lượng hàng trả" name="giveBack">
+            <Input
+              style={{ fontWeight: "bold", width: "100%", height: "auto" }}
+              readOnly
+            />
+          </Form.Item>
+        </Form>
+      </Modal>
+      <Modal visible={visible} onCancel={onCancel} footer={null} width={1200}>
+        <div className="title_sole">
+          {/* <FontAwesomeIcon icon={faKaaba} style={{ fontSize: "26px" }} /> */}
+          <span style={{ marginLeft: "35%" }}>Quản lý sản phẩm chi tiết </span>
+        </div>
 
-      <div className="filter">
-        {/* <FontAwesomeIcon icon={faFilter} size="2x" />{" "} */}
-        <span style={{ fontSize: "18px", fontWeight: "500" }}>Bộ lọc</span>
-        <hr />
-        <div className="content">
-          <div className="content-wrapper">
-            {/* <div>
+        <div className="filter">
+          {/* <FontAwesomeIcon icon={faFilter} size="2x" />{" "} */}
+          <span style={{ fontSize: "18px", fontWeight: "500" }}>Bộ lọc</span>
+          <hr />
+          <div className="content">
+            <div className="content-wrapper">
+              {/* <div>
               <Input
                 value={search}
                 onChange={handleChange}
@@ -346,160 +411,160 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
                 Làm mới
               </Button>
             </div> */}
+            </div>
           </div>
-        </div>
-        <div className="box_btn_filter">
-          <Row align="middle">
-            <Col span={3} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Thương Hiệu :</label>
-            </Col>
-            <Col span={2}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.brand}
-                onChange={(value) => handleSelectChange(value, "brand")}
-              >
-                <Option value="">Tất cả</Option>
-                {listBrand.map((brand, index) => (
-                  <Option key={index} value={brand.name}>
-                    {brand.name}
-                  </Option>
-                ))}
-              </Select>
-            </Col>
-            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Màu Sắc :</label>
-            </Col>
-            <Col span={2}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.color}
-                onChange={(value) => handleSelectChange(value, "color")}
-                defaultValue=""
-              >
-                <Option value="">Tất cả</Option>
-                {listColor.map((color, index) => (
-                  <Option key={index} value={color.code}>
-                    <div
-                      style={{
-                        backgroundColor: color.code,
-                        width: "100%",
-                        height: "100%",
-                        borderRadius: "5px",
-                      }}
-                    ></div>
-                  </Option>
-                ))}
-              </Select>
-            </Col>
-            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Đế giày :</label>
-            </Col>
-            <Col span={2}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.sole}
-                onChange={(value) => handleSelectChange(value, "sole")}
-                defaultValue=""
-              >
-                <Option value="">Tất cả</Option>
-                {listSole.map((sole, index) => (
-                  <Option key={index} value={sole.name}>
-                    {sole.name}
-                  </Option>
-                ))}
-              </Select>
-            </Col>
-            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Chất Liệu :</label>
-            </Col>
-            <Col span={2}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.material}
-                onChange={(value) => handleSelectChange(value, "material")}
-                defaultValue=""
-              >
-                <Option value="">Tất cả</Option>
-                {listMaterial.map((material, index) => (
-                  <Option key={index} value={material.name}>
-                    {material.name}
-                  </Option>
-                ))}
-              </Select>
-            </Col>
-            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Kích cỡ :</label>
-            </Col>
-            <Col span={2}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.size}
-                onChange={(value) => handleSelectChange(value, "size")}
-                defaultValue={null}
-              >
-                <Option value={null}>Tất cả</Option>
-                {listSize.map((size, index) => (
-                  <Option key={index} value={size}>
-                    {size}
-                  </Option>
-                ))}
-              </Select>
-            </Col>
-          </Row>
-        </div>
-        <div className="box_btn_filter">
-          <Row align="middle">
-            <Col span={4} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Thể Loại :</label>
-            </Col>
-            <Col span={3}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.category}
-                onChange={(value) => handleSelectChange(value, "category")}
-                defaultValue=""
-              >
-                <Option value="">Tất cả</Option>
-                {listCategory.map((category, index) => (
-                  <Option key={index} value={category.name}>
-                    {category.name}
-                  </Option>
-                ))}
-              </Select>
-            </Col>
-            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Trạng Thái :</label>
-            </Col>
-            <Col span={3}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.status}
-                onChange={(value) => handleSelectChange(value, "status")}
-                defaultValue=""
-              >
-                <Option value="">Tất cả</Option>
-                <Option value="DANG_SU_DUNG">Đang sử dung</Option>
-                <Option value="KHONG_SU_DUNG">Không sử dụng</Option>
-              </Select>
-            </Col>
-            <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
-              <label>Giới Tinh :</label>
-            </Col>
-            <Col span={3}>
-              <Select
-                style={{ width: "100%" }}
-                value={selectedValues.gender}
-                onChange={(value) => handleSelectChange(value, "gender")}
-                defaultValue=""
-              >
-                <Option value="">Tất cả</Option>
-                <Option value="NAM">Nam</Option>
-                <Option value="NU">Nữ</Option>
-              </Select>
-            </Col>
+          <div className="box_btn_filter">
+            <Row align="middle">
+              <Col span={3} style={{ textAlign: "right", paddingRight: 10 }}>
+                <label>Thương Hiệu :</label>
+              </Col>
+              <Col span={2}>
+                <Select
+                  style={{ width: "100%" }}
+                  value={selectedValues.brand}
+                  onChange={(value) => handleSelectChange(value, "brand")}
+                >
+                  <Option value="">Tất cả</Option>
+                  {listBrand.map((brand, index) => (
+                    <Option key={index} value={brand.name}>
+                      {brand.name}
+                    </Option>
+                  ))}
+                </Select>
+              </Col>
+              <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+                <label>Màu Sắc :</label>
+              </Col>
+              <Col span={2}>
+                <Select
+                  style={{ width: "100%" }}
+                  value={selectedValues.color}
+                  onChange={(value) => handleSelectChange(value, "color")}
+                  defaultValue=""
+                >
+                  <Option value="">Tất cả</Option>
+                  {listColor.map((color, index) => (
+                    <Option key={index} value={color.code}>
+                      <div
+                        style={{
+                          backgroundColor: color.code,
+                          width: "100%",
+                          height: "100%",
+                          borderRadius: "5px",
+                        }}
+                      ></div>
+                    </Option>
+                  ))}
+                </Select>
+              </Col>
+              <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+                <label>Đế giày :</label>
+              </Col>
+              <Col span={2}>
+                <Select
+                  style={{ width: "100%" }}
+                  value={selectedValues.sole}
+                  onChange={(value) => handleSelectChange(value, "sole")}
+                  defaultValue=""
+                >
+                  <Option value="">Tất cả</Option>
+                  {listSole.map((sole, index) => (
+                    <Option key={index} value={sole.name}>
+                      {sole.name}
+                    </Option>
+                  ))}
+                </Select>
+              </Col>
+              <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+                <label>Chất Liệu :</label>
+              </Col>
+              <Col span={2}>
+                <Select
+                  style={{ width: "100%" }}
+                  value={selectedValues.material}
+                  onChange={(value) => handleSelectChange(value, "material")}
+                  defaultValue=""
+                >
+                  <Option value="">Tất cả</Option>
+                  {listMaterial.map((material, index) => (
+                    <Option key={index} value={material.name}>
+                      {material.name}
+                    </Option>
+                  ))}
+                </Select>
+              </Col>
+              <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+                <label>Kích cỡ :</label>
+              </Col>
+              <Col span={2}>
+                <Select
+                  style={{ width: "100%" }}
+                  value={selectedValues.size}
+                  onChange={(value) => handleSelectChange(value, "size")}
+                  defaultValue={null}
+                >
+                  <Option value={null}>Tất cả</Option>
+                  {listSize.map((size, index) => (
+                    <Option key={index} value={size}>
+                      {size}
+                    </Option>
+                  ))}
+                </Select>
+              </Col>
+            </Row>
+          </div>
+          <div className="box_btn_filter">
+            <Row align="middle">
+              <Col span={4} style={{ textAlign: "right", paddingRight: 10 }}>
+                <label>Thể Loại :</label>
+              </Col>
+              <Col span={3}>
+                <Select
+                  style={{ width: "100%" }}
+                  value={selectedValues.category}
+                  onChange={(value) => handleSelectChange(value, "category")}
+                  defaultValue=""
+                >
+                  <Option value="">Tất cả</Option>
+                  {listCategory.map((category, index) => (
+                    <Option key={index} value={category.name}>
+                      {category.name}
+                    </Option>
+                  ))}
+                </Select>
+              </Col>
+              <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+                <label>Trạng Thái :</label>
+              </Col>
+              <Col span={3}>
+                <Select
+                  style={{ width: "100%" }}
+                  value={selectedValues.status}
+                  onChange={(value) => handleSelectChange(value, "status")}
+                  defaultValue=""
+                >
+                  <Option value="">Tất cả</Option>
+                  <Option value="DANG_SU_DUNG">Đang sử dung</Option>
+                  <Option value="KHONG_SU_DUNG">Không sử dụng</Option>
+                </Select>
+              </Col>
+              <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+                <label>Giới Tinh :</label>
+              </Col>
+              <Col span={3}>
+                <Select
+                  style={{ width: "100%" }}
+                  value={selectedValues.gender}
+                  onChange={(value) => handleSelectChange(value, "gender")}
+                  defaultValue=""
+                >
+                  <Option value="">Tất cả</Option>
+                  <Option value="NAM">Nam</Option>
+                  <Option value="NU">Nữ</Option>
+                </Select>
+              </Col>
 
-            {/* <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
+              {/* <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
               <label>Khoảng giá :</label>
             </Col>
             <Col span={3}>
@@ -517,34 +582,35 @@ const ModalDetailProductManagment = ({ id, visible, onCancel }) => {
                 onChange={handleChangeValuePrice}
               />
             </Col> */}
-          </Row>
+            </Row>
+          </div>
         </div>
-      </div>
 
-      <div className="product-table">
-        <div
-          className="title_product"
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          {/* <FontAwesomeIcon
+        <div className="product-table">
+          <div
+            className="title_product"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            {/* <FontAwesomeIcon
             icon={faListAlt}
             style={{ fontSize: "26px", marginRight: "10px" }}
           /> */}
-          <span style={{ fontSize: "18px", fontWeight: "500" }}>
-            Danh sách sản phẩm chi tiết
-          </span>
-          <hr />
+            <span style={{ fontSize: "18px", fontWeight: "500" }}>
+              Danh sách sản phẩm chi tiết
+            </span>
+            <hr />
+          </div>
+          <Table
+            dataSource={listProductDetails}
+            rowKey="id"
+            columns={columns}
+            pagination={{ pageSize: 10 }}
+            scroll={{ y: 400 }}
+            rowClassName={getRowClassName}
+          />
         </div>
-        <Table
-          dataSource={listProductDetails}
-          rowKey="id"
-          columns={columns}
-          pagination={{ pageSize: 10 }}
-          scroll={{ y: 400 }}
-          rowClassName={getRowClassName}
-        />
-      </div>
-    </Modal>
+      </Modal>
+    </>
   );
 };
 

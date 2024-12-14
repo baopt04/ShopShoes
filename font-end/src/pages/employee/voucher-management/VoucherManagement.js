@@ -212,7 +212,7 @@ const VoucherManagement = () => {
               ? "Đang Kích Hoạt"
               : text === "KHONG_SU_DUNG"
               ? "Không Kích Hoạt"
-              : "Chưa xác định"}
+              : "Chưa kích hoạt"}
           </button>
         );
       },
@@ -226,7 +226,7 @@ const VoucherManagement = () => {
           <Button
             type="primary"
             title="Chi tiết khuyến mãi"
-            style={{ backgroundColor: "#FF9900" }}
+            style={{ backgroundColor: "#1677ff" }}
             onClick={() => openDetail(record.id)}
           >
             {/* <img
@@ -347,7 +347,7 @@ const VoucherManagement = () => {
             dataSource={updatedList}
             rowKey="id"
             columns={columns}
-            pagination={{ pageSize: 5 }}
+            pagination={{ pageSize: 10 }}
             rowClassName={(record, index) =>
               index % 2 === 0 ? "even-row" : "odd-row"
             }

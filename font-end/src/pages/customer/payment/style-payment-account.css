@@ -30,7 +30,7 @@
 
 .status-default {
   color: #ff4400;
-  border: #1677ff 1px solid;
+  border: black 1px solid;
   padding: 2px;
   margin-left: 20px;
   font-size: 15px;
@@ -269,8 +269,9 @@
 
 .status-default-address {
   color: #ff4400;
-  border: #ff4400 1px solid;
+  border: 1px solid black;
   padding: 5px;
+  border-radius: 5px;
   font-size: 13px;
 }
 .payment-at-the-store-address {

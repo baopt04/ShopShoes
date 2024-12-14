@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./style-profile.css";
-import { Col, Form, Modal, Radio, Row, Tooltip } from "antd";
+import { Col, Form, Input, message, Modal, Radio, Row, Tooltip } from "antd";
 
 import { AccountClientApi } from "../../../../api/customer/account/accountClient.api";
 import dayjs from "dayjs";
@@ -18,6 +18,7 @@ import { AddressClientApi } from "../../../../api/customer/address/addressClient
 import ModalCreateAddress from "../address/modal/ModalCreateAddress";
 import ModalUpdateAddress from "../address/modal/ModalUpdateAddress";
 function Profile() {
+  const [form] = Form.useForm();
   const [formInfo, setFormInfo] = useState({});
   const [showImage, setShowImage] = useState("");
   const [modalCreate, setModalCreate] = useState(false);
@@ -84,9 +85,53 @@ function Profile() {
     return convertedFormData;
   };
   const handleUpdateInfoUser = () => {
+    let isValid = true; // Cờ kiểm tra tính hợp lệ của các trường
+    let errorMessage = ""; // Thông báo lỗi chung
+
+    // Kiểm tra trống và thông báo lỗi cho từng trường
+    if (!formInfo["fullName"]) {
+      isValid = false;
+      errorMessage = "Họ và tên không được để trống.";
+    } else if (!formInfo["email"]) {
+      isValid = false;
+      errorMessage = "Email không được để trống.";
+    } else if (!formInfo["phoneNumber"]) {
+      isValid = false;
+      errorMessage = "Số điện thoại không được để trống.";
+    } else if (!formInfo["dateOfBirth"]) {
+      isValid = false;
+      errorMessage = "Ngày sinh không được để trống.";
+    } else if (formInfo["gender"] === undefined) {
+      isValid = false;
+      errorMessage = "Giới tính không được để trống.";
+    }
+
+    if (!isValid) {
+      toast.error(errorMessage);
+      return;
+    }
+    const currentDate = dayjs();
+    const dateOfBirth = dayjs(formInfo["dateOfBirth"]);
+
+    if (dateOfBirth.isAfter(currentDate)) {
+      toast.error("Ngày sinh không được trước ngày hiện tại.");
+      return;
+    }
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(formInfo["email"])) {
+      toast.error("Định dạng email không hợp lệ.");
+      return;
+    }
+    const phoneRegex = /^[0-9]{10,11}$/;
+    if (!phoneRegex.test(formInfo["phoneNumber"])) {
+      toast.error("Định dạng số điện thoại không hợp lệ.");
+      return;
+    }
+
+    // Tiến hành gọi API cập nhật nếu tất cả đều hợp lệ
     AccountClientApi.updateInfoUser(convertToLong()).then((res) => {
       dispatch(SetUserClient(res.data.data));
-      toast.success("Cập nhập thành công");
+      toast.success("Cập nhật thành công");
     });
   };
 
@@ -106,9 +151,9 @@ function Profile() {
   const setDefault = (id, idAccount) => {
     Modal.confirm({
       title: "Xác nhận đặt mặc định",
-      content: "Bạn có chắc chắn muốn đặt mặc định không?",
-      okText: "Đặt",
-      okType: "danger",
+      content: "Bạn có chắc chắn muốn đặt làm địa chỉ mặc định không?",
+      okText: "Xác nhận",
+      okType: "primary",
       cancelText: "Hủy",
       onOk() {
         AddressClientApi.setDefault({
@@ -132,7 +177,9 @@ function Profile() {
     setIdAddress(id);
     setModalUpdate(true);
   };
-
+  const handleSubmit = (values) => {
+    console.log("Submitted values:", values);
+  };
   return (
     <React.Fragment>
       <div className="profile-account">
@@ -151,11 +198,11 @@ function Profile() {
                   span: 5,
                 }}
               >
-                <Form.Item label="Họ và tên">
-                  <input
+                <Form.Item label="Họ và tên" name="fullName">
+                  <Input
                     value={formInfo["fullName"]}
                     className="input-info-profile"
-                    placeholder="Điền họ và tên"
+                    placeholder="Nhập họ và tên"
                     onChange={(e) => handleFormInfo("fullName", e.target.value)}
                   />
                 </Form.Item>
@@ -163,7 +210,7 @@ function Profile() {
                   <input
                     value={formInfo["email"]}
                     className="input-info-profile"
-                    placeholder="Điền email"
+                    placeholder="Nhập email"
                     onChange={(e) => handleFormInfo("email", e.target.value)}
                   />
                 </Form.Item>
@@ -171,7 +218,7 @@ function Profile() {
                   <input
                     value={formInfo["phoneNumber"]}
                     className="input-info-profile"
-                    placeholder="Điền số điện thoại"
+                    placeholder="Nhập số điện thoại"
                     onChange={(e) =>
                       handleFormInfo("phoneNumber", e.target.value)
                     }
@@ -210,7 +257,7 @@ function Profile() {
                   className="button-update-profile"
                   onClick={handleUpdateInfoUser}
                 >
-                  Cập nhập
+                  Cập nhật
                 </div>
               </div>
             </Col>
@@ -307,11 +354,21 @@ function Profile() {
                         style={{ marginLeft: "auto", cursor: "pointer" }}
                         onClick={() => openModalUpdate(item.id)}
                       >
-                        Cập nhập
+                        Cập nhật
                       </div>
                       {item.status !== "DANG_SU_DUNG" ? (
                         <div
-                          style={{ marginLeft: "10px", cursor: "pointer" }}
+                          style={{
+                            marginLeft: "10px",
+                            cursor: "pointer",
+                            border: "1px solid",
+                            padding: 10,
+                            width: "70px",
+                            textAlign: "center",
+                            backgroundColor: "red",
+                            color: "white",
+                            borderRadius: 10,
+                          }}
                           onClick={() => deleteAddressClient(item.id)}
                         >
                           Xoá
@@ -319,12 +376,12 @@ function Profile() {
                       ) : null}
                     </div>
                     {item.status !== "DANG_SU_DUNG" ? (
-                      <Tooltip title="Thiết lập mặc định">
+                      <Tooltip title="">
                         <div
                           className="add-default-address-account"
                           onClick={() => setDefault(item.id, id)}
                         >
-                          Thiết lập mặc định
+                          Đặt làm địa chỉ mặc định
                         </div>
                       </Tooltip>
                     ) : null}

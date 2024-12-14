@@ -26,6 +26,7 @@ function CardItem({ item, index }) {
     price: 0,
     quantity: 0,
   });
+  console.log("Check card", detailProduct);
 
   const idAccountLocal = sessionStorage.getItem("idAccount");
   const [quantity, setQuantity] = useState(1);
@@ -253,8 +254,11 @@ function CardItem({ item, index }) {
                 className="image-product"
               >
                 {item.valuePromotion !== null ? (
-                  <div className="value-promotion">
-                    Giảm {parseInt(item.valuePromotion)}%
+                  <div className="promotion-details">
+                    <div className="value-promotion">
+                      Giảm {parseInt(item.valuePromotion)}%
+                    </div>
+                    <div className="year-end-promotion">Ưu đãi cuối năm</div>
                   </div>
                 ) : null}
                 {nowTimestampReduce <= itemTimestamp && (

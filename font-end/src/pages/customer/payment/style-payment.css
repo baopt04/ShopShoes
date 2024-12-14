@@ -27,9 +27,8 @@
 .content-info-bill-payment {
   background-color: #f1f1f1;
   padding: 15px;
-  margin-top: 80px;
   weight: 380px;
-  height: 600px;
+  height: auto;
   border-radius: 5px;
 }
 .title-info-shipping {

@@ -28,12 +28,16 @@ const LoginManagement = () => {
         setToken(res.data.token);
         setUserToken(res.data.token);
         const decodedToken = jwtDecode(res.data.token);
+        console.log("Check role", decodedToken.role);
+
         if (decodedToken.role.includes("ROLE_ADMIN")) {
           nav("/dashboard");
+          toast.success("Đăng nhập thành công");
+        } else if (decodedToken.role.includes("ROLE_USER")) {
+          toast.error("Bạn không có quyền đăng nhập");
         } else {
           nav("/sale-counter");
         }
-        toast.success("Đăng nhập thành công");
       })
       .catch((error) => {});
   };

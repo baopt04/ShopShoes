@@ -22,9 +22,12 @@ function SignUp() {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const passPattern = /^(?=.*[0-9])(.{8,})$/;
     const phoneNumberPattern = /^0\d{9}$/;
+
+    // Kiểm tra nếu form có dữ liệu
     const isFormValid =
       formSignUp.email && formSignUp.password && formSignUp.phoneNumber;
 
+    // Nếu chưa điền đầy đủ thông tin
     if (!isFormValid) {
       const errors = {
         email: !formSignUp.email ? "Vui lòng nhập email" : "",
@@ -35,27 +38,28 @@ function SignUp() {
       };
       setFormErrors(errors);
       return;
-    } else if (isFormValid) {
-      const errors = {
-        email: !emailPattern.test(formSignUp.email)
-          ? "Vui lòng nhập đúng định dạng email"
-          : "",
-        phoneNumber: !phoneNumberPattern.test(formSignUp.phoneNumber)
-          ? "Vui lòng nhập đúng định dạng số điện thoại"
-          : "",
-        password: !passPattern.test(formSignUp.password)
-          ? "Mật khẩu phải có ít nhất 8 ký tự và chứa ít nhất 1 số"
-          : "",
-      };
-      if (
-        !errors.password === "" &&
-        !errors.email === "" &&
-        !errors.phoneNumber === ""
-      ) {
-        setFormErrors(errors);
-        return;
-      }
     }
+
+    // Nếu form đã có đầy đủ thông tin, kiểm tra định dạng
+    const errors = {
+      email: !emailPattern.test(formSignUp.email)
+        ? "Vui lòng nhập đúng định dạng email"
+        : "",
+      phoneNumber: !phoneNumberPattern.test(formSignUp.phoneNumber)
+        ? "Vui lòng nhập đúng định dạng số điện thoại"
+        : "",
+      password: !passPattern.test(formSignUp.password)
+        ? "Mật khẩu phải có ít nhất 8 ký tự và chứa ít nhất 1 số"
+        : "",
+    };
+
+    // Kiểm tra nếu có bất kỳ lỗi nào
+    if (errors.email || errors.phoneNumber || errors.password) {
+      setFormErrors(errors);
+      return;
+    }
+
+    // Nếu không có lỗi, thực hiện đăng ký
     console.log(formSignUp);
     LoginApi.authenticationUp(formSignUp).then(
       (res) => {
@@ -84,6 +88,7 @@ function SignUp() {
       }
     );
   };
+
   return (
     <React.Fragment>
       <div className="sign-up">

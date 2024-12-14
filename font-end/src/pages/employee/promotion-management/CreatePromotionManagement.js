@@ -57,13 +57,23 @@ function CreateVoucherManagement() {
   }, [formSearch]);
 
   useEffect(() => {
-    console.log(listProductDetail);
+    console.log("List product detail ", listProductDetail);
   }, [listProductDetail]);
-
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [selectedProducts, setSelectedProducts] = useState([]);
   useEffect(() => {
-    console.log(selectedRowKeysDetail);
-  }, [selectedRowKeysDetail]);
+    // Lọc các sản phẩm đã chọn
+    const selected = listProductDetail.filter((product) =>
+      selectedRowKeysDetail.includes(product.id)
+    );
+    setSelectedProducts(selected);
 
+    // Kiểm tra xem có sản phẩm nào có value > 0
+    const hasValueGreaterThanZero = selected.some(
+      (product) => product.value > 0
+    );
+    setIsButtonDisabled(hasValueGreaterThanZero); // Vô hiệu hóa nút nếu có sản phẩm có value > 0
+  }, [selectedRowKeysDetail, listProductDetail]);
   useEffect(() => {
     for (const key of selectedRowKeys) {
       getProdutDetailByproduct(key);
@@ -95,7 +105,7 @@ function CreateVoucherManagement() {
           ...prevListProductDetail,
           ...res.data.data,
         ]);
-        console.log(res.data.data);
+        console.log("Check list", listProductDetail);
       },
       (err) => {
         console.log(err);
@@ -196,6 +206,9 @@ function CreateVoucherManagement() {
       },
     });
   };
+
+  console.log("Check value", formData.value);
+
   const closeModal = () => {
     setModal(false);
     setListPromotion([]);
@@ -283,7 +296,6 @@ function CreateVoucherManagement() {
       title: "STT",
       dataIndex: "stt",
       key: "stt",
-      // sorter: (a, b) => a.stt - b.stt,
     },
     {
       title: "Ảnh sản phẩm",
@@ -313,7 +325,7 @@ function CreateVoucherManagement() {
                   icon={faBookmark}
                   style={{
                     fontSize: "3em",
-                    color: record.value > 50 ? "red" : "#ffcc00",
+                    color: record.value > 70 ? "red" : "#ffcc00",
                   }}
                 />
                 <span
@@ -321,8 +333,8 @@ function CreateVoucherManagement() {
                     position: "absolute",
                     right: 0,
                     fontSize: "11px",
-                    color: record.value > 50 ? "white" : "black", // Màu của văn bản
-                    zIndex: 1, // Đặt độ sâu trên cùng
+                    color: record.value > 50 ? "white" : "black",
+                    zIndex: 1,
                     textAlign: "center",
                   }}
                 >
@@ -338,19 +350,22 @@ function CreateVoucherManagement() {
       title: "Tên sản phẩm",
       dataIndex: "nameProduct",
       key: "nameProduct",
-      // sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "Giới tính",
       dataIndex: "gender",
       key: "gender",
-      // sorter: (a, b) => a.name.localeCompare(b.name),
+      render: (text) => {
+        if (text === "NAM") return "Nam";
+        if (text === "NU") return "Nữ";
+        if (text === "NAM_VA_NU") return "Nam và Nữ";
+        return text;
+      },
     },
     {
       title: "Kích thước",
       dataIndex: "nameSize",
       key: "nameSize",
-      // sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "Màu",
@@ -379,24 +394,8 @@ function CreateVoucherManagement() {
         );
       },
     },
-    {
-      title: "Tình trạng",
-      dataIndex: "valuePromotion",
-      key: "valuePromotion",
-      render: (text, record) => (
-        <div style={{ display: "flex", gap: "10px" }}>
-          <Button
-            type="primary"
-            title="Chi tiết thể loại"
-            style={{ backgroundColor: "#FF9900" }}
-            onClick={() => openModal(record.id)}
-          >
-            <FontAwesomeIcon icon={faEye} />
-          </Button>
-        </div>
-      ),
-    },
   ];
+
   const columnsPromotion = [
     {
       title: "STT",
@@ -489,10 +488,10 @@ function CreateVoucherManagement() {
             >
               <p>Tìm kiếm</p>{" "}
               <Input
-                placeholder="Mã hoặc tên sản phẩm"
+                placeholder="Nhập mã sản phẩmc hoặc tên sản phẩm"
                 style={{ width: 400, height: 40, marginLeft: 20 }}
                 onChange={(e) =>
-                  handleInputChangeSearch("keyword", e.target.value)
+                  handleInputChangeSearch("keyword", e.target.value.trim())
                 }
               />
             </div>
@@ -525,7 +524,7 @@ function CreateVoucherManagement() {
                 columns={columnsDetailproduct}
                 rowSelection={rowSelectionDetail}
                 dataSource={updatedListDetail}
-                pagination={{ pageSize: 5 }}
+                pagination={{ pageSize: 10 }}
               />
             </div>
           </Col>
@@ -533,7 +532,7 @@ function CreateVoucherManagement() {
 
         <Col className="add-promotion" lg={{ span: 7, offset: 0 }}>
           <div className="title-add-promotion">
-            <h1>Giảm giá Sản Phẩm</h1>
+            <h1>Thêm đợt giảm giá</h1>
           </div>
 
           <Form name="validateOnly" layout="vertical" autoComplete="off">
@@ -615,6 +614,7 @@ function CreateVoucherManagement() {
                 className="button-add-promotion"
                 key="submit"
                 title="Thêm"
+                disabled={isButtonDisabled}
                 onClick={handleSubmit}
               >
                 Thêm

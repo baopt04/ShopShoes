@@ -405,10 +405,7 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
                     <span style={{ fontWeight: "bold" }}>Kinh Doanh</span>
                   </Option>
                   <Option value="KHONG_SU_DUNG">
-                    <span style={{ fontWeight: "bold" }}>Không Kinh Doanh</span>
-                  </Option>
-                  <Option value="HET_SAN_PHAM">
-                    <span style={{ fontWeight: "bold" }}>Hết sản phẩm</span>
+                    <span style={{ fontWeight: "bold" }}>Ngưng Kinh Doanh</span>
                   </Option>
                 </Select>
               </Form.Item>
@@ -633,6 +630,11 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
                     type: "number",
                     min: 1,
                     message: "Số lượng tối thiểu là 1",
+                  },
+                  {
+                    type: "number",
+                    max: 10000,
+                    message: "Số lượng tối đa là 10000",
                   }, // Minimum value validation
                 ]}
               >
@@ -666,25 +668,6 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
               </Form.Item>
             </Col>
             <Col span={2}></Col>
-          </Row>
-
-          <Row gutter={7} justify="space-around">
-            {/* <Col span={1}></Col> */}
-            <Col span={8}>
-              <Form.Item
-                // label="QR Code : "
-                name="QRCode"
-                style={{ fontWeight: "bold" }}
-                rules={[{ required: true, message: "Ảnh Qr sản phẩm" }]}
-              >
-                <img
-                  src={initialValues.QRCode}
-                  alt="QR Code"
-                  style={{ marginLeft: 60, width: "50%", height: "auto" }}
-                />
-              </Form.Item>
-            </Col>
-            {/* <Col span={2}></Col> */}
           </Row>
         </Form>
         <ModalCreateSole visible={modalAddSole} onCancel={handleCancel} />
@@ -722,18 +705,22 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
             customRequest={({ file, onSuccess }) => {
               onSuccess(file);
             }}
-            beforeUpload={(file) => {
-              // Kiểm tra xem tệp có phải là hình ảnh hay không
+            beforeUpload={(file, newFileList) => {
               const isImage = file.type.startsWith("image/");
               if (!isImage) {
                 toast.error("Chỉ cho phép tải lên các tệp hình ảnh!");
+              }
+              const totalFiles = fileList.length + newFileList.length;
+
+              if (totalFiles > 6) {
+                toast.error("Bạn chỉ có thể tải lên tối đa 6 ảnh!");
+                return Upload.LIST_IGNORE;
               }
               return isImage ? true : Upload.LIST_IGNORE;
             }}
             multiple
           >
-            {/* Render uploadButton if fileList length is less than 10 */}
-            {fileList.length >= 9 ? null : uploadButton}
+            {fileList.length >= 6 ? null : uploadButton}
           </Upload>
           <Modal
             open={previewOpen}

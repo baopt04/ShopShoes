@@ -224,6 +224,8 @@
   transition: border-color 0.3s;
   border: 2px solid #87cefa;
   display: flex;
+  background: black;
+  color: white;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
@@ -247,15 +249,13 @@
 }
 .button-add-to-card-pd {
   border-radius: 10px;
-  /* height: 40px; */
   width: 250px;
   margin-top: 20px;
   margin-left: 400px;
   padding: 10px;
-  background-color: pink;
+  background-color: #84d4f5;
   color: white;
   font-size: 20px;
-  /* margin-left: 10px; */
   display: flex;
   justify-content: center;
   align-items: center;

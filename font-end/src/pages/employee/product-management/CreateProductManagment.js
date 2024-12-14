@@ -237,7 +237,7 @@ const CreateProductManagment = () => {
         return new Promise((resolve, reject) => {
           Modal.confirm({
             title: "Xác nhận",
-            content: "Bạn có đồng ý thêm không?",
+            content: "Bạn có đồng ý thêm sản phẩm  không?",
             okText: "Đồng ý",
             cancelText: "Hủy",
             onOk: () => resolve(trimmedValues),
@@ -267,7 +267,7 @@ const CreateProductManagment = () => {
           return colorFileData.length === 0;
         });
         if (hasMissingUploads) {
-          toast.error("Bạn cần thêm ảnh cho tất cả các màu sắc");
+          toast.error("Bạn cần thêm ảnh cho tất cả các sản phẩm");
           setUploadValid(false);
           return;
         }
@@ -312,7 +312,6 @@ const CreateProductManagment = () => {
       dataIndex: "stt",
       key: "stt",
       width: "7%",
-      sorter: (a, b) => a.stt - b.stt,
     },
     {
       title: <div style={{ textAlign: "center" }}>Tên Sản Phẩm</div>,
@@ -331,6 +330,7 @@ const CreateProductManagment = () => {
       render: (_, record) => (
         <InputNumber
           min={1}
+          max={10000}
           value={record.quantity}
           onChange={(value) => handleQuantityChange(value, record.key)}
         />
@@ -376,7 +376,6 @@ const CreateProductManagment = () => {
       key: "color",
       width: "100%",
       render: (color, record, index) => {
-        // Lọc các dòng có cùng màu sắc
         const rowsWithSameColor = tableData.filter(
           (item) => item.color === record.color
         );
@@ -405,11 +404,14 @@ const CreateProductManagment = () => {
                 customRequest={({ file, onSuccess }) => {
                   onSuccess(file);
                 }}
-                beforeUpload={(file) => {
-                  // Kiểm tra xem tệp có phải là hình ảnh hay không
+                beforeUpload={(file, fileList) => {
                   const isImage = file.type.startsWith("image/");
                   if (!isImage) {
                     toast.error("Chỉ cho phép tải lên các tệp hình ảnh!");
+                  }
+                  if (colorFileData.length + fileList.length > 6) {
+                    toast.error("Bạn chỉ có thể tải lên tối đa 6 ảnh!");
+                    return Upload.LIST_IGNORE;
                   }
                   return isImage ? true : Upload.LIST_IGNORE;
                 }}
@@ -424,7 +426,6 @@ const CreateProductManagment = () => {
               </Upload>
               <Modal
                 open={previewOpen}
-                title={previewTitle}
                 footer={null}
                 onCancel={handleCancelImage}
               >
@@ -485,20 +486,25 @@ const CreateProductManagment = () => {
     );
   };
 
-  // format tiền
   const formatCurrency = (value) => {
-    const formatter = new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-      currencyDisplay: "code",
-    });
-    return formatter.format(value);
+    if (value >= 1000000000) {
+      return "100.000.000 VND";
+    } else if (value < 1) {
+      return "1 VND";
+    } else {
+      const formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        currencyDisplay: "code",
+      });
+      return formatter.format(value);
+    }
   };
   // remove
   const handleDelete = (recordToDelete) => {
     Modal.confirm({
       title: "Xác nhận xóa",
-      content: "Bạn có chắc chắn muốn xóa  này?",
+      content: "Bạn có chắc chắn muốn xóa này?",
       okText: "Xóa",
       okType: "danger",
       cancelText: "Hủy",
@@ -594,7 +600,7 @@ const CreateProductManagment = () => {
           color: colorItem.color,
           size: sizeItem.nameSize,
           quantity: 1,
-          price: "100000",
+          price: "1",
           stt: stt++,
         };
         newRecords.push(newRecord);
@@ -698,6 +704,7 @@ const CreateProductManagment = () => {
                     ]}
                   >
                     <AutoComplete
+                      style={{ fontWeight: "bold" }}
                       options={renderOptions(listProduct)}
                       placeholder="Nhập tên sản phẩm"
                       onSearch={handleSearch}
@@ -754,7 +761,8 @@ const CreateProductManagment = () => {
                     ]}
                   >
                     <Input.TextArea
-                      rows={7}
+                      rows={5}
+                      style={{ marginLeft: 50, width: "480px" }}
                       placeholder="Nhập mô tả sản phẩm"
                       className="form-textarea-product "
                       onKeyDown={(e) => {

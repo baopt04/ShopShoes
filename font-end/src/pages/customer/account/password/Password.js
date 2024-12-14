@@ -49,6 +49,7 @@ function Password() {
       setFormErrors(errors);
       return;
     }
+
     AccountClientApi.changePassword(form).then(
       (res) => {
         toast.success("Thay đổi thành công");
@@ -68,7 +69,9 @@ function Password() {
     <React.Fragment>
       <div className="change-password">
         <div className="box-title-change-password">
-          <p style={{ fontSize: "20px", fontWeight: 600 }}>Thay đổi mật khẩu</p>
+          <p style={{ fontSize: "20px", fontWeight: 600, marginLeft: "40%" }}>
+            Thay đổi mật khẩu
+          </p>
         </div>
         <div className="box-form-change-password">
           <div className="form-change-password">
@@ -104,7 +107,9 @@ function Password() {
               validateStatus={formErrors["confirmPassword"] ? "error" : ""}
               help={formErrors["confirmPassword"] || ""}
             >
-              <label className="label-form-change-password">Xác nhận :</label>
+              <label className="label-form-change-password">
+                Xác nhận mật khẩu :
+              </label>
               <input
                 type={showConfirmPassword === false ? "password" : "text"}
                 className="input-confirm-password"
@@ -126,7 +131,7 @@ function Password() {
                 className="submit-change-password"
                 onClick={() => handleChangePassword(formChange)}
               >
-                Thay đổi
+                Thay đổi mật khẩu
               </div>
             </div>
           </div>

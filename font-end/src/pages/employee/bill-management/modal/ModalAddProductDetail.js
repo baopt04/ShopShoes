@@ -453,6 +453,7 @@ function ModalAddProductDetail({
     setQuantity(1);
     setIsModalOpen(false);
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
     setQuantity(1);
@@ -689,9 +690,9 @@ function ModalAddProductDetail({
           dataSource={listProduct}
           rowKey="id"
           columns={columns}
-          pagination={{ 
-            pageSize: 10, 
-            showSizeChanger: false // Ẩn phần chọn số lượng bản ghi mỗi trang
+          pagination={{
+            pageSize: 10,
+            showSizeChanger: false, // Ẩn phần chọn số lượng bản ghi mỗi trang
           }}
           className="category-table"
           style={{ margin: "10px 0 0 0" }}
@@ -718,7 +719,7 @@ function ModalAddProductDetail({
           </Button>
           <InputNumber
             min={1}
-            style={{ width: "50px" }}
+            style={{ width: "100px" }}
             max={productSelected.maxQuantity}
             value={quantity}
             defaultValue={quantity}

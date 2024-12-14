@@ -629,7 +629,7 @@ function DetailProduct() {
             </div>
           </Col>
 
-          <Col
+          {/* <Col
             lg={{ span: 16, offset: 4 }}
             style={{ textAlign: "center", marginTop: 100 }}
           >
@@ -694,7 +694,7 @@ function DetailProduct() {
                 </>
               )}
             </div>
-          </Col>
+          </Col> */}
         </Row>
       </div>
     </React.Fragment>

@@ -101,10 +101,10 @@ function FormSearch({
                 defaultValue={-1}
               >
                 <Option value={""} disabled>
-                  Loại đơn
+                  Chọn
                 </Option>
-                <Option value={"OFFLINE"}>Tại Quầy</Option>
-                <Option value={"ONLINE"}>Online</Option>
+                <Option value={"OFFLINE"}>OFFLINE</Option>
+                <Option value={"ONLINE"}>ONLINE</Option>
               </Select>
             </Col>
           </Row>

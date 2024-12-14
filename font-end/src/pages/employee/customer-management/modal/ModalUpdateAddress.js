@@ -149,7 +149,16 @@ const ModalUpdateAddress = ({ visible, id, onCancel }) => {
         <Form.Item
           label="Số điện thoại"
           name="phoneNumber"
-          rules={[{ required: true, message: "Vui lòng nhập số điện thoại" }]}
+          rules={[
+            {
+              required: true,
+              message: "Vui lòng nhập số điện thoại",
+            },
+            {
+              pattern: /^0\d{9}$/,
+              message: "Số điện thoại phải bắt đầu từ số 0 và gồm 10 chữ số",
+            },
+          ]}
         >
           <Input placeholder="Số điện thoại" />
         </Form.Item>

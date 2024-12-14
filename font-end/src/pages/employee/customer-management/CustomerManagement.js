@@ -549,7 +549,7 @@ const CustomerManagement = () => {
             dataSource={listaccount}
             rowKey="id"
             columns={columns}
-            pagination={{ pageSize: 5 }}
+            pagination={{ pageSize: 10 }}
             className="account-table"
             rowClassName={getRowClassName}
           />

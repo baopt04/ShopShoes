@@ -236,14 +236,14 @@ const ModalCreateAccount = () => {
               <Row gutter={[24, 8]}>
                 <Col span={10} style={{ marginLeft: "auto" }}>
                   <div>
-                    <Button
+                    {/* <Button
                       className="btn_filter"
                       icon={<FontAwesomeIcon icon={faQrcode} />}
                       onClick={() => setQrScannerVisible(true)}
                       style={{ marginLeft: "160px" }}
                     >
                       Quét QR
-                    </Button>
+                    </Button> */}
                     <ModalQRScanner
                       visible={qrScannerVisible}
                       onCancel={() => setQrScannerVisible(false)}

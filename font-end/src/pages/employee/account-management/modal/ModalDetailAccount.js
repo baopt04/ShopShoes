@@ -256,15 +256,9 @@ const ModalDetailAccount = ({ visible }) => {
                       <Radio value={false}>Nữ</Radio>
                     </Radio.Group>
                   </Form.Item>
-
-
-
                 </Col>
 
                 <Col span={10} style={{ marginLeft: "40px" }}>
-
-
-
                   <Form.Item label="Tỉnh/Thành phố" name="province">
                     <Input className="input-item" readOnly />
                   </Form.Item>
@@ -298,15 +292,12 @@ const ModalDetailAccount = ({ visible }) => {
                     </Select>
                   </Form.Item>
 
-                  <Form.Item label="Mật khẩu">
+                  {/* <Form.Item label="Mật khẩu">
                     <Input
                       value={account != null ? account.password : null}
                       readOnly
                     />
-                  </Form.Item>
-
-
-
+                  </Form.Item> */}
 
                   <Form.Item name="toDistrictId" hidden>
                     <Input disabled />

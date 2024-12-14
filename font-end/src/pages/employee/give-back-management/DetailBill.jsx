@@ -234,7 +234,9 @@ export default function DetailBillGiveBack() {
               style={{ backgroundColor: "red" }}
               onClick={() => handleModalQuantityGiveBack(record)}
               disabled={
-                bill.statusBill !== "THANH_CONG" || record.promotion !== null
+                bill.statusBill !== "THANH_CONG" ||
+                record.promotion !== null ||
+                bill.typeBill === "ONLINE"
               }
             >
               <FontAwesomeIcon icon={faRotateBack} />
@@ -589,7 +591,7 @@ export default function DetailBillGiveBack() {
     documentTitle: "Userdata",
     onAfterPrint: () => {
       nav("/give-back-management");
-      toast.success("Hoàn trả thành công.");
+      toast.success("Trả đơn hàng thành công");
     },
   });
   const getHtmlByIdBill2 = (id, totalExcessMoney) => {
@@ -796,7 +798,7 @@ export default function DetailBillGiveBack() {
                           pointerEvents: "none",
                         }}
                       >
-                        {bill.typeBill ? "Tại quầy" : "ONLINE"}
+                        {bill.typeBill}
                       </Button>
                     </Col>
                   </Row>
@@ -818,10 +820,13 @@ export default function DetailBillGiveBack() {
                     margin: "5px 10px 10px 0px ",
                   }}
                   onClick={() => handleAllGiveBackToBill()}
-                  disabled={bill !== null && bill.statusBill !== "THANH_CONG"}
+                  disabled={
+                    (bill !== null && bill.statusBill !== "THANH_CONG") ||
+                    (bill && bill.typeBill === "ONLINE")
+                  }
                 >
                   <FontAwesomeIcon icon={faRotateBack} />{" "}
-                  <span style={{ marginLeft: "5px" }}>Trả hàng tất cả</span>
+                  <span style={{ marginLeft: "5px" }}>Trả tất cả sản phẩm</span>
                 </Button>
               </Tooltip>
             </Row>
@@ -834,7 +839,7 @@ export default function DetailBillGiveBack() {
             <br />
           </Card>
           <Row justify={"space-between"}>
-            <Col span={16}>
+            <Col span={17}>
               <Card
                 style={{
                   marginTop: "10px",
@@ -850,7 +855,7 @@ export default function DetailBillGiveBack() {
                     <Table
                       columns={columnProductGiveBack}
                       dataSource={dataProductGiveBack}
-                      pagination={{ pageSize: 5 }}
+                      pagination={{ pageSize: 10 }}
                       rowKey={"id"}
                     />
                   </div>
@@ -883,7 +888,7 @@ export default function DetailBillGiveBack() {
                 )}
               </Card>
             </Col>
-            <Col span={8}>
+            <Col span={7}>
               <Card
                 style={{
                   marginTop: "10px",
@@ -973,10 +978,11 @@ export default function DetailBillGiveBack() {
                                 : 0) -
                               (bill !== null && bill.poin !== null
                                 ? bill.poin * 1000
-                                : 0) +
-                              (bill !== null && bill.moneyShip !== null
-                                ? bill.moneyShip
                                 : 0)
+                            //  +
+                            // (bill !== null && bill.moneyShip !== null
+                            //   ? bill.moneyShip
+                            //   : 0)
                           )}
                         </h3>
                       ) : (
@@ -1038,14 +1044,21 @@ export default function DetailBillGiveBack() {
                 </Row>
                 <Tooltip title="">
                   <Button
+                    className="back-product"
                     style={{
                       width: "100%",
                       height: "50px",
-                      marginTop: "10px",
+                      margin: "10px",
                       backgroundColor: "#1677FF",
                       color: "white",
+                      display:
+                        bill?.typeBill === "ONLINE" ||
+                        bill?.statusBill === "TRA_HANG"
+                          ? "none"
+                          : "block",
                     }}
                     onClick={handleSuccessGiveBack}
+                    disabled={bill && bill.typeBill === "ONLINE"}
                   >
                     <h2>Trả sản phẩm</h2>
                   </Button>

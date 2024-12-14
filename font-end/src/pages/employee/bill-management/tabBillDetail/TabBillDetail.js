@@ -472,12 +472,10 @@ function TabBillDetail({ dataBillDetail }) {
         title: "Xác nhận",
         content: (
           <div>
-            <p>
-              {"Bạn có đồng ý xóa sản phẩm " + record.productName + " không?"}
-            </p>
+            <p>{"Bạn có đồng ý xóa sản phẩm không?"}</p>
             <TextArea
               rows={4}
-              placeholder="Nhập ghi chú..."
+              placeholder="Nhập lý do xóa..."
               id="myTextAreaDeteleProduct"
             />
           </div>
@@ -526,7 +524,7 @@ function TabBillDetail({ dataBillDetail }) {
               dispatch(getBill(res.data.data));
             });
           } else {
-            toast.warning("Vui lòng nhập mô tả và tối thiểu 10 ký tự ");
+            toast.warning("Vui lòng nhập lý do hủy ! Tối thiểu 10 ký tự");
           }
         },
         onCancel: () => {},

@@ -133,9 +133,8 @@ function PayMentSuccessful() {
       >
         {status == "00" ? (
           <div className="content-payment-success">
-            <FontAwesomeIcon className="icon-payment-success" icon={faCheck} />
-            <h1>Thanh toán đơn hàng thành công</h1>
-            <div style={{ marginTop: "7%", fontSize: "20px" }}>
+            <h1 style={{ fontSize: "20px" }}>Thanh toán đơn hàng thành công</h1>
+            <div style={{ marginTop: "7%", fontSize: "16px" }}>
               Tổng tiền đơn hàng thanh toán: {formatCurrency(amount / 100)}
             </div>
             <Button

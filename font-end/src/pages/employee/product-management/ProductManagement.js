@@ -74,7 +74,7 @@ const ProductManagement = () => {
   };
   const handleKeywordChange = (event) => {
     const { value } = event.target;
-    handleInputChangeSearch("keyword", value);
+    handleInputChangeSearch("keyword", value.trim());
   };
 
   const loadData = () => {

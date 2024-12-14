@@ -135,9 +135,9 @@ const ModalUpdateCustomer = ({ visible }) => {
           setCustomer(res.data.data);
           const formValues = {
             ...res.data.data,
-            dateOfBirth: moment(res.data.data.dateOfBirth).format("DD/MM/YYYY"),
+            dateOfBirth: moment(res.data.data.dateOfBirth).format("YYYY-MM-DD"),
           };
-
+          console.log("Check value customer", formValues);
           if (addressData) {
             formValues.province = addressData.province;
             formValues.district = addressData.district;

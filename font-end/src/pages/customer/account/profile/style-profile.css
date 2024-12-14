@@ -151,13 +151,11 @@
   align-items: center;
 }
 .add-default-address-account {
-  color: #a5a5a4;
+  color: white;
   border: #a5a5a4 1px solid;
-  padding: 4px;
-  font-size: 13px;
+  border-radius: 10px;
+  background: green;
+  padding: 10px;
+  font-size: 14px;
   cursor: pointer;
-}
-.add-default-address-account:hover {
-  color: #000000;
-  border: #000000 1px solid;
 }

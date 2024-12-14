@@ -285,6 +285,14 @@ function Home() {
             </div>
           </Col>
         </Row>
+        {/* <Row justify={"center"} style={{ marginBottom: "30px" }}>
+          <Pagination
+            defaultCurrent={1}
+            current={currentPage}
+            total={totalPagesProduct * 10}
+            onChange={handlePageChange}
+          />
+        </Row> */}
       </div>
     </div>
   );

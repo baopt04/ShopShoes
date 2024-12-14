@@ -1374,7 +1374,7 @@ function DetailBill() {
                 onCancel={handleCancel}
                 className="widthModal"
                 width={1400}
-                cancelText={"huỷ"}
+                cancelText={"Hủy"}
                 okText={"Xác nhận"}
               >
                 <Table
@@ -1411,20 +1411,6 @@ function DetailBill() {
               Lịch sử thanh toán
             </h1>
           </Col>
-          {payMentNo && statusPresent == 4 ? (
-            <Col span={4}>
-              <Button
-                type="dashed"
-                align={"end"}
-                style={{ margin: "" }}
-                onClick={(e) => XacNhanThanhToan(e)}
-              >
-                Xác nhận thanh toán
-              </Button>
-            </Col>
-          ) : (
-            <div></div>
-          )}
         </Row>
         <Row style={{ width: "100%" }}>
           <Table
@@ -1548,7 +1534,7 @@ function DetailBill() {
                       pointerEvents: "none",
                     }}
                   >
-                    {bill.typeBill === "Online" ? "Tại Quán" : "Tại Quầy"}
+                    {bill.typeBill}
                   </Button>
                 </Col>
               </Row>
@@ -1645,25 +1631,6 @@ function DetailBill() {
                     <div></div>
                   )}
                 </Col>
-                {/* <Col span={10}>
-                  {statusPresent < 6 ? (
-                    <Button
-                      type="dashed"
-                      align={"end"}
-                      style={{
-                        marginLeft: "400px",
-                        backgroundColor: "#1677ff",
-                        color: "white",
-                        padding: "5px",
-                      }}
-                      onClick={(e) => showModalAccountEmployee()}
-                    >
-                      Thay đổi nhân viên
-                    </Button>
-                  ) : (
-                    <div></div>
-                  )}
-                </Col> */}
               </Row>
             </Col>
           </Row>
@@ -2296,6 +2263,7 @@ function DetailBill() {
                   min={0}
                   customInput={Input}
                   value={shipFee}
+                  readOnly
                   onChange={(e) => {
                     var phiShip = parseFloat(
                       e.target.value.replace(/[^0-9.-]+/g, "")

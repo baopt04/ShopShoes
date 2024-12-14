@@ -534,7 +534,7 @@ function PaymentAccount() {
                   style={{ color: "#1677ff", marginRight: 10 }}
                   icon={faTags}
                 />{" "}
-                Shoes voucher
+                Bee Shoes voucher
               </span>
               <span className="money-reduce-payment-acc">
                 {formatDiscountValue(voucher.value)}
@@ -837,8 +837,15 @@ function PaymentAccount() {
                   </Row>
                   {item.status === "DANG_SU_DUNG" ? (
                     <Row>
-                      <div style={{ marginTop: "10px", marginRight: "30px" }}>
-                        <span className="status-default-address">Mặc định</span>
+                      <div
+                        style={{
+                          marginTop: "10px",
+                          marginRight: "30px",
+                        }}
+                      >
+                        <span className="status-default-address">
+                          Mặc định{" "}
+                        </span>
                       </div>
                     </Row>
                   ) : null}
@@ -848,7 +855,7 @@ function PaymentAccount() {
                     type="dashed"
                     title="Chọn"
                     style={{
-                      border: "1px solid #ff4400",
+                      border: "1px solid black",
                       fontWeight: "470",
                     }}
                     onClick={() => handleViewUpdate(item.id)}

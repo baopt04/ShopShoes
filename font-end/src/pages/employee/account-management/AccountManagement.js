@@ -295,7 +295,7 @@ const AccountManagement = () => {
             <Tooltip title="Chi tiết nhân viên">
               <Button
                 type="primary"
-                style={{ backgroundColor: "#FF9900" }}
+                style={{ backgroundColor: "#1677ff" }}
                 onClick={() => handleViewDetail(record.id)}
               >
                 <FontAwesomeIcon icon={faEye} />
@@ -320,57 +320,13 @@ const AccountManagement = () => {
   return (
     <>
       <div className="title_account">
-        {/* <FontAwesomeIcon icon={faKaaba} style={{ fontSize: "26px" }} /> */}
         <span style={{ marginLeft: "40%" }}>Quản lý nhân viên</span>
       </div>
       <div className="filter">
-        {/* <FontAwesomeIcon icon={faFilter} size="2x" /> */}
-        {/* <img src={filterImg} /> &nbsp; */}
         <span style={{ fontSize: "18px", fontWeight: "500" }}>Bộ lọc</span>
         {/* <hr /> */}
         <div className="content_ac">
-          <div className="content-wrapper-ac">
-            {/* <Row>
-              <Col span={24}>
-                <label>Ngày sinh:</label>
-                <Input
-                  style={{
-                    width: "200px",
-                    marginRight: "15px",
-                    marginLeft: "15px",
-                  }}
-                  type="date"
-                  value={startDate || initialStartDate}
-                  onChange={handleStartDateChange}
-                />
-                <Input
-                  style={{ width: "200px" }}
-                  type="date"
-                  value={endDate || initialEndDate}
-                  onChange={handleEndDateChange}
-                />
-              </Col>
-
-              <Col
-                span={24}
-                style={{
-                  display: "flex",
-                  marginTop: "30px",
-                }}
-              >
-                <label>Khoảng tuổi:</label>
-                <Slider
-                  style={{ width: "400px", marginLeft: "15px" }}
-                  range
-                  min={0}
-                  max={100}
-                  defaultValue={ageRange}
-                  value={ageRange}
-                  onChange={handleAgeRangeChange}
-                />
-              </Col>
-            </Row> */}
-          </div>
+          <div className="content-wrapper-ac"></div>
           <Row justify="space-between" style={{ marginLeft: "50px" }}>
             <Col span={10} style={{ marginBottom: "10px" }}>
               <label style={{ marginBottom: "20px" }}>Tìm kiếm:</label>
@@ -413,7 +369,7 @@ const AccountManagement = () => {
               Tìm kiếm
             </Button>
             <Button className="btn_clear" onClick={handleClear}>
-              Làm mới bộ lọc
+              Làm mới
             </Button>
           </div>
         </div>
@@ -450,7 +406,7 @@ const AccountManagement = () => {
             dataSource={listaccount}
             rowKey="id"
             columns={columns}
-            pagination={{ pageSize: 5 }}
+            pagination={{ pageSize: 10 }}
             className="account-table"
             rowClassName={getRowClassName}
             style={{}}

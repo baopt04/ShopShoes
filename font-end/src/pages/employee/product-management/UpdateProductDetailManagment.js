@@ -260,6 +260,7 @@ const UpdateProductDetailManagment = () => {
           {temporarySelectedRowKeys.includes(record.id) ? (
             <InputNumber
               min={1}
+              max={10000}
               value={record.quantity} // Gắn value theo record của hàng đang xem
               onChange={(value) => handleQuantityChange(record.id, value)}
             />
@@ -275,7 +276,6 @@ const UpdateProductDetailManagment = () => {
       title: "Giá Bán",
       dataIndex: "price",
       key: "price",
-      // sorter: (a, b) => a.price - b.price,
       render: (text, record, index) => (
         <div>
           {temporarySelectedRowKeys.includes(record.id) ? (
@@ -284,6 +284,7 @@ const UpdateProductDetailManagment = () => {
               onChange={(value) => handlePriceChange(record.id, value)}
               style={{ width: "100%" }}
               min={100000}
+              max={100000000}
               step={1000}
               formatter={(value) => `${formatCurrency(value)}`}
               parser={(value) => value.replace(/\D/g, "")}
@@ -360,20 +361,6 @@ const UpdateProductDetailManagment = () => {
               }}
             >
               <FontAwesomeIcon icon={faEye} />
-            </Button>
-          </Tooltip>
-
-          <Tooltip title="Sản phẩm trả về">
-            <Button
-              type="primary"
-              style={{ backgroundColor: "#52c41a" }} // Bạn có thể thay đổi màu sắc tùy ý
-              onClick={() => {
-                console.log("ID của sản phẩm trả là:", record.id);
-
-                handleGiveBackClick(record.id);
-              }}
-            >
-              <FontAwesomeIcon icon={faRotateLeft} />
             </Button>
           </Tooltip>
         </div>

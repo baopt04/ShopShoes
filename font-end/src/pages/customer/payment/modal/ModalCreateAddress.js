@@ -46,7 +46,7 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
             console.log("Create failed:", error);
           });
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   const handleCancel = () => {
@@ -67,18 +67,20 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
 
   const handleProvinceChange = (value, valueProvince) => {
     form.setFieldsValue({ provinceId: valueProvince.valueProvince });
-    AddressClientApi.fetchAllProvinceDistricts(valueProvince.valueProvince).then(
-      (res) => {
-        setListDistricts(res.data.data);
-      }
-    );
+    AddressClientApi.fetchAllProvinceDistricts(
+      valueProvince.valueProvince
+    ).then((res) => {
+      setListDistricts(res.data.data);
+    });
   };
 
   const handleDistrictChange = (value, valueDistrict) => {
     form.setFieldsValue({ toDistrictId: valueDistrict.valueDistrict });
-    AddressClientApi.fetchAllProvinceWard(valueDistrict.valueDistrict).then((res) => {
-      setListWard(res.data.data);
-    });
+    AddressClientApi.fetchAllProvinceWard(valueDistrict.valueDistrict).then(
+      (res) => {
+        setListWard(res.data.data);
+      }
+    );
   };
 
   const handleWardChange = (value, valueWard) => {
@@ -110,13 +112,13 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
         initialValues={{
           userId: id,
         }}
-      >   <Form.Item
-        label="Họ và tên"
-        name="fullName"
-        rules={[
-          { required: true, message: "Vui lòng nhập họ tên" },
-        ]}
       >
+        {" "}
+        <Form.Item
+          label="Họ và tên"
+          name="fullName"
+          rules={[{ required: true, message: "Vui lòng nhập họ tên" }]}
+        >
           <Input placeholder="Họ và tên" />
         </Form.Item>
         <Form.Item
@@ -124,6 +126,10 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
           name="phoneNumber"
           rules={[
             { required: true, message: "Vui lòng nhập số điện thoại" },
+            {
+              pattern: /^0\d{9}$/,
+              message: "Số điện thoại phải bắt đầu từ số 0 và gồm 10 chữ số",
+            },
           ]}
         >
           <Input placeholder="Số điện thoại" />
@@ -134,7 +140,7 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
           rules={[{ required: true, message: "Vui lòng chọn Tỉnh/Thành phố" }]}
         >
           <Select defaultValue="" onChange={handleProvinceChange}>
-            <Option value="">--Chọn Tỉnh/Thành phố--</Option>
+            <Option value="">Chọn Tỉnh/Thành phố</Option>
             {listProvince?.map((item) => {
               return (
                 <Option
@@ -148,14 +154,13 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
             })}
           </Select>
         </Form.Item>
-
         <Form.Item
           label="Quận/Huyện"
           name="district"
           rules={[{ required: true, message: "Vui lòng chọn Quận/Huyện" }]}
         >
           <Select defaultValue=" " onChange={handleDistrictChange}>
-            <Option value=" ">--Chọn Quận/Huyện--</Option>
+            <Option value=" ">Chọn Quận/Huyện</Option>
             {listDistricts?.map((item) => {
               return (
                 <Option
@@ -169,14 +174,13 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
             })}
           </Select>
         </Form.Item>
-
         <Form.Item
           label="Xã/Phường"
           name="ward"
           rules={[{ required: true, message: "Vui lòng chọn Xã/Phường" }]}
         >
           <Select defaultValue="" onChange={handleWardChange}>
-            <Option value="">--Chọn Xã/Phường--</Option>
+            <Option value="">Chọn Xã/Phường</Option>
             {listWard?.map((item) => {
               return (
                 <Option
@@ -190,7 +194,6 @@ const ModalCreateAddress = ({ visible, onCancel, id }) => {
             })}
           </Select>
         </Form.Item>
-
         <Form.Item
           label="Số nhà/Ngõ/Đường"
           name="line"

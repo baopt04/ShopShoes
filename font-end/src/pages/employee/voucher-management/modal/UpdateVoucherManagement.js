@@ -99,7 +99,10 @@ function UpdateVoucherManagement({ modalUpdate, setModalUpdate, id }) {
   };
   const formatDiscountValue = (value) => {
     if (value === undefined || value === null) return "";
-    if (value <= 100) {
+
+    if (value > 100 && value <= 999) {
+      return "100%";
+    } else if (value <= 100) {
       return `${value} %`;
     } else {
       const formatter = new Intl.NumberFormat("vi-VN", {

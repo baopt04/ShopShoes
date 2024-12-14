@@ -82,6 +82,9 @@
 .info-cart {
   width: 65%;
 }
+.cart-item {
+  background: pink;
+}
 .box-title-cart {
   height: 30px;
   display: flex;
@@ -196,7 +199,9 @@
   font-size: 25px;
   cursor: pointer;
 }
-
+.cart-item {
+  background: white;
+}
 .box-cart-img {
   display: flex;
   align-items: center;

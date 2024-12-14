@@ -247,6 +247,7 @@ function UpdatePromotionManagement() {
       label: "Mã khuyễn mại",
       text: "mã khuyễn mại",
       readOnly: true,
+
       class: "input-form-promotion",
     },
     {
@@ -296,19 +297,16 @@ function UpdatePromotionManagement() {
       title: "STT",
       dataIndex: "stt",
       key: "stt",
-      sorter: (a, b) => a.stt - b.stt,
     },
     {
       title: "Mã sản phẩm",
       dataIndex: "code",
       key: "code",
-      sorter: (a, b) => a.code.localeCompare(b.code),
     },
     {
       title: "Tên sản phẩm",
       dataIndex: "name",
       key: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "Trạng Thái",
@@ -330,7 +328,6 @@ function UpdatePromotionManagement() {
       title: "STT",
       dataIndex: "stt",
       key: "stt",
-      sorter: (a, b) => a.stt - b.stt,
     },
     {
       title: "Ảnh sản phẩm",
@@ -385,19 +382,22 @@ function UpdatePromotionManagement() {
       title: "Tên sản phẩm",
       dataIndex: "nameProduct",
       key: "nameProduct",
-      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "Giới tính",
       dataIndex: "gender",
       key: "gender",
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      render: (text) => {
+        if (text === "NAM") return "Nam";
+        if (text === "NU") return "Nữ";
+        if (text === "NAM_VA_NU") return "Nam và Nữ";
+        return text;
+      },
     },
     {
       title: "Kích thước",
       dataIndex: "nameSize",
       key: "nameSize",
-      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "Màu",
@@ -424,23 +424,6 @@ function UpdatePromotionManagement() {
           </button>
         );
       },
-    },
-    {
-      title: "Tình trạng",
-      dataIndex: "valuePromotion",
-      key: "valuePromotion",
-      render: (text, record) => (
-        <div style={{ display: "flex", gap: "10px" }}>
-          <Button
-            type="primary"
-            title="Chi tiết thể loại"
-            style={{ backgroundColor: "#FF9900" }}
-            onClick={() => openModal(record.id)}
-          >
-            <FontAwesomeIcon icon={faEye} />
-          </Button>
-        </div>
-      ),
     },
   ];
   const columnsPromotion = [
@@ -517,6 +500,62 @@ function UpdatePromotionManagement() {
   return (
     <div>
       <Row>
+        <Col className="get-product" lg={{ span: 16, offset: 0 }}>
+          <Col>
+            <br></br>
+            <br></br>
+            <h1>Sản phẩm</h1>
+            <div
+              style={{
+                display: "flex",
+                margin: 20,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <p>Tìm kiếm</p>{" "}
+              <Input
+                placeholder="Mã hoặc tên sản phẩm"
+                style={{ width: 400, height: 40, marginLeft: 20 }}
+                onChange={(e) =>
+                  handleInputChangeSearch("keyword", e.target.value)
+                }
+              />
+            </div>
+            <Table
+              rowKey="id"
+              columns={columns}
+              rowSelection={rowSelection}
+              dataSource={updatedList}
+              pagination={{ pageSize: 10 }}
+              // onRow={(record) => ({
+              //   onClick: () => {
+              //     const newSelectedRowKeys = [...selectedRowKeys];
+              //     if (newSelectedRowKeys.includes(record.id)) {
+              //       const index = newSelectedRowKeys.indexOf(record.id);
+              //       newSelectedRowKeys.splice(index, 1);
+              //     } else {
+              //       newSelectedRowKeys.push(record.id);
+              //     }
+              //     setSelectedRowKeys(newSelectedRowKeys);
+              //   },
+              // })}
+            />
+          </Col>
+          <Col>
+            <div>
+              <h1>Chi tiết sản phẩm</h1>
+              <br></br>
+              <Table
+                rowKey="id"
+                columns={columnsDetailproduct}
+                rowSelection={rowSelectionDetail}
+                dataSource={updatedListDetail}
+                pagination={{ pageSize: 10 }}
+              />
+            </div>
+          </Col>
+        </Col>
         <Col className="add-promotion" lg={{ span: 7, offset: 0 }}>
           <div className="title-add-promotion">
             <h4>Cập nhập đợt giảm giá</h4>
@@ -565,10 +604,10 @@ function UpdatePromotionManagement() {
                         name="status"
                         value={
                           formData["status"] === "DANG_KICH_HOAT"
-                            ? "Còn hạn"
+                            ? "Đang kích hoạt"
                             : (formData["status"] === "CHUA_KICH_HOAT"
                                 ? "Chưa kích hoạt"
-                                : "Hết hạn") || ""
+                                : "Ngưng kích hoạt") || ""
                         }
                       ></Input>
                     )}
@@ -602,63 +641,6 @@ function UpdatePromotionManagement() {
               </Button>
             </Form.Item>
           </Form>
-        </Col>
-
-        <Col className="get-product" lg={{ span: 16, offset: 0 }}>
-          <Col>
-            <br></br>
-            <br></br>
-            <h1>Sản phẩm</h1>
-            <div
-              style={{
-                display: "flex",
-                margin: 20,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <p>Tìm kiếm</p>{" "}
-              <Input
-                placeholder="Mã hoặc tên sản phẩm"
-                style={{ width: 400, height: 40, marginLeft: 20 }}
-                onChange={(e) =>
-                  handleInputChangeSearch("keyword", e.target.value)
-                }
-              />
-            </div>
-            <Table
-              rowKey="id"
-              columns={columns}
-              rowSelection={rowSelection}
-              dataSource={updatedList}
-              pagination={{ pageSize: 5 }}
-              // onRow={(record) => ({
-              //   onClick: () => {
-              //     const newSelectedRowKeys = [...selectedRowKeys];
-              //     if (newSelectedRowKeys.includes(record.id)) {
-              //       const index = newSelectedRowKeys.indexOf(record.id);
-              //       newSelectedRowKeys.splice(index, 1);
-              //     } else {
-              //       newSelectedRowKeys.push(record.id);
-              //     }
-              //     setSelectedRowKeys(newSelectedRowKeys);
-              //   },
-              // })}
-            />
-          </Col>
-          <Col>
-            <div>
-              <h1>Chi tiết sản phẩm</h1>
-              <br></br>
-              <Table
-                rowKey="id"
-                columns={columnsDetailproduct}
-                rowSelection={rowSelectionDetail}
-                dataSource={updatedListDetail}
-                pagination={{ pageSize: 5 }}
-              />
-            </div>
-          </Col>
         </Col>
       </Row>
       {modal && (

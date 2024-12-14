@@ -3,12 +3,18 @@ import { Button, Form, Input, InputNumber, Modal } from "antd";
 export default function ModalPriceAndQuantity({ open, onCancel, onUpdate }) {
   const [form] = Form.useForm();
   const formatCurrency = (value) => {
-    const formatter = new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-      currencyDisplay: "code",
-    });
-    return formatter.format(value);
+    if (value >= 1000000000) {
+      return "100.000.000 VND";
+    } else if (value < 1) {
+      return "1 VND";
+    } else {
+      const formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        currencyDisplay: "code",
+      });
+      return formatter.format(value);
+    }
   };
   const handleOkQuantityAndPrice = () => {
     form
@@ -38,7 +44,7 @@ export default function ModalPriceAndQuantity({ open, onCancel, onUpdate }) {
           Hủy
         </Button>,
         <Button key="submit" type="primary" onClick={handleOkQuantityAndPrice}>
-          Cập nhập
+          Chỉnh sửa
         </Button>,
       ]}
     >
@@ -59,6 +65,16 @@ export default function ModalPriceAndQuantity({ open, onCancel, onUpdate }) {
               required: true,
               message: "Vui lòng nhập số lượng!",
             },
+            {
+              type: "number",
+              min: 1,
+              message: "Vui lòng nhập số lượng lớn hơn 1",
+            },
+            {
+              type: "number",
+              max: 10000,
+              message: "Vui lòng nhập số lượng nhỏ hơn 10000",
+            },
           ]}
         >
           <InputNumber style={{ width: "100%" }} />
@@ -69,7 +85,7 @@ export default function ModalPriceAndQuantity({ open, onCancel, onUpdate }) {
           rules={[
             {
               required: true,
-              message: "Vui lòng nhập giá tiền!",
+              message: "Vui lòng nhập đơn giấ tiền!",
             },
           ]}
         >

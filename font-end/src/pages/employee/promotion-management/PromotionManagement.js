@@ -172,14 +172,7 @@ const PromotionManagement = () => {
       // sorter: (a, b) => a.endDate - b.endDate,
       render: (date) => dayjs(date).format("HH:mm:ss DD-MM-YYYY"),
     },
-    {
-      title: "Ngày cập nhật",
-      dataIndex: "lastModifiedDate",
-      key: "lastModifiedDate",
-      align: "center",
-      // sorter: (a, b) => a.lastModifiedDate - b.lastModifiedDate,
-      render: (date) => dayjs(date).format("HH:mm:ss DD-MM-YYYY"),
-    },
+
     {
       title: "Trạng Thái",
       dataIndex: "status",
@@ -358,7 +351,7 @@ const PromotionManagement = () => {
     <div className="promotion">
       <h1 className="title-promotion">Quản lý đợt giảm giá</h1>
 
-      <div className="form-search">
+      <div className="form-search" style={{ backgroundColor: "white" }}>
         <Row>
           <span style={{ fontSize: "18px", fontWeight: "500" }}>Bộ lọc</span>
         </Row>
@@ -628,7 +621,7 @@ const PromotionManagement = () => {
             dataSource={updatedList}
             rowKey="id"
             columns={columns}
-            pagination={{ pageSize: 5 }}
+            pagination={{ pageSize: 10 }}
             rowClassName={(record, index) =>
               index % 2 === 0 ? "even-row" : "odd-row"
             }
@@ -639,7 +632,7 @@ const PromotionManagement = () => {
       {/* modal */}
       <Modal
         title={
-          showDetail === true ? "Chi tiết khuyễn mại" : " Cập nhập khuyến mại"
+          showDetail === true ? "Chi tiết khuyễn mại " : " Cập nhập khuyến mại"
         }
         visible={modal}
         onCancel={closeModal}
@@ -678,6 +671,7 @@ const PromotionManagement = () => {
                     <InputNumber
                       className={field.class}
                       readOnly={showDetail}
+                      style={{ paddingTop: 5 }}
                       name={field.name}
                       placeholder={field.label}
                       value={`${formData[field.name]}%` || ""}
@@ -719,9 +713,11 @@ const PromotionManagement = () => {
                         name={field.name}
                         placeholder={field.label}
                         value={
-                          formData[field.name] === "DANG_SU_DUNG"
-                            ? "Còn hạn"
-                            : "Hết hạn"
+                          formData[field.name] === "DANG_KICH_HOAT"
+                            ? "Đang kích hoạt"
+                            : formData[field.name] === "CHUA_KICH_HOAT"
+                            ? "Chưa kích hoạt"
+                            : "Ngưng kích hoạt"
                         }
                       />
                     ) : (
@@ -768,7 +764,9 @@ const PromotionManagement = () => {
           })}
 
           <Form.Item label=" ">
-            <Button onClick={closeModal}>Hủy</Button>
+            <Button onClick={closeModal} style={{ marginLeft: 100 }}>
+              Hủy
+            </Button>
           </Form.Item>
         </Form>
       </Modal>

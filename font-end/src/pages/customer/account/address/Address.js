@@ -35,11 +35,14 @@ function Address() {
     Modal.confirm({
       title: "Xác nhận đặt mặc định",
       content: "Bạn có chắc chắn muốn đặt mặc định không?",
-      okText: "Đặt",
-      okType: "danger",
+      okText: "Xác nhận",
+      okType: "primary",
       cancelText: "Hủy",
       onOk() {
-        AddressClientApi.setDefault({ "idAddress":id, "idAccount":idAccount }).then((res) => {
+        AddressClientApi.setDefault({
+          idAddress: id,
+          idAccount: idAccount,
+        }).then((res) => {
           dispatch(UpdateAddressDefaultAccountClient(res.data.data));
         });
       },
@@ -111,11 +114,15 @@ function Address() {
                     style={{ marginLeft: "auto", cursor: "pointer" }}
                     onClick={() => openModalUpdate(item.id)}
                   >
-                    Cập nhập
+                    Cập nhật
                   </div>
                   {item.status !== "DANG_SU_DUNG" ? (
                     <div
-                      style={{ marginLeft: "10px", cursor: "pointer" }}
+                      style={{
+                        marginLeft: "10px",
+                        cursor: "pointer",
+                        backgroundColor: "pink",
+                      }}
                       onClick={() => deleteAddressClient(item.id)}
                     >
                       Xoá

@@ -64,7 +64,10 @@ public class ExportFilePdfFormHtml {
         Context context = new Context();
 
         Map<String, Object> data = new HashMap<>();
-
+        String totalPaymentStr = invoice.getTotalPayment();
+        if (totalPaymentStr.contains("-")){
+            invoice.setTotalPayment("0 đ");
+        }
         data.put("invoice", invoice);
 
         context.setVariables(data);
@@ -77,7 +80,10 @@ public class ExportFilePdfFormHtml {
         Context context = new Context();
 
         Map<String, Object> data = new HashMap<>();
-
+        String totalPaymentStr = invoice.getTotalPayment();
+        if (totalPaymentStr.contains("-")){
+            invoice.setTotalPayment("0 đ");
+        }
         data.put("invoice", invoice);
         data.put("url", url);
         context.setVariables(data);

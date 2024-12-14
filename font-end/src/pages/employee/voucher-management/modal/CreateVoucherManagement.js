@@ -35,19 +35,9 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
   };
 
   const formatCurrency = (value) => {
-    const formatter = new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-      currencyDisplay: "code",
-    });
-    return formatter.format(value);
-  };
-  const formatDiscountValue = (value) => {
-    if (value === undefined || value === null) return "";
-    if (value <= 100) {
-      return `${value} %`;
+    if (value >= 100000000) {
+      return "100.000.000 VND";
     } else {
-      // Định dạng theo VND nếu giá trị >= 100
       const formatter = new Intl.NumberFormat("vi-VN", {
         style: "currency",
         currency: "VND",
@@ -56,6 +46,25 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
       return formatter.format(value);
     }
   };
+  const formatDiscountValue = (value) => {
+    if (value === undefined || value === null) return "";
+
+    if (value > 100 && value <= 999) {
+      return "100%";
+    } else if (value <= 100) {
+      return `${value} %`;
+    } else if (value >= 100000000) {
+      return "100.000.000 VND";
+    } else {
+      const formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        currencyDisplay: "code",
+      });
+      return formatter.format(value);
+    }
+  };
+
   const handleSubmit = () => {
     Modal.confirm({
       title: "Xác nhận thêm",
@@ -196,6 +205,7 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
                 inputChange("quantity", value);
               }}
               min="1"
+              max="10000"
             />
           </Form.Item>
           <Form.Item

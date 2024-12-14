@@ -410,48 +410,13 @@ function Products() {
                 </li>
               ))}
             </ul>
-            {/* search by color */}
-            {/* <ul className="category-color-search">
-              <label
-                style={{
-                  color: "#ff4400",
-                  fontSize: "20px",
-                  fontWeight: 700,
-                }}
-              >
-                Màu
-              </label>
-              <div style={{ display: "flex", marginTop: 10, paddingLeft: 20 }}>
-                {listColor.map((item, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      backgroundColor: decodeURIComponent(item.code),
-                      width: "30px",
-                      height: "30px",
-                      marginRight: 5,
-                    }}
-                    className={
-                      formSearch.color &&
-                      formSearch.color !== "" &&
-                      (formSearch.color.split(",").includes(item.name)
-                        ? "item-color-search"
-                        : "")
-                    }
-                    onClick={() => changeColor("color", item.name)}
-                  ></div>
-                ))}
-              </div>
-            </ul> */}
           </div>
 
           <div className="box-products">
             {list.length === 0 ? (
               <div
                 style={{ textAlign: "center", color: "#ff4400", fontSize: 20 }}
-              >
-                {/* Không có sản phẩm nào! */}
-              </div>
+              ></div>
             ) : (
               <>
                 <div className="list-product">

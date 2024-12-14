@@ -495,7 +495,7 @@ function CreateBill({
     );
     setValueAddressShip(valueWard);
 
-    if (checkShipFee >= 5000000) {
+    if (checkShipFee >= 2000000) {
       setShipFee(0);
     } else {
       AddressApi.fetchAllMoneyShip(
@@ -1068,7 +1068,7 @@ function CreateBill({
           toast.warning("Vui lòng chọn phương thức thanh toán");
         }
       } else {
-        toast.warning("vui lòng chọn sản phẩm");
+        toast.warning("Vui lòng chọn sản phẩm");
       }
     }
   };
@@ -1386,9 +1386,11 @@ function CreateBill({
     } else if (!existingProduct) {
       ProducDetailtApi.getOne(data)
         .then((res) => {
+          const resData = res.data.data;
+          const productNameQr = `${resData.nameProduct} [ 39 - Maroon ]`;
           const newProduct = {
             image: res.data.data.image,
-            productName: res.data.data.nameProduct,
+            productName: productNameQr,
             nameSize: res.data.data.nameSize,
             idProduct: res.data.data.id,
             quantity: 1,
@@ -1398,9 +1400,12 @@ function CreateBill({
             maxQuantity: res.data.data.quantity,
             promotion: res.data.data.promotion,
           };
+          console.log("Chekc new product ", newProduct);
 
           setProducts((prevProducts) => [...prevProducts, newProduct]);
-          toast.success("Thêm sản phẩm thành công ");
+          console.log("check product", products);
+
+          toast.success("Thêm sản phẩm thành công");
         })
         .catch((error) => {
           toast.error("Không tìm thấy sản phẩm");
@@ -1426,25 +1431,21 @@ function CreateBill({
       title: "STT",
       dataIndex: "stt",
       key: "stt",
-      sorter: (a, b) => a.stt - b.stt,
     },
     {
       title: "Họ tên",
       dataIndex: "fullName",
       key: "fullName",
-      sorter: (a, b) => a.fullName.localeCompare(b.fullName),
     },
     {
       title: "Số điện thoại",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
-      sorter: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
     },
     {
       title: "Địa chỉ",
       dataIndex: "address",
       key: "address",
-      sorter: (a, b) => a.address.localeCompare(b.address),
     },
 
     {
@@ -1519,7 +1520,7 @@ function CreateBill({
   };
 
   const addressFull = (provinceId, toDistrictId, wardCode) => {
-    if (totalBill < 5000000) {
+    if (totalBill < 2000000) {
       AddressApi.fetchAllMoneyShip(toDistrictId, wardCode).then((res) => {
         setShipFee(res.data.data.total);
       });
@@ -1944,7 +1945,7 @@ function CreateBill({
                       <span></span>
                     )}
                   </Row>
-                  <Row>
+                  {/* <Row>
                     <span
                       style={{
                         fontSize: "12",
@@ -1954,12 +1955,12 @@ function CreateBill({
                     >
                       Kích cỡ: {item.nameSize}
                     </span>{" "}
-                  </Row>
-                  {/* <Row>
-                    <span style={{ fontSize: "12", marginLeft: "15px" }}>
-                      x {item.quantity}
-                    </span>{" "}
                   </Row> */}
+                  <Row>
+                    <span style={{ fontSize: "12", marginLeft: "15px" }}>
+                      Số lượng: {item.quantity}
+                    </span>{" "}
+                  </Row>
                 </Col>
                 <Col
                   span={3}
@@ -3108,7 +3109,7 @@ function CreateBill({
         onOk={handleOkAddress}
         className="account"
         onCancel={handleCancelAddress}
-        cancelText={"huỷ"}
+        cancelText={"Huỷ"}
         okText={"Xác nhận"}
       >
         <Row style={{ width: "100%" }}>
@@ -3358,8 +3359,8 @@ function CreateBill({
                     exchangeRateMoney -
                     voucher.discountPrice
               )
-                ? "Tiền thiếu"
-                : "Tiền thừa"}
+                ? "Tiền sản phẩm"
+                : "Tiền sản phẩm"}
             </Col>
             <Col
               span={16}
@@ -3396,15 +3397,7 @@ function CreateBill({
                   )}
             </Col>
           </Row>
-          {/* <Row style={{ width: "100%", marginTop: "10px" }}>
-            <Table
-              style={{ width: "100%" }}
-              dataSource={dataPayment}
-              columns={columnsPayments}
-              pagination={{ pageSize: 3 }}
-              className="customer-table"
-            />
-          </Row> */}
+
           <Row style={{ width: "100%", margin: "10px 0 " }}>
             <Col span={7} style={{ fontSize: "16px", fontWeight: "bold" }}>
               Khách thanh toán :
@@ -3442,7 +3435,7 @@ function CreateBill({
                       voucher.discountPrice
                 )
                   ? "Tiền thiếu"
-                  : "Tiền thừa"}
+                  : "Tiền thừa trả lại :"}
               </Col>
               <Col
                 span={16}
@@ -3483,18 +3476,31 @@ function CreateBill({
                   : formatCurrency(
                       Math.max(
                         0,
-                        dataPayment.reduce((accumulator, currentValue) => {
-                          return accumulator + currentValue.totalMoney;
-                        }, 0) -
-                          (products.reduce((accumulator, currentValue) => {
-                            return (
-                              accumulator +
-                              currentValue.price * currentValue.quantity
-                            );
-                          }, 0) +
-                            shipFee -
-                            exchangeRateMoney -
-                            voucher.discountPrice)
+                        products.reduce((accumulator, currentValue) => {
+                          return (
+                            accumulator +
+                            currentValue.price * currentValue.quantity
+                          );
+                        }, 0) +
+                          shipFee -
+                          exchangeRateMoney <=
+                          voucher.discountPrice
+                          ? 0
+                          : products.reduce((accumulator, currentValue) => {
+                              return (
+                                accumulator +
+                                currentValue.price * currentValue.quantity
+                              );
+                            }, 0) +
+                              shipFee -
+                              exchangeRateMoney -
+                              voucher.discountPrice -
+                              dataPayment.reduce(
+                                (accumulator, currentValue) => {
+                                  return accumulator + currentValue.totalMoney;
+                                },
+                                0
+                              )
                       )
                     )}
               </Col>
@@ -3513,7 +3519,7 @@ function CreateBill({
                   exchangeRateMoney -
                   voucher.discountPrice
                   ? "Tiền thiếu"
-                  : "Tiền thừa"}
+                  : "Tiền thừa trả lại"}
               </Col>
               <Col
                 span={16}
@@ -3550,18 +3556,33 @@ function CreateBill({
                     )
                   : formatCurrency(
                       Math.max(
-                        0,
-                        dataPayment.reduce((accumulator, currentValue) => {
-                          return accumulator + currentValue.totalMoney;
-                        }, 0) -
-                          (products.reduce((accumulator, currentValue) => {
-                            return (
-                              accumulator +
-                              currentValue.price * currentValue.quantity
-                            );
-                          }, 0) -
-                            exchangeRateMoney -
-                            voucher.discountPrice)
+                        0, // Đảm bảo tiền thừa không âm
+                        // Kiểm tra điều kiện voucher lớn hơn tổng giá trị sản phẩm
+                        products.reduce((accumulator, currentValue) => {
+                          return (
+                            accumulator +
+                            currentValue.price * currentValue.quantity
+                          );
+                        }, 0) +
+                          shipFee -
+                          exchangeRateMoney <=
+                          voucher.discountPrice
+                          ? 0
+                          : products.reduce((accumulator, currentValue) => {
+                              return (
+                                accumulator +
+                                currentValue.price * currentValue.quantity
+                              );
+                            }, 0) +
+                              shipFee -
+                              exchangeRateMoney -
+                              voucher.discountPrice -
+                              dataPayment.reduce(
+                                (accumulator, currentValue) => {
+                                  return accumulator + currentValue.totalMoney;
+                                },
+                                0
+                              )
                       )
                     )}
               </Col>
