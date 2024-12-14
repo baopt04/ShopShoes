@@ -34,17 +34,7 @@ function HeaderMenu() {
       title: "SẢN PHẨM",
       href: "/products",
     },
-    {
-      className: "title-menu",
-      title: "GIÀY THỂ THAO NAM NỮ",
-      href: "/products",
-    },
 
-    {
-      className: "title-menu",
-      title: "VỀ CHÚNG TÔI",
-      href: "/about-us",
-    },
     // {
     //   className: "title-menu",
     //   title: "SALE OFF",
@@ -125,10 +115,9 @@ function HeaderMenu() {
         </div>
         <div className="right-menu">
           <div className="search-menu">
-            <SearchOutlined
-              style={{ fontSize: "20px" }}
-              onClick={() => onSearch()}
-            />
+            <Link to={"/sreach-bill"}>
+              <SearchOutlined style={{ fontSize: "20px" }} />
+            </Link>
           </div>
           |
           <div>

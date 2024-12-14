@@ -21,6 +21,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 200px;
+  margin-right: 250px;
 }
 .logo-menu {
   margin-right: 15%;
