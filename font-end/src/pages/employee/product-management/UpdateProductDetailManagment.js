@@ -255,22 +255,6 @@ const UpdateProductDetailManagment = () => {
       key: "quantity",
       // sorter: (a, b) => a.quantity - b.quantity,
       align: "center",
-      render: (text, record, index) => (
-        <div>
-          {temporarySelectedRowKeys.includes(record.id) ? (
-            <InputNumber
-              min={1}
-              max={10000}
-              value={record.quantity} // Gắn value theo record của hàng đang xem
-              onChange={(value) => handleQuantityChange(record.id, value)}
-            />
-          ) : (
-            <Tooltip title="Bạn cần check vào hàng để chỉnh sửa">
-              <span>{record.quantity}</span>
-            </Tooltip>
-          )}
-        </div>
-      ),
     },
     {
       title: "Giá Bán",
@@ -278,22 +262,7 @@ const UpdateProductDetailManagment = () => {
       key: "price",
       render: (text, record, index) => (
         <div>
-          {temporarySelectedRowKeys.includes(record.id) ? (
-            <InputNumber
-              value={record.price}
-              onChange={(value) => handlePriceChange(record.id, value)}
-              style={{ width: "100%" }}
-              min={100000}
-              max={100000000}
-              step={1000}
-              formatter={(value) => `${formatCurrency(value)}`}
-              parser={(value) => value.replace(/\D/g, "")}
-            />
-          ) : (
-            <Tooltip title="Bạn cần check vào hàng để chỉnh sửa">
-              <span>{formatCurrency(record.price)}</span>
-            </Tooltip>
-          )}
+          <span>{formatCurrency(record.price)}</span>
         </div>
       ),
     },

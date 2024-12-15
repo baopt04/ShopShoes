@@ -282,13 +282,13 @@ const ProductManagement = () => {
           </span>
           <div style={{ marginLeft: "auto" }}>
             <Link to="/create-product-management">
-              <Tooltip title="Tạo sản phẩm chi tiết">
+              <Tooltip title="Thêm sản phẩm ">
                 <Button
                   type="primary"
                   icon={<FontAwesomeIcon icon={faPlus} />}
                   style={{ height: 40 }}
                 >
-                  Tạo sản phẩm
+                  Thêm sản phẩm
                 </Button>
               </Tooltip>
             </Link>

@@ -85,11 +85,35 @@ function PayMentSuccess() {
       );
     }
   };
+  const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
+  const createFireworks = (num = 10) => {
+    const fireworks = [];
+    for (let i = 0; i < num; i++) {
+      const color = getRandomColor(); // Màu ngẫu nhiên cho mỗi quả pháo
+      fireworks.push(
+        <div
+          key={i}
+          className="firework"
+          style={{ backgroundColor: color }}
+        ></div>
+      );
+    }
+    return fireworks;
+  };
   return (
     <>
-      {/* <div className="header-payment-success">
-        <img className="logo-payment-success" src={logo} alt="logo" />
-      </div> */}
+      <div className="fireworks-container">
+        {/* Hiển thị các pháo từ vị trí ngẫu nhiên */}
+        {createFireworks(10)}
+      </div>
       <div
         style={{
           display: "flex",
@@ -99,15 +123,15 @@ function PayMentSuccess() {
       >
         {vnp_ResponseCode === "00" ? (
           <div className="content-payment-success">
-            <FontAwesomeIcon
-              className="icon-payment-success"
-              icon={faSquareCheck}
-            />
-            <h1>Thanh toán thành công</h1>
+            <h1>Thanh toán đơn hàng thành công</h1>
             <div style={{ marginTop: "5%" }}>
-              Tổng thanh toán: {formatMoney(vnp_Amount / 100)}
+              Tổng tiền đơn hàng : {formatMoney(vnp_Amount / 100)}
             </div>
-            <Link to="/home">Tiếp tục mua</Link>
+            <div style={{ marginTop: "10px", textDecoration: "none" }}>
+              <Link to="/home" style={{ textDecoration: "none" }}>
+                Tiếp tục mua hàng
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="content-payment-success">

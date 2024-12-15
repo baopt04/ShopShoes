@@ -853,7 +853,7 @@ function DetailBill() {
           className={status}
         >
           {status == "THANH_TOAN"
-            ? "Thanh toán"
+            ? "Đã thanh toán"
             : status == "TRA_SAU"
             ? "Trả sau"
             : "Hoàn tiền"}

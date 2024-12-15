@@ -327,14 +327,6 @@ const CreateProductManagment = () => {
       key: "quantity",
       align: "center",
       width: "10%",
-      render: (_, record) => (
-        <InputNumber
-          min={1}
-          max={10000}
-          value={record.quantity}
-          onChange={(value) => handleQuantityChange(value, record.key)}
-        />
-      ),
     },
     {
       title: "Giá Bán",
@@ -343,13 +335,9 @@ const CreateProductManagment = () => {
       align: "center",
       width: "15%",
       render: (_, record) => (
-        <Input
-          min={100000}
-          value={formatCurrency(record.price)}
-          onChange={(e) =>
-            handlePriceChange(e.target.value.replace(/\D/g, ""), record.key)
-          }
-        />
+        <div>
+          <span>{formatCurrency(record.price)}</span>
+        </div>
       ),
     },
     {
@@ -1146,7 +1134,7 @@ const CreateProductManagment = () => {
 
         <Form.Item>
           <Row gutter={16} justify={"end"}>
-            <Tooltip title=" Chỉnh số lượng và giá chung">
+            <Tooltip title=" Chỉnh số lượng và giá ">
               <Button
                 type="primary"
                 htmlType="submit"
@@ -1157,7 +1145,7 @@ const CreateProductManagment = () => {
                   margin: "0px 20px",
                 }}
               >
-                Chỉnh số lượng và giá chung
+                Chỉnh số lượng và giá
               </Button>
             </Tooltip>
             <Tooltip title="Thêm sản phẩm chi tiết">
