@@ -78,6 +78,12 @@ function DetailBill() {
   const [userId, setUserId] = useState(false);
 
   const formatCurrency = (value) => {
+    if (value == 0) {
+      return "0 VND";
+    }
+    if (value <= 100) {
+      return `${value} %`;
+    }
     const formatter = new Intl.NumberFormat("vi-VN", {
       style: "currency",
       currency: "VND",

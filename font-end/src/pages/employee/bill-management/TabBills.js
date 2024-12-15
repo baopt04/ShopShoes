@@ -20,6 +20,12 @@ function TabBills({ statusBill, dataFillter, addNotify, quantityNotify }) {
   const stompClient = Stomp.over(socket);
 
   const formatCurrency = (value) => {
+    if (value == 0) {
+      return "0 VND";
+    }
+    if (value <= 100) {
+      return `${value} %`;
+    }
     const formatter = new Intl.NumberFormat("vi-VN", {
       style: "currency",
       currency: "VND",

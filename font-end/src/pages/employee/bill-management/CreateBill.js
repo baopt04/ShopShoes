@@ -3476,31 +3476,18 @@ function CreateBill({
                   : formatCurrency(
                       Math.max(
                         0,
-                        products.reduce((accumulator, currentValue) => {
-                          return (
-                            accumulator +
-                            currentValue.price * currentValue.quantity
-                          );
-                        }, 0) +
-                          shipFee -
-                          exchangeRateMoney <=
-                          voucher.discountPrice
-                          ? 0
-                          : products.reduce((accumulator, currentValue) => {
-                              return (
-                                accumulator +
-                                currentValue.price * currentValue.quantity
-                              );
-                            }, 0) +
-                              shipFee -
-                              exchangeRateMoney -
-                              voucher.discountPrice -
-                              dataPayment.reduce(
-                                (accumulator, currentValue) => {
-                                  return accumulator + currentValue.totalMoney;
-                                },
-                                0
-                              )
+                        dataPayment.reduce((accumulator, currentValue) => {
+                          return accumulator + currentValue.totalMoney;
+                        }, 0) -
+                          (products.reduce((accumulator, currentValue) => {
+                            return (
+                              accumulator +
+                              currentValue.price * currentValue.quantity
+                            );
+                          }, 0) +
+                            shipFee -
+                            exchangeRateMoney -
+                            voucher.discountPrice)
                       )
                     )}
               </Col>
@@ -3519,7 +3506,7 @@ function CreateBill({
                   exchangeRateMoney -
                   voucher.discountPrice
                   ? "Tiền thiếu"
-                  : "Tiền thừa trả lại"}
+                  : "Tiền thừa trả lại :"}
               </Col>
               <Col
                 span={16}
@@ -3556,33 +3543,18 @@ function CreateBill({
                     )
                   : formatCurrency(
                       Math.max(
-                        0, // Đảm bảo tiền thừa không âm
-                        // Kiểm tra điều kiện voucher lớn hơn tổng giá trị sản phẩm
-                        products.reduce((accumulator, currentValue) => {
-                          return (
-                            accumulator +
-                            currentValue.price * currentValue.quantity
-                          );
-                        }, 0) +
-                          shipFee -
-                          exchangeRateMoney <=
-                          voucher.discountPrice
-                          ? 0
-                          : products.reduce((accumulator, currentValue) => {
-                              return (
-                                accumulator +
-                                currentValue.price * currentValue.quantity
-                              );
-                            }, 0) +
-                              shipFee -
-                              exchangeRateMoney -
-                              voucher.discountPrice -
-                              dataPayment.reduce(
-                                (accumulator, currentValue) => {
-                                  return accumulator + currentValue.totalMoney;
-                                },
-                                0
-                              )
+                        0,
+                        dataPayment.reduce((accumulator, currentValue) => {
+                          return accumulator + currentValue.totalMoney;
+                        }, 0) -
+                          (products.reduce((accumulator, currentValue) => {
+                            return (
+                              accumulator +
+                              currentValue.price * currentValue.quantity
+                            );
+                          }, 0) -
+                            exchangeRateMoney -
+                            voucher.discountPrice)
                       )
                     )}
               </Col>

@@ -90,7 +90,13 @@ function Payment() {
     return () => clearInterval(interval);
   }, []);
   useEffect(() => {
-    setTotalBillToPay(totalBill - voucher.value);
+    let discountAmount = 0;
+    if (voucher.value <= 100) {
+      discountAmount = (totalBill * voucher.value) / 100;
+    } else {
+      discountAmount = voucher.value;
+    }
+    setTotalBillToPay(totalBill - discountAmount);
     formBillChange("afterPrice", totalBill);
     const updatedListproductOfBill = listproductOfBill.map((item) => {
       const { nameProduct, nameSize, image, ...rest } = item;
