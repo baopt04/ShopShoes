@@ -196,7 +196,7 @@ const CreateProductManagment = () => {
   const handleDeleteSize = (index, nameSize) => {
     Modal.confirm({
       title: "Xác nhận xóa",
-      content: "Bạn có chắc chắn muốn kích cỡ " + nameSize + " này?",
+      content: "Bạn có chắc chắn muốn kích cỡ này ?",
       okText: "Xóa",
       okType: "danger",
       cancelText: "Hủy",
@@ -204,7 +204,7 @@ const CreateProductManagment = () => {
         const updatedList = [...listSizeAdd];
         updatedList.splice(index, 1);
         setListSizeAdd(updatedList);
-        toast.success("Đã xóa kích cỡ thành công");
+        toast.success("Xóa kích cỡ thành công");
       },
     });
   };
@@ -212,7 +212,7 @@ const CreateProductManagment = () => {
   const handleDeleteColor = (index, color) => {
     Modal.confirm({
       title: "Xác nhận xóa",
-      content: "Bạn có chắc chắn muốn màu " + color + " này?",
+      content: "Bạn có chắc chắn muốn màu này ?",
       okText: "Xóa",
       okType: "danger",
       cancelText: "Hủy",
@@ -220,7 +220,7 @@ const CreateProductManagment = () => {
         const updatedList = [...listColorAdd];
         updatedList.splice(index, 1);
         setListColorAdd(updatedList);
-        toast.success("Đã xóa màu thành công");
+        toast.success("Xóa màu thành công");
       },
     });
   };

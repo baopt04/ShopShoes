@@ -333,6 +333,19 @@ function Payment() {
         .replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VND"
     );
   };
+  const formatMoney1 = (price) => {
+    if (price == 0) {
+      return price.toFixed(0) + " VND";
+    }
+    if (price < 1000) {
+      return price.toFixed(0) + "%";
+    }
+    return (
+      parseInt(price)
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VND"
+    );
+  };
   const formBillChange = (name, value) => {
     setFormBill((prevFormBill) => ({
       ...prevFormBill,
@@ -676,8 +689,8 @@ function Payment() {
                     }}
                   >
                     {voucher.value == 0
-                      ? `${formatMoney(voucher.value)}`
-                      : `-${formatMoney(voucher.value)}`}
+                      ? `${formatMoney1(voucher.value)}`
+                      : `${formatMoney1(voucher.value)}`}
                   </p>
                 </div>
                 <div

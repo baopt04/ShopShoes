@@ -1008,13 +1008,13 @@ export default function DetailBillGiveBack() {
                 <Row style={{ marginTop: "30px" }}>
                   <Col>
                     <Form.Item
-                      label="Mô tả : "
+                      label="Lý do trả : "
                       name="note"
-                      style={{ fontWeight: "bold" }}
+                      style={{ fontWeight: "bold", fontSize: 15 }}
                       rules={[
                         {
                           required: true,
-                          message: "Vui lòng nhập mô tả khi trả hàng.",
+                          message: "Vui lòng nhập lý khi trả hàng.",
                         },
                         {
                           validator: (_, value) => {

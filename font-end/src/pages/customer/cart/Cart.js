@@ -356,10 +356,12 @@ function Cart() {
   };
   const formatDiscountValue = (value) => {
     if (value === undefined || value === null) return "";
+    if (value == 0) {
+      return "0 VND";
+    }
     if (value <= 100) {
       return `${value} %`;
     } else {
-      // Định dạng theo VND nếu giá trị >= 100
       const formatter = new Intl.NumberFormat("vi-VN", {
         style: "currency",
         currency: "VND",

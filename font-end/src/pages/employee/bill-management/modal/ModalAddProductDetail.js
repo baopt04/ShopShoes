@@ -54,7 +54,6 @@ function ModalAddProductDetail({
     maxQuantity: 1,
     promotion: "",
   });
-
   // format tiền
   const formatCurrency = (value) => {
     const formatter = new Intl.NumberFormat("vi-VN", {
@@ -309,7 +308,7 @@ function ModalAddProductDetail({
         <div style={{ display: "flex", gap: "10px" }}>
           <Button
             type="primary"
-            title="Chi tiết thể loại"
+            title=""
             style={{ backgroundColor: "#1677FF" }}
             onClick={(e) => showModal(e, record)}
           >
@@ -322,6 +321,8 @@ function ModalAddProductDetail({
 
   // begin xử lý modal
   const changeQuanTiTy = useSelector((state) => state.bill.bill.change);
+  console.log("Change quantity", changeQuanTiTy);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = (e, record) => {
     var data = {
@@ -338,17 +339,28 @@ function ModalAddProductDetail({
     dispatch(addProductBillWait(data));
     setProductSelected(data);
     setIsModalOpen(true);
+    console.log("Check data", data);
+    console.log("Check product select", productSelected);
   };
+
   const bill = useSelector((state) => state.bill.bill.value);
   const handleOk = (e) => {
+    console.log("Check hàm");
+
     var list = products;
+
     var index = list.findIndex(
       (x) => x.idProduct === productSelected.idProduct
     );
+    console.log("Check type bikk", typeAddProductBill);
+
     if (typeAddProductBill === "CREATE_BILL") {
+      console.log("Check create bill");
+
       if (index == -1) {
         var data = { ...productSelected };
         data.quantity = quantity;
+
         list.push(data);
       } else {
         var data = { ...productSelected };
@@ -370,6 +382,8 @@ function ModalAddProductDetail({
         theme: "light",
       });
     } else {
+      console.log("Check elsse");
+
       console.log(productSelected);
       Modal.confirm({
         title: "Xác nhận",
@@ -385,6 +399,8 @@ function ModalAddProductDetail({
             totalMoney: 0,
             promotion: productSelected.promotion,
           };
+          console.log("data", data);
+
           var check = undefined;
           await BillApi.fetchAllProductsInBillByIdBill({
             idBill: bill.id,
@@ -398,7 +414,7 @@ function ModalAddProductDetail({
                   : (product.price * (100 - product.promotion)) / 100) ==
                   productSelected.price
             );
-            console.log(check);
+            console.log("Check check", check);
             if (check === undefined) {
               await BillApi.addProductInBill(data).then((res) => {
                 var price = productSelected.price;
@@ -651,37 +667,6 @@ function ModalAddProductDetail({
               ))}
             </Select>
           </Col>
-          {/* <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
-            <label>Giới Tinh :</label>
-          </Col> */}
-          {/* <Col span={3}>
-            <Select
-              style={{ width: "100%" }}
-              value={selectedValues.gender}
-              onChange={(value) => handleSelectChange(value, "gender")}
-              defaultValue=""
-            >
-              <Option value="">Chọn</Option>
-              <Option value="NAM">Nam</Option>
-              <Option value="NU">Nữ</Option>
-            </Select>
-          </Col> */}
-
-          {/* <Col span={2} style={{ textAlign: "right", paddingRight: 10 }}>
-            <label>Khoảng giá :</label>
-          </Col>
-          <Col span={3}>
-            <Slider
-              range={{
-                draggableTrack: true,
-              }}
-              defaultValue={[selectedValues.minPrice, selectedValues.maxPrice]}
-              min={100000}
-              max={30000000}
-              tipFormatter={(value) => formatCurrency(value)}
-              onChange={handleChangeValuePrice}
-            />
-          </Col> */}
         </Row>
       </div>
 
@@ -692,7 +677,7 @@ function ModalAddProductDetail({
           columns={columns}
           pagination={{
             pageSize: 10,
-            showSizeChanger: false, // Ẩn phần chọn số lượng bản ghi mỗi trang
+            showSizeChanger: false,
           }}
           className="category-table"
           style={{ margin: "10px 0 0 0" }}

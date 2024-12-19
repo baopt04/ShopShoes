@@ -42,5 +42,6 @@ public interface BillHistoryRepository extends JpaRepository<BillHistory, String
             """, nativeQuery = true)
     List<BillHistory> getBillHistoryByIdBill(@Param("idBill") String idBill);
     Optional<BillHistory> findByBill_Id(String ibBill);
-
+    @Query("SELECT bh from BillHistory bh where bh.bill.id = :billId ")
+List<BillHistory> findAllHistoryByBillId(@Param("billId") String billId);
 }

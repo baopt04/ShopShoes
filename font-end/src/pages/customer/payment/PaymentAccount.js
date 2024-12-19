@@ -71,6 +71,9 @@ function PaymentAccount() {
   const [exchangeRateMoney, setExchangeRateMoney] = useState(0);
   const formatDiscountValue = (value) => {
     if (value === undefined || value === null) return "";
+    if (value == 0) {
+      return "0 VND";
+    }
     if (value <= 100) {
       return `${value} %`;
     } else {
@@ -332,7 +335,7 @@ function PaymentAccount() {
 
   const getMoneyShip = (districtId, wardCode) => {
     console.log(totalBefore - voucher.value);
-    if (totalBefore - voucher.value >= 5000000) {
+    if (totalBefore - voucher.value >= 2000000) {
       setMoneyShip(0);
     } else {
       AddressClientApi.getMoneyShip(districtId, wardCode).then(

@@ -595,9 +595,11 @@ function DetailBill() {
                   });
               }
               dispatch(addStatusPresent(index));
+              toast.success("Chuyển trạng thái thành công");
+              setIsModalOpenChangeStatus(false);
             })
             .catch((error) => {
-              toast.error(error.response.data.message);
+              // toast.error(error.response.data.message);
             });
           await PaymentsMethodApi.findByIdBill(id).then((res) => {
             dispatch(getPaymentsMethod(res.data.data));
@@ -605,8 +607,6 @@ function DetailBill() {
           await BillApi.fetchAllHistoryInBillByIdBill(id).then((res) => {
             dispatch(getBillHistory(res.data.data));
           });
-          toast.success("Chuyển trạng thái thành công");
-          setIsModalOpenChangeStatus(false);
         },
         onCancel: () => {
           setIsModalOpenChangeStatus(false);

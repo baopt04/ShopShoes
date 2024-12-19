@@ -100,12 +100,8 @@ function FilterVoucherManagement({ modalFilter, setModalFilter, onFilter }) {
         <Form.Item>
           <div style={{ float: "right" }}>
             <Button onClick={closeModal}>Hủy</Button>
-            <Button 
-            onClick={clearModal} 
-            style={{ marginLeft: "20px" }}
-            >
-              
-              reset
+            <Button onClick={clearModal} style={{ marginLeft: "20px" }}>
+              Làm mới
             </Button>
             <Button
               className="button-add-promotion"

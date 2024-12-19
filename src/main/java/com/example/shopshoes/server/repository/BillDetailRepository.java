@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BillDetailRepository extends JpaRepository<BillDetail, String> {
 
@@ -80,5 +81,6 @@ public interface BillDetailRepository extends JpaRepository<BillDetail, String> 
                    WHERE id_bill = :id
             """, nativeQuery = true)
     int deleteAllByIdBill(@Param("id") String idBill);
-
+    @Query("SELECT bd FROM BillDetail bd WHERE bd.bill.id = :billId")
+    List<BillDetail> findByBillId(@Param("billId") String billId);
 }

@@ -221,6 +221,7 @@ function UpdateVoucherManagement({ modalUpdate, setModalUpdate, id }) {
                 inputChange("quantity", value);
               }}
               min="1"
+              max="10000"
             />
           </Form.Item>
           <Form.Item

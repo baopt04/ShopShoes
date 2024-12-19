@@ -46,7 +46,7 @@ public interface BillService {
     Bill CreateCodeBill(String idEmployees);
 
     boolean updateBillWait(CreateBillOfflineRequest request);
-
+    boolean updateProduct(CreateBillOfflineRequest request);
     Bill  save(String id, CreateBillOfflineRequest request);
 
     Bill updateBillOffline(String id, UpdateBillRequest bill);

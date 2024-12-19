@@ -145,7 +145,9 @@ function UpdateVoucherManagement({ modalDetail, setModalDetail, id }) {
               className="input-create-voucher"
               name="status"
               value={
-                formData["status"] === "DANG_SU_DUNG" ? "Còn hạn" : "Hết hạn"
+                formData["status"] === "DANG_SU_DUNG"
+                  ? "Đang kích hoạt"
+                  : "Ngưng kích hoạt"
               }
             />
           </Form.Item>

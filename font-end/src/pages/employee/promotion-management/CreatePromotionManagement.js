@@ -72,7 +72,7 @@ function CreateVoucherManagement() {
     const hasValueGreaterThanZero = selected.some(
       (product) => product.value > 0
     );
-    setIsButtonDisabled(hasValueGreaterThanZero); // Vô hiệu hóa nút nếu có sản phẩm có value > 0
+    setIsButtonDisabled(hasValueGreaterThanZero);
   }, [selectedRowKeysDetail, listProductDetail]);
   useEffect(() => {
     for (const key of selectedRowKeys) {
@@ -169,11 +169,16 @@ function CreateVoucherManagement() {
           formData.startDate &&
           formData.endDate &&
           formData.startDate < formData.endDate &&
-          formData.endDate > dayjs().valueOf();
+          formData.endDate > dayjs().valueOf() &&
+          formData.name.length <= 50;
 
         if (!isFormValid) {
           const errors = {
-            name: !formData.name ? "Vui lòng nhập tên khuyễn mại" : "",
+            name: !formData.name
+              ? "Vui lòng nhập tên khuyến mãi"
+              : formData.name.length > 50
+              ? "Tên khuyến mãi không được vượt quá 50 ký tự"
+              : "",
             value: !formData.value ? "Vui lòng nhập giá trị giảm" : "",
             startDate: !formData.startDate ? "Vui lòng chọn ngày bắt đầu" : "",
 

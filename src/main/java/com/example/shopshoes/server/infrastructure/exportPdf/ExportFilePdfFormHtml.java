@@ -31,6 +31,7 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Currency;
@@ -65,8 +66,10 @@ public class ExportFilePdfFormHtml {
 
         Map<String, Object> data = new HashMap<>();
         String totalPaymentStr = invoice.getTotalPayment();
-        if (totalPaymentStr.contains("-")){
+
+        if (totalPaymentStr.contains("-") ) {
             invoice.setTotalPayment("0 đ");
+
         }
         data.put("invoice", invoice);
 
@@ -81,6 +84,7 @@ public class ExportFilePdfFormHtml {
 
         Map<String, Object> data = new HashMap<>();
         String totalPaymentStr = invoice.getTotalPayment();
+
         if (totalPaymentStr.contains("-")){
             invoice.setTotalPayment("0 đ");
         }

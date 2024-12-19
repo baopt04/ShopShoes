@@ -1,7 +1,4 @@
-import {
-  request,
-  requestAdress,
-} from "../../../helper/request";
+import { request, requestAdress } from "../../../helper/request";
 export class AddressApi {
   static fetchAll = (filter) => {
     return request({

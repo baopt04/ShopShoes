@@ -61,7 +61,7 @@ export default function TabAllBill({ listBill }) {
                   {item.statusBill === "TAO_HOA_DON"
                     ? "Tạo Hóa đơn"
                     : item.statusBill === "CHO_XAC_NHAN"
-                    ? "Chờ xác nhận"
+                    ? "Chờ xác nhận "
                     : item.statusBill === "XAC_NHAN"
                     ? "Xác nhận"
                     : item.statusBill === "CHO_VAN_CHUYEN"
@@ -142,13 +142,14 @@ export default function TabAllBill({ listBill }) {
               </span>
             </div>
             <div className="box-repurchase">
-              {item.statusBill === "CHO_XAC_NHAN" ? (
+              {item.statusBill === "CHO_XAC_NHAN" ||
+              item.statusBill === "CHO_VAN_CHUYEN" ? (
                 <>
                   <div
                     className="repurchase"
                     onClick={() => openModal(item.id)}
                   >
-                    Hủy đơn
+                    Hủy đơn hàng
                   </div>
                 </>
               ) : null}
@@ -181,7 +182,7 @@ export default function TabAllBill({ listBill }) {
         <Form>
           <Form.Item
             style={{ fontSize: 18 }}
-            label={"Nhập lý do hủy đơn "}
+            label={"Nhập lý do hủy đơn : "}
             validateStatus={errror ? "error" : ""}
             help={errror || ""}
           >

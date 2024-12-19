@@ -25,8 +25,8 @@ function CardItem({ item, index }) {
     nameProduct: "",
     price: 0,
     quantity: 0,
+    status: "",
   });
-  console.log("Check card", detailProduct);
 
   const idAccountLocal = sessionStorage.getItem("idAccount");
   const [quantity, setQuantity] = useState(1);
@@ -92,6 +92,7 @@ function CardItem({ item, index }) {
         nameSize: detailProduct.nameSize,
         quantityProductDetail: detailProduct.quantity,
         valuePromotion: detailProduct.valuePromotion,
+        status: detailProduct.status,
       };
       const detailProductCart = cartLocal.find(
         (item) => item.idProductDetail === id

@@ -439,11 +439,67 @@ public class BillServiceImpl implements BillService {
                 .employees(bill.getEmployees()).build());
         return bill;
     }
+    @Override
+public boolean updateProduct(CreateBillOfflineRequest request) {
+        try {
+            // lấy bill truyền từ request
+            Optional<Bill> optional = billRepository.findByCode(request.getCode());
+            System.out.println("Checlk bill id" + optional);
+            // bii không tô tại ném ra ngoại lệ
+            if (!optional.isPresent()) {
+                throw new RestApiException(Message.NOT_EXISTS);
+            }
+            // Xử lý bill_detail
+            List<BillDetailResponse> billDetailResponse = billDetailRepository
+                    .findAllByIdBill(new BillDetailRequest(optional.get().getId(), "THANH_CONG"));
+            billDetailResponse.forEach(item -> {
+                // lấy sản phẩm từ bill_detail
+                Optional<ProductDetail> productDetail = productDetailRepository.findById(item.getIdProduct());
+                if (!productDetail.isPresent()) {
+                    throw new RestApiException(Message.NOT_EXISTS);
+                }
+                // update lại sản phẩm
+                productDetail.get().setQuantity(item.getQuantity() + productDetail.get().getQuantity());
+                if (productDetail.get().getStatus() == Status.HET_SAN_PHAM) {
+                    productDetail.get().setStatus(Status.DANG_SU_DUNG);
+                }
+                productDetailRepository.save(productDetail.get());
+            });
+            request.getBillDetailRequests().forEach(billDetailRequest -> {
+                Optional<ProductDetail> productDetail = productDetailRepository
+                        .findById(billDetailRequest.getIdProduct());
+                if (!productDetail.isPresent()) {
+                    throw new RestApiException(Message.NOT_EXISTS);
+                }
+                if (productDetail.get().getQuantity() < billDetailRequest.getQuantity()) {
+                    throw new RestApiException(Message.ERROR_QUANTITY);
+                }
+                if (productDetail.get().getStatus() != Status.DANG_SU_DUNG) {
+                    throw new RestApiException(Message.NOT_PAYMENT_PRODUCT);
+                }
+                BillDetail billDetail = BillDetail.builder().statusBill(StatusBill.THANH_CONG).bill(optional.get())
+                        .productDetail(productDetail.get()).price(productDetail.get().getPrice())
+                        .quantity(billDetailRequest.getQuantity()).build();
+                if (billDetailRequest.getPromotion() != null) {
+                    billDetail.setPromotion(new BigDecimal(billDetailRequest.getPromotion()));
+                }
+                billDetailRepository.save(billDetail);
+                productDetail.get().setQuantity(productDetail.get().getQuantity() - billDetailRequest.getQuantity());
+                if (productDetail.get().getQuantity() == 0) {
+                    productDetail.get().setStatus(Status.HET_SAN_PHAM);
+                }
+                productDetailRepository.save(productDetail.get());
+            });
+        }catch (Exception e){
 
+        }
+        return  true;
+}
     @Override
     public boolean updateBillWait(CreateBillOfflineRequest request) {
         try {
             Optional<Bill> optional = billRepository.findByCode(request.getCode());
+            System.out.println("Check mã bill" + optional);
             if (!optional.isPresent()) {
                 throw new RestApiException(Message.NOT_EXISTS);
             }
@@ -568,6 +624,8 @@ public class BillServiceImpl implements BillService {
         return true;
     }
 
+
+
     @Override
     public Bill updateBillOffline(String id, UpdateBillRequest request) {
         Optional<Bill> updateBill = billRepository.findById(id);
@@ -598,8 +656,9 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public Bill changedStatusbill(String id, String idEmployees, ChangStatusBillRequest request) {
+    public Bill changedStatusbill(String id, String idEmployees, ChangStatusBillRequest request ) {
         Optional<Bill> bill = billRepository.findById(id);
+
         Optional<Account> account = accountRepository.findById(idEmployees);
         if (!bill.isPresent()) {
             throw new RestApiException(Message.BILL_NOT_EXIT);
@@ -617,6 +676,40 @@ public class BillServiceImpl implements BillService {
             throw new RestApiException(Message.CHANGED_STATUS_ERROR);
         }
         if (bill.get().getStatusBill() == StatusBill.XAC_NHAN) {
+            if (bill.get().getAccount() == null) {
+                System.out.println("Check id bill " + bill.get().getId());
+                String id_bill = bill.get().getId();
+                List<BillDetail> billDetailOnlineList = billDetailRepository.findByBillId(id_bill);
+                System.out.println("check bll list " + billDetailOnlineList);
+                if (!billDetailOnlineList.isEmpty()) {
+                    for (BillDetail billDetail : billDetailOnlineList) {
+                        String productDetailId = billDetail.getProductDetail().getId();
+                        Optional<ProductDetail> productDetail = productDetailRepository.findById(productDetailId);
+                        if (productDetail.isPresent()) {
+                            ProductDetail product = productDetail.get();
+                            if (product.getQuantity() < billDetail.getQuantity()) {
+                                throw new RestApiException(Message.ERROR_QUANTITYY);
+
+                            }
+                            if(product.getStatus() != Status.DANG_SU_DUNG){
+                                throw new RestApiException(Message.NOT_PAYMENT_PRODUCT);
+                            }
+                            product.setQuantity(product.getQuantity() - billDetail.getQuantity());
+                            if (product.getQuantity() == 0) {
+                                product.setStatus(Status.HET_SAN_PHAM);
+                            }
+                            productDetailRepository.save(product);
+                            System.out.println("Product quantity updated successfully");
+                        } else {
+                            System.out.println("Product not found for ID: " + productDetailId);
+                        }
+                    }
+                } else {
+                    System.out.println("No BillDetail found for Bill ID: " + id_bill);
+                }
+            }
+
+
             bill.get().setConfirmationDate(Calendar.getInstance().getTimeInMillis());
             CompletableFuture.runAsync(() -> createTemplateSendMail(bill.get().getId(), new BigDecimal(0)),
                     Executors.newCachedThreadPool());
@@ -664,6 +757,8 @@ public class BillServiceImpl implements BillService {
         return billResponse;
     }
 
+
+
     @Override
     public Bill rollBackBill(String id, String idEmployees, ChangStatusBillRequest request) {
         Optional<Bill> bill = billRepository.findById(id);
@@ -685,9 +780,7 @@ public class BillServiceImpl implements BillService {
             throw new RestApiException(Message.CHANGED_STATUS_ERROR);
         }
         if (bill.get().getStatusBill() == StatusBill.THANH_CONG) {
-            // CompletableFuture.runAsync(() ->
-            // sendEmailService.sendEmailRollBackBill("vinhnvph23845@fpt.edu.vn",
-            // request.getActionDescription(), id), Executors.newCachedThreadPool());
+
             long confirmedTimestamp = bill.get().getCompletionDate();
             Instant confirmedInstant = Instant.ofEpochMilli(confirmedTimestamp);
             LocalDateTime confirmedDateTime = LocalDateTime.ofInstant(confirmedInstant, ZoneId.systemDefault());
@@ -861,7 +954,7 @@ public class BillServiceImpl implements BillService {
                 if (productDetail.getStatus() != Status.DANG_SU_DUNG) {
                     throw new RestApiException(Message.NOT_PAYMENT_PRODUCT);
                 }
-                productDetail.setQuantity(productDetail.getQuantity() - x.getQuantity());
+//                productDetail.setQuantity(productDetail.getQuantity() - x.getQuantity());
                 if (productDetail.getQuantity() == 0) {
                     productDetail.setStatus(Status.HET_SAN_PHAM);
                 }
@@ -910,8 +1003,9 @@ public class BillServiceImpl implements BillService {
                     .promotion(x.getValuePromotion())
                     .bill(bill).build();
             billDetailRepository.save(billDetail);
-
         }
+
+
         PaymentsMethod paymentsMethod = PaymentsMethod.builder()
                 .method(request.getPaymentMethod().equals("paymentReceive") ? StatusMethod.TIEN_MAT
                         : StatusMethod.CHUYEN_KHOAN)
@@ -948,7 +1042,7 @@ public class BillServiceImpl implements BillService {
             voucherRepository.save(voucher);
         }
 
-        CompletableFuture.runAsync(() -> sendMailOnline(bill.getId()), Executors.newCachedThreadPool());
+        sendMailOnlineUser(bill.getId());
 
         Notification notification = Notification.builder()
                 .receiver("admin")
@@ -959,7 +1053,24 @@ public class BillServiceImpl implements BillService {
         messagingTemplate.convertAndSend("/app/admin-notifications", new ResponseObject(true));
         return bill;
     }
+    public void sendMailOnlineUser(String idBill) {
+        System.out.println("ID bill tìm thấy " + idBill);
+        Optional<Bill> optional = billRepository.findById(idBill);
+        System.out.println("Kết quả tìm kiếm Bill: " + optional.isPresent());
+        if (optional.isPresent()) {
+            InvoiceResponse invoice = exportFilePdfFormHtml.getInvoiceResponse(optional.get(), new BigDecimal(0));
+            invoice.setCheckShip(true);
+            System.out.println("CheckOptional_Mail");
 
+            if (optional.get().getEmail() != null) {
+                sendMail(invoice,
+                        domainClient + "/bill/" + optional.get().getCode() + "/" + optional.get().getPhoneNumber(),
+                        optional.get().getEmail());
+            }
+        } else {
+            System.out.println("Không tìm thấy Bill với ID: " + idBill);
+        }
+    }
     @Override
     public Bill createBillAccountOnlineRequest(CreateBillAccountOnlineRequest request) {
         if (request.getPaymentMethod().equals("paymentReceive")) {
@@ -1099,26 +1210,41 @@ public class BillServiceImpl implements BillService {
     @Override
     public Bill changeStatusBill(CancelBillClientRequest request) {
         Optional<Bill> optional = billRepository.findById(request.getId());
-        Optional<BillHistory> optionalBillHistory = billHistoryRepository.findByBill_Id(request.getId());
-
+//        Optional<BillHistory> optionalBillHistory = billHistoryRepository.findByBill_Id(request.getId());
+        List<BillHistory> billHistories = billHistoryRepository.findAllHistoryByBillId(request.getId());
         if (optional.isEmpty()) {
             throw new RestApiException("Hóa đơn không tồn tại");
         }
-        if (optionalBillHistory.isEmpty()) {
+        if (billHistories.isEmpty()) {
             throw new RestApiException("Lịch sử hóa đơn không tồn tại");
         }
 
         Bill bill = optional.get();
-        BillHistory billHistory = optionalBillHistory.get();
-        if (bill.getStatusBill().equals(StatusBill.CHO_XAC_NHAN)) {
+        BillHistory billHistory = billHistories.get(0);
+        if (bill.getStatusBill().equals(StatusBill.CHO_XAC_NHAN) || bill.getStatusBill().equals(StatusBill.CHO_VAN_CHUYEN)  ) {
             billHistory.setStatusBill(StatusBill.DA_HUY);
             billHistory.setActionDescription(request.getDescription());
             bill.setStatusBill(StatusBill.DA_HUY);
             billHistoryRepository.save(billHistory);
-        } else {
-            throw new RestApiException("Chỉ được hủy hóa đơn chờ xác nhận");
         }
 
+        else {
+            throw new RestApiException("Chỉ được hủy hóa đơn chờ xác nhận và chờ vận chuyển");
+        }
+
+        List<BillDetailResponse> billDetailResponse = billDetailRepository
+                .findAllByIdBill(new BillDetailRequest(bill.getId(), "THANH_CONG"));
+        billDetailResponse.forEach(item -> {
+            Optional<ProductDetail> productDetail = productDetailRepository.findById(item.getIdProduct());
+            if (!productDetail.isPresent()) {
+                throw new RestApiException(Message.NOT_EXISTS);
+            }
+            productDetail.get().setQuantity(item.getQuantity() + productDetail.get().getQuantity());
+            if (productDetail.get().getStatus() == Status.HET_SAN_PHAM) {
+                productDetail.get().setStatus(Status.DANG_SU_DUNG);
+            }
+            productDetailRepository.save(productDetail.get());
+        });
         return billRepository.save(bill);
     }
 

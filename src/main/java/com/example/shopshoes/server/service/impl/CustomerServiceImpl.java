@@ -79,6 +79,10 @@ public class CustomerServiceImpl implements CustomerService {
         if (checkUserEmail != null) {
             throw new RestApiException(Message.EMAIL_USER_EXIST);
         }
+        User checkEmail = userReposiory.getOneUserByEmail1(request.getEmail());
+        if (checkEmail != null) {
+            throw new RestApiException(Message.EMAIL_USER_EXIST);
+        }
 
         // xử lý ảnh
         String urlImage = imageToCloudinary.uploadImage(file);

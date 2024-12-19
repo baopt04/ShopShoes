@@ -92,14 +92,21 @@ function CreateBill({
   const initialValues = {
     status: "DANG_SU_DUNG",
   };
+  // useEffect(() => {
+  //   console.log("Check ");
+
+  // }[item.quantity])
 
   useEffect(() => {
+    console.log("Change tab");
+
     if (keyTab != "-1") {
       updateBill();
     }
-  }, [keyTab]);
+  }, [keyTab, products]);
 
   const updateBill = () => {
+    console.log("Check gọi");
     localStorage.setItem("code", billRequest.code);
     var newProduct = products.map((product) => ({
       idProduct: product.idProduct,
@@ -180,7 +187,7 @@ function CreateBill({
     };
     BillApi.updateBillWait(data)
       .then((res) => {
-        console.log(data);
+        console.log("Check data update bill wait", data);
       })
       .catch((error) => {
         toast.error(error.response.data.message);
@@ -314,6 +321,8 @@ function CreateBill({
     }
   }, [data]);
   useEffect(() => {
+    console.log("Check tab");
+
     loadData();
     loadDataProvince();
     setAccountUser(null);
@@ -336,6 +345,7 @@ function CreateBill({
         });
         setProducts(data);
       })
+
       .catch((error) => {
         toast.error(error.response.data.message);
       });
@@ -557,18 +567,7 @@ function CreateBill({
       key: "stt",
       // sorter: (a, b) => a.stt - b.stt,
     },
-    // {
-    //   title: "Ảnh",
-    //   dataIndex: "avata",
-    //   key: "avata",
-    //   render: (avata) => (
-    //     <img
-    //       src={avata}
-    //       alt="Hình ảnh"
-    //       style={{ width: "60px", height: "60px", borderRadius: "50%" }}
-    //     />
-    //   ),
-    // },
+
     {
       title: "Tên khách hàng",
       dataIndex: "fullName",
@@ -1387,7 +1386,7 @@ function CreateBill({
       ProducDetailtApi.getOne(data)
         .then((res) => {
           const resData = res.data.data;
-          const productNameQr = `${resData.nameProduct} [ 39 - Maroon ]`;
+          const productNameQr = `${resData.nameProduct} [ 36 - black ]`;
           const newProduct = {
             image: res.data.data.image,
             productName: productNameQr,
@@ -2016,7 +2015,6 @@ function CreateBill({
                     onClick={(e) => removeProductInBill(e, item.idSizeProduct)}
                   >
                     Xóa sản phẩm
-                    {/* <BsTrash /> */}
                   </Button>
                 </Col>
               </Row>

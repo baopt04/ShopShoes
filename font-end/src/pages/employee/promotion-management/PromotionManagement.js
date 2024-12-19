@@ -83,7 +83,7 @@ const PromotionManagement = () => {
       (res) => {
         setList(res.data.data);
         dispatch(SetPromotion(res.data.data));
-        console.log(res.data.data);
+        console.log("Check data", res.data.data);
       },
       (err) => {
         console.log(err);
@@ -117,6 +117,7 @@ const PromotionManagement = () => {
   };
   const openUpdate = (id) => {
     localStorage.setItem("id", id);
+    console.log("Check id ", id);
   };
   const openDetail = (id) => {
     setModal(true);

@@ -43,6 +43,7 @@ function Profile() {
       });
       setShowImage(data.avata);
     });
+    console.log("Check", formInfo);
   }, []);
 
   useEffect(() => {
@@ -198,11 +199,11 @@ function Profile() {
                   span: 5,
                 }}
               >
-                <Form.Item label="Họ và tên" name="fullName">
-                  <Input
+                <Form.Item label="Họ và tên">
+                  <input
                     value={formInfo["fullName"]}
                     className="input-info-profile"
-                    placeholder="Nhập họ và tên"
+                    placeholder="Điền họ và tên"
                     onChange={(e) => handleFormInfo("fullName", e.target.value)}
                   />
                 </Form.Item>

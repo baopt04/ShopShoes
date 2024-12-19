@@ -5,6 +5,13 @@ import com.example.shopshoes.server.dto.request.bill.ChangStatusBillRequest;
 import com.example.shopshoes.server.dto.request.bill.StatusRequest;
 import com.example.shopshoes.server.dto.request.bill.billaccount.CreateBillAccountOnlineRequest;
 import com.example.shopshoes.server.dto.request.bill.billcustomer.CreateBillCustomerOnlineRequest;
+import com.example.shopshoes.server.dto.request.billdetail.BillDetailRequest;
+import com.example.shopshoes.server.dto.response.billdetail.BillDetailResponse;
+import com.example.shopshoes.server.entity.BillHistory;
+import com.example.shopshoes.server.entity.ProductDetail;
+import com.example.shopshoes.server.infrastructure.constant.Message;
+import com.example.shopshoes.server.infrastructure.constant.Status;
+import com.example.shopshoes.server.infrastructure.constant.StatusBill;
 import com.example.shopshoes.server.infrastructure.session.ShoseSession;
 import com.example.shopshoes.server.service.BillService;
 import com.example.shopshoes.server.util.ResponseObject;
@@ -20,6 +27,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Calendar;
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -64,3 +75,6 @@ public class BillClientRestController {
         return new ResponseObject(billService.changeStatusBill(cancelBillClientRequest));
     }
 }
+
+
+

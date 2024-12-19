@@ -79,11 +79,16 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
           formData.startDate &&
           formData.endDate &&
           formData.startDate < formData.endDate &&
-          formData.endDate > dayjs().valueOf();
+          formData.endDate > dayjs().valueOf() &&
+          formData.name.length <= 50;
 
         if (!isFormValid) {
           const errors = {
-            name: !formData.name ? "Vui lòng nhập tên khuyễn mãi" : "",
+            name: !formData.name
+              ? "Vui lòng nhập tên khuyến mãi"
+              : formData.name.length > 50
+              ? "Tên khuyến mãi không được vượt quá 50 ký tự"
+              : "",
             value: !formData.value ? "Vui lòng nhập giá giảm" : "",
             startDate: !formData.startDate ? "Vui lòng chọn ngày bắt đầu" : "",
             quantity: !formData.quantity ? "Vui lòng nhập số lượng" : "",

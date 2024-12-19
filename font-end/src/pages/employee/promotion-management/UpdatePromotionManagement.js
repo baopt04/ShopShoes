@@ -96,7 +96,7 @@ function UpdatePromotionManagement() {
   }, [listProductDetail]);
 
   useEffect(() => {
-    console.log(selectedRowKeysDetail);
+    console.log("Chekc product detail", selectedRowKeysDetail);
   }, [selectedRowKeysDetail]);
 
   useEffect(() => {
@@ -172,6 +172,8 @@ function UpdatePromotionManagement() {
     selectedRowKeys: selectedRowKeysDetail,
     onChange: onSelectChangeDetail,
   };
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [selectedProducts, setSelectedProducts] = useState([]);
 
   const handleInputChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
@@ -207,12 +209,17 @@ function UpdatePromotionManagement() {
           formData.value &&
           formData.startDate &&
           formData.endDate &&
-          formData.startDate < formData.endDate;
+          formData.startDate < formData.endDate &&
+          formData.name.length <= 50;
 
         if (!isFormValid) {
           const errors = {
             code: !formData.code ? "Vui lòng nhập mã khuyễn mại" : "",
-            name: !formData.name ? "Vui lòng nhập tên khuyễn mại" : "",
+            name: !formData.name
+              ? "Vui lòng nhập tên khuyến mãi"
+              : formData.name.length > 50
+              ? "Tên khuyến mãi không được vượt quá 50 ký tự"
+              : "",
             value: !formData.value ? "Vui lòng nhập giá giảm" : "",
             startDate: !formData.startDate ? "Vui lòng chọn ngày bắt đầu" : "",
             endDate: !formData.endDate
@@ -656,7 +663,7 @@ function UpdatePromotionManagement() {
               rowKey="code"
               columns={columnsPromotion}
               dataSource={updatedListPromotion}
-              pagination={{ pageSize: 5 }}
+              pagination={{ pageSize: 10 }}
               style={{ margin: "50px" }}
             />
           </div>

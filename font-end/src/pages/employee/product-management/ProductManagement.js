@@ -212,7 +212,7 @@ const ProductManagement = () => {
             <div className="content-left">
               Tìm kiếm :{" "}
               <Input
-                placeholder="Tìm kiếm"
+                placeholder="Tìm kiếm theo mã và tên sản phẩm"
                 type="text"
                 style={{ width: "50%", marginLeft: "10px", height: "40px" }}
                 name="keyword"

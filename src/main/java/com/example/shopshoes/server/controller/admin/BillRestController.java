@@ -113,6 +113,10 @@ public class BillRestController {
     public ResponseObject updateBillWait(@RequestBody CreateBillOfflineRequest request) {
         return  new ResponseObject(billService.updateBillWait(request));
     }
+    @PutMapping("/update-quantity")
+    public ResponseObject updateQuantity(@RequestBody CreateBillOfflineRequest request) {
+        return  new ResponseObject(billService.updateProduct(request));
+    }
 
     @GetMapping("/invoice-pdf/{code}/{totalExcessMoney}")
     public ResponseObject getFilePdf(@PathVariable("code") String code, @PathVariable("totalExcessMoney") BigDecimal totalExcessMoney)  {
