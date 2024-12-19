@@ -80,8 +80,11 @@ function Cart() {
               quantity: item.quantity,
               quantityProductDetail: data.quantity,
               valuePromotion: data.valuePromotion,
+              nameColor: item.nameColor,
             },
           ]);
+          console.log("cart", cart);
+
           const quantity = res.data.data.quantity;
           return quantity;
         })
@@ -361,6 +364,23 @@ function Cart() {
     }
     if (value <= 100) {
       return `${value} %`;
+    } else {
+      const formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        currencyDisplay: "code",
+      });
+      return formatter.format(value);
+    }
+  };
+  const formatDiscountValue1 = (value) => {
+    if (value === undefined || value === null) return "";
+    if (value == 0) {
+      return "0 VND";
+    }
+    if (value <= 100) {
+      const discountAmount = (totalPrice * value) / 100; // Tính số tiền giảm
+      return `${discountAmount.toLocaleString("vi-VN")} VND`;
     } else {
       const formatter = new Intl.NumberFormat("vi-VN", {
         style: "currency",
@@ -671,29 +691,12 @@ function Cart() {
                                     item.idProductDetail
                                 )}
                               />
-                              {/* <div
-                              style={{
-                                flex: 1,
-                                display: "flex",
-                                justifyContent: "center",
-                              }}
-                            >
-                              <img
-                                style={{
-                                  width: "130px",
-                                  height: "130px",
-
-                                  borderRadius: "10px",
-                                }}
-                                src={item.image.split(",")[0]}
-                                alt="..."
-                              />
-                            </div> */}
                             </div>
                             <div className="info-product-detail">
                               <div className="cart-name">
                                 {" "}
-                                {item.nameProduct} - size: {item.nameSize}
+                                {item.nameProduct} - size: {item.nameSize} - màu
+                                sắc: {item.codeColor}
                               </div>
                               <div className="cart-price">
                                 Giá:
@@ -909,7 +912,7 @@ function Cart() {
                     <div style={{ display: "flex", marginTop: "20px" }}>
                       <span>Giảm : </span>{" "}
                       <span style={{ marginLeft: "auto" }}>
-                        {formatDiscountValue(voucher.value)}
+                        {formatDiscountValue1(voucher.value)}
                       </span>
                     </div>
                   </div>

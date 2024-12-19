@@ -97,6 +97,8 @@ function Payment() {
       discountAmount = voucher.value;
     }
     setTotalBillToPay(totalBill - discountAmount);
+    console.log("Check bill ", totalBill);
+
     formBillChange("afterPrice", totalBill);
     const updatedListproductOfBill = listproductOfBill.map((item) => {
       const { nameProduct, nameSize, image, ...rest } = item;
@@ -104,7 +106,7 @@ function Payment() {
     });
     setFormBill((prevFormBill) => ({
       ...prevFormBill,
-      itemDiscount: voucher.value,
+      itemDiscount: discountAmount,
       idVoucher: voucher.idVoucher,
       billDetail: updatedListproductOfBill,
       afterPrice: totalBill,
@@ -333,19 +335,30 @@ function Payment() {
         .replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VND"
     );
   };
-  const formatMoney1 = (price) => {
+  const formatMoney1 = (price, totalPrice) => {
+    // Nếu giá trị price là 0 (trường hợp giảm 0%)
     if (price == 0) {
       return price.toFixed(0) + " VND";
     }
+
+    // Nếu price là phần trăm, tính số tiền giảm
     if (price < 1000) {
-      return price.toFixed(0) + "%";
+      const discountAmount = (totalBill * price) / 100; // Tính số tiền giảm từ tổng tiền và tỷ lệ phần trăm
+      return (
+        discountAmount
+          .toFixed(0) // Làm tròn số tiền giảm
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VND"
+      );
     }
+
+    // Trường hợp giá trị lớn hơn 1000 thì coi là số tiền trực tiếp (không phải phần trăm)
     return (
-      parseInt(price)
-        .toString()
+      price
+        .toFixed(0) // Làm tròn số tiền
         .replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VND"
     );
   };
+
   const formBillChange = (name, value) => {
     setFormBill((prevFormBill) => ({
       ...prevFormBill,
@@ -717,7 +730,7 @@ function Payment() {
 
                 <div style={{ display: "flex", marginBottom: "50px" }}>
                   <p style={{ fontSize: "20px", fontWeight: "500" }}>
-                    TỔNG TIỀN:
+                    TỔNG TIỀN :
                   </p>{" "}
                   <p
                     style={{

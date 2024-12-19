@@ -10,7 +10,8 @@ public interface GetProductDetailByCategory {
     String getIdProduct();
     @Value("#{target.idProductDetail}")
     String getIdProductDetail();
-
+    @Value("#{target.status}")
+    String getStatus();
     @Value("#{target.codeColor}")
     String getCodeColor();
     @Value("#{target.nameSize}")

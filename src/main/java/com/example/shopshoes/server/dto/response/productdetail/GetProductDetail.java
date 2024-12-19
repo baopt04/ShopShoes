@@ -1,6 +1,7 @@
 package com.example.shopshoes.server.dto.response.productdetail;
 
 
+import com.example.shopshoes.server.infrastructure.constant.Status;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.math.BigDecimal;
@@ -10,7 +11,8 @@ public interface GetProductDetail {
     String getIdProduct();
     @Value("#{target.idProductDetail}")
     String getIdProductDetail();
-
+    @Value("#{target.status}")
+    String getStatus();
     @Value("#{target.codeColor}")
     String getCodeColor();
     @Value("#{target.nameSize}")

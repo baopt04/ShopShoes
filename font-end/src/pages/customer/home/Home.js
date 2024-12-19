@@ -31,7 +31,8 @@ function Home() {
 
   useEffect(() => {
     // console.log(listProductDetail);
-  }, [listProductDetail]);
+    console.log("Check sell ", listProductDetail);
+  });
   useEffect(() => {
     // console.log(currentPage);
   }, [currentPage]);
@@ -57,8 +58,10 @@ function Home() {
     }
   }, [listCategory]);
   useEffect(() => {
-    console.log(listProductDetailByCategory);
+    console.log("Check list product", listProductDetailByCategory);
   }, [listProductDetailByCategory]);
+  console.log("Check list product", listProductDetailByCategory);
+  console.log("Check list new ", listProductDetail);
 
   const getCategory = () => {
     CategoryClientApi.getAll().then(
@@ -175,117 +178,89 @@ function Home() {
   };
 
   return (
-    <div className="home">
-      <div className="banner">
-        <div className="img-banner-home"></div>
-      </div>
-      <div>
-        <Row justify="center">
-          <Col className="col-choose" lg={{ span: 6, offset: 1 }}>
-            <div className="type-gender-2">
-              <Link className="hover-wrapper">
-                <img
-                  className="img-choose-gender"
-                  src={banner_gioiThieu}
-                  alt="..."
-                  style={{ borderRadius: "5px" }}
-                />
-              </Link>
-            </div>
-          </Col>
-          <Col className="col-choose" lg={{ span: 6, offset: 1 }}>
-            <div className="type-gender-2">
-              <Link className="hover-wrapper">
-                <img
-                  className="img-choose-gender"
-                  src={banner_gioiThieu}
-                  alt="..."
-                  style={{ borderRadius: "5px" }}
-                />
-              </Link>
-            </div>
-          </Col>
-          <Col className="col-choose" lg={{ span: 6, offset: 1 }}>
-            <div className="type-gender-2">
-              <Link className="hover-wrapper">
-                <img
-                  className="img-choose-gender"
-                  src={banner_gioiThieu}
-                  alt="..."
-                  style={{ borderRadius: "5px" }}
-                />
-              </Link>
-            </div>
-          </Col>
-        </Row>
-      </div>
-
-      <div className="search-category">
-        <div className="title-product-category">
-          <p> SẢN PHẨM </p>
+    <>
+      <div className="home">
+        <div className="banner">
+          <div className="img-banner-home"></div>
         </div>
-        <Row>
-          <Col lg={{ span: 23 }} className="content-search-category">
-            {/* <div className="title-category-home">
-              <div className="text-category">Loại giày</div>
-
-              <Menu defaultSelectedKeys={["0"]}>
-                {listCategory.map((item, index) => (
-                  <Menu.Item
-                    className="item-category"
-                    key={index}
-                    onClick={() => {
-                      getProductDetailByCategory(item.id);
-                    }}
-                    style={{ marginBottom: "20px" }}
-                  >
-                    {item.name}
-                  </Menu.Item>
-                ))}
-              </Menu>
-            </div> */}
-            {/* <div
-              style={{
-                width: "362px",
-                height: "100%",
-              }}
-            >
-              <Link>
-                <img src={category3} alt="..."></img>
-              </Link>
-            </div> */}
-
-            <div className="list-product-of-category">
-              <LeftOutlined className="button-prev-card" onClick={previous} />
-
-              {listProductDetailByCategory
-                .slice(
-                  currentIndex * itemsPerPage,
-                  (currentIndex + 1) * itemsPerPage
-                )
-                .map((item, index) => (
-                  <CardItem key={index} item={item} />
-                ))}
-
-              <RightOutlined className="button-next-card" onClick={next} />
-            </div>
-          </Col>
-        </Row>
-      </div>
-      <div>
-        <div className="title-product-category">
-          <p> BÁN CHẠY</p>
+        <div>
+          <Row justify="center">
+            <Col className="col-choose" lg={{ span: 6, offset: 1 }}>
+              <div className="type-gender-2">
+                <Link className="hover-wrapper">
+                  <img
+                    className="img-choose-gender"
+                    src={banner_gioiThieu}
+                    alt="..."
+                    style={{ borderRadius: "5px" }}
+                  />
+                </Link>
+              </div>
+            </Col>
+            <Col className="col-choose" lg={{ span: 6, offset: 1 }}>
+              <div className="type-gender-2">
+                <Link className="hover-wrapper">
+                  <img
+                    className="img-choose-gender"
+                    src={banner_gioiThieu}
+                    alt="..."
+                    style={{ borderRadius: "5px" }}
+                  />
+                </Link>
+              </div>
+            </Col>
+            <Col className="col-choose" lg={{ span: 6, offset: 1 }}>
+              <div className="type-gender-2">
+                <Link className="hover-wrapper">
+                  <img
+                    className="img-choose-gender"
+                    src={banner_gioiThieu}
+                    alt="..."
+                    style={{ borderRadius: "5px" }}
+                  />
+                </Link>
+              </div>
+            </Col>
+          </Row>
         </div>
-        <Row justify={"center"}>
-          <Col>
-            <div className="list-product-of-category1">
-              {listProductDetail.map((item, index) => (
-                <CardItem item={item} index={index} />
-              ))}
-            </div>
-          </Col>
-        </Row>
-        {/* <Row justify={"center"} style={{ marginBottom: "30px" }}>
+
+        <div className="search-category">
+          <div className="title-product-category">
+            <p> SẢN PHẨM </p>
+          </div>
+          <Row>
+            <Col lg={{ span: 23 }} className="content-search-category">
+              <div className="list-product-of-category">
+                <LeftOutlined className="button-prev-card" onClick={previous} />
+
+                {listProductDetailByCategory
+                  .slice(
+                    currentIndex * itemsPerPage,
+                    (currentIndex + 1) * itemsPerPage
+                  )
+                  .map((item, index) => (
+                    <CardItem key={index} item={item} />
+                  ))}
+
+                <RightOutlined className="button-next-card" onClick={next} />
+              </div>
+            </Col>
+          </Row>
+        </div>
+        <div>
+          <div className="title-product-category">
+            <p> BÁN CHẠY</p>
+          </div>
+          <Row justify={"center"}>
+            <Col>
+              <div className="list-product-of-category1">
+                {listProductDetail.map((item, index) => (
+                  <CardItem item={item} index={index} />
+                ))}
+              </div>
+            </Col>
+          </Row>
+          {/* <Row justify={"center"} style={{ marginBottom: "30px" }}>
           <Pagination
             defaultCurrent={1}
             current={currentPage}
@@ -293,8 +268,9 @@ function Home() {
             onChange={handlePageChange}
           />
         </Row> */}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

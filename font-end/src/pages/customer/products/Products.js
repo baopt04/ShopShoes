@@ -82,7 +82,7 @@ function Products() {
   const [formPrice, setFormPrice] = useState({});
   const [formSearch, setFormSearch] = useState({
     page: currentPage,
-    size: 12,
+    size: 20,
     gender: "",
   });
   const [isChecked, setIsChecked] = useState({});

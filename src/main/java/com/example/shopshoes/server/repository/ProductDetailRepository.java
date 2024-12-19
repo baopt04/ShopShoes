@@ -167,6 +167,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, St
                 GROUP_CONCAT(i.name) as image,
                 p.name as nameProduct,
                 pd.price as price,
+                pd.status as status ,
                 promotion_summary.valuePromotion as valuePromotion,
                 pd.created_date as createdDate
                       
@@ -266,6 +267,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, St
                 p.id as idProduct,
                 pd.id as idProductDetail,
                 c.code as codeColor,
+                pd.status as status,
                 s.name as nameSize,
                 GROUP_CONCAT(i.name) as image,
                 p.name as nameProduct,
@@ -309,7 +311,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, St
                 LEFT JOIN promotion pr2 on pr2.id = ppd2.id_promotion
                 where ppd2.status = 'DANG_SU_DUNG' and pr2.status = 'DANG_KICH_HOAT' AND pd2.id = pd.id)  as valuePromotion,
                 pd.created_date as createdDate,
-                c.code as codeColor,
+                c.name as codeColor,
                 (select group_concat(s3.name,',',pd.id ORDER BY s3.name ASC) from product_detail pd
                 join size s3 on pd.id_size = s3.id
                 join color c3 on pd.id_color = c3.id
@@ -409,8 +411,11 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, St
                 GROUP_CONCAT(i.name) as image,
                 p.name as nameProduct,
                 pd.price as price,
+               pd.status as status ,
                 promotion_summary.valuePromotion as valuePromotion,
                 pd.created_date as createdDate
+           
+            
                         
             FROM product_detail pd
                      LEFT JOIN (

@@ -33,10 +33,11 @@ function CardItem({ item, index }) {
   const initialCartLocal = JSON.parse(localStorage.getItem("cartLocal")) || [];
 
   const [cartLocal, setCartLocal] = useState(initialCartLocal);
+  console.log("CHeck item", item.nameSize);
 
   useEffect(() => {
     localStorage.setItem("cartLocal", JSON.stringify(cartLocal));
-    console.log(cartLocal);
+    console.log("", cartLocal);
   }, [cartLocal]);
   useEffect(() => {
     console.log(item);
@@ -166,7 +167,7 @@ function CardItem({ item, index }) {
     setItemSize(idProductDetail);
     ProductDetailClientApi.getDetailProductOfClient(idProductDetail).then(
       (res) => {
-        console.log(res.data.data);
+        console.log("Check data df", res.data.data);
         setDetailProduct(res.data.data);
         const nameSizeArray = res.data.data.listSize.split(",");
         const sizeList = [];
@@ -238,78 +239,74 @@ function CardItem({ item, index }) {
   const nowTimestampReduce = now.subtract(15, "day");
   return (
     <>
-      <div className="card-item" data-slick-index="-1" tabindex="0">
-        <div>
-          <Link
-            className="link-card-item"
-            to={`/detail-product/${item.idProductDetail}`}
-            onClick={() =>
-              (window.location.href = `/detail-product/${item.idProductDetail}`)
-            }
-          >
-            <div className="box-img-product">
-              <div
-                style={{
-                  backgroundImage: `url(${item.image.split(",")[0]})`,
-                }}
-                className="image-product"
-              >
-                {item.valuePromotion !== null ? (
-                  <div className="promotion-details">
-                    <div className="value-promotion">
-                      Giảm {parseInt(item.valuePromotion)}%
+      {/* Kiểm tra trạng thái "DANG_SU_DUNG" trước khi render toàn bộ card-item */}
+      {item.status === "DANG_SU_DUNG" && (
+        <div className="card-item" data-slick-index="-1" tabIndex="0">
+          <div>
+            <Link
+              className="link-card-item"
+              to={`/detail-product/${item.idProductDetail}`}
+              onClick={() =>
+                (window.location.href = `/detail-product/${item.idProductDetail}`)
+              }
+            >
+              <div className="box-img-product">
+                <div
+                  style={{
+                    backgroundImage: `url(${item.image.split(",")[0]})`,
+                  }}
+                  className="image-product"
+                >
+                  {item.valuePromotion !== null ? (
+                    <div className="promotion-details">
+                      <div className="value-promotion">
+                        Giảm {parseInt(item.valuePromotion)}%
+                      </div>
+                      <div className="year-end-promotion">Ưu đãi cuối năm</div>
                     </div>
-                    <div className="year-end-promotion">Ưu đãi cuối năm</div>
-                  </div>
-                ) : null}
-                {nowTimestampReduce <= itemTimestamp && (
-                  <div className="new-product">Mới</div>
-                )}
+                  ) : null}
+                  {nowTimestampReduce <= itemTimestamp && (
+                    <div className="new-product">Mới</div>
+                  )}
+                </div>
               </div>
-            </div>
-            <div>
-              <p className="name-product">
-                {item.nameProduct} - size - {item.nameSize}
-              </p>
-            </div>
-            {/* <div className="list-color-detail-card">
-                  <div
-                    className="color-product"
-                    key={index}
-                    style={{
-                      backgroundColor: item.codeColor,
-                    }}
-                  ></div>
-                </div> */}
-            <p className="price-product">
-              {item.valuePromotion !== null ? (
-                <>
-                  <span style={{ marginLeft: 5 }}>
-                    {" "}
-                    {formatMoney(
-                      item.price - item.price * (item.valuePromotion / 100)
-                    )}
-                  </span>
-                  <del style={{ color: "black", fontSize: 16, marginLeft: 5 }}>
-                    {formatMoney(item.price)}
-                  </del>
-                </>
-              ) : (
-                formatMoney(item.price)
-              )}
-            </p>
-          </Link>
-        </div>
-        <div
-          className="button-buy-now"
-          onClick={() => {
-            handleClickDetail(item.idProductDetail);
-          }}
-        >
-          Mua ngay
-        </div>
-      </div>
+              <div>
+                <p className="name-product">
+                  {item.nameProduct} - size - {item.nameSize}
+                </p>
+              </div>
 
+              <p className="price-product">
+                {item.valuePromotion !== null ? (
+                  <>
+                    <span style={{ marginLeft: 5 }}>
+                      {formatMoney(
+                        item.price - item.price * (item.valuePromotion / 100)
+                      )}
+                    </span>
+                    <del
+                      style={{ color: "black", fontSize: 16, marginLeft: 5 }}
+                    >
+                      {formatMoney(item.price)}
+                    </del>
+                  </>
+                ) : (
+                  formatMoney(item.price)
+                )}
+              </p>
+            </Link>
+          </div>
+
+          <div
+            className="button-buy-now"
+            onClick={() => {
+              handleClickDetail(item.idProductDetail);
+            }}
+          >
+            Mua ngay
+          </div>
+        </div>
+      )}
       <Modal
         className="modal-detail-product"
         width={1000}
