@@ -151,7 +151,7 @@ function Home() {
     }
   };
 
-  const itemsPerPage = 5;
+  const itemsPerPage = 6;
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalPages = Math.ceil(
     listProductDetailByCategory.length / itemsPerPage

@@ -379,8 +379,9 @@ function Cart() {
       return "0 VND";
     }
     if (value <= 100) {
-      const discountAmount = (totalPrice * value) / 100; // Tính số tiền giảm
-      return `${discountAmount.toLocaleString("vi-VN")} VND`;
+      const discountAmount = (totalPrice * value) / 100;
+      const roundedDiscountAmount = Math.floor(discountAmount);
+      return `${roundedDiscountAmount.toLocaleString("vi-VN")} VND`;
     } else {
       const formatter = new Intl.NumberFormat("vi-VN", {
         style: "currency",
@@ -536,9 +537,20 @@ function Cart() {
         VoucherClientApi.getByCode(code.trim()).then(
           (res) => {
             const voucher = res.data.data;
+
             if (voucher === null) {
               setVoucher(setDefaultVoucher);
               toast.warning("Khuyến mãi không tồn tại!", {
+                autoClose: 3000,
+              });
+            } else if (voucher.status == "KHONG_SU_DUNG") {
+              setVoucher(setDefaultVoucher);
+              toast.warning("Khuyến mãi đã hết hạn sử dụng!", {
+                autoClose: 3000,
+              });
+            } else if (voucher.minimumBill > totalBill) {
+              setVoucher(setDefaultVoucher);
+              toast.warning("Đơn hàng không đủ điều kiện sử dụng mã!", {
                 autoClose: 3000,
               });
             } else {
@@ -550,6 +562,8 @@ function Cart() {
                 ...prev,
                 value: res.data.data.value,
                 idVoucher: res.data.data.id,
+                status: res.data.data.status,
+                minimumBill: res.data.data.minimumBill,
               }));
             }
           },
@@ -557,7 +571,7 @@ function Cart() {
             console.log(err);
           }
         );
-        console.log(voucher);
+        console.log("Check voucher", voucher);
       }
     }
   };
