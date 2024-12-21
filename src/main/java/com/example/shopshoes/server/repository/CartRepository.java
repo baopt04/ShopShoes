@@ -20,7 +20,7 @@ public interface CartRepository extends JpaRepository<Cart,String> {
                       pd.id as idProductDetail,
                       cd.id as idCartDetail,
                       s.name as nameSize,
-                      REPLACE(c.code, '#','%23') as codeColor,
+                      c.name as codeColor , 
                       GROUP_CONCAT(i.name) as image,
                       cd.price as price,
                       cd.quantity as quantity,
@@ -43,6 +43,7 @@ public interface CartRepository extends JpaRepository<Cart,String> {
                ORDER BY  cd.created_date desc
             """,nativeQuery = true)
     List<ListCart> getListCart(@Param("idAccount") String idAccount);
+
     @Query(value = "select sum(cd.quantity) from Cart cart" +
             " JOIN Account a on a.id = cart.account.id" +
             " JOIN CartDetail cd on cd.cart.id = cart.id" +

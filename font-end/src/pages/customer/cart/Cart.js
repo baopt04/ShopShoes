@@ -83,7 +83,7 @@ function Cart() {
               nameColor: item.nameColor,
             },
           ]);
-          console.log("cart", cart);
+          console.log("cart check", cart);
 
           const quantity = res.data.data.quantity;
           return quantity;
