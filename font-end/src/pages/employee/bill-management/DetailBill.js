@@ -1007,6 +1007,8 @@ function DetailBill() {
     } else {
       setShipFeeCustomer(bill.moneyShip);
     }
+    console.log("productToDetail", productDetailToBillDetail);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productDetailToBillDetail]);
 
@@ -1025,11 +1027,13 @@ function DetailBill() {
   };
 
   useEffect(() => {
+    console.log("shipFeeCustomer check", shipFeeCustomer);
+
     if (shipFeeCustomer === 0) {
       updateShipBill(id, 0);
     } else {
-      console.log(shipFee);
-      updateShipBill(id, shipFee);
+      console.log("Check phí ship", shipFee);
+      updateShipBill(id, shipFeeCustomer);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shipFeeCustomer]);

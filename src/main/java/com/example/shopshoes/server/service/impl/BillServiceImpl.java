@@ -676,27 +676,6 @@ public boolean updateProduct(CreateBillOfflineRequest request) {
             throw new RestApiException(Message.CHANGED_STATUS_ERROR);
         }
         if (bill.get().getStatusBill() == StatusBill.XAC_NHAN) {
-            bill.get().setConfirmationDate(Calendar.getInstance().getTimeInMillis());
-            CompletableFuture.runAsync(() -> createTemplateSendMail(bill.get().getId(), new BigDecimal(0)),
-                    Executors.newCachedThreadPool());
-        } else if (bill.get().getStatusBill() == StatusBill.VAN_CHUYEN) {
-            bill.get().setDeliveryDate(Calendar.getInstance().getTimeInMillis());
-        } else if (bill.get().getStatusBill() == StatusBill.DA_THANH_TOAN) {
-            bill.get().setReceiveDate(Calendar.getInstance().getTimeInMillis());
-            if (checkDaThanhToan) {
-                bill.get().setStatusBill(StatusBill.THANH_CONG);
-                bill.get().setCompletionDate(getCurrentTimestampInVietnam());
-                if (bill.get().getAccount() != null && !scoringFormulas.isEmpty()) {
-                    User user = bill.get().getAccount().getUser();
-                    ScoringFormula scoringFormula = scoringFormulas.get(0);
-                    user.setPoints(user.getPoints() + scoringFormula.ConvertMoneyToPoints(bill.get().getTotalMoney()));
-                    userReposiory.save(user);
-                    historyPoinRepository.save(HistoryPoin.builder().typePoin(TypePoin.DIEM_THUONG)
-                            .value(scoringFormula.ConvertMoneyToPoints(bill.get().getTotalMoney())).bill(bill.get())
-                            .user(user).scoringFormula(scoringFormula).build());
-                }
-            }
-        } else if (bill.get().getStatusBill() == StatusBill.THANH_CONG) {
             if (bill.get().getAccount() == null) {
                 System.out.println("Check id bill " + bill.get().getId());
                 String id_bill = bill.get().getId();
@@ -729,6 +708,28 @@ public boolean updateProduct(CreateBillOfflineRequest request) {
                     System.out.println("No BillDetail found for Bill ID: " + id_bill);
                 }
             }
+            bill.get().setConfirmationDate(Calendar.getInstance().getTimeInMillis());
+            CompletableFuture.runAsync(() -> createTemplateSendMail(bill.get().getId(), new BigDecimal(0)),
+                    Executors.newCachedThreadPool());
+        } else if (bill.get().getStatusBill() == StatusBill.VAN_CHUYEN) {
+            bill.get().setDeliveryDate(Calendar.getInstance().getTimeInMillis());
+        } else if (bill.get().getStatusBill() == StatusBill.DA_THANH_TOAN) {
+            bill.get().setReceiveDate(Calendar.getInstance().getTimeInMillis());
+            if (checkDaThanhToan) {
+                bill.get().setStatusBill(StatusBill.THANH_CONG);
+                bill.get().setCompletionDate(getCurrentTimestampInVietnam());
+                if (bill.get().getAccount() != null && !scoringFormulas.isEmpty()) {
+                    User user = bill.get().getAccount().getUser();
+                    ScoringFormula scoringFormula = scoringFormulas.get(0);
+                    user.setPoints(user.getPoints() + scoringFormula.ConvertMoneyToPoints(bill.get().getTotalMoney()));
+                    userReposiory.save(user);
+                    historyPoinRepository.save(HistoryPoin.builder().typePoin(TypePoin.DIEM_THUONG)
+                            .value(scoringFormula.ConvertMoneyToPoints(bill.get().getTotalMoney())).bill(bill.get())
+                            .user(user).scoringFormula(scoringFormula).build());
+                }
+            }
+        } else if (bill.get().getStatusBill() == StatusBill.THANH_CONG) {
+
             paymentsMethodRepository.updateAllByIdBill(id);
             bill.get().setCompletionDate(getCurrentTimestampInVietnam());
             if (bill.get().getAccount() != null && !scoringFormulas.isEmpty()) {
