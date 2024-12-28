@@ -50,7 +50,10 @@ function Cart() {
       ...prev,
       idVoucher: item.id,
       value: item.value,
+      maxDiscount: item.maxDiscount,
     }));
+    console.log("Check select item value", item.value);
+    console.log("Check select item maxDiscount", item.maxDiscount);
   };
   const submitVoucher = () => {
     if (Object.keys(selectedItem).length > 0) {
@@ -138,6 +141,9 @@ function Cart() {
     let discountAmount = 0;
     if (voucher.value <= 100) {
       discountAmount = (totalPrice * voucher.value) / 100;
+      if (discountAmount > voucher.maxDiscount) {
+        discountAmount = voucher.maxDiscount;
+      }
     } else {
       discountAmount = voucher.value;
     }
@@ -363,7 +369,7 @@ function Cart() {
       return "0 VND";
     }
     if (value <= 100) {
-      return `${value} %`;
+      return `${value} % - Giảm tối đa: `;
     } else {
       const formatter = new Intl.NumberFormat("vi-VN", {
         style: "currency",
@@ -373,13 +379,18 @@ function Cart() {
       return formatter.format(value);
     }
   };
-  const formatDiscountValue1 = (value) => {
+  const formatDiscountValue1 = (value, maxDiscount) => {
     if (value === undefined || value === null) return "";
     if (value == 0) {
       return "0 VND";
     }
+
     if (value <= 100) {
-      const discountAmount = (totalPrice * value) / 100;
+      let discountAmount = (totalPrice * value) / 100;
+
+      if (discountAmount > maxDiscount) {
+        discountAmount = maxDiscount;
+      }
       const roundedDiscountAmount = Math.floor(discountAmount);
       return `${roundedDiscountAmount.toLocaleString("vi-VN")} VND`;
     } else {
@@ -926,7 +937,10 @@ function Cart() {
                     <div style={{ display: "flex", marginTop: "20px" }}>
                       <span>Giảm : </span>{" "}
                       <span style={{ marginLeft: "auto" }}>
-                        {formatDiscountValue1(voucher.value)}
+                        {formatDiscountValue1(
+                          voucher.value,
+                          voucher.maxDiscount
+                        )}
                       </span>
                     </div>
                   </div>
@@ -993,7 +1007,7 @@ function Cart() {
         width={600}
       >
         <div className="category-voucher">
-          <h1>Chọn mã khuyến mãi</h1>
+          <h1>Chọn voucher</h1>
           <div className="content-code-voucher-cart">
             Mã voucher{" "}
             <input
@@ -1029,7 +1043,10 @@ function Cart() {
                 </div> */}
                 <div style={{ marginLeft: "40px" }}>
                   <p>{item.name}</p>
-                  <p>Giảm: {formatDiscountValue(item.value)}</p>
+                  <p>
+                    Giảm: {formatDiscountValue(item.value)}
+                    {formatDiscountValue(item.maxDiscount)}
+                  </p>
                   {item.minimumBill !== null ? (
                     <p style={{ color: "#ff4400" }}>
                       Đơn tối thiểu: {formatMoney(item.minimumBill)}

@@ -47,4 +47,6 @@ public class Voucher extends PrimaryEntity {
     private Status status;
 
     private Integer minimumBill;
+    @Column(name = "max_discount")
+    private Integer maxDiscount;
 }

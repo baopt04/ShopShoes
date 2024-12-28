@@ -1147,11 +1147,30 @@ function CreateBill({
       render: (value) => (
         <span>
           {value >= 1000
-            ? value.toLocaleString("vi-VN", {
-                style: "currency",
-                currency: "VND",
-              })
+            ? value
+                .toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })
+                .replace("₫", "") + "VND"
             : value + " %"}
+        </span>
+      ),
+    },
+    {
+      title: "Giảm tối đa",
+      dataIndex: "maxDiscount",
+      key: "maxDiscount",
+      render: (maxDiscount) => (
+        <span>
+          {maxDiscount >= 1000
+            ? maxDiscount
+                .toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })
+                .replace("₫", "") + "VND"
+            : "0 VND"}
         </span>
       ),
     },
@@ -1202,9 +1221,12 @@ function CreateBill({
     }, 0);
 
     let discountAmount = 0;
-
+    let maxDiscount = record.maxDiscount;
     if (record.value < 100) {
       discountAmount = (price * record.value) / 100;
+      if (discountAmount > maxDiscount) {
+        discountAmount = maxDiscount;
+      }
     } else {
       discountAmount = record.value;
     }
@@ -1218,9 +1240,10 @@ function CreateBill({
       afterPrice: afterPrice,
       discountPrice: discountAmount,
     });
+    console.log("Check voucher", voucher);
 
     // Cập nhật mã voucher và đóng modal
-    setCodeVoucher(record.code + " - " + record.name);
+    setCodeVoucher(record.name);
     setIsModalVoucherOpen(false);
   };
 
@@ -1267,7 +1290,7 @@ function CreateBill({
         discountPrice: discountAmount,
       });
 
-      setCodeVoucher(record.code + " - " + record.name);
+      setCodeVoucher(record.name);
       setIsModalVoucherOpen(false);
     }
 

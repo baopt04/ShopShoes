@@ -46,6 +46,18 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
       return formatter.format(value);
     }
   };
+  const formatCurrencyMaxDiscount = (value) => {
+    if (value >= 2000000) {
+      return "2.000.000 VND";
+    } else {
+      const formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        currencyDisplay: "code",
+      });
+      return formatter.format(value);
+    }
+  };
   const formatDiscountValue = (value) => {
     if (value === undefined || value === null) return "";
 
@@ -101,6 +113,8 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
               : "",
           };
           setFormErrors(errors);
+          console.log("Check error", errors);
+
           return;
         }
 
@@ -174,6 +188,9 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
               className="input-create-voucher"
               value={formData["value"]}
               onChange={(value) => {
+                if (value > 100) {
+                  inputChange("maxDiscount", 0);
+                }
                 inputChange("value", value);
               }}
               min="1"
@@ -193,6 +210,21 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
               }}
               min="10000"
               formatter={(value) => formatCurrency(value)}
+              parser={(value) => value.replace(/[^\d]/g, "")}
+            />
+          </Form.Item>
+          <Form.Item label="Giảm tối đa" hidden={formData["value"] > 100}>
+            <InputNumber
+              name="maxDiscount"
+              placeholder="Giảm tối đa"
+              className="input-create-voucher"
+              value={formData["maxDiscount"]}
+              onChange={(value) => {
+                inputChange("maxDiscount", value);
+              }}
+              min="10000"
+              formatter={(value) => formatCurrencyMaxDiscount(value)}
+              // disabled={formData["value"] > 100}
               parser={(value) => value.replace(/[^\d]/g, "")}
             />
           </Form.Item>

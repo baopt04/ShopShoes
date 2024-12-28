@@ -21,7 +21,7 @@ public class VoucherRestController {
     private VoucherService voucherService;
 
     @GetMapping()
-    public ResponseObject getAll(@ModelAttribute final FindVoucherRequest findVoucherRequest) {
+        public ResponseObject getAll(@ModelAttribute final FindVoucherRequest findVoucherRequest) {
         return new ResponseObject(voucherService.getAll(findVoucherRequest));
 
     }

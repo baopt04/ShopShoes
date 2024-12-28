@@ -42,7 +42,7 @@ const VoucherManagement = () => {
   useEffect(() => {
     if (data != null) {
       setList(data);
-      console.log(data);
+      console.log("List data voucher", data);
     }
   }, [data]);
   useEffect(() => {
@@ -169,6 +169,14 @@ const VoucherManagement = () => {
       key: "minimumBill",
       // sorter: (a, b) => a.minimumBill - b.minimumBill,
       render: (_, record) => formatCurrency(record.minimumBill),
+    },
+    {
+      title: "Giảm tối đa",
+      dataIndex: "maxDiscount",
+      align: "center",
+      key: "maxDiscount",
+      // sorter: (a, b) => a.minimumBill - b.minimumBill,
+      render: (_, record) => formatCurrency(record.maxDiscount),
     },
     {
       title: "Ngày bắt đầu",

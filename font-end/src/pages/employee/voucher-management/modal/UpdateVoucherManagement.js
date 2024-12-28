@@ -127,6 +127,7 @@ function UpdateVoucherManagement({ modalUpdate, setModalUpdate, id }) {
           status: voucherData.status,
           createdDate: dayjs(voucherData.createdDate),
           minimumBill: voucherData.minimumBill,
+          maxDiscount: voucherData.maxDiscount,
         });
       },
       (err) => console.log(err)
@@ -186,6 +187,9 @@ function UpdateVoucherManagement({ modalUpdate, setModalUpdate, id }) {
               className="input-create-voucher"
               value={formData["value"]}
               onChange={(value) => {
+                if (value > 100) {
+                  inputChange("maxDiscount", 0);
+                }
                 inputChange("value", value);
               }}
               min="1"
@@ -204,6 +208,21 @@ function UpdateVoucherManagement({ modalUpdate, setModalUpdate, id }) {
               }}
               min="10000"
               formatter={(value) => formatCurrency(value)}
+              parser={(value) => value.replace(/[^\d]/g, "")}
+            />
+          </Form.Item>
+          <Form.Item label="Giảm tối đa" hidden={formData["value"] > 100}>
+            <InputNumber
+              name="maxDiscount"
+              placeholder="Giảm tối đa"
+              className="input-create-voucher"
+              value={formData["maxDiscount"]}
+              onChange={(value) => {
+                inputChange("maxDiscount", value);
+              }}
+              min="10000"
+              formatter={(value) => formatCurrency(value)}
+              disabled={formData["value"] > 100}
               parser={(value) => value.replace(/[^\d]/g, "")}
             />
           </Form.Item>

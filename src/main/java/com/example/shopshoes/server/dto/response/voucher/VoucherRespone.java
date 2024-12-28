@@ -24,6 +24,8 @@ public interface VoucherRespone extends BaseResponse {
     BigDecimal getValue();
     @Value("#{target.minimumBill}")
     Integer getMinimumBill();
+    @Value("#{target.maxDiscount}")
+    Integer getMaxDiscount();
     @Value("#{target.quantity}")
     Integer getQuantity();
 

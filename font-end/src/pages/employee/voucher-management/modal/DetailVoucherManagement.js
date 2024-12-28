@@ -40,6 +40,7 @@ function UpdateVoucherManagement({ modalDetail, setModalDetail, id }) {
           status: voucherData.status,
           createdDate: dayjs(voucherData.createdDate),
           minimumBill: voucherData.minimumBill,
+          maxDiscount: voucherData.maxDiscount,
         });
       },
       (err) => console.log(err)
@@ -111,6 +112,15 @@ function UpdateVoucherManagement({ modalDetail, setModalDetail, id }) {
               placeholder="Đơn tối thiểu"
               className="input-create-voucher"
               value={formData["minimumBill"]}
+              formatter={(value) => formatCurrency(value)}
+            />
+          </Form.Item>
+          <Form.Item label="Giảm tối đa">
+            <InputNumber
+              name="maxDiscount"
+              placeholder="Giảm tối đa"
+              className="input-create-voucher"
+              value={formData["maxDiscount"]}
               formatter={(value) => formatCurrency(value)}
             />
           </Form.Item>

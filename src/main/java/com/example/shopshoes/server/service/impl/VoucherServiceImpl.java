@@ -63,6 +63,7 @@ public class VoucherServiceImpl implements VoucherService {
                    .endDate(request.getEndDate())
                    .status(status)
                    .minimumBill(request.getMinimumBill())
+                   .maxDiscount(request.getMaxDiscount())
                    .build();
            return voucherRepository.save(voucher);
     }
@@ -80,6 +81,7 @@ public class VoucherServiceImpl implements VoucherService {
         voucher.setStartDate(request.getStartDate());
         voucher.setEndDate(request.getEndDate());
         voucher.setMinimumBill(request.getMinimumBill());
+        voucher.setMaxDiscount(request.getMaxDiscount());
         if(request.getEndDate() <= request.getStartDate()){
             throw new RestApiException("Ngày kết thúc phải lớn hơn ngày bắt đầu");
         }

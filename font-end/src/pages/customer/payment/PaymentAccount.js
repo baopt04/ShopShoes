@@ -75,7 +75,14 @@ function PaymentAccount() {
       return "0 VND";
     }
     if (value <= 100) {
-      return `${value} %`;
+      let discountAmount = (totalBefore * value) / 100;
+      let maxDiscount = voucher.maxDiscount;
+      if (discountAmount > maxDiscount) {
+        discountAmount = maxDiscount;
+      }
+      const roundedDiscountAmount = Math.floor(discountAmount);
+
+      return `${roundedDiscountAmount.toLocaleString("vi-VN")} VND`;
     } else {
       // Định dạng theo VND nếu giá trị >= 100
       const formatter = new Intl.NumberFormat("vi-VN", {
@@ -144,6 +151,7 @@ function PaymentAccount() {
   }, [formBill]);
   useEffect(() => {
     setTotalBefore(total.totalMoney);
+    console.log("Tổng trước khi giảm giá", totalBefore);
   }, [total]);
   useEffect(() => {
     formBillChange("afterPrice", totalAfter);
@@ -154,13 +162,20 @@ function PaymentAccount() {
     console.log("voucher", voucher.value);
     console.log("tổng", totalBefore + moneyShip - voucher.value);
     let voucherValue = 0;
-    if (voucher.value < 100) {
+    if (voucher.value <= 100) {
       voucherValue = (totalBefore * voucher.value) / 100;
+      if (voucherValue > voucher.maxDiscount) {
+        voucherValue = voucher.maxDiscount;
+      }
+      setFormBill({ ...formBill, itemDiscount: voucherValue });
     } else {
       voucherValue = voucher.value;
+      setFormBill({ ...formBill, itemDiscount: voucherValue });
     }
     console.log("tổng", totalBefore + moneyShip - voucherValue);
     setTotalAfter(totalBefore + moneyShip - voucherValue);
+    console.log("Cập nhật tổng sau khi giảm giá", totalAfter);
+
     formBillChange("moneyShip", moneyShip);
   }, [moneyShip, voucher.value, totalBefore]);
 
@@ -193,7 +208,7 @@ function PaymentAccount() {
         phoneNumber: addressDefault.phoneNumber,
         userName: addressDefault.fullName,
         idVoucher: voucher.idVoucher,
-        itemDiscount: voucher.value,
+        // itemDiscount: voucher.value,
         billDetail: updatedListproductOfBill,
         idAccount: idAccount,
       }));
@@ -269,6 +284,8 @@ function PaymentAccount() {
             }
           );
         } else if (formBill.paymentMethod === "paymentReceive") {
+          console.log("Data send bill save", dataBillSave);
+
           BillClientApi.createBillAccountOnline(dataBillSave).then(
             (res) => {
               CartClientApi.quantityInCart(idAccount).then(
@@ -284,7 +301,7 @@ function PaymentAccount() {
                   console.error(err);
                 }
               );
-              toast.success("Bạn đặt hàng thành công.");
+              toast.success("Đặt hàng thành công.");
               nav("/home");
             },
             (err) => {
@@ -424,6 +441,7 @@ function PaymentAccount() {
       totalMoney: money,
       totalQuantity: quantity,
     }));
+    console.log("Check total", total);
   };
 
   const [clickRadio, setClickRadio] = useState("");
@@ -659,7 +677,7 @@ function PaymentAccount() {
               <br />
               <Row>
                 <Col span={12}>
-                  <h3>Mã giảm giá </h3>
+                  <h3>Giảm giá </h3>
                 </Col>
                 <Col span={12}>
                   <h3> {formatDiscountValue(voucher.value)}</h3>

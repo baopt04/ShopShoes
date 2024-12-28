@@ -24,4 +24,5 @@ public abstract class BaseVoucherRequest {
     @NotNull(message = "Nhập ngày kết thúc khuyến mãi")
     private Long endDate;
     private Integer minimumBill;
+    private Integer maxDiscount;
 }

@@ -28,6 +28,7 @@ function Payment() {
   const navigate = useNavigate();
   const listproductOfBill = JSON.parse(sessionStorage.getItem("bill"));
   const voucher = JSON.parse(sessionStorage.getItem("voucher"));
+
   const totalMoney = listproductOfBill.reduce(
     (total, item) => total + parseInt(item.price) * item.quantity,
     0
@@ -93,6 +94,9 @@ function Payment() {
     let discountAmount = 0;
     if (voucher.value <= 100) {
       discountAmount = (totalBill * voucher.value) / 100;
+      if (discountAmount > voucher.maxDiscount) {
+        discountAmount = voucher.maxDiscount;
+      }
     } else {
       discountAmount = voucher.value;
     }
@@ -335,7 +339,7 @@ function Payment() {
         .replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VND"
     );
   };
-  const formatMoney1 = (price, totalPrice) => {
+  const formatMoney1 = (price, maxDiscount) => {
     // Nếu giá trị price là 0 (trường hợp giảm 0%)
     if (price == 0) {
       return price.toFixed(0) + " VND";
@@ -343,7 +347,11 @@ function Payment() {
 
     // Nếu price là phần trăm, tính số tiền giảm
     if (price < 1000) {
-      const discountAmount = (totalBill * price) / 100; // Tính số tiền giảm từ tổng tiền và tỷ lệ phần trăm
+      let discountAmount = (totalBill * price) / 100;
+      let maxDiscount = voucher.maxDiscount;
+      if (discountAmount > maxDiscount) {
+        discountAmount = maxDiscount;
+      }
       return (
         discountAmount
           .toFixed(0) // Làm tròn số tiền giảm
@@ -692,7 +700,7 @@ function Payment() {
                       fontWeight: "500",
                     }}
                   >
-                    GIẢM GIÁ:
+                    GIẢM GIÁ :
                   </p>{" "}
                   <p
                     style={{
@@ -702,8 +710,8 @@ function Payment() {
                     }}
                   >
                     {voucher.value == 0
-                      ? `${formatMoney1(voucher.value)}`
-                      : `${formatMoney1(voucher.value)}`}
+                      ? `${formatMoney1(voucher.value, voucher.maxDisocunt)}`
+                      : `${formatMoney1(voucher.value, voucher.maxDisocunt)}`}
                   </p>
                 </div>
                 <div
