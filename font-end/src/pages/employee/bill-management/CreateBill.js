@@ -992,8 +992,9 @@ function CreateBill({
       totalExcessMoney: Math.max(totaPayMent - Math.max(total, 0), 0),
       poin: poin,
     };
+
     console.log(totalBill);
-    console.log(data);
+    console.log("data send", data);
     console.log(totaPayMent);
 
     if (isOpenDelivery) {
@@ -1277,6 +1278,9 @@ function CreateBill({
 
       if (record.value <= 100) {
         discountAmount = (newTotalPrice * record.value) / 100;
+        if (discountAmount > record.maxDiscount) {
+          discountAmount = record.maxDiscount;
+        }
       } else {
         discountAmount = record.value;
       }

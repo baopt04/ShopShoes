@@ -1623,7 +1623,7 @@ function DetailBill() {
                   <span>{bill.note}</span>
                 </Col> */}
                 <Col span={10}>
-                  {statusPresent < 5 ? (
+                  {statusPresent < 3 ? (
                     <Button
                       type="dashed"
                       align={"center"}

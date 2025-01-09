@@ -125,13 +125,13 @@
   font-size: 20px;
 }
 .button-prev-card:hover {
-  color: #ff4400;
+  color: blue;
 }
 .button-next-card {
   font-size: 20px;
 }
 .button-next-card:hover {
-  color: #ff4400;
+  color: blue;
 }
 .list-color-detail {
   display: flex;

@@ -336,25 +336,35 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
           </span>
         </div>
         <Form form={form} initialValues={initialValues}>
-          <Form.Item
-            label="Tên sản phẩm"
-            name="productId"
-            style={{ fontWeight: "bold" }}
-            rules={[{ required: true, message: "Vui lòng nhập tên sản phẩm" }]}
-          >
-            <Input style={{ fontWeight: "bold", height: "40px" }} readOnly />
-          </Form.Item>
-
-          <Form.Item
-            label="Mô tả"
-            name="description"
-            style={{ fontWeight: "bold" }}
-            rules={[
-              { required: true, message: "Vui lòng nhập mô tả sản phẩm" },
-            ]}
-          >
-            <Input.TextArea rows={4} placeholder="Nhập mô tả sản phẩm" />
-          </Form.Item>
+          <Row gutter={24} justify="space-around">
+            <Col span={12}>
+              <Form.Item
+                label="Tên sản phẩm"
+                name="productId"
+                style={{ fontWeight: "bold" }}
+                rules={[
+                  { required: true, message: "Vui lòng nhập tên sản phẩm" },
+                ]}
+              >
+                <Input style={{ height: "40px" }} readOnly />
+              </Form.Item>
+            </Col>
+            <Col span={11}>
+              <Form.Item
+                label="Mô tả"
+                name="description"
+                style={{ fontWeight: "bold" }}
+                rules={[
+                  { required: true, message: "Vui lòng nhập mô tả sản phẩm" },
+                ]}
+              >
+                <Input
+                  placeholder="Nhập mô tả sản phẩm"
+                  style={{ height: "40px" }}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
           <br />
 
           <Row gutter={7} justify="space-around">
@@ -652,6 +662,32 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
                 style={{ fontWeight: "bold" }}
                 rules={[
                   { required: true, message: "Vui lòng nhập giá sản phẩm" },
+                  {
+                    validator: (_, value) => {
+                      if (!value) {
+                        return Promise.reject(
+                          new Error("Vui lòng nhập giá sản phẩm")
+                        );
+                      }
+                      const numericValue = parseFloat(
+                        value.replace(/[^\d.-]/g, "")
+                      );
+                      if (numericValue <= 0) {
+                        return Promise.reject(
+                          new Error("Giá sản phẩm phải lớn hơn 0")
+                        );
+                      }
+                      if (numericValue > 100000000) {
+                        return Promise.reject(
+                          new Error(
+                            "Giá sản phẩm không được vượt quá 100 triệu"
+                          )
+                        );
+                      }
+
+                      return Promise.resolve();
+                    },
+                  },
                 ]}
               >
                 <NumberFormat

@@ -108,6 +108,7 @@ public interface VoucherRepository extends JpaRepository<Voucher, String> {
                 vo.name as name,
                 vo.value as value,
                 vo.minimum_bill as minimumBill,
+                vo.max_discount as maxDiscount,
                 vo.quantity as quantity,
                 vo.start_date as startDate,
                 vo.end_date as endDate,

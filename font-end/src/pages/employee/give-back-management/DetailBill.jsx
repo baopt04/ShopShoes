@@ -30,13 +30,17 @@ import moment from "moment";
 import ModalQuantityGiveBack from "./modal/ModalQuantityGiveBack";
 import { VoucherApi } from "../../../api/employee/voucher/Voucher.api";
 import { useReactToPrint } from "react-to-print";
+import { use } from "react";
 
 export default function DetailBillGiveBack() {
   const [form] = Form.useForm();
   const { id } = useParams();
   const nav = useNavigate();
   const [bill, setBill] = useState(null);
-
+  useEffect(() => {
+    const check = totalMoneyBillGiveBack();
+    console.log("price back", check);
+  });
   const loadDatabillInformation = () => {
     BillApi.BillGiveBackInformation(id)
       .then((bill) => {
@@ -73,6 +77,7 @@ export default function DetailBillGiveBack() {
     if (bill != null) {
       loadDatabill();
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bill]);
 
@@ -504,6 +509,8 @@ export default function DetailBillGiveBack() {
 
   const totalMoneyBill = () => {
     let total = 0;
+    console.log("Check data produtct Bill", dataProductBill);
+
     dataProductBill.forEach((data) => {
       if (data.statusBillDetail === "THANH_CONG") {
         const money = totalMoneyProduct(data);
@@ -515,13 +522,23 @@ export default function DetailBillGiveBack() {
 
   const totalMoneyBillGiveBack = () => {
     let total = 0;
+    console.log("Check data produtct GiveBack", dataProductGiveBack);
+
     dataProductGiveBack.map((data) => {
       const money = totalMoneyProduct(data);
       total += money;
     });
+
     return total;
   };
+  const totalBack = () => {
+    let total = totalMoneyBillGiveBack();
+    let voucherValue = bill.voucherValue || 0; // Ensure voucherValue is not undefined
+    const totalBillBack = total - voucherValue;
+    console.log("Check total bill back", totalBillBack);
 
+    return totalBillBack;
+  };
   // xóa sản phẩm đổi trả
   const handleDeleteGiveBack = (record) => {
     const newDataProductGiveBack = dataProductGiveBack
@@ -564,7 +581,9 @@ export default function DetailBillGiveBack() {
           });
         });
       })
+
       .then((values) => {
+        let totalMoneyBack = totalMoneyBillGiveBack() - bill.voucherValue;
         const updateBill = {
           note: values.note,
           idBill: bill.idBill,
@@ -582,6 +601,7 @@ export default function DetailBillGiveBack() {
           .catch((error) => {
             console.error(error);
           });
+        console.log("Check form giveback ", updateBill);
       })
       .catch((err) => console.log({ err }));
   };
@@ -602,13 +622,17 @@ export default function DetailBillGiveBack() {
   };
   const [voucher, setVoucher] = useState(null);
   const total = totalMoneyBill() - totalMoneyBillGiveBack();
+  console.log("Check total", total);
+
   useEffect(() => {
     VoucherApi.getVoucherByMinimum(total).then((voucher) => {
       setVoucher(voucher.data.data);
-      console.log(voucher.data.data);
+      console.log("CHeck data voucher", voucher.data.data);
     });
   }, [total]);
-
+  useEffect(() => {
+    console.log("Information bill ", bill);
+  });
   return (
     <>
       <Form
@@ -626,6 +650,7 @@ export default function DetailBillGiveBack() {
           >
             Quản lý trả hàng
           </h1>
+
           <Card style={{ marginRight: "20px" }}>
             <h1 style={{ fontSize: "22px" }}>Thông tin khách hàng</h1>
             {bill != null && (

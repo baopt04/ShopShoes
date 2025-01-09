@@ -252,7 +252,7 @@ public interface BillRepository extends JpaRepository<Bill, String> {
                 bi.completion_date AS completionDate,
                 bi.delivery_date AS deliveryDate,
                 ac.id AS idAccount ,
-                v.value AS voucherValue,
+                            bi.item_discount as voucherValue , 
                 bi.poin_use AS poin, 
                 bi.money_ship AS moneyShip  
             FROM bill bi

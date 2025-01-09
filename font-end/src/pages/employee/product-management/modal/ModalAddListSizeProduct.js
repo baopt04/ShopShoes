@@ -51,8 +51,8 @@ const ModalAddListSizeProduct = ({ visible, onCancel, onSaveData }) => {
   };
 
   const handleChange = (e) => {
-    if (e.target.value > 100) {
-      toast.warning("Vui lòng nhập kích cỡ không quá 100");
+    if (e.target.value > 50) {
+      toast.warning("Vui lòng nhập kích cỡ không quá 50");
       return;
     }
     setInputValue(e.target.value);
