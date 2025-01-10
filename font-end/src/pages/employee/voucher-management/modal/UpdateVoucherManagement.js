@@ -174,6 +174,8 @@ function UpdateVoucherManagement({ modalUpdate, setModalUpdate, id }) {
               onChange={(e) => {
                 inputChange("name", e.target.value);
               }}
+              maxLength={50}
+              showCount
             />
           </Form.Item>
           <Form.Item
@@ -193,6 +195,7 @@ function UpdateVoucherManagement({ modalUpdate, setModalUpdate, id }) {
                 inputChange("value", value);
               }}
               min="1"
+              max="10000000"
               formatter={(value) => formatDiscountValue(value)}
               parser={(value) => value.replace(/[^\d]/g, "")}
             />
@@ -207,6 +210,7 @@ function UpdateVoucherManagement({ modalUpdate, setModalUpdate, id }) {
                 inputChange("minimumBill", value);
               }}
               min="10000"
+              max="10000000"
               formatter={(value) => formatCurrency(value)}
               parser={(value) => value.replace(/[^\d]/g, "")}
             />
@@ -221,6 +225,7 @@ function UpdateVoucherManagement({ modalUpdate, setModalUpdate, id }) {
                 inputChange("maxDiscount", value);
               }}
               min="10000"
+              max="10000000"
               formatter={(value) => formatCurrency(value)}
               disabled={formData["value"] > 100}
               parser={(value) => value.replace(/[^\d]/g, "")}

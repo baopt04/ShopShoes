@@ -35,8 +35,8 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
   };
 
   const formatCurrency = (value) => {
-    if (value >= 100000000) {
-      return "100.000.000 VND";
+    if (value >= 10000000) {
+      return "10.000.000 VND";
     } else {
       const formatter = new Intl.NumberFormat("vi-VN", {
         style: "currency",
@@ -47,8 +47,8 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
     }
   };
   const formatCurrencyMaxDiscount = (value) => {
-    if (value >= 2000000) {
-      return "2.000.000 VND";
+    if (value >= 10000000) {
+      return "10.000.000 VND";
     } else {
       const formatter = new Intl.NumberFormat("vi-VN", {
         style: "currency",
@@ -65,8 +65,8 @@ function CreateVoucherManagement({ modalCreate, setModalCreate }) {
       return "100%";
     } else if (value <= 100) {
       return `${value} %`;
-    } else if (value >= 100000000) {
-      return "100.000.000 VND";
+    } else if (value >= 10000000) {
+      return "10.000.000 VND";
     } else {
       const formatter = new Intl.NumberFormat("vi-VN", {
         style: "currency",

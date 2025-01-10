@@ -99,7 +99,6 @@ const VoucherManagement = () => {
 
   const handleFilter = (formData) => {
     setFormDataSearch(formData);
-    loadData();
     setModalFilter(false);
   };
 
