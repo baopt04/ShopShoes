@@ -96,7 +96,7 @@ function UpdatePromotionManagement() {
   }, [listProductDetail]);
 
   useEffect(() => {
-    console.log("Chekc product detail", selectedRowKeysDetail);
+    console.log("Check product detail", selectedRowKeysDetail);
   }, [selectedRowKeysDetail]);
 
   useEffect(() => {

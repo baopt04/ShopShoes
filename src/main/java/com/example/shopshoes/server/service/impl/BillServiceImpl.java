@@ -1370,6 +1370,12 @@ public boolean updateProduct(CreateBillOfflineRequest request) {
             throw new RestApiException("Hóa đơn " + codeBill + " đã bị hủy.");
         }
 
+        String typeBill = String.valueOf(optional.get().getTypeBill());
+        if (typeBill.equals("ONLINE")){
+            System.out.println("No support Online" + optional.get().getTypeBill());
+            throw new RestApiException("Không hỗ trợ trả hàng với đơn hàng online");
+
+        }
         if (optional.get().getStatusBill().equals(StatusBill.THANH_CONG)) {
             long currentSeconds = System.currentTimeMillis();
             long givenBackCheck = optional.get().getCompletionDate() + 7 * 24 * 60 * 60 * 1000;

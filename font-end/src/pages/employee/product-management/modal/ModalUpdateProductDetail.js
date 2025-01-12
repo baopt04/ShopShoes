@@ -662,32 +662,32 @@ const ModalUpdateProductDetail = ({ id, visible, onCancel }) => {
                 style={{ fontWeight: "bold" }}
                 rules={[
                   { required: true, message: "Vui lòng nhập giá sản phẩm" },
-                  {
-                    validator: (_, value) => {
-                      if (!value) {
-                        return Promise.reject(
-                          new Error("Vui lòng nhập giá sản phẩm")
-                        );
-                      }
-                      const numericValue = parseFloat(
-                        value.replace(/[^\d.-]/g, "")
-                      );
-                      if (numericValue <= 0) {
-                        return Promise.reject(
-                          new Error("Giá sản phẩm phải lớn hơn 0")
-                        );
-                      }
-                      if (numericValue > 100000000) {
-                        return Promise.reject(
-                          new Error(
-                            "Giá sản phẩm không được vượt quá 100 triệu"
-                          )
-                        );
-                      }
+                  // {
+                  //   validator: (_, value) => {
+                  //     if (!value) {
+                  //       return Promise.reject(
+                  //         new Error("Vui lòng nhập giá sản phẩm")
+                  //       );
+                  //     }
+                  //     const numericValue = parseFloat(
+                  //       value.replace(/[^\d.-]/g, "")
+                  //     );
+                  //     if (numericValue <= 0) {
+                  //       return Promise.reject(
+                  //         new Error("Giá sản phẩm phải lớn hơn 0")
+                  //       );
+                  //     }
+                  //     if (numericValue > 100000000) {
+                  //       return Promise.reject(
+                  //         new Error(
+                  //           "Giá sản phẩm không được vượt quá 100 triệu"
+                  //         )
+                  //       );
+                  //     }
 
-                      return Promise.resolve();
-                    },
-                  },
+                  //     return Promise.resolve();
+                  //   },
+                  // },
                 ]}
               >
                 <NumberFormat

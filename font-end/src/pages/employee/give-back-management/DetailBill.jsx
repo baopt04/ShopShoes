@@ -51,6 +51,9 @@ export default function DetailBillGiveBack() {
   };
   const formatDiscountValue = (value) => {
     if (value === undefined || value === null) return "";
+    if (value === 0) {
+      return "0 VND";
+    }
     if (value <= 100) {
       return `${value} %`;
     } else {
