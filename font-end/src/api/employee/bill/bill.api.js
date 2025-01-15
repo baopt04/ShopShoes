@@ -184,6 +184,12 @@ export class BillApi {
       data: data,
     });
   };
+  static deleteIdBill = (id) => {
+    return request({
+      method: "DELETE",
+      url: `/admin/bill/delete-bill/${id}`,
+    });
+  };
   static refundProduct = (data) => {
     return request({
       method: "PUT",

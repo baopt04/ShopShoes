@@ -40,6 +40,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark, faQrcode } from "@fortawesome/free-solid-svg-icons";
 import { PoinApi } from "../../../api/employee/poin/poin.api";
 import { useReactToPrint } from "react-to-print";
+import { use } from "react";
 
 function CreateBill({
   removePane,
@@ -49,8 +50,11 @@ function CreateBill({
   key,
   id,
   addNotify,
+  onProductsChange = () => {},
 }) {
   const [products, setProducts] = useState([]);
+  console.log("List product size", products.length);
+
   const keyTab = useSelector((state) => state.bill.billAtCounter.key);
   const [isModalPayMentOpen, setIsModalPayMentOpen] = useState(false);
   const [dataPayment, setDataPayMent] = useState([]);
@@ -1379,6 +1383,9 @@ function CreateBill({
     var data = products.filter((x) => x.idSizeProduct !== id);
     setProducts(data);
   };
+  console.log("Check product 11 1", products);
+  console.log("List product size", products.length);
+
   // dispatch(addProductBillWait(res.data.data));
 
   //  end modal product
@@ -1707,6 +1714,10 @@ function CreateBill({
   const getPromotionColor = (promotion) => {
     return promotion >= 50 ? { color: "#FF0000" } : { color: "#FFCC00" };
   };
+
+  useEffect(() => {
+    onProductsChange(products.length);
+  }, [products.length, onProductsChange]);
 
   // open modal when payment vnpay
   return (

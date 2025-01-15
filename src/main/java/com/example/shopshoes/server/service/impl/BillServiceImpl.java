@@ -405,6 +405,20 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
+    public Bill deleteBill(String code){
+        Optional<Bill> billOptional = billRepository.findById(code);
+        if (billOptional.isPresent()) {
+            Bill bill = billOptional.get();
+            billHistoryRepository.deleteAllByIdBill(bill.getId());
+                    billRepository.delete(bill);
+            System.out.println("Deleted Bill Successfully");
+                    return bill;
+        }else {
+            throw new RestApiException(Message.NOT_EXISTS);
+        }
+    }
+
+    @Override
     public Bill saveOnline(CreateBillRequest request) {
         Optional<Account> account = accountRepository.findById(request.getIdUser());
         if (!account.isPresent()) {
@@ -434,6 +448,7 @@ public class BillServiceImpl implements BillService {
                 .itemDiscount(new BigDecimal("0"))
                 .totalMoney(new BigDecimal("0"))
                 .moneyShip(new BigDecimal("0")).build();
+        System.out.println("Code bil " + bill.getCode() + "id " + bill.getId());
         billRepository.save(bill);
         billHistoryRepository.save(BillHistory.builder().statusBill(bill.getStatusBill()).bill(bill)
                 .employees(bill.getEmployees()).build());
@@ -898,6 +913,23 @@ public boolean updateProduct(CreateBillOfflineRequest request) {
         if (bill.get().getStatusBill() == StatusBill.VAN_CHUYEN && account.get().getRoles() != Roles.ROLE_ADMIN) {
             throw new RestApiException(Message.ACCOUNT_NOT_ROLE_CANCEL_BILL);
         }
+        List<BillDetailResponse> billDetailResponse = billDetailRepository
+                .findAllByIdBill(new BillDetailRequest(bill.get().getId(), "THANH_CONG"));
+        billDetailResponse.forEach(item -> {
+            Optional<ProductDetail> productDetail = productDetailRepository.findById(item.getIdProduct());
+            if (!productDetail.isPresent()) {
+                throw new RestApiException(Message.NOT_EXISTS);
+            }
+            if (bill.get().getStatusBill() == StatusBill.XAC_NHAN || bill.get().getStatusBill() == StatusBill.CHO_VAN_CHUYEN) {
+                productDetail.get().setQuantity(item.getQuantity() + productDetail.get().getQuantity());
+
+            }
+
+            if (productDetail.get().getStatus() == Status.HET_SAN_PHAM) {
+                productDetail.get().setStatus(Status.DANG_SU_DUNG);
+            }
+            productDetailRepository.save(productDetail.get());
+        });
         bill.get().setLastModifiedDate(Calendar.getInstance().getTimeInMillis());
         bill.get().setStatusBill(StatusBill.DA_HUY);
         bill.get().setEmployees(account.get());
@@ -907,19 +939,9 @@ public boolean updateProduct(CreateBillOfflineRequest request) {
         billHistory.setActionDescription(request.getActionDescription());
         billHistory.setEmployees(account.get());
         billHistoryRepository.save(billHistory);
-        List<BillDetailResponse> billDetailResponse = billDetailRepository
-                .findAllByIdBill(new BillDetailRequest(bill.get().getId(), "THANH_CONG"));
-        billDetailResponse.forEach(item -> {
-            Optional<ProductDetail> productDetail = productDetailRepository.findById(item.getIdProduct());
-            if (!productDetail.isPresent()) {
-                throw new RestApiException(Message.NOT_EXISTS);
-            }
-            productDetail.get().setQuantity(item.getQuantity() + productDetail.get().getQuantity());
-            if (productDetail.get().getStatus() == Status.HET_SAN_PHAM) {
-                productDetail.get().setStatus(Status.DANG_SU_DUNG);
-            }
-            productDetailRepository.save(productDetail.get());
-        });
+
+        System.out.println("Trạng thái trước khi hủy" + bill.get().getStatusBill());
+
         Account checkAccount = bill.get().getAccount();
         List<ScoringFormula> scoringFormulas = scoringFormulaRepository.findAllByOrderByCreatedDateDesc();
         if (checkAccount != null && !scoringFormulas.isEmpty()) {
@@ -932,7 +954,7 @@ public boolean updateProduct(CreateBillOfflineRequest request) {
                         .value(bill.get().getPoinUse()).user(user).scoringFormula(scoringFormula).build());
             }
         }
-
+        System.out.println("Trạng thái sau khi hủy" + bill.get().getStatusBill());
         return billRepository.save(bill.get());
     }
 

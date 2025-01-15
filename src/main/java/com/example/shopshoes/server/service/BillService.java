@@ -91,4 +91,5 @@ public interface BillService {
     String getShipBill (BillShipRequest request);
 
     boolean sendMailGiveBack(String id);
+    Bill deleteBill(String code);
 }

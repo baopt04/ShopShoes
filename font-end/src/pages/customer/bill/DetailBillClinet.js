@@ -43,6 +43,7 @@ var listStatus = [
   { id: 5, name: "Vận chuyển", status: "VAN_CHUYEN" },
   { id: 6, name: "Thanh toán", status: "DA_THANH_TOAN" },
   { id: 7, name: "Thành công", status: "THANH_CONG" },
+  { id: 8, name: "Đã hủy", status: "DA_HUY" },
 ];
 
 function DetailBillClinet() {
@@ -54,6 +55,7 @@ function DetailBillClinet() {
   const billHistory = useSelector((state) => state.bill.bill.billHistory);
   const paymentsMethod = useSelector((state) => state.bill.bill.paymentsMethod);
   const bill = useSelector((state) => state.bill.bill.value);
+
   const statusPresent = useSelector((state) => state.bill.bill.status);
   const dispatch = useDispatch();
   const [id, setId] = useState("");
@@ -75,11 +77,18 @@ function DetailBillClinet() {
         var index = listStatus.findIndex(
           (item) => item.status == res.data.data.statusBill
         );
+        console.log("status bikk ", res.data.data.statusBill);
+
         if (res.data.data.statusBill == "TRA_HANG") {
+          console.log("Check trả hàng");
+
           index = 7;
         }
         if (res.data.data.statusBill == "DA_HUY") {
+          console.log("CHạy vào hủy");
+
           index = 8;
+          console.log("index", index);
         }
         setId(res.data.data.id);
         dispatch(addStatusPresent(index));

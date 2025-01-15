@@ -10,6 +10,7 @@ import {
   addBillWait,
   getAllBillWait,
   updateKeyBillAtCounter,
+  getProductInBillDetail,
 } from "../../../app/reducer/Bill.reducer";
 import CreateBill from "./CreateBill";
 import "./sale.css";
@@ -18,14 +19,18 @@ import { toast } from "react-toastify";
 
 function Sale() {
   const [invoiceNumber, setInvoiceNumber] = useState(0);
-
+  const [productsFromChild, setProductsFromChild] = useState([]);
   const [activeKey, setActiveKey] = useState(0);
   const [changeTab, setChangTab] = useState();
   const [dataKey, setDataKey] = useState([]);
   const items = useSelector((state) => state.bill.billWaits.value);
-  // console.log(items);
+
   const newTabIndex = useRef(1);
   const dispatch = useAppDispatch();
+  const handleProductsChange = (newProducts) => {
+    console.log("product get", newProducts);
+    setProductsFromChild(newProducts);
+  };
 
   const onChange = (key) => {
     setActiveKey(key);
@@ -74,6 +79,7 @@ function Sale() {
             label: newTabIndex.current++,
             id: item.id,
             code: item.code,
+            status: item.statusBill,
             invoiceNumber: 1,
             key: newActiveKey,
           };
@@ -128,6 +134,9 @@ function Sale() {
             key: newActiveKey,
           })
         );
+        console.log("Check code create", res.data.data.code);
+        console.log("Check id create", res.data.data.id);
+
         const dataNotify = quantityNotify;
         quantityNotify.push({
           code: res.data.data.code,
@@ -144,10 +153,16 @@ function Sale() {
   };
 
   const remove = (targetKey, invoiceNumbers, items) => {
+    if (productsFromChild > 0) {
+      toast.warning("Hóa đơn đang có sản phẩm không thể xóa");
+      return;
+    }
     if (items.length > 1) {
       const targetIndex = items.findIndex((pane) => pane.key === targetKey);
       const newPanes = items.filter((pane) => pane.key !== targetKey);
-      console.log(newPanes);
+
+      console.log("Check new panel ", newPanes);
+
       if (newPanes.length > 0 && targetIndex >= 0) {
         const { key } =
           newPanes[
@@ -158,8 +173,62 @@ function Sale() {
         dispatch(updateKeyBillAtCounter(key));
         dispatch(getAllBillWait(newPanes));
       }
-      // dispatch(deleteBillWait(targetIndex));
-      console.log();
+
+      BillApi.deleteIdBill(items[targetIndex].id)
+        .then((res) => {
+          setInvoiceNumber(invoiceNumber - 1);
+          toast.success("Xóa hóa đơn thành công");
+        })
+        .catch((err) => {
+          toast.error("Hóa đơn không thể xóa");
+        });
+    } else {
+      dispatch(getAllBillWait([]));
+
+      BillApi.getCodeBill().then((res) => {
+        const newActiveKey = `${newTabIndex.current}`;
+        dispatch(
+          addBillWait({
+            label: newTabIndex.current++,
+            id: res.data.data.id,
+            code: res.data.data.code,
+            invoiceNumber: 1,
+            key: newActiveKey,
+            code: res.data.data.code,
+          })
+        );
+        dispatch(addBillAtCounTer(`Hóa đơn ${newTabIndex.current}`));
+        setActiveKey(newActiveKey);
+        const dataNotify = quantityNotify;
+        quantityNotify.push({
+          code: res.data.data.code,
+          quantity: 0,
+        });
+        setQuantityNotify(dataNotify);
+        setChangTab(newActiveKey);
+        setInvoiceNumber(invoiceNumber + 1);
+        dispatch(updateKeyBillAtCounter(newActiveKey));
+      });
+    }
+  };
+
+  const removeV1 = (targetKey, invoiceNumbers, items) => {
+    if (items.length > 1) {
+      const targetIndex = items.findIndex((pane) => pane.key === targetKey);
+      const newPanes = items.filter((pane) => pane.key !== targetKey);
+
+      console.log("Check new panel ", newPanes);
+
+      if (newPanes.length > 0 && targetIndex >= 0) {
+        const { key } =
+          newPanes[
+            targetIndex === newPanes.length ? targetIndex - 1 : targetIndex
+          ];
+        setActiveKey(key);
+        setChangTab(key);
+        dispatch(updateKeyBillAtCounter(key));
+        dispatch(getAllBillWait(newPanes));
+      }
       setInvoiceNumber(invoiceNumber - 1);
     } else {
       dispatch(getAllBillWait([]));
@@ -190,6 +259,7 @@ function Sale() {
       });
     }
   };
+
   const onEdit = (targetKey, action) => {
     if (action === "add") {
       add();
@@ -245,9 +315,10 @@ function Sale() {
                     code={item.code}
                     key={item.label}
                     id={item.id}
+                    onProductsChange={handleProductsChange}
                     style={{ width: "100%" }}
                     invoiceNumber={1}
-                    removePane={remove}
+                    removePane={removeV1}
                     targetKey={item.key}
                     addNotify={addNotify}
                   />

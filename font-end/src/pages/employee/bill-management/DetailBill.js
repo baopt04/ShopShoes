@@ -1111,6 +1111,7 @@ function DetailBill() {
                     bill.shippingTime != null &&
                     bill.statusBill !== "TRA_HANG" &&
                     bill.statusBill !== "VAN_CHUYEN" &&
+                    bill.statusBill !== "DA_HUY" &&
                     bill.statusBill !== "DA_THANH_TOAN" &&
                     bill.statusBill !== "THANH_CONG" ? (
                       <Button

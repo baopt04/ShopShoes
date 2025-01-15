@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { parseInt } from "lodash";
+import { red } from "@ant-design/colors";
 dayjs.extend(utc);
 function Payment() {
   const { updateTotalQuantity } = useCart();
@@ -393,94 +394,103 @@ function Payment() {
 
       <div className="bill">
         <Row>
-          <Col lg={{ span: 16, offset: 4 }} className="bill-content">
+          <Col lg={{ span: 18, offset: 3 }} className="bill-content">
             <div className="info-shipping">
               <div className="title-info-shipping">THÔNG TIN GIAO HÀNG</div>
               <div className="form-address">
                 <Form layout="vertical">
-                  <Form.Item
-                    validateStatus={formErrors["userName"] ? "error" : ""}
-                    help={formErrors["userName"] || ""}
-                  >
-                    <Input
-                      className="input-form-payment"
-                      placeholder="Họ tên"
-                      value={formBill["userName"]}
-                      onChange={(e) =>
-                        formBillChange("userName", e.target.value)
-                      }
-                      style={{ fontSize: "17px" }}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    validateStatus={formErrors["phoneNumber"] ? "error" : ""}
-                    help={formErrors["phoneNumber"] || ""}
-                  >
-                    <Input
-                      className="input-form-payment"
-                      placeholder="Số điện thoại"
-                      onChange={(e) =>
-                        formBillChange("phoneNumber", e.target.value)
-                      }
-                      style={{ fontSize: "17px" }}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    validateStatus={formErrors["email"] ? "error" : ""}
-                    help={formErrors["email"] || ""}
-                  >
-                    <Input
-                      className="input-form-payment"
-                      placeholder="Email"
-                      onChange={(e) => formBillChange("email", e.target.value)}
-                      style={{ fontSize: "17px" }}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    validateStatus={formErrors["address"] ? "error" : ""}
-                    help={formErrors["address"] || ""}
-                  >
-                    <Input
-                      className="input-form-payment"
-                      placeholder="Địa chỉ cụ thể"
-                      onChange={(e) =>
-                        formBillChange("address", e.target.value)
-                      }
-                      style={{ fontSize: "17px" }}
-                    />
-                  </Form.Item>
-
-                  <Form.Item
-                    validateStatus={formErrors["province"] ? "error" : ""}
-                    help={formErrors["province"] || ""}
-                  >
-                    <select
-                      style={{
-                        paddingLeft: "10px",
-                        fontSize: 17,
-                      }}
-                      className="input-form-payment"
-                      onChange={(e) => {
-                        const selectedValue = e.target.value; // Lấy giá trị đã chọn (bao gồm cả ProvinceID và ProvinceName)
-                        const [provinceID, provinceName] =
-                          selectedValue.split("|"); // Tách giá trị thành ProvinceID và ProvinceName
-                        // Bây giờ bạn có thể sử dụng provinceID và provinceName theo nhu cầu
-                        provinceChange(provinceID); // Gọi hàm provinceChange với ProvinceID
-                        formBillChange("province", provinceName);
-                        formBillChange("provinceId", provinceID);
-                      }}
-                    >
-                      <option value="">Tỉnh/Thành phố</option>
-                      {listCity.map((item, index) => (
-                        <option
-                          key={index}
-                          value={`${item.ProvinceID}|${item.ProvinceName}`}
+                  <Row gutter={16}>
+                    <Col span={12}>
+                      <label htmlFor="" className="lable">
+                        Họ và tên:
+                      </label>
+                      <Form.Item
+                        validateStatus={formErrors["userName"] ? "error" : ""}
+                        help={formErrors["userName"] || ""}
+                      >
+                        <Input
+                          className="input-form-payment"
+                          value={formBill["userName"]}
+                          onChange={(e) =>
+                            formBillChange("userName", e.target.value)
+                          }
+                          style={{ fontSize: "15px" }}
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <label htmlFor="" className="lable">
+                        Số điện thoại:
+                      </label>
+                      <Form.Item
+                        validateStatus={
+                          formErrors["phoneNumber"] ? "error" : ""
+                        }
+                        help={formErrors["phoneNumber"] || ""}
+                      >
+                        <Input
+                          className="input-form-payment"
+                          onChange={(e) =>
+                            formBillChange("phoneNumber", e.target.value)
+                          }
+                          style={{ fontSize: "15px" }}
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <label htmlFor="" className="lable">
+                        Email:
+                      </label>
+                      <Form.Item
+                        validateStatus={formErrors["email"] ? "error" : ""}
+                        help={formErrors["email"] || ""}
+                      >
+                        <Input
+                          className="input-form-payment"
+                          onChange={(e) =>
+                            formBillChange("email", e.target.value)
+                          }
+                          style={{ fontSize: "15px" }}
+                        />
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <label htmlFor="" className="lable">
+                        Tỉnh/Thành phố:
+                      </label>
+                      <Form.Item
+                        validateStatus={formErrors["province"] ? "error" : ""}
+                        help={formErrors["province"] || ""}
+                      >
+                        <select
+                          style={{
+                            paddingLeft: "10px",
+                            fontSize: 17,
+                          }}
+                          className="input-form-payment"
+                          onChange={(e) => {
+                            const selectedValue = e.target.value; // Lấy giá trị đã chọn (bao gồm cả ProvinceID và ProvinceName)
+                            const [provinceID, provinceName] =
+                              selectedValue.split("|"); // Tách giá trị thành ProvinceID và ProvinceName
+                            // Bây giờ bạn có thể sử dụng provinceID và provinceName theo nhu cầu
+                            provinceChange(provinceID); // Gọi hàm provinceChange với ProvinceID
+                            formBillChange("province", provinceName);
+                            formBillChange("provinceId", provinceID);
+                          }}
                         >
-                          {item.ProvinceName}
-                        </option>
-                      ))}
-                    </select>
-                  </Form.Item>
+                          <option value="">Chọn</option>
+                          {listCity.map((item, index) => (
+                            <option
+                              key={index}
+                              value={`${item.ProvinceID}|${item.ProvinceName}`}
+                            >
+                              {item.ProvinceName}
+                            </option>
+                          ))}
+                        </select>
+                      </Form.Item>
+                    </Col>
+                  </Row>
 
                   <div style={{ display: "flex" }}>
                     <Form.Item
@@ -488,6 +498,9 @@ function Payment() {
                       validateStatus={formErrors["district"] ? "error" : ""}
                       help={formErrors["district"] || ""}
                     >
+                      <label htmlFor="" className="lable">
+                        Quận/Huyện:
+                      </label>
                       <select
                         style={{
                           paddingLeft: "10px",
@@ -504,7 +517,7 @@ function Payment() {
                           formBillChange("districtId", districtID);
                         }}
                       >
-                        <option value="">Quận/Huyện</option>
+                        <option value="">Chọn</option>
                         {listDistrict.map((item, index) => (
                           <option
                             key={index}
@@ -515,11 +528,15 @@ function Payment() {
                         ))}
                       </select>
                     </Form.Item>
+
                     <Form.Item
                       style={{ width: "100%" }}
                       validateStatus={formErrors["ward"] ? "error" : ""}
                       help={formErrors["ward"] || ""}
                     >
+                      <label htmlFor="" className="lable">
+                        Phường:
+                      </label>
                       <select
                         style={{
                           paddingLeft: "10px",
@@ -536,7 +553,7 @@ function Payment() {
                           formBillChange("wardCode", WardCode);
                         }}
                       >
-                        <option value="">Phường/Xã</option>
+                        <option value="">Chọn</option>
                         {listWard.map((item, index) => (
                           <option
                             key={index}
@@ -548,15 +565,62 @@ function Payment() {
                       </select>
                     </Form.Item>
                   </div>
+                  <label htmlFor="" className="lable">
+                    Địa chỉ cụ thể:
+                  </label>
+                  <Form.Item
+                    validateStatus={formErrors["address"] ? "error" : ""}
+                    help={formErrors["address"] || ""}
+                  >
+                    <Input
+                      className="input-form-payment"
+                      placeholder="Địa chỉ cụ thể"
+                      onChange={(e) =>
+                        formBillChange("address", e.target.value)
+                      }
+                      style={{ fontSize: "15px" }}
+                    />
+                  </Form.Item>
                 </Form>
               </div>
 
+              <div className="title-method-payment">HÌNH THỨC THANH TOÁN</div>
+              <div className="method-payment">
+                <div
+                  className={`payment-when-recevie ${
+                    keyMethodPayment === "paymentReceive" ? "click" : ""
+                  }`}
+                  onClick={paymentReceive}
+                  style={{ backgroundColor: "white" }}
+                >
+                  Thanh toán khi nhận hàng
+                  <img
+                    style={{ width: "40px", marginLeft: "10px" }}
+                    src="https://dacaocapcyvy.com.vn/public/uploads/news/thanh-toan-khi-nhan-hang-15111809124411.jpg"
+                    alt="..."
+                  />
+                </div>
+                <div
+                  className={`payment-by-vnpay ${
+                    keyMethodPayment === "paymentVnpay" ? "click" : ""
+                  }`}
+                  onClick={paymentVnpay}
+                  style={{ backgroundColor: "white" }}
+                >
+                  Thanh toán VnPay{" "}
+                  <img
+                    style={{ width: "40px", marginLeft: "20px" }}
+                    src={logoVnPay}
+                    alt="..."
+                  />
+                </div>
+              </div>
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   marginTop: "50px",
-                  marginLeft: "40px",
+                  marginLeft: "130px",
                 }}
               >
                 {dayShip !== "" && (
@@ -572,50 +636,20 @@ function Payment() {
                         marginRight: "10px",
                       }}
                     />
-                    <span style={{ fontSize: "20px", fontWeight: "500" }}>
+                    <span style={{ fontSize: "17px" }}>
                       {" "}
                       Thời gian nhận hàng dự kiến: {dayShip}
                     </span>
                   </>
                 )}
               </div>
-
-              <div className="title-method-payment">PHƯƠNG THỨC THANH TOÁN</div>
-              <div className="method-payment">
-                <div
-                  className={`payment-when-recevie ${
-                    keyMethodPayment === "paymentReceive" ? "click" : ""
-                  }`}
-                  onClick={paymentReceive}
-                >
-                  Thanh toán khi nhận hàng
-                  <img
-                    style={{ width: "40px", marginLeft: "10px" }}
-                    src="https://dacaocapcyvy.com.vn/public/uploads/news/thanh-toan-khi-nhan-hang-15111809124411.jpg"
-                    alt="..."
-                  />
-                </div>
-                <div
-                  className={`payment-by-vnpay ${
-                    keyMethodPayment === "paymentVnpay" ? "click" : ""
-                  }`}
-                  onClick={paymentVnpay}
-                >
-                  Thanh toán VnPay{" "}
-                  <img
-                    style={{ width: "40px", marginLeft: "20px" }}
-                    src={logoVnPay}
-                    alt="..."
-                  />
-                </div>
-              </div>
             </div>
             <div className="info-bill-payment">
               <div className="content-info-bill-payment">
-                <div className="title-bill-payment">ĐƠN HÀNG</div>
+                <div className="title-bill-payment">THÔNG TIN ĐƠN HÀNG</div>
                 <div
                   style={{
-                    borderBottom: "1px solid #c5bdbd",
+                    borderBottom: "1px solid black",
                     marginBottom: "30px",
                   }}
                 >
@@ -677,7 +711,7 @@ function Payment() {
                     style={{
                       fontSize: "17px",
                       color: "black",
-                      fontWeight: "500",
+                      fontWeight: "400",
                     }}
                   >
                     TỔNG HÓA ĐƠN :
@@ -697,7 +731,7 @@ function Payment() {
                     style={{
                       fontSize: "17px",
                       color: "black",
-                      fontWeight: "500",
+                      fontWeight: "400",
                     }}
                   >
                     GIẢM GIÁ :
@@ -717,12 +751,10 @@ function Payment() {
                 <div
                   style={{
                     display: "flex",
-                    marginBottom: "30px",
-                    paddingBottom: "30px",
-                    borderBottom: "1px solid gray",
+                    marginBottom: "10px",
                   }}
                 >
-                  <p style={{ fontSize: "17px", fontWeight: "500" }}>
+                  <p style={{ fontSize: "17px", fontWeight: "400" }}>
                     PHÍ VẬN CHUYỂN:
                   </p>{" "}
                   <p
@@ -737,15 +769,15 @@ function Payment() {
                 </div>
 
                 <div style={{ display: "flex", marginBottom: "50px" }}>
-                  <p style={{ fontSize: "20px", fontWeight: "500" }}>
+                  <p style={{ fontSize: "17px", fontWeight: "400" }}>
                     TỔNG TIỀN :
                   </p>{" "}
                   <p
                     style={{
-                      fontSize: "20px",
+                      fontSize: "17px",
                       marginLeft: "auto",
                       color: " #ff4400",
-                      fontWeight: "500",
+                      fontWeight: "400",
                     }}
                   >
                     {formatMoney(totalBillToPay)}

@@ -20,15 +20,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.method.P;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -103,7 +95,10 @@ public class BillRestController {
     public ResponseObject CreateCodeBill() {
         return  new ResponseObject(billService.CreateCodeBill(shoseSession.getEmployee().getId()));
     }
-
+    @DeleteMapping("/delete-bill/{id}")
+public ResponseObject deleteBill(@PathVariable("id") String id) {
+        return new ResponseObject(billService.deleteBill(id));
+    }
     @PutMapping("/roll-back-bill/{id}")
     public ResponseObject rollBackBill(@PathVariable("id") String id, ChangStatusBillRequest request) {
         return  new ResponseObject(billService.rollBackBill(id, shoseSession.getEmployee().getId(), request));
