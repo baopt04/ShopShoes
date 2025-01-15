@@ -38,8 +38,14 @@ function Sale() {
     dispatch(updateKeyBillAtCounter(key));
   };
   var [quantityNotify, setQuantityNotify] = useState([]);
+  console.log("All quantities:", quantityNotify);
+
   const addNotify = (notify) => {
     var index = quantityNotify.findIndex((item) => item.code === notify.code);
+    console.log("TBao", quantityNotify);
+
+    console.log("Index", index);
+
     if (index != -1) {
       var data = quantityNotify;
       data.splice(index, 1, notify);
@@ -153,15 +159,19 @@ function Sale() {
   };
 
   const remove = (targetKey, invoiceNumbers, items) => {
-    if (productsFromChild > 0) {
-      toast.warning("Hóa đơn đang có sản phẩm không thể xóa");
+    const targetPane = items.find((pane) => pane.key === targetKey);
+    const targetIndex = quantityNotify.findIndex(
+      (notify) => notify.code == targetPane.code
+    );
+    const quantityBill = quantityNotify[targetIndex].quantity;
+    if (quantityBill > 0) {
+      toast.warning("Không thể xóa hóa đơn khi có sản phẩm trong hóa đơn");
       return;
     }
     if (items.length > 1) {
       const targetIndex = items.findIndex((pane) => pane.key === targetKey);
       const newPanes = items.filter((pane) => pane.key !== targetKey);
-
-      console.log("Check new panel ", newPanes);
+      console.log("Check id", items[targetIndex]);
 
       if (newPanes.length > 0 && targetIndex >= 0) {
         const { key } =

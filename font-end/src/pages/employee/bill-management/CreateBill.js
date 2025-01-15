@@ -1716,6 +1716,8 @@ function CreateBill({
   };
 
   useEffect(() => {
+    console.log("length createbill", products.length);
+
     onProductsChange(products.length);
   }, [products.length, onProductsChange]);
 
