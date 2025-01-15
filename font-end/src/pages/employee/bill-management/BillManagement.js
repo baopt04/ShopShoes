@@ -21,6 +21,8 @@ function BillManagement() {
   var employees = useSelector((state) => state.bill.search.employees);
   var [status, setStatus] = useState([]);
   var [quantityNotify, setQuantityNotify] = useState([]);
+  console.log("Notify", quantityNotify);
+
   var [listStatusTab, setListStatusTab] = useState([]);
   const dispatch = useAppDispatch();
 
@@ -28,6 +30,8 @@ function BillManagement() {
     BillApi.fetchAllStatusBill().then((res) => {
       setQuantityNotify(res.data.data);
       setListStatusTab(listtab);
+      console.log("Lisrt tab", listStatusTab);
+      console.log("quantity", quantityNotify);
     });
   }, []);
 
@@ -137,6 +141,7 @@ function BillManagement() {
     "VAN_CHUYEN",
     "DA_THANH_TOAN",
     "THANH_CONG",
+    "TRA_HANG",
     "DA_HUY",
   ];
 
@@ -154,7 +159,9 @@ function BillManagement() {
       : key === "DA_THANH_TOAN"
       ? "Thanh toán"
       : key === "THANH_CONG"
-      ? "Hoàn thành"
+      ? "Thành công"
+      : key === "TRA_HANG"
+      ? "Trả hàng"
       : "Hủy";
   };
 
@@ -217,12 +224,6 @@ function BillManagement() {
           <span style={{ fontSize: "18px", fontWeight: "500" }}>
             Danh sách hóa đơn
           </span>
-          {/* <div style={{ marginLeft: "auto" }}></div>
-          <Link to={"/sale-counter"} style={{ marginRight: "10px" }}>
-            <Button type="primary" icon={<PlusOutlined />} size={"large"}>
-              Tạo đơn hàng
-            </Button>
-          </Link> */}
         </div>
         <div style={{ marginTop: "25px" }}>
           <Tabs

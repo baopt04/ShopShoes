@@ -228,8 +228,9 @@ function TabBillDetail({ dataBillDetail }) {
             justifyContent: "center",
             textAlign: "center",
             borderRadius: "6px",
-            width: "30px",
-            height: "25px",
+            width: "50px",
+            height: "30px",
+            marginLeft: "40%",
           }}
         />
       ),
@@ -441,24 +442,6 @@ function TabBillDetail({ dataBillDetail }) {
           <button className={`gender ${genderClass}`}>
             {text === "THANH_CONG" ? "Thành công " : "Hoàn hàng"}
           </button>
-        );
-      },
-    },
-    {
-      title: <div className="title-product">Hành Động</div>,
-      key: "delete",
-      align: "center",
-      render: (_, record) => {
-        return (
-          <Tooltip title="Xóa sản phẩm">
-            <Button
-              type="danger"
-              style={{ color: "red" }}
-              onClick={() => handleDelete(record)}
-            >
-              <FontAwesomeIcon icon={faTrashCan} size="lg" />
-            </Button>
-          </Tooltip>
         );
       },
     },

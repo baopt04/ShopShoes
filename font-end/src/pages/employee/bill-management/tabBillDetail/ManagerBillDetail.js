@@ -9,17 +9,17 @@ function ManagerBillDetail({ id, status }) {
     return key === null
       ? "Tất cả sản phẩm"
       : key === "THANH_CONG"
-      ? "Sản phẩm mua thành công"
-      : "Sản phẩm trả hàng";
+      ? "Sản phẩm mua"
+      : "Sản phẩm trả ";
   };
 
   return (
     <Row style={{ width: "100%" }}>
       {status !== "TRA_HANG" ? (
-            <TabBillDetail
-              style={{ width: "100%" }}
-              dataBillDetail={{ idBill: id, status: "THANH_CONG" }}
-            />
+        <TabBillDetail
+          style={{ width: "100%" }}
+          dataBillDetail={{ idBill: id, status: "THANH_CONG" }}
+        />
       ) : (
         <Tabs
           type="card"
@@ -38,7 +38,6 @@ function ManagerBillDetail({ id, status }) {
           })}
         />
       )}
-     
     </Row>
   );
 }

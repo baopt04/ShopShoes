@@ -150,6 +150,7 @@ function TabBills({ statusBill, dataFillter, addNotify, quantityNotify }) {
         const res = await BillApi.fetchAll(data);
         setDataBill(res.data.data);
         console.log(statusBill);
+        console.log("setdatabill", dataBill);
 
         if (statusBill) {
           addNotify({

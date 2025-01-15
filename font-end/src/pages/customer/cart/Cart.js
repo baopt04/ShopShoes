@@ -1008,7 +1008,7 @@ function Cart() {
       >
         <div className="category-voucher">
           <h1>Chọn voucher</h1>
-          <div className="content-code-voucher-cart">
+          {/* <div className="content-code-voucher-cart">
             Mã voucher{" "}
             <input
               className="input-code-voucher-cart"
@@ -1027,7 +1027,7 @@ function Cart() {
             >
               ÁP DỤNG
             </div>
-          </div>
+          </div> */}
 
           <p>Chọn voucher để sử dụng</p>
           <div className="voucher-list">

@@ -840,7 +840,7 @@ export default function DetailBillGiveBack() {
             </h1>
             <Row justify={"end"}>
               <Tooltip title="">
-                <Button
+                {/* <Button
                   type="primary"
                   style={{
                     height: "40px",
@@ -855,7 +855,7 @@ export default function DetailBillGiveBack() {
                 >
                   <FontAwesomeIcon icon={faRotateBack} />{" "}
                   <span style={{ marginLeft: "5px" }}>Trả tất cả sản phẩm</span>
-                </Button>
+                </Button> */}
               </Tooltip>
             </Row>
             <Table
@@ -908,7 +908,7 @@ export default function DetailBillGiveBack() {
                       <Col>
                         <span style={{ fontSize: "15px" }}>
                           {" "}
-                          Không có sản phẩm nào đổi trả
+                          Không có sản phẩm
                         </span>
                       </Col>
                     </Row>

@@ -1652,36 +1652,8 @@ function DetailBill() {
           <Col span={20}>
             <h1 style={{ fontSize: "20px", marginBottom: "10px" }}>
               {" "}
-              Sản phẩm đã mua{" "}
+              Thông tin sản phẩm{" "}
             </h1>
-          </Col>
-
-          <Col span={4} align={"end"}>
-            {" "}
-            {statusPresent < 2 ? (
-              <Row
-                style={{ width: "100%", marginRight: "15px" }}
-                justify={"end"}
-              >
-                <Button
-                  type="primary"
-                  style={{
-                    marginTop: "30px",
-                    marginBottom: "10px",
-                    height: "40px",
-                  }}
-                  onClick={(e) => showModalProduct(e)}
-                >
-                  <FontAwesomeIcon
-                    icon={faPlus}
-                    style={{ marginLeft: "3px" }}
-                  />{" "}
-                  Thêm sản phẩm
-                </Button>
-              </Row>
-            ) : (
-              <Row></Row>
-            )}
           </Col>
         </Row>
         <Row>

@@ -266,7 +266,7 @@ function CardItem({ item, index }) {
                     </div>
                   ) : null}
                   {nowTimestampReduce <= itemTimestamp && (
-                    <div className="new-product">Mới</div>
+                    <div className="new-product">Sản Phẩm Mới</div>
                   )}
                 </div>
               </div>
