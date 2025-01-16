@@ -133,6 +133,14 @@ export class BillApi {
     });
   };
 
+  static changeCancelStatusBillAdmin = (id, data) => {
+    return request({
+      method: "PUT",
+      url: `/admin/bill/cancel-status-admin/` + id,
+      params: data,
+    });
+  };
+
   static createBillWait = (data) => {
     return request({
       method: "POST",

@@ -218,27 +218,29 @@ function DetailBill() {
         okText: "Đồng ý",
         cancelText: "Hủy",
         onOk: async () => {
-          await BillApi.changeCancelStatusBill(id, statusBill).then((res) => {
-            dispatch(getBill(res.data.data));
-            var index = listStatus.findIndex(
-              (item) => item.status === res.data.data.statusBill
-            );
-            if (res.data.data.statusBill === "TRA_HANG") {
-              index = 7;
+          await BillApi.changeCancelStatusBillAdmin(id, statusBill).then(
+            (res) => {
+              dispatch(getBill(res.data.data));
+              var index = listStatus.findIndex(
+                (item) => item.status === res.data.data.statusBill
+              );
+              if (res.data.data.statusBill === "TRA_HANG") {
+                index = 7;
+              }
+              if (res.data.data.statusBill === "DA_HUY") {
+                index = 8;
+              }
+              var history = {
+                stt: billHistory.length + 1,
+                statusBill: res.data.data.statusBill,
+                actionDesc: statusBill.actionDescription,
+                id: "",
+                createDate: new Date().getTime(),
+              };
+              dispatch(addStatusPresent(index));
+              dispatch(addBillHistory(history));
             }
-            if (res.data.data.statusBill === "DA_HUY") {
-              index = 8;
-            }
-            var history = {
-              stt: billHistory.length + 1,
-              statusBill: res.data.data.statusBill,
-              actionDesc: statusBill.actionDescription,
-              id: "",
-              createDate: new Date().getTime(),
-            };
-            dispatch(addStatusPresent(index));
-            dispatch(addBillHistory(history));
-          });
+          );
           await PaymentsMethodApi.findByIdBill(id).then((res) => {
             setPayMentNo(
               res.data.data.some((item) => item.status === "TRA_SAU")

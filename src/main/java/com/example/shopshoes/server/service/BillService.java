@@ -65,6 +65,8 @@ public interface BillService {
 
     Bill cancelBill(String id,  String idEmployees,ChangStatusBillRequest request);
 
+    Bill cancelBillAdmin(String id,  String idEmployees,ChangStatusBillRequest request);
+
     Bill createBillCustomerOnlineRequest( CreateBillCustomerOnlineRequest request) ;
 
     Bill createBillAccountOnlineRequest( CreateBillAccountOnlineRequest request) ;

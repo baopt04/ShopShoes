@@ -59,6 +59,8 @@ function PaymentAccount() {
     { title: " CHÚC QUÝ KHÁCH MUA HÀNG HAPPY!" },
     { title: " FREE SHIPPING VỚI HÓA ĐƠN TRÊN 2 triệu!" },
   ];
+  console.log("Check id account ", idAccount);
+
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
   const [totalAfter, setTotalAfter] = useState(0);
   const [total, setTotal] = useState({});

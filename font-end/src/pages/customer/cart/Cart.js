@@ -79,15 +79,13 @@ function Cart() {
               image: item.image,
               nameProduct: item.nameProduct,
               nameSize: item.nameSize,
-              price: item.price,
+              price: data.price,
               quantity: item.quantity,
               quantityProductDetail: data.quantity,
               valuePromotion: data.valuePromotion,
               nameColor: item.nameColor,
             },
           ]);
-          console.log("cart check", cart);
-
           const quantity = res.data.data.quantity;
           return quantity;
         })

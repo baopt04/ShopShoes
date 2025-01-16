@@ -528,7 +528,9 @@ function CreateVoucherManagement() {
                 rowKey="id"
                 columns={columnsDetailproduct}
                 rowSelection={rowSelectionDetail}
-                dataSource={updatedListDetail}
+                dataSource={updatedListDetail.filter(
+                  (item) => item.status === "DANG_SU_DUNG"
+                )}
                 pagination={{ pageSize: 10 }}
               />
             </div>

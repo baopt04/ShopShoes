@@ -70,6 +70,10 @@ public class BillRestController {
     public ResponseObject cancelStatusBill(@PathVariable("id") String id, ChangStatusBillRequest request){
         return  new ResponseObject(billService.cancelBill(id, shoseSession.getEmployee().getId(), request));
     }
+    @PutMapping("/cancel-status-admin/{id}")
+    public ResponseObject cancelStatusBillAdmin(@PathVariable("id") String id, ChangStatusBillRequest request){
+        return  new ResponseObject(billService.cancelBillAdmin(id, shoseSession.getEmployee().getId(), request));
+    }
 
     @GetMapping("/details-invoices-counter")
     public ResponseObject findAllBillAtCounterAndStatusNewBill(FindNewBillCreateAtCounterRequest request) {

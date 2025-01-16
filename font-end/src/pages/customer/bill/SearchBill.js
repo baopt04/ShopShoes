@@ -55,8 +55,8 @@ function SearchBill() {
               label="Mã hóa đơn"
               name="code"
               rules={[
-                { required: true, message: "Vui lòng nhập tên mã hóa đơn" },
-                { max: 50, message: "Tên đế giày tối đa 50 ký tự" },
+                { required: true, message: "Vui lòng nhập  mã hóa đơn" },
+                { max: 50, message: "Mã hóa đơn tối đa 50 ký tự" },
                 {
                   validator: (_, value) => {
                     if (value && value.trim() === "") {
